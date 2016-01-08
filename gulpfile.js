@@ -18,9 +18,7 @@ elixir.config.js.browserify.transformers
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss').version('css/app.css');
-});
-
-elixir(function(mix) {
-   mix.babel('student-app.js').version('js/student-app.js');
+    mix.sass('app.scss')
+        .babel('student-app.js')
+        .version(['public/js/student-app.js', 'public/css/app.css']);
 });
