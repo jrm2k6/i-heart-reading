@@ -1,11 +1,6 @@
 var elixir = require('laravel-elixir');
 require('babel-plugin-syntax-jsx');
 
-elixir.config.js.browserify.transformers
-    .find(transformer => transformer.name === 'babelify')
-    .options.presets.push(
-        'syntax-jsx'
-    );
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -19,6 +14,6 @@ elixir.config.js.browserify.transformers
 
 elixir(function(mix) {
     mix.sass('app.scss')
-        .babel('student-app.js')
+        .browserify('student-app.js')
         .version(['public/js/student-app.js', 'public/css/app.css']);
 });
