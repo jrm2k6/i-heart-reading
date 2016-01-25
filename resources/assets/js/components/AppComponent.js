@@ -1,12 +1,13 @@
 import React from 'react'
+import LateralMenu from './LateralMenu';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
-export default class HelloMessage extends React.Component {
+export default class AppComponent extends React.Component {
     render() {
         return (
             <div className='root-component'>
-                <div className='lateral-menu'>
-                    <div className='lateral-menu-item'>Add a book</div>
-                </div>
+                <LateralMenu />
                 <div className='interactive-panel'>
                     Hello
                 </div>
