@@ -1,2 +1,24 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.root-component {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  .lateral-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .lateral-menu-items {
+      flex: 1;
+    }
+  }
+
+  .interactive-panel {
+    flex: 12;
+    border:1px solid gray;
+  }
+}
+
 

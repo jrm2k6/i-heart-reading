@@ -1,4 +1,7 @@
+import ReactDOM from 'react-dom';
+import React from 'react';
+import AppComponent from './components/AppComponent';
+
 (function() {
-    var ReactDOM = require('react-dom');
-    ReactDOM.render(<div>Hello People</div>, document.getElementById("student-app-container"));
+    ReactDOM.render(<AppComponent />, document.getElementById("student-app-container"));
 }());
