@@ -9,7 +9,7 @@ export default class AppComponent extends React.Component {
             <div className='root-component'>
                 <LateralMenu />
                 <div className='interactive-panel'>
-                    Hello
+                    {this.props.children}
                 </div>
             </div>
         );

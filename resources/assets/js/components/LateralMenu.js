@@ -12,7 +12,7 @@ export default class LateralMenu extends React.Component {
     return (
       <div className='lateral-menu'>
         <Menu onItemTouchTap={this.handleClickMenu.bind(this)}>
-          <MenuItem primaryText="Add a Book"/>
+          <MenuItem primaryText="Add a Book" />
         </Menu>
       </div>
     )

@@ -30,5 +30,8 @@ Route::get('/', function () {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/app', 'HomeController@index');
+    Route::get('/app/{optional?}', [
+        'as' => 'app',
+        'uses' => 'HomeController@index'
+    ])->where('optional', '(.*)');
 });
