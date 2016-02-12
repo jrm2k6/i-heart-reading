@@ -7,10 +7,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import AddBookComponent from './components/AddBookComponent';
 import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
+import bookReducer from './reducers/bookReducers';
 
 import AppComponent from './components/AppComponent';
 
-const reducer = combineReducers(Object.assign({}, {}, {
+const reducer = combineReducers(Object.assign({}, bookReducer, {
   routing: routeReducer
 }));
 
