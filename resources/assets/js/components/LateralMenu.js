@@ -19,6 +19,6 @@ export default class LateralMenu extends React.Component {
   }
 
   handleClickMenu(e) {
-    console.log('click', e.target.textContent);
+    this.props.history.pushState(null, 'app/books/add');
   }
 }

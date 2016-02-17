@@ -7,7 +7,7 @@ export default class AppComponent extends React.Component {
     render() {
         return (
             <div className='root-component'>
-                <LateralMenu />
+                <LateralMenu history={this.props.history}/>
                 <div className='interactive-panel'>
                     {this.props.children}
                 </div>
