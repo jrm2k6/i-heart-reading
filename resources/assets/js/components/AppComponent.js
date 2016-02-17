@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react';
 import LateralMenu from './LateralMenu';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+
 injectTapEventPlugin();
 
-export default class AppComponent extends React.Component {
+export default class AppComponent extends Component {
     render() {
         return (
             <div className='root-component'>

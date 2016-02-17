@@ -2,6 +2,6 @@ const initialState = {
   books: []
 }
 
-export default function reducer(state = initialState, action) {
+export default function bookReducers(state = initialState, action) {
   return state;
 }
