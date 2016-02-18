@@ -4,16 +4,19 @@ import {FormsyDate, FormsyText} from 'formsy-material-ui';
 import {Form} from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
+import {createBook} from '../actions/crudActions';
+
 export default class BookComponent extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
           canSubmit: false
         };
     }
 
-    submit() {
-      console.log('submit');
+    submit(_data) {
+      console.log(_data);
     }
 
     render() {

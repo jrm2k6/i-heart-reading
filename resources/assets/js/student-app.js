@@ -7,19 +7,18 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import AddBookComponent from './components/AddBookComponent';
 import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
-import bookReducer from './reducers/bookReducers';
+import reducers from './reducers';
 
 import AppComponent from './components/AppComponent';
 
-const reducer = combineReducers(Object.assign({}, bookReducer, {
+const appReducer = combineReducers(Object.assign({}, reducers, {
   routing: routeReducer
 }));
 
 const reduxRouterMiddleware = syncHistory(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
 
-const store = createStoreWithMiddleware(reducer);
-
+const store = createStoreWithMiddleware(appReducer);
 (function() {
     ReactDOM.render(
         <Provider store={store}>
