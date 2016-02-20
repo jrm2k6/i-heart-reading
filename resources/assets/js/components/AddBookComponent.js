@@ -21,7 +21,7 @@ export default class BookComponent extends React.Component {
 
     render() {
       return (
-        <Form onValidSubmit={this.submit}
+        <Form onValidSubmit={() => {this.submit()}}
             onValid={() => {this.setState({canSubmit: true})}}
             onInvalid={() => {this.setState({canSubmit: false})}}
         >
