@@ -9,7 +9,6 @@ import {createBook} from '../actions/crudActions';
 export default class BookComponent extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
           canSubmit: false
         };
