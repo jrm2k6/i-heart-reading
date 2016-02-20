@@ -16,7 +16,7 @@ export default class BookComponent extends React.Component {
     }
 
     submit(_data) {
-      console.log(_data);
+      this.props.onAddBook(_data);
     }
 
     render() {
