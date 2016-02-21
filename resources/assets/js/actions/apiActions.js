@@ -1,10 +1,23 @@
-export const ASYNC_CALL = 'ASYNC_CALL';
+import request from 'superagent';
+export const ASYNC_CALL_STARTED = 'ASYNC_CALL_STARTED';
 export const POST_REQUEST = 'POST_REQUEST';
 
-export function postRequest(resource, data) {
+function asyncStarted() {
   return {
-    type: POST_REQUEST,
-    resource: resource,
-    data: data
+    type: ASYNC_CALL_STARTED
   };
+}
+export function postRequest(url, data) {
+  return (dispatch, getStore) => {
+    dispatch(asyncStarted());
+
+    request.post(url).send(data)
+    .end((err, res) => {
+      if (err) {
+        console.log(err);
+      }
+
+      console.log(res);
+    });
+  }
 }

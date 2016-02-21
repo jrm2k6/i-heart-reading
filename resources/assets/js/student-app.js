@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -16,7 +17,7 @@ const appReducer = combineReducers(Object.assign({}, reducers, {
 }));
 
 const reduxRouterMiddleware = syncHistory(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunk)(createStore);
 
 const store = createStoreWithMiddleware(appReducer);
 (function() {
