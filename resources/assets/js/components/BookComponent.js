@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LateralMenu from './LateralMenu';
-import { createBook } from '../actions/crudActions';
+import { createBook, fetchBooks } from '../actions/crudActions';
 
 class BookComponent extends React.Component {
   render() {
@@ -13,6 +13,10 @@ class BookComponent extends React.Component {
           })}
         </div>
     );
+  }
+
+  componentDidMount() {
+    this.props.fetchBooks();
   }
 }
 
@@ -26,6 +30,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAddBook: (data) => {
       dispatch(createBook(data));
+    },
+
+    fetchBooks: () => {
+      dispatch(fetchBooks());
     }
   }
 }
