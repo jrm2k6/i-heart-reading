@@ -17,7 +17,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        return response(['books' => Book::all()], 200);
     }
 
     /**
