@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
+    require $partial->getPathName();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
