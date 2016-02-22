@@ -8,7 +8,7 @@ function asyncStarted() {
   };
 }
 
-export function postRequest(url, data, headers = {}) {
+export function postRequest(url, data, headers = {}, successAction, errorAction) {
   return (dispatch, getStore) => {
     dispatch(asyncStarted());
 
@@ -16,10 +16,10 @@ export function postRequest(url, data, headers = {}) {
     .set(headers)
     .end((err, res) => {
       if (err) {
-        console.log(err);
+        dispatch(errorAction(data));
       }
 
-      console.log(res);
+      dispatch(successAction(data));
     });
   }
 }
