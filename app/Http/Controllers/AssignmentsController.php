@@ -1,12 +1,11 @@
-<?php
-
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\BookAssignment;
 class AssignmentsController extends Controller
 {
     /**
@@ -20,16 +19,6 @@ class AssignmentsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +26,16 @@ class AssignmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'book_id' => 'required|exists:books,id'
+        ]);
+
+        $assignment = BookAssignment::create([
+            'user_id' => $request->user()->id,
+            'book_id' => $request->input('book_id')
+        ]);
+
+        return response(['assignment' => $assignment], 201)->header('Location', '/api/assignments/'.$assignment->id);
     }
 
     /**
@@ -47,17 +45,6 @@ class AssignmentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

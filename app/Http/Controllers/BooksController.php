@@ -40,7 +40,7 @@ class BooksController extends Controller
             'num_pages' => $request->input('book_nb_pages'),
         ]);
 
-        return response(['book' => $book], 201)->header('Location', '/api/book/'.$book->id);
+        return response(['book' => $book], 201)->header('Location', '/api/books/'.$book->id);
     }
 
     /**

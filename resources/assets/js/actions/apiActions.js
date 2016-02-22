@@ -31,7 +31,7 @@ export function postRequest(url, data, headers = {}, successAction, errorAction)
       if (err) {
         dispatch(errorAction(err));
       }
-      dispatch(successAction(res.body.book));
+      dispatch(successAction(res.body));
     });
   }
 }
