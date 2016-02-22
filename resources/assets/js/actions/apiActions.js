@@ -7,11 +7,13 @@ function asyncStarted() {
     type: ASYNC_CALL_STARTED
   };
 }
-export function postRequest(url, data) {
+
+export function postRequest(url, data, headers = {}) {
   return (dispatch, getStore) => {
     dispatch(asyncStarted());
 
     request.post(url).send(data)
+    .set(headers)
     .end((err, res) => {
       if (err) {
         console.log(err);
