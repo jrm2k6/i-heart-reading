@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 import {createBook} from '../actions/crudActions';
 
-export default class BookComponent extends React.Component {
+export default class AddBookComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
