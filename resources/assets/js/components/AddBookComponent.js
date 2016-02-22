@@ -25,31 +25,31 @@ export default class BookComponent extends React.Component {
             onInvalid={() => {this.setState({canSubmit: false})}}
         >
           <FormsyText
-            name='book-title'
+            name='book_title'
             required
             floatingLabelText='Title'
           />
           <FormsyText
-            name='book-author-name'
+            name='book_author_name'
             required
             floatingLabelText='Author'
           />
           <div>
             <FormsyText
-              name='book-nb-pages-read'
+              name='book_nb_pages_read'
               value='0'
               validations='isInt'
             />
             <span>of</span>
             <FormsyText
-              name='book-nb-pages'
+              name='book_nb_pages'
               required
               validations='isInt'
             />
           </div>
           <RaisedButton
-            type="submit"
-            label="Submit"
+            type='submit'
+            label='Submit'
             disabled={!this.state.canSubmit}
           />
         </Form>
