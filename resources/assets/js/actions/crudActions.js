@@ -27,12 +27,12 @@ export function fetchBooks() {
 };
 
 export function createBook(dataBook) {
-  return postRequest(API_BOOKS_RESOURCE_URL, dataBook, _headers, bookCreated, errorBookCreated);
+  return postRequest(API_BOOKS_RESOURCE_URL, dataBook, bookCreated, errorBookCreated, _headers);
 };
 
 export function createAssignment(dataAssignment) {
   return postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL, dataAssignment,
-    _headers, assignmentCreated, errorAssignmentCreated);
+    assignmentCreated, errorAssignmentCreated, _headers);
 }
 
 export function bookCreated(data) {

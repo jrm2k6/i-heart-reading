@@ -7,11 +7,12 @@ function asyncStarted() {
     type: ASYNC_CALL_STARTED
   };
 }
-export function getRequest(url, successAction, errorAction) {
+export function getRequest(url, successAction, errorAction, data = {}) {
     return (dispatch, getStore) => {
       dispatch(asyncStarted());
 
       request.get(url)
+      .send(data)
       .end((err, res) => {
         if (err) {
           dispatch(errorAction());
@@ -21,7 +22,7 @@ export function getRequest(url, successAction, errorAction) {
     }
 }
 
-export function postRequest(url, data, headers = {}, successAction, errorAction) {
+export function postRequest(url, data, successAction, errorAction, headers = {}) {
   return (dispatch, getStore) => {
     dispatch(asyncStarted());
 
