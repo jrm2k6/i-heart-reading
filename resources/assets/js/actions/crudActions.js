@@ -5,7 +5,7 @@ export const CREATE_BOOK = 'CREATE_BOOK';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
 
-export const API_CREATE_BOOK = '/api/book';
+export const API_BOOKS_RESOURCE_URL = '/api/books';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta['name'] === 'csrf-token')[0]['content'];
