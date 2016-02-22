@@ -7,6 +7,19 @@ function asyncStarted() {
     type: ASYNC_CALL_STARTED
   };
 }
+export function getRequest(url, successAction, errorAction) {
+    return (dispatch, getStore) => {
+      dispatch(asyncStarted());
+
+      request.get(url)
+      .end((err, res) => {
+        if (err) {
+          dispatch(errorAction());
+        }
+        dispatch(successAction(res.body));
+      });
+    }
+}
 
 export function postRequest(url, data, headers = {}, successAction, errorAction) {
   return (dispatch, getStore) => {
@@ -16,10 +29,9 @@ export function postRequest(url, data, headers = {}, successAction, errorAction)
     .set(headers)
     .end((err, res) => {
       if (err) {
-        dispatch(errorAction(data));
+        dispatch(errorAction(err));
       }
-
-      dispatch(successAction(data));
+      dispatch(successAction(res.body.book));
     });
   }
 }
