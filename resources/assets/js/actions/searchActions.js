@@ -5,14 +5,14 @@ export const SEARCH = 'SEARCH';
 
 const URL_SEARCH = '/api/books/search';
 
-export runSearch(_query) {
+export function runSearch(_query) {
   return getRequest(URL_SEARCH, runSearchSuccess, runSearchError, {query: _query});
-};
+}
 
-runSearchSuccess(data) {
+function runSearchSuccess(data) {
   console.log(data);
-};
+}
 
-runSearchError(data) {
+function runSearchError(data) {
   console.log(data);
 }

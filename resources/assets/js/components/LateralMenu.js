@@ -4,8 +4,8 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 
 export default class LateralMenu extends Component {
   constructor(props) {
-      super(props);
-      this.currentSelectedItem = null;
+    super(props);
+    this.currentSelectedItem = null;
   }
 
   render() {
@@ -15,7 +15,7 @@ export default class LateralMenu extends Component {
           <MenuItem primaryText="Find a Book" />
         </Menu>
       </div>
-    )
+    );
   }
 
   handleClickMenu(e) {

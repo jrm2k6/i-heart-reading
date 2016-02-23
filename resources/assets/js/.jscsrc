@@ -1,0 +1,8 @@
+{
+  "preset": "airbnb",
+  "validateIndentation": 2,
+  "disallowTrailingComma": true,
+  "requireTrailingComma": false,
+  "requireCamelCaseOrUpperCaseIdentifiers": false,
+  "requireSpacesInAnonymousFunctionExpression": false
+}

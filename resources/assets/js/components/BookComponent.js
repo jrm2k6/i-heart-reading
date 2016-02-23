@@ -23,8 +23,8 @@ class BookComponent extends React.Component {
 const mapStateToProps = (state) => {
   return {
     books: state.bookReducers.books
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -35,9 +35,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchBooks: () => {
       dispatch(fetchBooks());
     }
-  }
-}
-
-
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);

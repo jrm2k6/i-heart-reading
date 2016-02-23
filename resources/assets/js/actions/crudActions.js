@@ -16,7 +16,7 @@ export const API_BOOKS_RESOURCE_URL = '/api/books';
 export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
-    .filter((meta) => meta['name'] === 'csrf-token')[0]['content'];
+    .filter((meta) => meta.name === 'csrf-token')[0].content;
 
 const _headers = {
   'X-CSRF-TOKEN': csrfToken
@@ -24,11 +24,11 @@ const _headers = {
 
 export function fetchBooks() {
   return getRequest(API_BOOKS_RESOURCE_URL, booksFetched, errorBooksFetched);
-};
+}
 
 export function createBook(dataBook) {
   return postRequest(API_BOOKS_RESOURCE_URL, dataBook, bookCreated, errorBookCreated, _headers);
-};
+}
 
 export function createAssignment(dataAssignment) {
   return postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL, dataAssignment,
@@ -40,7 +40,7 @@ export function bookCreated(data) {
     type: BOOK_CREATED,
     payload: data
   };
-};
+}
 
 export function assignmentCreated(data) {
   return {
@@ -60,17 +60,17 @@ export function errorBookCreated() {
   return {
     type: ERROR_BOOK_CREATED
   };
-};
+}
 
 export function booksFetched(data) {
   return {
     type: BOOKS_FETCHED,
     payload: data
   };
-};
+}
 
 export function errorBooksFetched() {
   return {
     type: ERROR_BOOKS_FETCHED
-  }
+  };
 }

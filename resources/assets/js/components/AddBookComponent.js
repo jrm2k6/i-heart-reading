@@ -9,10 +9,10 @@ import { createBook } from '../actions/crudActions';
 
 export default class AddBookComponent extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-          canSubmit: false
-        };
+      super(props);
+      this.state = {
+        canSubmit: false
+      };
     }
 
     submit(_data) {
@@ -23,9 +23,9 @@ export default class AddBookComponent extends React.Component {
       return (
         <div>
           <SearchBookComponent />
-          <Form onValidSubmit={(data) => {this.submit(data)}}
-              onValid={() => {this.setState({canSubmit: true})}}
-              onInvalid={() => {this.setState({canSubmit: false})}}
+          <Form onValidSubmit={(data) => {this.submit(data);}}
+              onValid={() => { this.setState({ canSubmit: true });}}
+              onInvalid={() => { this.setState({ canSubmit: false });}}
           >
             <FormsyText
               name='book_title'

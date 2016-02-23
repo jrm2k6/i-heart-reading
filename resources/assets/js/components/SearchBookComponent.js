@@ -11,6 +11,6 @@ const SearchBookSuggestions = ({ suggestions, onClick }) => (
   <div>
     LOL
   </div>
-)
+);
 
 export default SearchBookComponent;

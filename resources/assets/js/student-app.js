@@ -21,15 +21,15 @@ const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunk)(
 
 const store = createStoreWithMiddleware(appReducer);
 (function() {
-    ReactDOM.render(
-        <Provider store={store}>
-          <Router history={browserHistory}>
-            <Route path="app" component={AppComponent}>
-                <Route path="books" component={BookComponent}>
-                    <IndexRoute component={BookDashboardComponent} />
-                    <Route path="add" component={AddBookComponent} />
-                </Route>
-            </Route>
-          </Router>
-        </Provider>, document.getElementById("student-app-container"));
+  ReactDOM.render(
+      <Provider store={store}>
+        <Router history={browserHistory}>
+          <Route path="app" component={AppComponent}>
+              <Route path="books" component={BookComponent}>
+                  <IndexRoute component={BookDashboardComponent} />
+                  <Route path="add" component={AddBookComponent} />
+              </Route>
+          </Route>
+        </Router>
+      </Provider>, document.getElementById('student-app-container'));
 }());

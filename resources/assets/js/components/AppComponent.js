@@ -6,13 +6,13 @@ injectTapEventPlugin();
 
 export default class AppComponent extends Component {
     render() {
-        return (
-            <div className='root-component'>
-                <LateralMenu history={this.props.history}/>
-                <div className='interactive-panel'>
-                    {this.props.children}
-                </div>
-            </div>
-        );
+      return (
+          <div className='root-component'>
+              <LateralMenu history={this.props.history} />
+              <div className='interactive-panel'>
+                  {this.props.children}
+              </div>
+          </div>
+      );
     }
 }
