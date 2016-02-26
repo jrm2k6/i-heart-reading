@@ -1,16 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { runSearch } from '../actions/searchActions';
 
-const SearchBookComponent = ({ books, onRefresh }) => (
-  <div>
-    <input></input>
-    <SearchBookSuggestions />
-  </div>
-);
+export default class SearchBookComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+       <label>Type the title of your book</label>
+       <input onChange={(e) => {console.log(e.target.value);}}></input>
+       <SearchBookSuggestions suggestions={this.props.suggestions} onClick={() => {console.log('item clicked');}}/>
+     </div>
+   );
+  }
+};
 
 const SearchBookSuggestions = ({ suggestions, onClick }) => (
   <div>
-    LOL
   </div>
 );
 
-export default SearchBookComponent;
+
+const mapStateToProps = (state) => {
+  return {
+    suggestions: []
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearch: (data) => {
+      dispatch(runSearch(data));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBookComponent);
