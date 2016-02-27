@@ -2,7 +2,7 @@ import request from 'superagent';
 export const ASYNC_CALL_STARTED = 'ASYNC_CALL_STARTED';
 export const POST_REQUEST = 'POST_REQUEST';
 
-function asyncStarted() {
+export function asyncStarted() {
   return {
     type: ASYNC_CALL_STARTED
   };
@@ -11,16 +11,15 @@ function asyncStarted() {
 export function getRequest(url, successAction, errorAction, data = {}) {
   return (dispatch, getStore) => {
     dispatch(asyncStarted());
-
     request.get(url)
-    .send(data)
-    .end((err, res) => {
-      if (err) {
-        dispatch(errorAction());
-      }
+      .query(data)
+      .end((err, res) => {
+        if (err) {
+          dispatch(errorAction(err));
+        }
 
-      dispatch(successAction(res.body));
-    });
+        dispatch(successAction(res.body));
+      });
   };
 }
 

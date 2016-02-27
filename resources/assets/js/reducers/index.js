@@ -1,2 +1,3 @@
 import bookReducers from './bookReducers';
-module.exports = { bookReducers };
+import searchReducer from './searchReducer';
+module.exports = { bookReducers, searchReducer };
