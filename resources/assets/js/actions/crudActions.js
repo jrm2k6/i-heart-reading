@@ -1,7 +1,6 @@
 import request from 'superagent';
 import { postRequest, getRequest } from './apiActions';
 
-export const FETCH_BOOKS = 'FETCH_BOOKS';
 export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const CREATE_BOOK = 'CREATE_BOOK';
@@ -30,8 +29,8 @@ export function createBook(dataBook) {
   return postRequest(API_BOOKS_RESOURCE_URL, dataBook, bookCreated, errorBookCreated, _headers);
 }
 
-export function createAssignment(dataAssignment) {
-  return postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL, dataAssignment,
+export function createAssignment(bookId, userId) {
+  return postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL, { book_id: bookId, user_id: userId },
     assignmentCreated, errorAssignmentCreated, _headers);
 }
 
