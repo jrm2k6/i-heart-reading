@@ -10,7 +10,7 @@ export default function userProfileReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USER_SUCCESS:
       return Object.assign({}, state, {
-        user: action.payload.user
+        user: action.payload
       });
     default:
       return state;
