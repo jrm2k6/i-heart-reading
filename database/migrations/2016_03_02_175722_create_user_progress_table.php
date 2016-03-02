@@ -15,7 +15,7 @@ class CreateUserProgressTable extends Migration
         Schema::create('assignment_progress', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('assignment_id')->unsigned();
-            $table->integer('nb_pages_read')->unsigned();
+            $table->integer('num_pages_read')->unsigned();
             $table->timestamps();
 
             $table->foreign('assignment_id')->references('id')->on('book_user');
