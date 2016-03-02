@@ -35,9 +35,9 @@ export function createAssignment(bookId, userId) {
 }
 
 export function bookCreated(data) {
-  return {
-    type: BOOK_CREATED,
-    payload: data
+  return (dispatch, getStore) => {
+    const userId = getStore().userProfileReducer.user.id;
+    dispatch(createAssignment(data.book.id, userId));
   };
 }
 
