@@ -53,20 +53,15 @@ export default class AddBookComponent extends React.Component {
         />
         <div>
           <FormsyText
-            name='book_nb_pages_read'
-            value='0'
-            validations='isInt'
-          />
-          <span>of</span>
-          <FormsyText
             name='book_nb_pages'
             required
             validations='isInt'
+            floatingLabelText='Number of Pages'
           />
         </div>
         <RaisedButton
           type='submit'
-          label='Submit'
+          label='Create and Assign'
           disabled={!this.state.canSubmit}
         />
       </Form>
