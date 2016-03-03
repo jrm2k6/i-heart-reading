@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
@@ -19,6 +20,6 @@ export default class LateralMenu extends Component {
   }
 
   handleClickMenu(e) {
-    this.props.history.pushState(null, 'app/books/add');
+    browserHistory.replace('/app/books/add');
   }
 }
