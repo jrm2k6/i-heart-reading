@@ -21,4 +21,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function assignments()
+    {
+        return $this->hasMany(BookAssignment::class);
+    }
+
+    public function assignedBooks()
+    {
+        return $this->assignments()->where('user_id', $this->id);
+    }
 }
