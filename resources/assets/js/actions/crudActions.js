@@ -1,16 +1,19 @@
 import request from 'superagent';
 import { postRequest, getRequest } from './apiActions';
 
-export const BOOKS_FETCHED = 'BOOKS_FETCHED';
-export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
-export const CREATE_BOOK = 'CREATE_BOOK';
-export const BOOK_CREATED = 'BOOK_CREATED';
 export const ASSIGNMENT_CREATED = 'ASSIGNMENT_CREATED';
-export const ERROR_BOOK_CREATED = 'ERROR_BOOK_CREATED';
+export const ASSIGNED_BOOKS_FETCHED = 'ASSIGNED_BOOKS_FETCHED';
+export const BOOKS_FETCHED = 'BOOKS_FETCHED';
+export const BOOK_CREATED = 'BOOK_CREATED';
+export const CREATE_BOOK = 'CREATE_BOOK';
+export const ERROR_ASSIGNED_BOOK_FETCHED = 'ERROR_ASSIGNED_BOOK_FETCHED';
 export const ERROR_ASSIGNMENT_CREATED = 'ERROR_ASSIGNMENT_CREATED';
-export const UPDATE_BOOK = 'UPDATE_BOOK';
+export const ERROR_BOOK_CREATED = 'ERROR_BOOK_CREATED';
+export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const DELETE_BOOK = 'DELETE_BOOK';
+export const UPDATE_BOOK = 'UPDATE_BOOK';
 
+export const API_ASSIGNED_BOOKS_RESOURCE_URL = '/api/books/me';
 export const API_BOOKS_RESOURCE_URL = '/api/books';
 export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 
@@ -23,6 +26,11 @@ const _headers = {
 
 export function fetchBooks() {
   return getRequest(API_BOOKS_RESOURCE_URL, booksFetched, errorBooksFetched);
+}
+
+export function fetchAssignedBooks() {
+  return getRequest(API_ASSIGNED_BOOKS_RESOURCE_URL, assignedBooksFetched,
+    errorAssignedBooksFetched);
 }
 
 export function createBook(dataBook) {
@@ -68,8 +76,21 @@ export function booksFetched(data) {
   };
 }
 
+export function assignedBooksFetched(data) {
+  return {
+    type: ASSIGNED_BOOKS_FETCHED,
+    payload: data
+  };
+}
+
 export function errorBooksFetched() {
   return {
     type: ERROR_BOOKS_FETCHED
+  };
+}
+
+export function errorAssignedBooksFetched() {
+  return {
+    type: ERROR_ASSIGNED_BOOK_FETCHED
   };
 }
