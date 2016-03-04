@@ -7,9 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const mapStateToProps = (state) => {
-  return {
-    books: state.userProfileReducer.user
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -20,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default class AppComponent extends Component {
+class AppComponent extends Component {
   render() {
     return (
         <div className='root-component'>
