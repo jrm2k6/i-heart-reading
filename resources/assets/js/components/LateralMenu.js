@@ -13,13 +13,24 @@ export default class LateralMenu extends Component {
     return (
       <div className='lateral-menu'>
         <Menu onItemTouchTap={this.handleClickMenu.bind(this)}>
-          <MenuItem primaryText="Find a Book" />
+          <MenuItem primaryText='Home' />
+          <MenuItem primaryText='Find a Book' />
         </Menu>
       </div>
     );
   }
 
   handleClickMenu(e) {
-    browserHistory.replace('/app/books/add');
+    switch (e.target.innerText) {
+      case 'Home':
+        browserHistory.replace('/app');
+        break;
+      case 'Find a Book':
+        browserHistory.replace('/app/books/add');
+        break;
+      default:
+        browserHistory.replace('/app');
+        break;
+    }
   }
 }
