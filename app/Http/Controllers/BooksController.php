@@ -1,12 +1,12 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
-use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use App\Models\Book;
 
 class BooksController extends Controller
 {
@@ -18,6 +18,12 @@ class BooksController extends Controller
     public function index()
     {
         return response(['books' => Book::all()], 200);
+    }
+
+    public function getMyBooks()
+    {
+        $books = Auth::user()->assignedBooks()->with('book', 'progress')->get();
+        return response(['books' => $books], 200);
     }
 
     /**
