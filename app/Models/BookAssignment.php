@@ -19,4 +19,9 @@ class BookAssignment extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function progress()
+    {
+        return $this->hasOne(AssignmentProgress::class, 'assignment_id');
+    }
 }
