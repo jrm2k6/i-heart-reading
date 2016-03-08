@@ -69,6 +69,12 @@ class AssignmentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $assignment = BookAssignment::find($id);
+
+        if (! $assignment)
+            return response(null, 404);
+
+        $assignment->delete();
+        return response(null, 200);
     }
 }

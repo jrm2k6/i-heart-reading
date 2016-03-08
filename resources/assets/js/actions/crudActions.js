@@ -1,13 +1,15 @@
 import request from 'superagent';
-import { postRequest, getRequest } from './apiActions';
+import { postRequest, getRequest, deleteRequest } from './apiActions';
 
 export const ASSIGNMENT_CREATED = 'ASSIGNMENT_CREATED';
 export const ASSIGNED_BOOKS_FETCHED = 'ASSIGNED_BOOKS_FETCHED';
+export const ASSIGNMENT_DELETED = 'ASSIGNMENT_DELETED';
 export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 export const BOOK_CREATED = 'BOOK_CREATED';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const ERROR_ASSIGNED_BOOK_FETCHED = 'ERROR_ASSIGNED_BOOK_FETCHED';
 export const ERROR_ASSIGNMENT_CREATED = 'ERROR_ASSIGNMENT_CREATED';
+export const ERROR_ASSIGNMENT_DELETED = 'ERROR_ASSIGNMENT_DELETED';
 export const ERROR_BOOK_CREATED = 'ERROR_BOOK_CREATED';
 export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const DELETE_BOOK = 'DELETE_BOOK';
@@ -42,6 +44,11 @@ export function createAssignment(bookId, userId) {
     assignmentCreated, errorAssignmentCreated, _headers);
 }
 
+export function deleteAssignment(id) {
+  return deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
+    () => { return assignmentDeleted(id) }, errorAssignmentDeleted, _headers);
+}
+
 export function bookCreated(data) {
   return (dispatch, getStore) => {
     const userId = getStore().userProfileReducer.user.id;
@@ -60,6 +67,19 @@ export function errorAssignmentCreated(data) {
   return {
     type: ERROR_ASSIGNMENT_CREATED,
     payload: data
+  };
+}
+
+export function assignmentDeleted(_id) {
+  return {
+    type: ASSIGNMENT_DELETED,
+    payload: { id: _id }
+  };
+}
+
+export function errorAssignmentDeleted() {
+  return {
+    type: ERROR_ASSIGNMENT_DELETED
   };
 }
 

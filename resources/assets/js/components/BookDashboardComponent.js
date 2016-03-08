@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAssignedBooks } from '../actions/crudActions';
+import { fetchAssignedBooks, deleteAssignment } from '../actions/crudActions';
+import IconButton from 'material-ui/lib/icon-button';
+import FlatButton from 'material-ui/lib/flat-button';
+import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
+import ContentCreate from 'material-ui/lib/svg-icons/content/create';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,6 +16,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onFetchAssignedBooks: () => {
       dispatch(fetchAssignedBooks());
+    },
+
+    onDeleteAssignedBook: (id) => {
+      dispatch(deleteAssignment(id));
     }
   };
 };
@@ -41,6 +49,20 @@ class BookComponent extends Component {
                       <td>{author}</td>
                       <td>{pagesProgression}</td>
                       <td>{percentProgression}</td>
+                      <td>
+                        <div >
+                          <IconButton>
+                            <ContentCreate />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => this.props.onDeleteAssignedBook(id)}>
+                            <ActionDelete />
+                          </IconButton>
+                          <FlatButton
+                            label="Mark as Read" secondary={true}
+                          />
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}
