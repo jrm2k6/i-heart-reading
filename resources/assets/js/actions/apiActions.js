@@ -37,3 +37,19 @@ export function postRequest(url, data, successAction, errorAction, headers = {})
     });
   };
 }
+
+export function deleteRequest(url, successAction, errorAction, headers = {}) {
+  return (dispatch, getStore) => {
+    dispatch(asyncStarted());
+
+    request.del(url)
+    .set(headers)
+    .end((err, res) => {
+      if (err) {
+        dispatch(errorAction(err));
+      }
+
+      dispatch(successAction(res.body));
+    });
+  };
+}
