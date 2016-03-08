@@ -1,6 +1,5 @@
 import request from 'superagent';
 export const ASYNC_CALL_STARTED = 'ASYNC_CALL_STARTED';
-export const POST_REQUEST = 'POST_REQUEST';
 
 export function asyncStarted() {
   return {
