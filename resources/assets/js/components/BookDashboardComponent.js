@@ -5,6 +5,7 @@ import IconButton from 'material-ui/lib/icon-button';
 import FlatButton from 'material-ui/lib/flat-button';
 import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
 import ContentCreate from 'material-ui/lib/svg-icons/content/create';
+import ContentSave from 'material-ui/lib/svg-icons/content/save';
 
 const mapStateToProps = (state) => {
   return {
@@ -41,29 +42,11 @@ class BookComponent extends Component {
               </thead>
               <tbody>
                 {this.props.books.map((item) => {
-                  let { id, title, author, pagesProgression, percentProgression }
-                    = this.getProperties(item);
                   return (
-                    <tr key={id}>
-                      <td>{title}</td>
-                      <td>{author}</td>
-                      <td>{pagesProgression}</td>
-                      <td>{percentProgression}</td>
-                      <td>
-                        <div >
-                          <IconButton>
-                            <ContentCreate />
-                          </IconButton>
-                          <IconButton
-                            onClick={() => this.props.onDeleteAssignedBook(id)}>
-                            <ActionDelete />
-                          </IconButton>
-                          <FlatButton
-                            label="Mark as Read" secondary={true}
-                          />
-                        </div>
-                      </td>
-                    </tr>
+                    <AssignmentItem
+                      properties={this.getProperties(item)}
+                      onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+                    />
                   );
                 })}
               </tbody>
@@ -96,6 +79,88 @@ class BookComponent extends Component {
     componentDidMount() {
       this.props.onFetchAssignedBooks();
     }
+}
+
+class AssignmentItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inEditMode: false
+    };
+  }
+
+  render() {
+    let component = (!this.state.inEditMode) ?
+      <ReadOnlyAssignmentItem
+        properties={this.props.properties}
+        onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+        onClickEdit={() => this.setState({ inEditMode: true })}
+      />
+    :
+      <EditableAssignmentItem
+        properties={this.props.properties}
+        onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+        onClickSave={() => this.setState({ inEditMode: false })}
+    />;
+
+    return component;
+  }
+}
+
+const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit }) => {
+  let { id, title, author, pagesProgression, percentProgression } = properties;
+  return (
+    <tr key={id}>
+      <td>{title}</td>
+      <td>{author}</td>
+      <td>{pagesProgression}</td>
+      <td>{percentProgression}</td>
+      <td>
+        <div >
+          <IconButton
+            onClick={onClickEdit}
+          >
+            <ContentCreate />
+          </IconButton>
+          <IconButton
+            onClick={() => onDeleteAssignedBook(id)}>
+            <ActionDelete />
+          </IconButton>
+          <FlatButton
+            label="Mark as Read" secondary={true}
+          />
+        </div>
+      </td>
+    </tr>
+  );
+};
+
+const EditableAssignmentItem = ({ properties, onDeleteAssignedBook, onClickSave }) => {
+  let { id, title, author, pagesProgression, percentProgression } = properties;
+  return (
+    <tr key={id}>
+      <td>{title}</td>
+      <td>{author}</td>
+      <td>{pagesProgression}</td>
+      <td>{percentProgression}</td>
+      <td>
+        <div >
+          <IconButton
+            onClick={onClickSave}
+          >
+            <ContentSave />
+          </IconButton>
+          <IconButton
+            onClick={() => onDeleteAssignedBook(id)}>
+            <ActionDelete />
+          </IconButton>
+          <FlatButton
+            label="Mark as Read" secondary={true}
+          />
+        </div>
+      </td>
+    </tr>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);
