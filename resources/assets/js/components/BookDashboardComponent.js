@@ -161,6 +161,6 @@ const EditableAssignmentItem = ({ properties, onDeleteAssignedBook, onClickSave 
       </td>
     </tr>
   );
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);
