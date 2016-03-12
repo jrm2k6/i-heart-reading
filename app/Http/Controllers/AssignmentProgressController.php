@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssignmentProgress;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -50,7 +51,16 @@ class AssignmentProgressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'id' => 'required|exists:assignment_progress',
+            'num_pages_read' => 'required|int'
+        ]);
+
+        AssignmentProgress::find($id)->update([
+            'num_pages_read' => $request->input('num_pages_read')
+        ]);
+
+        return response(['progress' => AssignmentProgress::find($id)], 200);
     }
 
     /**

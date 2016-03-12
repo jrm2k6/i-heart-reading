@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAssignedBooks, deleteAssignment } from '../actions/crudActions';
+import { fetchAssignedBooks,
+  deleteAssignment,
+  updateAssignmentProgress
+} from '../actions/crudActions';
 import IconButton from 'material-ui/lib/icon-button';
 import FlatButton from 'material-ui/lib/flat-button';
 import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
@@ -21,6 +24,10 @@ const mapDispatchToProps = (dispatch) => {
 
     onDeleteAssignedBook: (id) => {
       dispatch(deleteAssignment(id));
+    },
+
+    onUpdateAssignmentProgress: (id, numPages) => {
+      dispatch(updateAssignmentProgress(id, numPages));
     }
   };
 };
@@ -46,6 +53,7 @@ class BookComponent extends Component {
                     <AssignmentItem
                       properties={this.getProperties(item)}
                       onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+                      onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
                     />
                   );
                 })}
@@ -63,15 +71,18 @@ class BookComponent extends Component {
 
       let pagesProgression = `0/${item.book.num_pages}`;
       let percentProgression = '0%';
+      let progressId = null;
 
       if (item.progress != null) {
         pagesProgression = `${item.progress.num_pages_read}/${item.book.num_pages}`;
         percentProgression = `${Math.round(
           +item.progress.num_pages_read / item.book.num_pages * 100)}%`;
+        progressId = item.progress.id;
       }
 
       res.pagesProgression = pagesProgression;
       res.percentProgression = percentProgression;
+      res.progressId = progressId;
 
       return res;
     }
@@ -100,7 +111,10 @@ class AssignmentItem extends Component {
       <EditableAssignmentItem
         properties={this.props.properties}
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
-        onClickSave={() => this.setState({ inEditMode: false })}
+        onClickSave={(id, numPages) => {
+          this.setState({ inEditMode: false });
+          this.props.onUpdateAssignmentProgress(id, numPages);
+        }}
     />;
 
     return component;
@@ -135,32 +149,58 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit 
   );
 };
 
-const EditableAssignmentItem = ({ properties, onDeleteAssignedBook, onClickSave }) => {
-  let { id, title, author, pagesProgression, percentProgression } = properties;
-  return (
-    <tr key={id}>
-      <td>{title}</td>
-      <td>{author}</td>
-      <td>{pagesProgression}</td>
-      <td>{percentProgression}</td>
-      <td>
-        <div >
-          <IconButton
-            onClick={onClickSave}
-          >
-            <ContentSave />
-          </IconButton>
-          <IconButton
-            onClick={() => onDeleteAssignedBook(id)}>
-            <ActionDelete />
-          </IconButton>
-          <FlatButton
-            label="Mark as Read" secondary={true}
-          />
-        </div>
-      </td>
-    </tr>
-  );
+class EditableAssignmentItem extends Component {
+  constructor(props) {
+    super(props);
+    let { pagesProgression } = this.props.properties;
+    let [_numPagesRead, _maxNumPages] = pagesProgression.split('/');
+    this.state = {
+      numPagesRead: parseInt(_numPagesRead),
+      maxNumPages: parseInt(_maxNumPages)
+    };
+  }
+
+  render() {
+    return (
+      <tr key={this.props.id}>
+        <td>{this.props.properties.title}</td>
+        <td>{this.props.properties.author}</td>
+        <td>
+          <input defaultValue={this.state.nbPagesRead}
+            onChange={(e) => this.onChange(e)}>
+          </input>
+        </td>
+        <td>{this.props.properties.percentProgression}</td>
+        <td>
+          <div >
+            <IconButton
+              onClick={() =>
+                this.props.onClickSave(this.props.properties.progressId, this.state.numPagesRead)
+              }
+            >
+              <ContentSave />
+            </IconButton>
+            <IconButton
+              onClick={() => this.props.onDeleteAssignedBook(this.props.properties.id)}>
+              <ActionDelete />
+            </IconButton>
+            <FlatButton
+              label="Mark as Read" secondary={true}
+            />
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
+  onChange(e) {
+    let val = parseInt(e.target.value);
+    if (!isNaN(val) && val <= this.state.maxNumPages) {
+      this.setState({ numPagesRead: val });
+    } else {
+      console.log('not a number');
+    }
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);
