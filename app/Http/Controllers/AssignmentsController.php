@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\AssignmentProgress;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -33,6 +34,11 @@ class AssignmentsController extends Controller
         $assignment = BookAssignment::create([
             'user_id' => $request->user()->id,
             'book_id' => $request->input('book_id')
+        ]);
+
+        AssignmentProgress::create([
+            'assignment_id' => $assignment->id,
+            'num_pages_read' => 0
         ]);
 
         return response(['assignment' => $assignment], 201)->header('Location', '/api/assignments/'.$assignment->id);
