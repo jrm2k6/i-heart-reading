@@ -38,6 +38,22 @@ export function postRequest(url, data, successAction, errorAction, headers = {})
   };
 }
 
+export function putRequest(url, data, successAction, errorAction, headers = {}) {
+  return (dispatch, getStore) => {
+    dispatch(asyncStarted());
+
+    request.put(url).send(data)
+    .set(headers)
+    .end((err, res) => {
+      if (err) {
+        dispatch(errorAction(err));
+      }
+
+      dispatch(successAction(res.body));
+    });
+  };
+}
+
 export function deleteRequest(url, successAction, errorAction, headers = {}) {
   return (dispatch, getStore) => {
     dispatch(asyncStarted());
