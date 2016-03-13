@@ -11,6 +11,6 @@ class AssignmentProgress extends Model
      * @var array
      */
     protected $fillable = [
-        'assignment_id', 'num_pages_read',
+        'assignment_id', 'num_pages_read', 'is_read'
     ];
 }

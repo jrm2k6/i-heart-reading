@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAssignedBooks,
+import {
+  fetchAssignedBooks,
   deleteAssignment,
+  markBookAsRead,
   updateAssignmentProgress
 } from '../actions/crudActions';
 import IconButton from 'material-ui/lib/icon-button';
@@ -28,6 +30,10 @@ const mapDispatchToProps = (dispatch) => {
 
     onUpdateAssignmentProgress: (id, numPages) => {
       dispatch(updateAssignmentProgress(id, numPages));
+    },
+
+    onMarkBookAsRead: (id) => {
+      dispatch(markBookAsRead(id));
     }
   };
 };
@@ -54,6 +60,7 @@ class BookComponent extends Component {
                       properties={this.getProperties(item)}
                       onDeleteAssignedBook={this.props.onDeleteAssignedBook}
                       onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
+                      onMarkBookAsRead={this.props.onMarkBookAsRead}
                     />
                   );
                 })}
@@ -72,17 +79,20 @@ class BookComponent extends Component {
       let pagesProgression = `0/${item.book.num_pages}`;
       let percentProgression = '0%';
       let progressId = null;
+      let isRead = false;
 
       if (item.progress != null) {
         pagesProgression = `${item.progress.num_pages_read}/${item.book.num_pages}`;
         percentProgression = `${Math.round(
           +item.progress.num_pages_read / item.book.num_pages * 100)}%`;
         progressId = item.progress.id;
+        isRead = item.progress.is_read;
       }
 
       res.pagesProgression = pagesProgression;
       res.percentProgression = percentProgression;
       res.progressId = progressId;
+      res.isRead = isRead;
 
       return res;
     }
@@ -106,6 +116,7 @@ class AssignmentItem extends Component {
         properties={this.props.properties}
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
         onClickEdit={() => this.setState({ inEditMode: true })}
+        onClickMarkAsRead={this.props.onMarkBookAsRead}
       />
     :
       <EditableAssignmentItem
@@ -121,8 +132,14 @@ class AssignmentItem extends Component {
   }
 }
 
-const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit }) => {
-  let { id, title, author, pagesProgression, percentProgression } = properties;
+const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit, onClickMarkAsRead }) => {
+  let { id, title, author, pagesProgression, percentProgression, isRead } = properties;
+  let markAsReadOption = (percentProgression === '100%' && !isRead) ?
+        <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)}/> : null;
+
+  let uploadResponseOption = (isRead) ?
+        <UploadResponseOption /> : null;
+
   return (
     <tr key={id}>
       <td>{title}</td>
@@ -140,14 +157,27 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit 
             onClick={() => onDeleteAssignedBook(id)}>
             <ActionDelete />
           </IconButton>
-          <FlatButton
-            label="Mark as Read" secondary={true}
-          />
+          {markAsReadOption}
+          {uploadResponseOption}
         </div>
       </td>
     </tr>
   );
 };
+
+const UploadResponseOption = () => (
+  <FlatButton
+    label="Upload Response" primary={true}
+  />
+);
+
+const MarkAsReadOption = ({ clickHandler }) => (
+  <FlatButton
+    label="Mark as Read"
+    onClick={clickHandler}
+    secondary={true}
+  />
+);
 
 class EditableAssignmentItem extends Component {
   constructor(props) {

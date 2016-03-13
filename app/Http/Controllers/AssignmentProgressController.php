@@ -63,6 +63,21 @@ class AssignmentProgressController extends Controller
         return response(['progress' => AssignmentProgress::find($id)], 200);
     }
 
+    public function markAsRead($id)
+    {
+        $assignment = AssignmentProgress::find($id);
+
+        if (! $assignment) {
+            return response(['errors' => ['Assignment not existing!']], 422);
+        }
+
+        $assignment->update([
+           'is_read' => true
+        ]);
+
+        return response(['progress' => AssignmentProgress::find($id)], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

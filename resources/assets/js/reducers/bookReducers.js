@@ -3,7 +3,8 @@ import {
   ASSIGNMENT_DELETED,
   ASSIGNMENT_PROGRESS_UPDATED,
   BOOKS_FETCHED,
-  BOOK_CREATED
+  BOOK_CREATED,
+  MARKED_BOOK_AS_READ
 } from '../actions/crudActions';
 
 const initialState = {
@@ -41,6 +42,7 @@ export default function bookReducers(state = initialState, action) {
       return Object.assign({}, state, { assignedBooks: _assignedBooks });
 
     case ASSIGNMENT_PROGRESS_UPDATED:
+    case MARKED_BOOK_AS_READ:
       _assignedBooks = updateProgressBooks(action.payload.progress, state.assignedBooks);
       return Object.assign({}, state, { assignedBooks: _assignedBooks });
 
