@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('app');
 });
 
 foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
