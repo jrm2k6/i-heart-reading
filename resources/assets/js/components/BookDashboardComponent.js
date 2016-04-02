@@ -169,7 +169,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
 
 const UploadResponseOption = () => (
   <FlatButton
-    label='Upload Response' primary={true}
+    label='Upload Response' primary
   />
 );
 
@@ -177,7 +177,7 @@ const MarkAsReadOption = ({ clickHandler }) => (
   <FlatButton
     label='Mark as Read'
     onClick={clickHandler}
-    secondary={true}
+    secondary
   />
 );
 
@@ -226,7 +226,7 @@ class EditableAssignmentItem extends Component {
               <ActionDelete />
             </IconButton>
             <FlatButton
-              label='Mark as Read' secondary={true}
+              label='Mark as Read' secondary
             />
           </div>
         </td>
