@@ -1,0 +1,13 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react"
+    ],
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "rules": {
+      "comma-dangle": 0,
+      "jsx-quotes": ["error", "prefer-single"]
+    }
+}

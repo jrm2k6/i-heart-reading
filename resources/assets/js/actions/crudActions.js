@@ -1,4 +1,3 @@
-import request from 'superagent';
 import * as apiActions from './apiActions';
 
 export const ASSIGNED_BOOKS_FETCHED = 'ASSIGNED_BOOKS_FETCHED';
@@ -33,8 +32,34 @@ const _headers = {
   'X-CSRF-TOKEN': csrfToken
 };
 
+export function booksFetched(data) {
+  return {
+    type: BOOKS_FETCHED,
+    payload: data
+  };
+}
+
+export function errorBooksFetched() {
+  return {
+    type: ERROR_BOOKS_FETCHED
+  };
+}
+
 export function fetchBooks() {
   return apiActions.getRequest(API_BOOKS_RESOURCE_URL, booksFetched, errorBooksFetched);
+}
+
+export function assignedBooksFetched(data) {
+  return {
+    type: ASSIGNED_BOOKS_FETCHED,
+    payload: data
+  };
+}
+
+export function errorAssignedBooksFetched() {
+  return {
+    type: ERROR_ASSIGNED_BOOK_FETCHED
+  };
 }
 
 export function fetchAssignedBooks() {
@@ -42,28 +67,6 @@ export function fetchAssignedBooks() {
     errorAssignedBooksFetched);
 }
 
-export function createBook(dataBook) {
-  return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook,
-    bookCreated, errorBookCreated, _headers);
-}
-
-export function createAssignment(bookId, userId) {
-  return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
-    { book_id: bookId, user_id: userId },
-    assignmentCreated, errorAssignmentCreated, _headers);
-}
-
-export function deleteAssignment(id) {
-  return apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
-    () => { return assignmentDeleted(id) }, errorAssignmentDeleted, _headers);
-}
-
-export function bookCreated(data) {
-  return (dispatch, getStore) => {
-    const userId = getStore().userProfileReducer.user.id;
-    dispatch(createAssignment(data.book.id, userId));
-  };
-}
 
 export function assignmentCreated(data) {
   return {
@@ -79,6 +82,30 @@ export function errorAssignmentCreated(data) {
   };
 }
 
+export function createAssignment(bookId, userId) {
+  return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
+    { book_id: bookId, user_id: userId },
+    assignmentCreated, errorAssignmentCreated, _headers);
+}
+
+export function bookCreated(data) {
+  return (dispatch, getStore) => {
+    const userId = getStore().userProfileReducer.user.id;
+    dispatch(createAssignment(data.book.id, userId));
+  };
+}
+
+export function errorBookCreated() {
+  return {
+    type: ERROR_BOOK_CREATED
+  };
+}
+
+export function createBook(dataBook) {
+  return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook,
+    bookCreated, errorBookCreated, _headers);
+}
+
 export function assignmentDeleted(_id) {
   return {
     type: ASSIGNMENT_DELETED,
@@ -92,46 +119,10 @@ export function errorAssignmentDeleted() {
   };
 }
 
-export function errorBookCreated() {
-  return {
-    type: ERROR_BOOK_CREATED
-  };
-}
-
-export function booksFetched(data) {
-  return {
-    type: BOOKS_FETCHED,
-    payload: data
-  };
-}
-
-export function assignedBooksFetched(data) {
-  return {
-    type: ASSIGNED_BOOKS_FETCHED,
-    payload: data
-  };
-}
-
-export function errorBooksFetched() {
-  return {
-    type: ERROR_BOOKS_FETCHED
-  };
-}
-
-export function errorAssignedBooksFetched() {
-  return {
-    type: ERROR_ASSIGNED_BOOK_FETCHED
-  };
-}
-
-export function updateAssignmentProgress(_id, _numPages) {
-  let dataProgress = {
-    id: _id,
-    num_pages_read: _numPages
-  };
-  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
-  return apiActions.putRequest(url, dataProgress,
-    assignmentProgressUpdated, errorAssignmentProgressUpdated, _headers);
+export function deleteAssignment(id) {
+  const successAssignmentDeleted = () => assignmentDeleted(id);
+  return apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
+    successAssignmentDeleted, errorAssignmentDeleted, _headers);
 }
 
 export function assignmentProgressUpdated(data) {
@@ -147,10 +138,14 @@ export function errorAssignmentProgressUpdated() {
   };
 }
 
-export function markBookAsRead(_id) {
-  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
-  return apiActions.putRequest(url, {},
-    markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
+export function updateAssignmentProgress(_id, _numPages) {
+  const dataProgress = {
+    id: _id,
+    num_pages_read: _numPages
+  };
+  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
+  return apiActions.putRequest(url, dataProgress,
+    assignmentProgressUpdated, errorAssignmentProgressUpdated, _headers);
 }
 
 export function markedBookAsReadSuccess(data) {
@@ -164,4 +159,10 @@ export function errorMarkBookAsRead() {
   return {
     type: ERROR_MARKED_BOOK_AS_READ
   };
+}
+
+export function markBookAsRead(_id) {
+  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
+  return apiActions.putRequest(url, {},
+    markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
 }

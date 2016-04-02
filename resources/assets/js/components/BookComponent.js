@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LateralMenu from './LateralMenu';
 import { createBook, fetchBooks } from '../actions/crudActions';
 
 class BookComponent extends React.Component {
+  componentDidMount() {
+    this.props.fetchBooks();
+  }
+
   render() {
     return (
         <div>
@@ -13,10 +16,6 @@ class BookComponent extends React.Component {
           })}
         </div>
     );
-  }
-
-  componentDidMount() {
-    this.props.fetchBooks();
   }
 }
 

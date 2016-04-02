@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { FormsyDate, FormsyText } from 'formsy-material-ui';
+import { FormsyText } from 'formsy-material-ui';
 import { Form } from 'formsy-react';
 import RaisedButton from 'material-ui/lib/raised-button';
 import SearchBookComponent from './SearchBookComponent';
-
-import { createBook } from '../actions/crudActions';
 
 export default class AddBookComponent extends React.Component {
   constructor(props) {
@@ -16,30 +14,11 @@ export default class AddBookComponent extends React.Component {
     };
   }
 
-  submit(_data) {
-    this.props.onAddBook(_data);
-  }
-
-  render() {
-    let addBookForm = (this.state.showAddBook) ?
-      this.getAddBookForm() : null;
-
-    return (
-      <div>
-        <SearchBookComponent />
-        <span onClick={() => {this.setState({ showAddBook: true })}}>
-          Cannot find your book? Click to add your new book
-        </span>
-        {addBookForm}
-      </div>
-    );
-  }
-
   getAddBookForm() {
     return (
       <Form onValidSubmit={(data) => {this.submit(data);}}
-          onValid={() => { this.setState({ canSubmit: true });}}
-          onInvalid={() => { this.setState({ canSubmit: false });}}
+        onValid={() => { this.setState({ canSubmit: true });}}
+        onInvalid={() => { this.setState({ canSubmit: false });}}
       >
         <FormsyText
           name='book_title'
@@ -65,6 +44,25 @@ export default class AddBookComponent extends React.Component {
           disabled={!this.state.canSubmit}
         />
       </Form>
+    );
+  }
+
+  submit(_data) {
+    this.props.onAddBook(_data);
+  }
+
+  render() {
+    let addBookForm = (this.state.showAddBook) ?
+      this.getAddBookForm() : null;
+
+    return (
+      <div>
+        <SearchBookComponent />
+        <span onClick={() => {this.setState({ showAddBook: true });}}>
+          Cannot find your book? Click to add your new book
+        </span>
+        {addBookForm}
+      </div>
     );
   }
 }

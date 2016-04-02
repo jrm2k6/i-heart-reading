@@ -17,12 +17,12 @@ function updateAssignedBooks(id, assignedBooks) {
 }
 
 function updateProgressBooks(_progress, assignedBooks) {
-  let currentAssignment = assignedBooks.find(
-    (assignment) => assignment.id == _progress.assignment_id);
+  const currentAssignment = assignedBooks.find(
+    (assignment) => assignment.id === _progress.assignment_id);
 
-  let updatedAssignment = Object.assign({}, currentAssignment, { progress: _progress });
+  const updatedAssignment = Object.assign({}, currentAssignment, { progress: _progress });
 
-  let filteredBooks = assignedBooks.filter(
+  const filteredBooks = assignedBooks.filter(
     (assignment) => assignment.id !== _progress.assignment_id);
 
   return filteredBooks.concat(updatedAssignment);
@@ -30,6 +30,7 @@ function updateProgressBooks(_progress, assignedBooks) {
 
 export default function bookReducers(state = initialState, action) {
   let _assignedBooks;
+  let _books;
 
   switch (action.type) {
     case ASSIGNED_BOOKS_FETCHED:
@@ -52,10 +53,12 @@ export default function bookReducers(state = initialState, action) {
       });
 
     case BOOK_CREATED:
-      let _books = state.books.concat(action.payload.book);
+      _books = state.books.concat(action.payload.book);
       return Object.assign({}, state, {
         books: _books
       });
+
+    default:
+      return state;
   }
-  return state;
 }

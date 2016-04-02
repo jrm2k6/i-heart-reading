@@ -1,4 +1,3 @@
-import request from 'superagent';
 import { getRequest } from './apiActions';
 
 export const SEARCH = 'SEARCH';
@@ -9,18 +8,6 @@ const URL_SEARCH = '/api/books/search';
 
 let t = null;
 
-export function runSearch(_query) {
-  return (dispatch, getStore) => {
-    if (t !== null) {
-      window.clearTimeout(t);
-    }
-
-    t = window.setTimeout(() => {
-      dispatch(getRequest(URL_SEARCH, runSearchSuccess, runSearchError, { query: _query }));
-    }, 2000);
-  };
-}
-
 function runSearchSuccess(data) {
   return {
     type: SEARCH_SUCCESS,
@@ -30,11 +17,23 @@ function runSearchSuccess(data) {
   };
 }
 
-function runSearchError(data) {
+function runSearchError() {
   return {
     type: SEARCH_ERROR,
     payload: {
       suggestions: []
     }
+  };
+}
+
+export function runSearch(_query) {
+  return dispatch => {
+    if (t !== null) {
+      window.clearTimeout(t);
+    }
+
+    t = window.setTimeout(() => {
+      dispatch(getRequest(URL_SEARCH, runSearchSuccess, runSearchError, { query: _query }));
+    }, 2000);
   };
 }

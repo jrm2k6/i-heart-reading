@@ -39,67 +39,67 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class BookComponent extends Component {
-    render() {
-      return (
-          <div>
-            <span>Your books</span>
-            <table>
-              <thead>
-                <tr>
-                  <td>Title</td>
-                  <td>Author</td>
-                  <td>Pages Read</td>
-                  <td>Progress</td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.books.map((item) => {
-                  return (
-                    <AssignmentItem
-                      properties={this.getProperties(item)}
-                      onDeleteAssignedBook={this.props.onDeleteAssignedBook}
-                      onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
-                      onMarkBookAsRead={this.props.onMarkBookAsRead}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-      );
+  componentDidMount() {
+    this.props.onFetchAssignedBooks();
+  }
+
+  getProperties(item) {
+    const res = {};
+    res.id = item.id;
+    res.title = item.book.title;
+    res.author = item.book.author;
+
+    let pagesProgression = `0/${item.book.num_pages}`;
+    let percentProgression = '0%';
+    let progressId = null;
+    let isRead = false;
+
+    if (item.progress !== null) {
+      pagesProgression = `${item.progress.num_pages_read}/${item.book.num_pages}`;
+      percentProgression = `${Math.round(
+        +item.progress.num_pages_read / item.book.num_pages * 100)}%`;
+      progressId = item.progress.id;
+      isRead = item.progress.is_read;
     }
 
-    getProperties(item) {
-      let res = {};
-      res.id = item.id;
-      res.title = item.book.title;
-      res.author = item.book.author;
+    res.pagesProgression = pagesProgression;
+    res.percentProgression = percentProgression;
+    res.progressId = progressId;
+    res.isRead = isRead;
 
-      let pagesProgression = `0/${item.book.num_pages}`;
-      let percentProgression = '0%';
-      let progressId = null;
-      let isRead = false;
+    return res;
+  }
 
-      if (item.progress != null) {
-        pagesProgression = `${item.progress.num_pages_read}/${item.book.num_pages}`;
-        percentProgression = `${Math.round(
-          +item.progress.num_pages_read / item.book.num_pages * 100)}%`;
-        progressId = item.progress.id;
-        isRead = item.progress.is_read;
-      }
-
-      res.pagesProgression = pagesProgression;
-      res.percentProgression = percentProgression;
-      res.progressId = progressId;
-      res.isRead = isRead;
-
-      return res;
-    }
-
-    componentDidMount() {
-      this.props.onFetchAssignedBooks();
-    }
+  render() {
+    return (
+        <div>
+          <span>Your books</span>
+          <table>
+            <thead>
+              <tr>
+                <td>Title</td>
+                <td>Author</td>
+                <td>Pages Read</td>
+                <td>Progress</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.books.map((item) => {
+                return (
+                  <AssignmentItem
+                    properties={this.getProperties(item)}
+                    onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+                    onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
+                    onMarkBookAsRead={this.props.onMarkBookAsRead}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+    );
+  }
 }
 
 class AssignmentItem extends Component {
@@ -111,7 +111,7 @@ class AssignmentItem extends Component {
   }
 
   render() {
-    let component = (!this.state.inEditMode) ?
+    const component = (!this.state.inEditMode) ?
       <ReadOnlyAssignmentItem
         properties={this.props.properties}
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
@@ -126,16 +126,17 @@ class AssignmentItem extends Component {
           this.setState({ inEditMode: false });
           this.props.onUpdateAssignmentProgress(id, numPages);
         }}
-    />;
+      />;
 
     return component;
   }
 }
 
-const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit, onClickMarkAsRead }) => {
-  let { id, title, author, pagesProgression, percentProgression, isRead } = properties;
+const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
+    onClickEdit, onClickMarkAsRead }) => {
+  const { id, title, author, pagesProgression, percentProgression, isRead } = properties;
   let markAsReadOption = (percentProgression === '100%' && !isRead) ?
-        <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)}/> : null;
+        <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
         <UploadResponseOption /> : null;
@@ -154,7 +155,8 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit,
             <ContentCreate />
           </IconButton>
           <IconButton
-            onClick={() => onDeleteAssignedBook(id)}>
+            onClick={() => onDeleteAssignedBook(id)}
+          >
             <ActionDelete />
           </IconButton>
           {markAsReadOption}
@@ -167,13 +169,13 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook, onClickEdit,
 
 const UploadResponseOption = () => (
   <FlatButton
-    label="Upload Response" primary={true}
+    label='Upload Response' primary={true}
   />
 );
 
 const MarkAsReadOption = ({ clickHandler }) => (
   <FlatButton
-    label="Mark as Read"
+    label='Mark as Read'
     onClick={clickHandler}
     secondary={true}
   />
@@ -182,12 +184,19 @@ const MarkAsReadOption = ({ clickHandler }) => (
 class EditableAssignmentItem extends Component {
   constructor(props) {
     super(props);
-    let { pagesProgression } = this.props.properties;
-    let [_numPagesRead, _maxNumPages] = pagesProgression.split('/');
+    const { pagesProgression } = this.props.properties;
+    const [_numPagesRead, _maxNumPages] = pagesProgression.split('/');
     this.state = {
-      numPagesRead: parseInt(_numPagesRead),
-      maxNumPages: parseInt(_maxNumPages)
+      numPagesRead: parseInt(_numPagesRead, 10),
+      maxNumPages: parseInt(_maxNumPages, 10)
     };
+  }
+
+  onChange(e) {
+    const val = parseInt(e.target.value, 10);
+    if (!isNaN(val) && val <= this.state.maxNumPages) {
+      this.setState({ numPagesRead: val });
+    }
   }
 
   render() {
@@ -197,7 +206,8 @@ class EditableAssignmentItem extends Component {
         <td>{this.props.properties.author}</td>
         <td>
           <input defaultValue={this.state.nbPagesRead}
-            onChange={(e) => this.onChange(e)}>
+            onChange={(e) => this.onChange(e)}
+          >
           </input>
         </td>
         <td>{this.props.properties.percentProgression}</td>
@@ -211,26 +221,18 @@ class EditableAssignmentItem extends Component {
               <ContentSave />
             </IconButton>
             <IconButton
-              onClick={() => this.props.onDeleteAssignedBook(this.props.properties.id)}>
+              onClick={() => this.props.onDeleteAssignedBook(this.props.properties.id)}
+            >
               <ActionDelete />
             </IconButton>
             <FlatButton
-              label="Mark as Read" secondary={true}
+              label='Mark as Read' secondary={true}
             />
           </div>
         </td>
       </tr>
     );
   }
-
-  onChange(e) {
-    let val = parseInt(e.target.value);
-    if (!isNaN(val) && val <= this.state.maxNumPages) {
-      this.setState({ numPagesRead: val });
-    } else {
-      console.log('not a number');
-    }
-  }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);

@@ -9,17 +9,6 @@ export default class LateralMenu extends Component {
     this.currentSelectedItem = null;
   }
 
-  render() {
-    return (
-      <div className='lateral-menu'>
-        <Menu onItemTouchTap={this.handleClickMenu.bind(this)}>
-          <MenuItem primaryText='Home' />
-          <MenuItem primaryText='Find a Book' />
-        </Menu>
-      </div>
-    );
-  }
-
   handleClickMenu(e) {
     switch (e.target.innerText) {
       case 'Home':
@@ -32,5 +21,16 @@ export default class LateralMenu extends Component {
         browserHistory.replace('/app');
         break;
     }
+  }
+
+  render() {
+    return (
+      <div className='lateral-menu'>
+        <Menu onItemTouchTap={this.handleClickMenu}>
+          <MenuItem primaryText='Home' />
+          <MenuItem primaryText='Find a Book' />
+        </Menu>
+      </div>
+    );
   }
 }

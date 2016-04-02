@@ -8,7 +8,7 @@ export function asyncStarted() {
 }
 
 export function getRequest(url, successAction, errorAction, data = {}) {
-  return (dispatch, getStore) => {
+  return dispatch => {
     dispatch(asyncStarted());
     request.get(url)
       .query(data)
@@ -23,7 +23,7 @@ export function getRequest(url, successAction, errorAction, data = {}) {
 }
 
 export function postRequest(url, data, successAction, errorAction, headers = {}) {
-  return (dispatch, getStore) => {
+  return dispatch => {
     dispatch(asyncStarted());
 
     request.post(url).send(data)
@@ -39,7 +39,7 @@ export function postRequest(url, data, successAction, errorAction, headers = {})
 }
 
 export function putRequest(url, data, successAction, errorAction, headers = {}) {
-  return (dispatch, getStore) => {
+  return dispatch => {
     dispatch(asyncStarted());
 
     request.put(url).send(data)
@@ -55,7 +55,7 @@ export function putRequest(url, data, successAction, errorAction, headers = {}) 
 }
 
 export function deleteRequest(url, successAction, errorAction, headers = {}) {
-  return (dispatch, getStore) => {
+  return dispatch => {
     dispatch(asyncStarted());
 
     request.del(url)
