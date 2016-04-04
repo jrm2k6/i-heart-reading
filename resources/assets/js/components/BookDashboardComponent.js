@@ -7,6 +7,8 @@ import {
   updateAssignmentProgress
 } from '../actions/crudActions';
 import IconButton from 'material-ui/lib/icon-button';
+import Popover from 'material-ui/lib/popover/popover';
+import RaisedButton from 'material-ui/lib/raised-button';
 import FlatButton from 'material-ui/lib/flat-button';
 import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
 import ContentCreate from 'material-ui/lib/svg-icons/content/create';
@@ -139,7 +141,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
         <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
-        <UploadResponseOption /> : null;
+        <UploadResponseButton /> : null;
 
   return (
     <tr key={id}>
@@ -148,7 +150,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
       <td>{pagesProgression}</td>
       <td>{percentProgression}</td>
       <td>
-        <div >
+        <div className='assignment-options'>
           <IconButton
             onClick={onClickEdit}
           >
@@ -167,11 +169,41 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
   );
 };
 
-const UploadResponseOption = () => (
-  <FlatButton
-    label='Upload Response' primary
-  />
-);
+class UploadResponseButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingOptions: false,
+      anchorEl: null
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <FlatButton
+          label='Upload Response' primary
+          className='upload-response-button'
+          onClick={(e) => this.setState({ showingOptions: true, anchorEl: e.currentTarget })}
+        />
+        <Popover
+          open={this.state.showingOptions}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{ horizontal: 'right', vertical: 'center' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'center' }}
+          onRequestClose={() => this.setState({ showingOptions: false })}
+        >
+          <div className='popover-response-options'>
+            <RaisedButton className='popover-response-option' primary label='Write A Response' />
+            <RaisedButton primary label='Upload A Text File' />
+            <RaisedButton primary label='Upload A Video File' />
+            <RaisedButton primary label='Upload An Image File' />
+          </div>
+        </Popover>
+      </div>
+    );
+  }
+}
 
 const MarkAsReadOption = ({ clickHandler }) => (
   <FlatButton
