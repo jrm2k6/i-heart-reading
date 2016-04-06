@@ -8,6 +8,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import AddBookComponent from './components/AddBookComponent';
 import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
+import ResponsesComponent from './components/responses/ResponsesComponent';
+import ResponsesDashboardComponent from './components/responses/ResponsesDashboardComponent';
+import WriteResponseComponent from './components/responses/WriteResponseComponent';
 import reducers from './reducers';
 
 import AppComponent from './components/AppComponent';
@@ -28,6 +31,10 @@ const store = createStoreWithMiddleware(appReducer);
               <Route path='books' component={BookComponent}>
                   <IndexRoute component={BookDashboardComponent} />
                   <Route path='add' component={AddBookComponent} />
+              </Route>
+              <Route path='responses' component={ResponsesComponent}>
+                  <IndexRoute component={ResponsesDashboardComponent} />
+                  <Route path='write' component={WriteResponseComponent} />
               </Route>
           </Route>
         </Router>

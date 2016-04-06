@@ -6,6 +6,7 @@ import {
   markBookAsRead,
   updateAssignmentProgress
 } from '../actions/crudActions';
+import { browserHistory } from 'react-router';
 import IconButton from 'material-ui/lib/icon-button';
 import Popover from 'material-ui/lib/popover/popover';
 import RaisedButton from 'material-ui/lib/raised-button';
@@ -194,7 +195,12 @@ class UploadResponseButton extends Component {
           onRequestClose={() => this.setState({ showingOptions: false })}
         >
           <div className='popover-response-options'>
-            <RaisedButton className='popover-response-option' primary label='Write A Response' />
+            <RaisedButton
+              className='popover-response-option'
+              primary
+              label='Write A Response'
+              onClick={() => browserHistory.push('/app/responses/write')}
+            />
             <RaisedButton primary label='Upload A Text File' />
             <RaisedButton primary label='Upload A Video File' />
             <RaisedButton primary label='Upload An Image File' />
