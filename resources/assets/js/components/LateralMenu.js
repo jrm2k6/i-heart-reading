@@ -12,13 +12,13 @@ export default class LateralMenu extends Component {
   handleClickMenu(e) {
     switch (e.target.innerText) {
       case 'Home':
-        browserHistory.replace('/app/books');
+        browserHistory.push('/app/books');
         break;
       case 'Find a Book':
-        browserHistory.replace('/app/books/add');
+        browserHistory.push('/app/books/add');
         break;
       default:
-        browserHistory.replace('/app');
+        browserHistory.push('/app');
         break;
     }
   }
