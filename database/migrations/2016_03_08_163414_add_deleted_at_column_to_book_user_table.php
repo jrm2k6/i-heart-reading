@@ -24,6 +24,8 @@ class AddDeletedAtColumnToBookUserTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('book_user', function ($table) {
+            $table->dropColumn('deleted_at');
+        });
     }
 }
