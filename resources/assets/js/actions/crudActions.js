@@ -17,6 +17,9 @@ export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const ERROR_MARKED_BOOK_AS_READ = 'ERROR_MARKED_BOOK_AS_READ';
 export const MARK_BOOK_AS_READ = 'MARK_BOOK_AS_READ';
 export const MARKED_BOOK_AS_READ = 'MARKED_BOOK_AS_READ';
+export const SAVE_RESPONSE = 'SAVE_RESPONSE';
+export const SAVE_RESPONSE_SUCCESS = 'SAVE_RESPONSE_SUCCESS';
+export const SAVE_RESPONSE_ERROR = 'SAVE_RESPONSE_ERROR';
 export const UPDATE_ASSIGNMENT_PROGRESS = 'UPDATE_ASSIGNMENT_PROGRESS';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
 
@@ -24,6 +27,7 @@ export const API_ASSIGNED_BOOKS_RESOURCE_URL = '/api/books/me';
 export const API_BOOKS_RESOURCE_URL = '/api/books';
 export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 export const API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL = '/api/assignment-progress';
+export const API_RESPONSES_RESOURCE_URL = '/api/responses';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -165,4 +169,18 @@ export function markBookAsRead(_id) {
   const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
   return apiActions.putRequest(url, {},
     markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
+}
+
+function successSaveResponse(res) {
+  console.log('success', res);
+}
+
+function errorSaveResponse() {
+  console.log('error save response');
+}
+
+export function saveResponse({ assignmendId, content, type }) {
+  const data = { content, type };
+  return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
+    successSaveResponse, errorSaveResponse, _headers);
 }

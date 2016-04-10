@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   fetchAssignedBooks,
+  saveResponse
 } from '../../actions/crudActions';
 import { MarkdownEditor } from 'react-markdown-editor';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
     onFetchAssignedBooks: () => {
       dispatch(fetchAssignedBooks());
     },
+    onSaveResponse: ({ assignmentId, type, content }) => {
+      dispatch(saveResponse({ assignmentId, type, content }));
+    }
   };
 };
 
@@ -35,7 +39,7 @@ class WriteResponseComponent extends Component {
     const hasFetchedAssignment = assignedBooks.findIndex(
       assignment => assignment.id === assignmentId) !== -1;
 
-    if (! hasFetchedAssignment) {
+    if (!hasFetchedAssignment) {
       this.props.onFetchAssignedBooks();
     }
   }
@@ -76,15 +80,26 @@ class WriteResponseComponent extends Component {
               label='Save' primary
               disabled={this.state.responseContent.trim().length === 0}
               className='save-response-button'
+              onClick={() => {this.saveResponse();}}
             />
           </div>
-          </div>
+        </div>
       );
     }
 
     return (
       <div className='write-response-container'>Loading</div>
     );
+  }
+
+  saveResponse() {
+    const props = {
+      type: 'text',
+      content: this.state.responseContent,
+      assignmentId: this.state.currentAssignment.id
+    };
+
+    this.props.onSaveResponse(props);
   }
 }
 
