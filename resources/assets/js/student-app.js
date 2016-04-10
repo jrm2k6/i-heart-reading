@@ -34,7 +34,7 @@ const store = createStoreWithMiddleware(appReducer);
               </Route>
               <Route path='responses' component={ResponsesComponent}>
                   <IndexRoute component={ResponsesDashboardComponent} />
-                  <Route path='write' component={WriteResponseComponent} />
+                  <Route path='write/:assignmentId' component={WriteResponseComponent} />
               </Route>
           </Route>
         </Router>

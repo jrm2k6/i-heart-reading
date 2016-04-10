@@ -142,7 +142,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
         <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
-        <UploadResponseButton /> : null;
+        <UploadResponseButton assignmentId={id}/> : null;
 
   return (
     <tr key={id}>
@@ -199,7 +199,7 @@ class UploadResponseButton extends Component {
               className='popover-response-option'
               primary
               label='Write A Response'
-              onClick={() => browserHistory.push('/app/responses/write')}
+              onClick={() => browserHistory.push(`/app/responses/write/${this.props.assignmentId}`)}
             />
             <RaisedButton primary label='Upload A Text File' />
             <RaisedButton primary label='Upload A Video File' />

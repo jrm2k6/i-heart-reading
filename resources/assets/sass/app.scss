@@ -35,3 +35,21 @@
   max-width: 400px;
   padding: 20px;
 }
+
+.write-response-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.markdown-editor-wrapper {
+  margin: 10px;
+}
+
+.response-actions {
+  display: flex;
+  margin: 10px;
+
+  .save-response-button {
+    flex: 1;
+  }
+}
