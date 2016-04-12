@@ -10,7 +10,7 @@ class BookAssignment extends Model
     protected $table = 'book_user';
 
     protected $fillable = [
-        'user_id', 'book_id'
+        'user_id', 'book_id', 'response_id'
     ];
 
     protected $dates = ['deleted_at'];
