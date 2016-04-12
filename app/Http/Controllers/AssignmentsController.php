@@ -64,7 +64,18 @@ class AssignmentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required|exists:users,id|in:'.Auth::user()->id,
+            'book_id' => 'required|exists:books,id',
+            'response_id' => 'exists:responses,id'
+        ]);
+
+        $assignment = BookAssignment::find($id);
+
+        if (! $assignment)
+            return response(null, 404);
+
+        $assignment->update($request->only('user_id', 'book_id', 'response_id'));
     }
 
     /**
