@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\BookAssignment;
+use Illuminate\Support\Facades\Auth;
+
 class AssignmentsController extends Controller
 {
     /**
@@ -73,9 +75,11 @@ class AssignmentsController extends Controller
         $assignment = BookAssignment::find($id);
 
         if (! $assignment)
-            return response(null, 404);
+            return response(null, 400);
 
         $assignment->update($request->only('user_id', 'book_id', 'response_id'));
+
+        return response(['assignment' => $assignment, 200]);
     }
 
     /**

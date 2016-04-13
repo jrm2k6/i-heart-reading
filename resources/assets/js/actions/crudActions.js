@@ -18,8 +18,8 @@ export const ERROR_MARKED_BOOK_AS_READ = 'ERROR_MARKED_BOOK_AS_READ';
 export const MARK_BOOK_AS_READ = 'MARK_BOOK_AS_READ';
 export const MARKED_BOOK_AS_READ = 'MARKED_BOOK_AS_READ';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
-export const SAVE_RESPONSE_SUCCESS = 'SAVE_RESPONSE_SUCCESS';
-export const SAVE_RESPONSE_ERROR = 'SAVE_RESPONSE_ERROR';
+export const SUCCESS_SAVE_RESPONSE = 'SUCCESS_SAVE_RESPONSE';
+export const ERROR_SAVE_RESPONSE = 'ERROR_SAVE_RESPONSE';
 export const UPDATE_ASSIGNMENT_PROGRESS = 'UPDATE_ASSIGNMENT_PROGRESS';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
 
@@ -171,16 +171,42 @@ export function markBookAsRead(_id) {
     markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
 }
 
-function successSaveResponse(res) {
-  console.log('success', res);
-}
-
 function errorSaveResponse() {
-  console.log('error save response');
+  return {
+    type: ERROR_SAVE_RESPONSE
+  };
 }
 
-export function saveResponse({ assignmendId, content, type }) {
-  const data = { content, type };
+function successSaveResponse(data) {
+  return {
+    type: SUCCESS_SAVE_RESPONSE,
+    payload: data
+  };
+}
+
+function successCreateResponse(assignmendId, res) {
+  return (dispatch, getStore) => {
+    const userId = getStore().userProfileReducer.user.id;
+    const assignments = getStore().bookReducers.assignedBooks;
+    const currentAssignment = assignments.find(
+      assignment => parseInt(assignmendId, 10) === assignment.id
+    );
+
+    const url = `${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${assignmendId}`;
+    const data = {
+      response_id: res.response.id,
+      user_id: userId,
+      book_id: currentAssignment.book.id
+    };
+
+    dispatch(apiActions.putRequest(url, data,
+      successSaveResponse, errorSaveResponse, _headers));
+  };
+}
+
+export function saveResponse(props) {
+  const data = { content: props.content, type: props.type };
+  const assignmentId = props.assignmentId;
   return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
-    successSaveResponse, errorSaveResponse, _headers);
+    res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
 }
