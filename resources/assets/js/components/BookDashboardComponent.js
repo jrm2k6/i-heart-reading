@@ -203,7 +203,12 @@ class UploadResponseButton extends Component {
             />
             <RaisedButton primary label='Upload A Text File' />
             <RaisedButton primary label='Upload A Video File' />
-            <RaisedButton primary label='Upload An Image File' />
+            <RaisedButton
+              className='popover-response-option'
+              primary
+              label='Upload An Image File'
+              onClick={() => browserHistory.push(`/app/responses/image/${this.props.assignmentId}`)}
+            />
           </div>
         </Popover>
       </div>

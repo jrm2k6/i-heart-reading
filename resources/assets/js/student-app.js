@@ -11,6 +11,7 @@ import BookDashboardComponent from './components/BookDashboardComponent';
 import ResponsesComponent from './components/responses/ResponsesComponent';
 import ResponsesDashboardComponent from './components/responses/ResponsesDashboardComponent';
 import WriteResponseComponent from './components/responses/WriteResponseComponent';
+import UploadImageComponent from './components/responses/UploadImageComponent';
 import reducers from './reducers';
 
 import AppComponent from './components/AppComponent';
@@ -35,6 +36,7 @@ const store = createStoreWithMiddleware(appReducer);
               <Route path='responses' component={ResponsesComponent}>
                   <IndexRoute component={ResponsesDashboardComponent} />
                   <Route path='write/:assignmentId' component={WriteResponseComponent} />
+                  <Route path='image/:assignmentId' component={UploadImageComponent} />
               </Route>
           </Route>
         </Router>
