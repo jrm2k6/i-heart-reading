@@ -205,7 +205,22 @@ function successCreateResponse(assignmendId, res) {
 }
 
 export function saveResponse(props) {
-  const data = { content: props.content, type: props.type };
+  const data = { type: props.type };
+  const attachments = {};
+
+  switch (data.type) {
+    case 'text':
+      data.content = props.content;
+      break;
+
+    case 'image':
+      data.attachments = props.file;
+      break;
+
+    default:
+      break;
+  }
+
   const assignmentId = props.assignmentId;
   return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
     res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);

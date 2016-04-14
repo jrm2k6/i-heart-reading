@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch) => {
     onFetchAssignedBooks: () => {
       dispatch(fetchAssignedBooks());
     },
-    onSaveResponse: ({ assignmentId, type, url }) => {
-      dispatch(saveResponse({ assignmentId, type, url }));
+    onSaveResponse: ({ assignmentId, type, file }) => {
+      dispatch(saveResponse({ assignmentId, type, file }));
     }
   };
 };
@@ -56,6 +56,16 @@ class UploadImageComponent extends Component {
     }
   }
 
+  onSave() {
+    const props = {
+      type: 'image',
+      file: this.state.fileToUpload,
+      assignmentId: this.state.currentAssignment.id
+    };
+
+    this.props.onSaveResponse(props);
+  }
+
   render() {
     if (this.state.currentAssignment) {
       const previews = (this.state.fileToUpload) ?
@@ -88,6 +98,7 @@ class UploadImageComponent extends Component {
               label='Save' primary
               disabled={this.state.fileToUpload === null}
               className='save-response-button'
+              onClick={() => { this.onSave(); }}
             />
           </div>
         </div>

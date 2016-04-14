@@ -1,7 +1,6 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
+use App\Http\Helpers\ResponseHelper;
 use App\Models\Response;
 use App\Models\ResponseType;
 use Illuminate\Http\Request;
@@ -30,8 +29,9 @@ class ResponsesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'content' => 'required_without:url|string|min:1|max:2000',
-            'url' => 'required_without:content|url',
+            'content' => 'required_without:url,file|string|min:1|max:2000',
+            'file' => 'required_without:content,url|image',
+            'url' => 'required_without:content,file|url',
             'type' => 'required|in:text,image,video,link'
         ]);
 
@@ -40,8 +40,8 @@ class ResponsesController extends Controller
         $url = $request->input('url');
 
         $response = new Response;
-        $response->content = ($response_type->requiresUrl()) ? null : $content;
-        $response->url = ($response_type->requiresUrl()) ? $url : null;
+        $response->content = ($response_type->requiresContent()) ? null : $content;
+        $response->url = ResponseHelper::getUrl($response_type, $request);
         $response->response_type_id = $response_type->id;
 
         $response->save();

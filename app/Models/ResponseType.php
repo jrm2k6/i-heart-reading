@@ -4,13 +4,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResponseType extends Model
 {
-    const REQUIRING_URLS = ['video', 'link'];
-
     protected $table = 'response_types';
     public $timestamps = false;
 
+    public function requiresContent()
+    {
+        return $this->name !== 'text';
+    }
+
     public function requiresUrl()
     {
-        return collect(self::REQUIRING_URLS)->contains($this->name);
+        return $this->name == 'link' || $this->name == 'video';
     }
 }
