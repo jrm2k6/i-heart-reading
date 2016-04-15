@@ -29,15 +29,13 @@ class ResponsesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'content' => 'required_without:url,file|string|min:1|max:2000',
-            'file' => 'required_without:content,url|image',
-            'url' => 'required_without:content,file|url',
+            'content' => 'required_if:type,text|string|min:1|max:2000',
+            'url' => 'require_with:type,video,link|url',
             'type' => 'required|in:text,image,video,link'
         ]);
 
         $content = $request->input('content');
         $response_type = ResponseType::where('name', $request->input('type'))->first();
-        $url = $request->input('url');
 
         $response = new Response;
         $response->content = ($response_type->requiresContent()) ? null : $content;

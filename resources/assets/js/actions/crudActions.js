@@ -206,7 +206,7 @@ function successCreateResponse(assignmendId, res) {
 
 export function saveResponse(props) {
   const data = { type: props.type };
-  const attachments = {};
+  const attachments = [];
 
   switch (data.type) {
     case 'text':
@@ -214,7 +214,7 @@ export function saveResponse(props) {
       break;
 
     case 'image':
-      data.attachments = props.file;
+      attachments.push({ file: props.file, fieldName: 'file' });
       break;
 
     default:
@@ -222,6 +222,6 @@ export function saveResponse(props) {
   }
 
   const assignmentId = props.assignmentId;
-  return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
+  return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
     res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
 }
