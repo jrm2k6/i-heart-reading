@@ -38,6 +38,31 @@ export function postRequest(url, data, successAction, errorAction, headers = {})
   };
 }
 
+export function postRequestWithAttachments(url, data, attachments,
+  successAction, errorAction, headers = {}) {
+  return dispatch => {
+    dispatch(asyncStarted());
+
+    const req = request.post(url).set(headers);
+
+    Object.keys(data).forEach((key) => {
+      req.field(key, data[key]);
+    });
+
+    attachments.forEach((attachment) => {
+      req.attach(attachment.fieldName, attachment.file);
+    });
+
+    req.end((err, res) => {
+      if (err) {
+        dispatch(errorAction(err));
+      }
+
+      dispatch(successAction(res.body));
+    });
+  };
+}
+
 export function putRequest(url, data, successAction, errorAction, headers = {}) {
   return dispatch => {
     dispatch(asyncStarted());
