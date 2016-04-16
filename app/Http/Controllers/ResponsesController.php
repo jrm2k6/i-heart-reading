@@ -30,7 +30,7 @@ class ResponsesController extends Controller
     {
         $this->validate($request, [
             'content' => 'required_if:type,text|string|min:1|max:2000',
-            'url' => 'require_with:type,video,link|url',
+            'url' => 'required_if:type,video,link|url',
             'type' => 'required|in:text,image,video,link'
         ]);
 

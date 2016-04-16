@@ -205,6 +205,7 @@ function successCreateResponse(assignmendId, res) {
 }
 
 export function saveResponse(props) {
+  const assignmentId = props.assignmentId;
   const data = { type: props.type };
   const attachments = [];
 
@@ -217,11 +218,19 @@ export function saveResponse(props) {
       attachments.push({ file: props.file, fieldName: 'file' });
       break;
 
+    case 'video':
+      data.url = props.url;
+      break;
+
     default:
       break;
   }
 
-  const assignmentId = props.assignmentId;
-  return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
+  if (attachments.length > 0) {
+    return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
+      res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
+  }
+
+  return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
     res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
 }
