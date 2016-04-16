@@ -31,7 +31,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    I &#9829; Reading
                 </a>
             </div>
 
