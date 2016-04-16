@@ -26,12 +26,14 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-class VideoComponent extends Component {
+class UrlComponent extends Component {
   constructor(props) {
     super(props);
+    const _type = this.props.route.path.split('/')[0];
     this.state = {
       currentAssignment: null,
-      videoUrl: null
+      url: null,
+      type: _type
     };
   }
 
@@ -58,7 +60,7 @@ class VideoComponent extends Component {
 
   onSave() {
     const props = {
-      type: 'video',
+      type: this.state.type,
       url: this.state.videoUrl,
       assignmentId: this.state.currentAssignment.id
     };
@@ -79,14 +81,14 @@ class VideoComponent extends Component {
           </div>
           <div>
             <TextField
-              hintText='Video Url'
-              onChange={(e) => { this.setState({ videoUrl: e.target.value });}}
+              hintText='Url'
+              onChange={(e) => { this.setState({ url: e.target.value });}}
             />
           </div>
           <div className='response-actions'>
             <FlatButton
               label='Save' primary
-              disabled={this.state.videoUrl === null}
+              disabled={this.state.url === null}
               className='save-response-button'
               onClick={() => { this.onSave(); }}
             />
@@ -101,4 +103,4 @@ class VideoComponent extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VideoComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(UrlComponent);

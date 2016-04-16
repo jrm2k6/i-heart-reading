@@ -219,6 +219,7 @@ export function saveResponse(props) {
       break;
 
     case 'video':
+    case 'link':
       data.url = props.url;
       break;
 
