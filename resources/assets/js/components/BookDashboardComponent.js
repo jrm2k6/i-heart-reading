@@ -202,7 +202,12 @@ class UploadResponseButton extends Component {
               onClick={() => browserHistory.push(`/app/responses/write/${this.props.assignmentId}`)}
             />
             <RaisedButton primary label='Upload A Text File' />
-            <RaisedButton primary label='Upload A Video File' />
+            <RaisedButton
+              className='popover-response-option'
+              primary
+              label='Upload A Video File'
+              onClick={() => browserHistory.push(`/app/responses/video/${this.props.assignmentId}`)}
+            />
             <RaisedButton
               className='popover-response-option'
               primary
