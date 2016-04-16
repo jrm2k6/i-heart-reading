@@ -30,6 +30,7 @@ class UrlComponent extends Component {
   constructor(props) {
     super(props);
     const _type = this.props.route.path.split('/')[0];
+
     this.state = {
       currentAssignment: null,
       url: null,
@@ -61,7 +62,7 @@ class UrlComponent extends Component {
   onSave() {
     const props = {
       type: this.state.type,
-      url: this.state.videoUrl,
+      url: this.state.url,
       assignmentId: this.state.currentAssignment.id
     };
 
