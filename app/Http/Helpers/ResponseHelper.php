@@ -1,6 +1,5 @@
 <?php namespace App\Http\Helpers;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
