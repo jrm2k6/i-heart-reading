@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StudentAssignmentEnded;
+use App\Events\StudentAssignmentUpdated;
 use App\Models\AssignmentProgress;
 use Illuminate\Http\Request;
 
@@ -56,11 +58,15 @@ class AssignmentProgressController extends Controller
             'num_pages_read' => 'required|int'
         ]);
 
-        AssignmentProgress::find($id)->update([
-            'num_pages_read' => $request->input('num_pages_read')
+        $assignment = AssignmentProgress::find($id);
+        $nbPagesRead = $request->input('num_pages_read');
+        $assignment->update([
+            'num_pages_read' => $nbPagesRead
         ]);
 
-        return response(['progress' => AssignmentProgress::find($id)], 200);
+        event(new StudentAssignmentUpdated($assignment->id, $nbPagesRead));
+
+        return response(['progress' => $assignment], 200);
     }
 
     public function markAsRead($id)
@@ -74,6 +80,8 @@ class AssignmentProgressController extends Controller
         $assignment->update([
            'is_read' => true
         ]);
+
+        event(new StudentAssignmentEnded($assignment->id));
 
         return response(['progress' => AssignmentProgress::find($id)], 200);
     }

@@ -16,6 +16,7 @@ class CreateAssignmentUpdatesTable extends Migration
             $table->increments('id');
             $table->integer('assignment_id')->unsigned();
             $table->integer('num_pages')->unsigned();
+            $table->integer('mark_book_read')->unsigned();
             $table->timestamps();
 
             $table->foreign('assignment_id')->references('id')->on('book_user');
