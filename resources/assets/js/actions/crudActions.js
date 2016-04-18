@@ -8,6 +8,7 @@ export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 export const BOOK_CREATED = 'BOOK_CREATED';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
+export const FETCH_STATS = 'FETCH_STATS';
 export const ERROR_ASSIGNED_BOOK_FETCHED = 'ERROR_ASSIGNED_BOOK_FETCHED';
 export const ERROR_ASSIGNMENT_CREATED = 'ERROR_ASSIGNMENT_CREATED';
 export const ERROR_ASSIGNMENT_DELETED = 'ERROR_ASSIGNMENT_DELETED';
@@ -15,10 +16,12 @@ export const ERROR_ASSIGNMENT_PROGRESS_UPDATED = 'ERROR_ASSIGNMENT_PROGRESS_UPDA
 export const ERROR_BOOK_CREATED = 'ERROR_BOOK_CREATED';
 export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const ERROR_MARKED_BOOK_AS_READ = 'ERROR_MARKED_BOOK_AS_READ';
+export const ERROR_STATS_FETCHED = 'ERROR_STATS_FETCHED';
 export const MARK_BOOK_AS_READ = 'MARK_BOOK_AS_READ';
 export const MARKED_BOOK_AS_READ = 'MARKED_BOOK_AS_READ';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
 export const SUCCESS_SAVE_RESPONSE = 'SUCCESS_SAVE_RESPONSE';
+export const SUCCESS_STATS_FETCHED = 'SUCCESS_STATS_FETCHED';
 export const ERROR_SAVE_RESPONSE = 'ERROR_SAVE_RESPONSE';
 export const UPDATE_ASSIGNMENT_PROGRESS = 'UPDATE_ASSIGNMENT_PROGRESS';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
@@ -28,6 +31,7 @@ export const API_BOOKS_RESOURCE_URL = '/api/books';
 export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 export const API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL = '/api/assignment-progress';
 export const API_RESPONSES_RESOURCE_URL = '/api/responses';
+export const API_STATS_RESOURCE_URL = '/api/stats/me';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -36,14 +40,14 @@ const _headers = {
   'X-CSRF-TOKEN': csrfToken
 };
 
-export function booksFetched(data) {
+function booksFetched(data) {
   return {
     type: BOOKS_FETCHED,
     payload: data
   };
 }
 
-export function errorBooksFetched() {
+function errorBooksFetched() {
   return {
     type: ERROR_BOOKS_FETCHED
   };
@@ -51,6 +55,23 @@ export function errorBooksFetched() {
 
 export function fetchBooks() {
   return apiActions.getRequest(API_BOOKS_RESOURCE_URL, booksFetched, errorBooksFetched);
+}
+
+function statsFetched(data) {
+  return {
+    type: SUCCESS_STATS_FETCHED,
+    payload: data
+  };
+}
+
+function errorStatsFetched() {
+  return {
+    type: ERROR_STATS_FETCHED
+  };
+}
+
+export function fetchStats() {
+  return apiActions.getRequest(API_STATS_RESOURCE_URL, statsFetched, errorStatsFetched);
 }
 
 export function assignedBooksFetched(data) {
