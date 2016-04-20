@@ -114,8 +114,8 @@ export function createAssignment(bookId, userId) {
 }
 
 export function bookCreated(data) {
-  return (dispatch, getStore) => {
-    const userId = getStore().userProfileReducer.user.id;
+  return (dispatch, getState) => {
+    const userId = getState().userProfileReducer.user.id;
     dispatch(createAssignment(data.book.id, userId));
   };
 }
@@ -206,9 +206,9 @@ function successSaveResponse(data) {
 }
 
 function successCreateResponse(assignmendId, res) {
-  return (dispatch, getStore) => {
-    const userId = getStore().userProfileReducer.user.id;
-    const assignments = getStore().bookReducers.assignedBooks;
+  return (dispatch, getState) => {
+    const userId = getState().userProfileReducer.user.id;
+    const assignments = getState().bookReducers.assignedBooks;
     const currentAssignment = assignments.find(
       assignment => parseInt(assignmendId, 10) === assignment.id
     );
