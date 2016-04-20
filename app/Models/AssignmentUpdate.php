@@ -13,4 +13,9 @@ class AssignmentUpdate extends Model
     protected $fillable = [
         'assignment_id', 'num_pages', 'mark_book_read'
     ];
+
+    public function assignment()
+    {
+        return $this->belongsTo(BookAssignment::class, 'assignment_id');
+    }
 }
