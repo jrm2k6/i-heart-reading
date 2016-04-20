@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->assignments()->where('user_id', $this->id);
     }
+
+    public function assignmentUpdates()
+    {
+        return $this->hasManyThrough(AssignmentUpdate::class, BookAssignment::class, 'user_id', 'assignment_id');
+    }
 }
