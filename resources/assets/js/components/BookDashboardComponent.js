@@ -273,9 +273,6 @@ class EditableAssignmentItem extends Component {
             >
               <ActionDelete />
             </IconButton>
-            <FlatButton
-              label='Mark as Read' secondary
-            />
           </div>
         </td>
       </tr>
