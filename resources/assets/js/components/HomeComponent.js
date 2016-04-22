@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import DailyProgression from './stats/DailyProgression';
-import WeeklyProgression from './stats/WeeklyProgression';
-import MonthlyProgression from './stats/MonthlyProgression';
-import YearlyProgression from './stats/YearlyProgression';
+import ItemProgression from './stats/ItemProgression';
 import StatsComponent from './stats/StatsComponent';
 import { connect } from 'react-redux';
 import { fetchStats } from '../actions/crudActions';
@@ -26,16 +23,19 @@ class HomeComponent extends Component {
   }
 
   render() {
+    const numPagesReadYear = (this.props.stats.yearly) ?
+      this.props.stats.yearly.num_pages_read :
+      0;
     return (
-      <div>
-        <DailyProgression stats={this.props.stats.daily} />
-        <MonthlyProgression stats={this.props.stats.monthly} />
-        <YearlyProgression stats={this.props.stats.yearly} />
-        <WeeklyProgression stats={this.props.stats.weekly} />
-        <StatsComponent />
+      <div className='home-component-container'>
+        <ItemProgression stats={this.props.stats.daily} type='Today' />
+        <ItemProgression stats={this.props.stats.weekly} type='This Week' />
+        <ItemProgression stats={this.props.stats.monthly} type='This Month' />
+        <ItemProgression stats={this.props.stats.yearly} type='This Year' />
+        <StatsComponent numPagesReadYear={numPagesReadYear} />
       </div>
     );
   }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);
