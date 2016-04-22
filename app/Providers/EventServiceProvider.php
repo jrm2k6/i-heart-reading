@@ -14,10 +14,12 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\StudentAssignmentUpdated' => [
-            'App\Listeners\CreateAssignmentUpdate'
+            'App\Listeners\CreateAssignmentUpdate',
+            'App\Listeners\UpdateStats'
         ],
         'App\Events\StudentAssignmentEnded' => [
-            'App\Listeners\CreateAssignmentEnded'
+            'App\Listeners\CreateAssignmentEnded',
+            'App\Listeners\UpdateStats'
         ],
     ];
 
