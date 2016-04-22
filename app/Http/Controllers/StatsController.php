@@ -14,11 +14,6 @@ class StatsController extends Controller
         $userId = Auth::user()->id;
         $stats = Cache::get('stats_'.$userId);
 
-        $daily = ['nb_pages_read' => 0, 'nb_books_read' => 0];
-        $weekly = ['nb_pages_read' => 0, 'nb_books_read' => 0];
-        $monthly = ['nb_pages_read' => 0, 'nb_books_read' => 0];
-        $yearly = ['nb_pages_read' => 0, 'nb_books_read' => 0];
-
         return response([
             'stats' => $stats
         ], 200);
