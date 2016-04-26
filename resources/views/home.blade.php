@@ -6,5 +6,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ elixir('js/student-app.js') }}"></script>
+    <script src="{{ elixir('js/i-heart-reading.js') }}"></script>
 @endsection
