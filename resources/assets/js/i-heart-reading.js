@@ -45,5 +45,5 @@ const store = createStoreWithMiddleware(appReducer);
               </Route>
           </Route>
         </Router>
-      </Provider>, document.getElementById('student-app-container'));
+      </Provider>, document.getElementById('app-container'));
 }());
