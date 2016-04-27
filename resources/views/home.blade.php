@@ -6,5 +6,9 @@
 @endsection
 
 @section('js')
-    <script src="{{ elixir('js/i-heart-reading.js') }}"></script>
+    @if (Auth::user()->isTeacher())
+        <script src="{{ elixir('js/i-heart-reading-teacher.js') }}"></script>
+    @else
+        <script src="{{ elixir('js/i-heart-reading.js') }}"></script>
+    @endif
 @endsection

@@ -22,6 +22,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function isTeacher()
+    {
+        return $this->role == 'teacher';
+    }
+
     public function assignments()
     {
         return $this->hasMany(BookAssignment::class);
