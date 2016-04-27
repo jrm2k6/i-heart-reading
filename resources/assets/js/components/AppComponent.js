@@ -7,7 +7,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.userProfileReducer.user
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -22,7 +24,7 @@ class AppComponent extends Component {
   render() {
     return (
         <div className='root-component'>
-            <LateralMenu history={this.props.history} />
+            <LateralMenu history={this.props.history} user={this.props.user} />
             <div className='interactive-panel'>
                 {this.props.children}
             </div>
