@@ -15,5 +15,6 @@ require('babel-plugin-syntax-jsx');
 elixir(function(mix) {
     mix.sass('app.scss')
         .browserify('i-heart-reading.js')
-        .version(['public/js/i-heart-reading.js', 'public/css/app.css']);
+        .browserify('i-heart-reading-teacher.js')
+        .version(['public/js/i-heart-reading.js', 'public/js/i-heart-reading-teacher.js', 'public/css/app.css']);
 });
