@@ -29,4 +29,19 @@ class BookAssignment extends Model
     {
         return $this->hasOne(AssignmentProgress::class, 'assignment_id');
     }
+
+    public function response()
+    {
+        return $this->belongsTo(Response::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(AssignmentReview::class, 'assignment_id');
+    }
+
+    public function scopeHasResponse($query)
+    {
+        return $query->whereNotNull('response_id');
+    }
 }
