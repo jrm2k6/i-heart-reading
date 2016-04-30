@@ -40,6 +40,20 @@ class BookAssignment extends Model
         return $this->hasMany(AssignmentReview::class, 'assignment_id');
     }
 
+    public function negativeReviews()
+    {
+        return $this->reviews->filter(function($review) {
+            return $review->isNegative();
+        });
+    }
+
+    public function positiveReviews()
+    {
+        return $this->reviews->filter(function($review) {
+            return ! $review->isNegative();
+        });
+    }
+
     public function scopeHasResponse($query)
     {
         return $query->whereNotNull('response_id');
