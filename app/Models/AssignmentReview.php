@@ -8,4 +8,14 @@ class AssignmentReview extends Model
     use SoftDeletes;
     
     protected $table = 'assignment_reviews';
+
+    public function isNegative()
+    {
+        return $this->decisionType->name == 'rejected';
+    }
+
+    public function decisionType()
+    {
+        return $this->belongsTo(DecisionType::class);
+    }
 }
