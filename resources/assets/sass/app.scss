@@ -67,3 +67,25 @@
   border: 1px solid black;
   min-width: 45%;
 }
+
+.assignment-review-item {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.assignment-review-item-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+
+  div {
+    flex: 1;
+  }
+}
+
+.assignment-review-student-section, .assignment-review-book-section,
+.assignment-review-response-section, .assignment-review-review-section {
+  display: flex;
+  flex: 1;
+}
