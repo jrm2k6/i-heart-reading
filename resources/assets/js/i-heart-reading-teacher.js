@@ -13,10 +13,12 @@ import TeacherResponsesComponent from './components/teacher/responses/TeacherRes
 import TeacherResponsesDashboardComponent from
   './components/teacher/responses/TeacherResponsesDashboardComponent';
 import reducers from './reducers';
+import teacherReviewsReducer from './reducers/teacherReviewsReducer';
 
 import AppComponent from './components/AppComponent';
 
-const appReducer = combineReducers(Object.assign({}, reducers, {
+const _reducers = Object.assign({}, reducers, { teacherReviewsReducer });
+const appReducer = combineReducers(Object.assign({}, _reducers, {
   routing: routeReducer
 }));
 
