@@ -10,6 +10,7 @@ import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
 import HomeComponent from './components/HomeComponent';
 import TeacherResponsesComponent from './components/teacher/responses/TeacherResponsesComponent';
+import StudentResponseComponent from './components/responses/StudentResponseComponent';
 import TeacherResponsesDashboardComponent from
   './components/teacher/responses/TeacherResponsesDashboardComponent';
 import reducers from './reducers';
@@ -38,6 +39,7 @@ const store = createStoreWithMiddleware(appReducer);
               </Route>
               <Route path='responses' component={TeacherResponsesComponent}>
                   <IndexRoute component={TeacherResponsesDashboardComponent} />
+                  <Route path='student-response/:responseId' component={StudentResponseComponent} />
               </Route>
           </Route>
         </Router>

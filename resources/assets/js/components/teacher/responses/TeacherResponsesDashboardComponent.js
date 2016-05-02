@@ -35,7 +35,10 @@ class TeacherResponsesDashboardComponent extends Component {
                 <div>Status</div>
               </div>
               {this.props.assignmentsToReview.map(assignmentToReview => (
-                <AssignmentToReviewItem assignmentToReview={assignmentToReview} />
+                <AssignmentToReviewItem
+                  key={assignmentToReview.id}
+                  assignmentToReview={assignmentToReview}
+                />
               ))}
             </div>
           </div>

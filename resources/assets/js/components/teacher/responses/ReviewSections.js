@@ -27,7 +27,7 @@ class BookSection extends Component {
 class ResponseSection extends Component {
   render() {
     const { response } = this.props;
-    const linkContent = `/app/student-response/${response.id}`
+    const linkContent = `/app/responses/student-response/${response.id}`
     return (
         <div className='assignment-review-response-section'>
           <Link to={linkContent}>
