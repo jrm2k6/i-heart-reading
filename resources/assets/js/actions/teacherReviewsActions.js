@@ -34,7 +34,6 @@ export function fetchAssignmentsToReview() {
 
 export function getResponse(responseId) {
   return (dispatch, getState) => {
-    console.log('ajahahah');
     const assignmentsToReview = getState().teacherReviewsReducer.assignmentsToReview;
     if (assignmentsToReview !== null) {
       const response = assignmentsToReview.map(assignmentToReview => assignmentToReview.response)
