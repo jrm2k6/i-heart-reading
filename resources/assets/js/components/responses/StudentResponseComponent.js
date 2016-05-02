@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { markdown } from 'markdown';
 import { getResponse } from '../../actions/teacherReviewsActions';
 
 const mapStateToProps = (state) => {
@@ -24,9 +25,9 @@ class StudentResponseComponent extends Component {
   getResponseComponent(currentResponse) {
     switch (currentResponse.response_type_id) {
       case 1:
+        const content = { __html: markdown.toHTML(currentResponse.content) };
         return (
-          <div className='textual-response-content'>
-            {currentResponse.content}
+          <div className='textual-response-content' dangerouslySetInnerHTML={content}>
           </div>
         );
       case 2:
