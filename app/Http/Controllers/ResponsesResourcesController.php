@@ -11,7 +11,7 @@ class ResponsesResourcesController extends Controller
     public function getFile($fileName)
     {
         $filePath = 'app/responses/'.$fileName;
-        $img = Image::make(storage_path($filePath))->resize(300, 200);
+        $img = Image::make(storage_path($filePath))->fit(600, 400);
         return $img->response('jpg');
     }
 }
