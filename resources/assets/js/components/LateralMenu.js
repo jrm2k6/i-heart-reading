@@ -4,11 +4,6 @@ import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
 export default class LateralMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.currentSelectedItem = null;
-  }
-
   getTeacherOptions() {
     const { user } = this.props;
 
