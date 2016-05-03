@@ -12,13 +12,13 @@ class AssignmentToReviewItem extends Component {
     const student = assignmentToReview.user;
     const book = assignmentToReview.book;
     const response = assignmentToReview.response;
-    const reviews = assignmentToReview.reviews;
+    const review = assignmentToReview.current_review;
     return (
         <div className='assignment-review-item'>
           <StudentSection student={student} />
           <BookSection book={book} />
           <ResponseSection response={response} />
-          <ReviewStatusSection reviews={reviews} />
+          <ReviewStatusSection review={review} />
         </div>
     );
   }

@@ -40,12 +40,12 @@ class ResponseSection extends Component {
 
 class ReviewStatusSection extends Component {
   render() {
-    const { reviews } = this.props;
+    const { review } = this.props;
 
-    if (reviews.length > 0) {
+    if (review) {
       return (
           <div className='assignment-review-review-section'>
-            <span>{reviews[0].decision_type.id}</span>
+            <span>{review.decision_type_id}</span>
           </div>
       );
     } else {

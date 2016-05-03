@@ -143,7 +143,8 @@ class StudentResponseComponent extends Component {
     const props = {
       response_id: responseId,
       comment: commentContent,
-      decision: decisionStr
+      decision: decisionStr,
+      assignment_id: this.props.currentAssignment.id
     };
 
     this.props.onCreateReview(responseId, props);

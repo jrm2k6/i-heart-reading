@@ -13,6 +13,10 @@ class BookAssignment extends Model
         'user_id', 'book_id', 'response_id'
     ];
 
+    protected $appends = [
+        'current_review'
+    ];
+
     protected $dates = ['deleted_at'];
 
     public function user()
@@ -40,6 +44,11 @@ class BookAssignment extends Model
         return $this->hasMany(AssignmentReview::class, 'assignment_id');
     }
 
+    public function currentReview()
+    {
+        return $this->reviews()->orderBy('created_at', 'DESC')->first();
+    }
+
     public function negativeReviews()
     {
         return $this->reviews->filter(function($review) {
@@ -57,5 +66,10 @@ class BookAssignment extends Model
     public function scopeHasResponse($query)
     {
         return $query->whereNotNull('response_id');
+    }
+
+    public function getCurrentReviewAttribute()
+    {
+        return $this->currentReview();
     }
 }
