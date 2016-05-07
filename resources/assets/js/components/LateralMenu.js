@@ -18,6 +18,10 @@ export default class LateralMenu extends Component {
 
   handleClickMenu(e) {
     switch (e.target.innerText) {
+      case 'Home':
+        browserHistory.push('/app');
+        break;
+
       case 'My Books':
         browserHistory.push('/app/books');
         break;
@@ -42,6 +46,7 @@ export default class LateralMenu extends Component {
     return (
       <div className='lateral-menu'>
         <Menu onItemTouchTap={this.handleClickMenu}>
+          <MenuItem primaryText='Home' />
           <MenuItem primaryText='My Books' />
           <MenuItem primaryText='Find a Book' />
           {options}
