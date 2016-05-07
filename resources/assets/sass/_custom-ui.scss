@@ -1,0 +1,40 @@
+input[type="checkbox"].ihr-checkbox {
+  display: none;
+
+  + label {
+    color: $main-dark-gray;
+    cursor: pointer;
+    transition: 250ms;
+    user-select: none;
+  }
+
+  + label span {
+    background: url('/images/svgs/ic_done_unchecked.svg') left top no-repeat;
+    border: 1px solid $main-dark-gray;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    margin-right: 10px;
+    transition: 250ms;
+    vertical-align: middle;
+    width: 25px;
+  }
+}
+
+input[type="checkbox"].ihr-checkbox:checked + label span {
+  background: url('/images/svgs/ic_done_checked.svg') left top no-repeat;
+  border: 1px solid $validation-green;
+  color: $validation-green;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  margin-right: 10px;
+  transition: 250ms;
+  vertical-align: middle;
+  width: 25px;
+}
+
+input[type="checkbox"].ihr-checkbox:checked + label {
+  color: $validation-green;
+  transition: 250ms;
+}
