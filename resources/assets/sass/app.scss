@@ -1,3 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@import url(https://fonts.googleapis.com/css?family=Karla);
+@import 'global';
+@import 'register';
+
+
+body {
+  background-color: $main-background-light-gray;
+  font-family: 'Karla', sans-serif;
+}
+
 .root-component {
   display: flex;
   height: 100vh;

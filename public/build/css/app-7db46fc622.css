@@ -1,0 +1,203 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+@import url(https://fonts.googleapis.com/css?family=Karla);
+.register-page-container {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .register-page-container .register-form {
+    width: 50%; }
+  .register-page-container .btn-register-submit {
+    background-color: #00bfe8;
+    border: 1px solid #1b748f;
+    color: #f0fafd;
+    font-size: 22px;
+    height: 65px;
+    text-transform: uppercase;
+    width: 100%; }
+  .register-page-container .form-input {
+    height: 65px; }
+  .register-page-container .input-with-picture {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 1px solid #babec3;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 20px 0; }
+    .register-page-container .input-with-picture:focus {
+      border: 1px solid #1b748f; }
+    .register-page-container .input-with-picture input {
+      border: 0;
+      color: #9da6a8;
+      font-size: 20px;
+      outline: none;
+      padding-left: 10px;
+      width: 100%; }
+    .register-page-container .input-with-picture .form-input-icon {
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      background-color: #f3f2f2;
+      border-left: 1px solid #babec3;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      height: 65px;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      width: 15%; }
+  .register-page-container .logo-container {
+    padding-bottom: 75px;
+    padding-top: 75px; }
+
+body {
+  background-color: #eceef2;
+  font-family: 'Karla', sans-serif; }
+
+.root-component {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+  width: 100%; }
+  .root-component .lateral-menu {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start; }
+    .root-component .lateral-menu .lateral-menu-items {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1; }
+  .root-component .interactive-panel {
+    border: 1px solid gray;
+    -webkit-flex: 12;
+    -ms-flex: 12;
+    flex: 12; }
+
+.assignment-options {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start; }
+
+.popover-response-options {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  max-width: 400px;
+  padding: 20px; }
+
+.write-response-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.markdown-editor-wrapper {
+  margin: 10px; }
+
+.response-actions {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px; }
+  .response-actions .save-response-button {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+
+.home-component-container {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: 100vh;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  width: 100%; }
+
+.item-progression {
+  border: 1px solid black;
+  min-width: 45%; }
+
+.assignment-review-item {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+
+.assignment-review-item-header {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around; }
+  .assignment-review-item-header div {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+
+.assignment-review-student-section, .assignment-review-book-section,
+.assignment-review-response-section, .assignment-review-review-section {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+
+/*# sourceMappingURL=app.css.map */
