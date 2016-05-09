@@ -4,9 +4,13 @@ import { runSearch } from '../actions/searchActions';
 import { createAssignment } from '../actions/crudActions';
 
 const SearchBookComponent = ({ onSearch, onClickAssign, suggestions, user }) => (
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
-    <label>Type the title of your book</label>
-    <input onChange={(e) => {onSearch(e.target.value);}}></input>
+  <div className='search-book-container'>
+    <input
+      className='search-book-input'
+      onChange={(e) => {onSearch(e.target.value);}}
+      placeholder='Enter a title or an author'
+    >
+    </input>
     <SearchBookSuggestions
       suggestions={suggestions}
       onClick={(bookId) => {onClickAssign(bookId, user.id);}}
@@ -15,12 +19,21 @@ const SearchBookComponent = ({ onSearch, onClickAssign, suggestions, user }) => 
 );
 
 const SearchBookSuggestions = ({ suggestions, onClick }) => (
-  <div>
+  <div className='search-book-suggestions-container'>
+    <div className='search-book-suggestions-header'>
+      <span className='book-properties'>Title</span>
+      <span className='book-properties'>Author</span>
+      <span className='book-properties'>Details</span>
+      <span className='book-actions'></span>
+    </div>
+    <div>
     {suggestions.map((suggestion) => (
-        <div key={suggestion.id}>
-          {suggestion.title} - {suggestion.author}
+        <div key={suggestion.id} className='search-book-suggestion'>
+          <span className='book-properties'>{suggestion.title}</span>
+          <span className='book-properties'>{suggestion.author}</span>
+          <span className='book-properties'>Details</span>
           <span
-            style={{ padding: '0 10px' }}
+            className='book-actions'
             onClick={() => {onClick(suggestion.id);}}
           >
             Assign
@@ -28,6 +41,7 @@ const SearchBookSuggestions = ({ suggestions, onClick }) => (
         </div>
       )
     )}
+    </div>
   </div>
 );
 

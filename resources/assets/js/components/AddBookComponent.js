@@ -58,9 +58,11 @@ export default class AddBookComponent extends React.Component {
     return (
       <div>
         <SearchBookComponent />
-        <span onClick={() => {this.setState({ showAddBook: true });}}>
-          Cannot find your book? Click to add your new book
-        </span>
+        <button className='add-new-book-btn'
+          onClick={() => {this.setState({ showAddBook: true });}}
+          >
+          Add New Book
+        </button>
         {addBookForm}
       </div>
     );
