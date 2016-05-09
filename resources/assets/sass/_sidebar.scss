@@ -1,0 +1,88 @@
+.ihr-lateral-menu {
+  background-color: $secondary-dark-blue;
+  display: flex;
+  flex: 4;
+  flex-direction: column;
+
+  .logo-container {
+    align-items: center;
+    background-color: $main-light-blue;
+    display: flex;
+    height: 75px;
+
+    img {
+      margin-left: 25px;
+    }
+  }
+
+  .profile-container {
+    align-items: center;
+    display: flex;
+    height: 130px;
+    justify-content: center;
+  }
+
+  .profile-avatar {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .profile-short-description {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+  }
+
+  .profile-name {
+    color: $main-white;
+    font-size: 25px;
+  }
+
+  .profile-title {
+    color: $secondary-white;
+    font-size: 16px;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-item {
+    align-items: center;
+    border-left: 5px solid $secondary-dark-blue;
+    color: $secondary-white;
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    height: 55px;
+
+    i {
+      padding-left: 25px;
+    }
+
+    span {
+      margin-left: 15px;
+    }
+
+    &:hover {
+      background-color: lighten($secondary-dark-blue, .8);
+      border-left: 5px solid $secondary-white;
+      color: $secondary-white;
+    }
+
+    &.active {
+      border-left: 5px solid $main-light-blue;
+    }
+  }
+
+  .separator-container {
+    margin-top: 25px;
+  }
+
+  .separator {
+    border: 1px solid $palette-third-blue;
+    width: 80%;
+  }
+}

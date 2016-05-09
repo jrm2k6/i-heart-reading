@@ -4,28 +4,18 @@
 @import 'custom-ui';
 @import 'register';
 @import 'login';
+@import 'sidebar';
 
 body {
   background-color: $main-background-light-gray;
   font-family: 'Karla', sans-serif;
+  margin: 0;
 }
 
 .root-component {
   display: flex;
   height: 100vh;
   width: 100%;
-
-  .lateral-menu {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    .lateral-menu-items {
-      flex: 1;
-    }
-  }
 
   .interactive-panel {
     border: 1px solid gray;
