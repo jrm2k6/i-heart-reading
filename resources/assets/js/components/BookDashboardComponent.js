@@ -75,19 +75,17 @@ class BookComponent extends Component {
 
   render() {
     return (
-        <div>
-          <span>Your books</span>
-          <table>
-            <thead>
-              <tr>
-                <td>Title</td>
-                <td>Author</td>
-                <td>Pages Read</td>
-                <td>Progress</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
+        <div className='my-books-container'>
+          <span className='my-books-title-section'>Your books</span>
+          <div className='my-books-list-container'>
+            <div className='my-books-list-header'>
+              <span className='book-properties'>Title</span>
+              <span className='book-properties'>Author</span>
+              <span className='book-properties'>Pages Read</span>
+              <span className='book-properties'>Progress</span>
+              <span className='book-actions'></span>
+            </div>
+            <div>
               {this.props.books.map((item) => {
                 return (
                   <AssignmentItem
@@ -98,8 +96,8 @@ class BookComponent extends Component {
                   />
                 );
               })}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
     );
   }
@@ -145,28 +143,31 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
         <UploadResponseButton assignmentId={id}/> : null;
 
   return (
-    <tr key={id}>
-      <td>{title}</td>
-      <td>{author}</td>
-      <td>{pagesProgression}</td>
-      <td>{percentProgression}</td>
-      <td>
+    <div className='my-books-item' key={id}>
+      <span className='book-properties'>{title}</span>
+      <span className='book-properties'>{author}</span>
+      <span className='book-properties'>{pagesProgression}</span>
+      <span className='book-properties'>{percentProgression}</span>
+      <div className='book-actions'>
         <div className='assignment-options'>
           <IconButton
+            iconClassName='material-icons'
             onClick={onClickEdit}
           >
-            <ContentCreate />
+            create
           </IconButton>
           <IconButton
+            iconClassName='material-icons'
+            iconStyle={{ color: '#d50000' }}
             onClick={() => onDeleteAssignedBook(id)}
           >
-            <ActionDelete />
+            delete_forever
           </IconButton>
           {markAsReadOption}
           {uploadResponseOption}
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 
@@ -182,11 +183,13 @@ class UploadResponseButton extends Component {
   render() {
     return (
       <div>
-        <FlatButton
-          label='Upload Response' primary
-          className='upload-response-button'
+        <IconButton
+          iconClassName='material-icons'
+          iconStyle={{ color: '#00bfe8' }}
           onClick={(e) => this.setState({ showingOptions: true, anchorEl: e.currentTarget })}
-        />
+        >
+        cloud_upload
+      </IconButton>
         <Popover
           open={this.state.showingOptions}
           anchorEl={this.state.anchorEl}
@@ -222,11 +225,13 @@ class UploadResponseButton extends Component {
 }
 
 const MarkAsReadOption = ({ clickHandler }) => (
-  <FlatButton
-    label='Mark as Read'
+  <IconButton
     onClick={clickHandler}
-    secondary
-  />
+    iconStyle={{ color: '#20bb51' }}
+    iconClassName='material-icons'
+  >
+    done
+  </IconButton>
 );
 
 class EditableAssignmentItem extends Component {
@@ -249,33 +254,38 @@ class EditableAssignmentItem extends Component {
 
   render() {
     return (
-      <tr key={this.props.id}>
-        <td>{this.props.properties.title}</td>
-        <td>{this.props.properties.author}</td>
-        <td>
+      <div className='my-books-item' key={this.props.id}>
+        <span className='book-properties'>{this.props.properties.title}</span>
+        <span className='book-properties'>{this.props.properties.author}</span>
+        <div className='book-properties'>
           <input defaultValue={this.state.nbPagesRead}
             onChange={(e) => this.onChange(e)}
           >
           </input>
-        </td>
-        <td>{this.props.properties.percentProgression}</td>
-        <td>
+        </div>
+        <span className='book-properties'>
+          {this.props.properties.percentProgression}
+        </span>
+        <div className='book-actions'>
           <div >
             <IconButton
+              iconClassName='material-icons'
               onClick={() =>
                 this.props.onClickSave(this.props.properties.progressId, this.state.numPagesRead)
               }
             >
-              <ContentSave />
+              save
             </IconButton>
             <IconButton
+              iconStyle={{ color: '#d50000' }}
+              iconClassName='material-icons'
               onClick={() => this.props.onDeleteAssignedBook(this.props.properties.id)}
             >
-              <ActionDelete />
+              delete_forever
             </IconButton>
           </div>
-        </td>
-      </tr>
+        </div>
+      </div>
     );
   }
 }

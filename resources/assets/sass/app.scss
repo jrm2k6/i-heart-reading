@@ -10,6 +10,7 @@
 
 @import 'sections/book-search';
 @import 'sections/add-book';
+@import 'sections/my-books';
 
 body {
   background-color: $main-background-light-gray;
@@ -23,7 +24,6 @@ body {
   width: 100%;
 
   .interactive-panel {
-    border: 1px solid gray;
     flex: 12;
   }
 }

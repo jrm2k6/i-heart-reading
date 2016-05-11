@@ -12,8 +12,6 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "bootstrap-sass": "^3.0.0",
-    "formsy-material-ui": "^0.3.5",
-    "formsy-react": "^0.17.0",
     "history": "^1.17.0",
     "laravel-elixir": "^4.0.0",
     "material-ui": "^0.14.2",
