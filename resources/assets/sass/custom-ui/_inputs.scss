@@ -1,0 +1,10 @@
+.form-input {
+  border: 0;
+  color: $secondary-dark-gray;
+  font-size: 18px;
+  height: 45px;
+  outline: none;
+  padding-left: 10px;
+
+  @include placeholder-color($main-dark-gray);
+}
