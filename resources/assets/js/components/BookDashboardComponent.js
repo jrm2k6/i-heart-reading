@@ -10,10 +10,6 @@ import { browserHistory } from 'react-router';
 import IconButton from 'material-ui/lib/icon-button';
 import Popover from 'material-ui/lib/popover/popover';
 import RaisedButton from 'material-ui/lib/raised-button';
-import FlatButton from 'material-ui/lib/flat-button';
-import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
-import ContentCreate from 'material-ui/lib/svg-icons/content/create';
-import ContentSave from 'material-ui/lib/svg-icons/content/save';
 
 const mapStateToProps = (state) => {
   return {
