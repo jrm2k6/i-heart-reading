@@ -1,54 +1,60 @@
 import React from 'react';
 
-import { FormsyText } from 'formsy-material-ui';
-import { Form } from 'formsy-react';
-import RaisedButton from 'material-ui/lib/raised-button';
 import SearchBookComponent from './SearchBookComponent';
 
 export default class AddBookComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      canSubmit: false,
-      showAddBook: false
+      showAddBook: false,
+      bookTitle: null,
+      bookAuthor: null,
+      bookNumPages: null
     };
   }
 
   getAddBookForm() {
     return (
-      <Form onValidSubmit={(data) => {this.submit(data);}}
-        onValid={() => { this.setState({ canSubmit: true });}}
-        onInvalid={() => { this.setState({ canSubmit: false });}}
-      >
-        <FormsyText
-          name='book_title'
-          required
-          floatingLabelText='Title'
-        />
-        <FormsyText
-          name='book_author_name'
-          required
-          floatingLabelText='Author'
-        />
-        <div>
-          <FormsyText
-            name='book_nb_pages'
-            required
-            validations='isInt'
-            floatingLabelText='Number of Pages'
+      <div className='add-book-form-container'>
+        <form onSubmit={(e) => {this.handleSubmit(e);}}>
+          <input
+            className='form-input'
+            placeholder='Book Title'
+            onChange={(e) => { this.setState({ bookTitle: e.target.value.trim() });}}
           />
-        </div>
-        <RaisedButton
-          type='submit'
-          label='Create and Assign'
-          disabled={!this.state.canSubmit}
-        />
-      </Form>
+          <input
+            className='form-input'
+            placeholder='Book Author'
+            onChange={(e) => { this.setState({ bookAuthor: e.target.value.trim() });}}
+          />
+          <input
+            className='form-input'
+            placeholder='Number of pages'
+            onChange={(e) => { this.setState({ bookNumPages: e.target.value.trim() });}}
+          />
+          <button
+            className='add-book-submit-button'
+            type='submit'
+            disabled={!this.validate()}
+          >
+          Create and Assign
+          </button>
+        </form>
+      </div>
     );
   }
 
-  submit(_data) {
-    this.props.onAddBook(_data);
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.validate()) {
+      const data = {
+        book_title: this.state.bookTitle,
+        book_author_name: this.state.bookAuthor,
+        book_nb_pages: this.state.bookNumPages
+      };
+
+      this.props.onAddBook(data);
+    }
   }
 
   render() {
@@ -66,5 +72,15 @@ export default class AddBookComponent extends React.Component {
         {addBookForm}
       </div>
     );
+  }
+
+  validate() {
+    const isValidTitle = this.state.bookTitle && this.state.bookTitle.trim().length > 0;
+    const isValidAuthor = this.state.bookAuthor && this.state.bookAuthor.trim().length > 0;
+    const isValidNumPages = this.state.bookNumPages
+      && this.state.bookNumPages.trim().length > 0
+      && !isNaN(parseInt(this.state.bookNumPages, 10));
+
+    return isValidTitle && isValidAuthor && isValidNumPages;
   }
 }

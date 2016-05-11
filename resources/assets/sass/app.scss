@@ -2,12 +2,14 @@
 @import url(https://fonts.googleapis.com/css?family=Karla);
 @import 'global';
 @import 'mixins';
-@import 'custom-ui';
+@import 'custom-ui/checkboxes';
+@import 'custom-ui/inputs';
 @import 'register';
 @import 'login';
 @import 'sidebar';
 
 @import 'sections/book-search';
+@import 'sections/add-book';
 
 body {
   background-color: $main-background-light-gray;

@@ -1,0 +1,32 @@
+.add-book-form-container {
+  @extend .vertical-centered-layout;
+
+  margin: 45px 10%;
+  padding-bottom: 45px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  input {
+    margin-bottom: 15px;
+  }
+}
+
+.add-book-submit-button {
+  background-color: $validation-green;
+  border: 1px solid $validation-green-button-border;
+  color: $main-white;
+  cursor: pointer;
+  font-size: 19px;
+  height: 35px;
+  text-transform: uppercase;
+  width: 100%;
+
+  &:disabled {
+    background-color: lighten($main-light-gray, .9);
+    border: 0;
+  }
+}
