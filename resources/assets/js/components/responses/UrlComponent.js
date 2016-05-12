@@ -41,11 +41,14 @@ class UrlComponent extends Component {
   componentDidMount() {
     const assignmentId = parseInt(this.props.params.assignmentId, 10);
     const assignedBooks = this.props.assignedBooks;
-    const hasFetchedAssignment = assignedBooks.findIndex(
-      assignment => assignment.id === assignmentId) !== -1;
+    const _currentAssignment = assignedBooks.find(
+      assignment => assignment.id === assignmentId);
+    const hasFetchedAssignment = _currentAssignment != undefined;
 
     if (!hasFetchedAssignment) {
       this.props.onFetchAssignedBooks();
+    } else {
+      this.setState({ currentAssignment: _currentAssignment });
     }
   }
 
