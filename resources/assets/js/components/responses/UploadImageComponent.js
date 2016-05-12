@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
+import FontIcon from 'material-ui/lib/font-icon';
 
 import {
   fetchAssignedBooks,
   saveResponse
 } from '../../actions/crudActions';
-
-import FlatButton from 'material-ui/lib/flat-button';
 
 const mapStateToProps = (state) => {
   return {
@@ -80,29 +79,41 @@ class UploadImageComponent extends Component {
       return (
         <div className='upload-image-container'>
           <div className='header-response-container'>
-            <span>
-              {this.state.currentAssignment.book.title}
-              -
-              {this.state.currentAssignment.book.author}
+            <span className='header-response-title'>
+              Your response for:
+            </span>
+            <span className='header-response-details'>
+              <b>{this.state.currentAssignment.book.title}</b> by {this.state.currentAssignment.book.author}
             </span>
           </div>
           <div className='upload-image-dropzone'>
             <Dropzone
+              className='upload-image-dropzone-element'
               onDrop={(files) => { this.setState({ fileToUpload: files[0] }); }}
               multiple={false}
               accept={'image/*'}
             >
-              <div>Drop your image in here</div>
+              <div className='dropzone-hint'>
+                <FontIcon
+                  style={{ color: '#00bfe8', fontSize: '100px' }}
+                  className='material-icons'
+                >
+                  add_a_photo
+                </FontIcon>
+                <span className='dropzone-first-hint'>Drop An Image to upload</span>
+                <span className='dropzone-second-hint'>(or click!)</span>
+              </div>
               {previews}
             </Dropzone>
           </div>
           <div className='response-actions'>
-            <FlatButton
-              label='Save' primary
+            <button
+              className='add-book-submit-button'
               disabled={this.state.fileToUpload === null}
-              className='save-response-button'
               onClick={() => { this.onSave(); }}
-            />
+            >
+              Save
+            </button>
           </div>
         </div>
       );
