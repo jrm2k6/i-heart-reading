@@ -77,25 +77,28 @@ class UrlComponent extends Component {
       return (
         <div className='video-link-container'>
           <div className='header-response-container'>
-            <span>
-              {this.state.currentAssignment.book.title}
-              -
-              {this.state.currentAssignment.book.author}
+            <span className='header-response-title'>
+              Your response for:
+            </span>
+            <span className='header-response-details'>
+              <b>{this.state.currentAssignment.book.title}</b> by {this.state.currentAssignment.book.author}
             </span>
           </div>
-          <div>
-            <TextField
-              hintText='Url'
+          <div className='url-input-wrapper'>
+            <input
+              className='url-input'
+              placeholder='Enter an url'
               onChange={(e) => { this.setState({ url: e.target.value });}}
             />
           </div>
           <div className='response-actions'>
-            <FlatButton
-              label='Save' primary
+            <button
+              className='add-book-submit-button'
               disabled={this.state.url === null}
-              className='save-response-button'
               onClick={() => { this.onSave(); }}
-            />
+            >
+              Save
+            </button>
           </div>
         </div>
       );
