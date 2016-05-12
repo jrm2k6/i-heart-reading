@@ -119,6 +119,7 @@ class AssignmentItem extends Component {
       <EditableAssignmentItem
         properties={this.props.properties}
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
+        onClickGoBack={() => this.setState({ inEditMode: false })}
         onClickSave={(id, numPages) => {
           this.setState({ inEditMode: false });
           this.props.onUpdateAssignmentProgress(id, numPages);
@@ -254,7 +255,9 @@ class EditableAssignmentItem extends Component {
         <span className='book-properties'>{this.props.properties.title}</span>
         <span className='book-properties'>{this.props.properties.author}</span>
         <div className='book-properties'>
-          <input defaultValue={this.state.nbPagesRead}
+          <input
+            className='my-books-item-num-pages-input'
+            defaultValue={this.state.numPagesRead}
             onChange={(e) => this.onChange(e)}
           >
           </input>
@@ -264,6 +267,12 @@ class EditableAssignmentItem extends Component {
         </span>
         <div className='book-actions'>
           <div >
+            <IconButton
+              iconClassName='material-icons'
+              onClick={() => { this.props.onClickGoBack(); }}
+            >
+              backspace
+            </IconButton>
             <IconButton
               iconClassName='material-icons'
               onClick={() =>
