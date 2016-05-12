@@ -5,7 +5,6 @@ import {
   saveResponse
 } from '../../actions/crudActions';
 import { MarkdownEditor } from 'react-markdown-editor';
-import FlatButton from 'material-ui/lib/flat-button';
 
 const mapStateToProps = (state) => {
   return {
@@ -66,10 +65,11 @@ class WriteResponseComponent extends Component {
       return (
           <div className='write-response-container'>
             <div className='header-response-container'>
-              <span>
-                {this.state.currentAssignment.book.title}
-                -
-                {this.state.currentAssignment.book.author}
+              <span className='header-response-title'>
+                Your response for:
+              </span>
+              <span className='header-response-details'>
+                <b>{this.state.currentAssignment.book.title}</b> by {this.state.currentAssignment.book.author}
               </span>
             </div>
             <div className='markdown-editor-wrapper'>
@@ -79,12 +79,13 @@ class WriteResponseComponent extends Component {
               />
             </div>
           <div className='response-actions'>
-            <FlatButton
-              label='Save' primary
+            <button
+              className='add-book-submit-button'
               disabled={this.state.responseContent.trim().length === 0}
-              className='save-response-button'
               onClick={() => {this.saveResponse();}}
-            />
+            >
+              Save
+            </button>
           </div>
         </div>
       );
