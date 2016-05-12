@@ -9,7 +9,6 @@ import {
 import { browserHistory } from 'react-router';
 import IconButton from 'material-ui/lib/icon-button';
 import Popover from 'material-ui/lib/popover/popover';
-import RaisedButton from 'material-ui/lib/raised-button';
 
 const mapStateToProps = (state) => {
   return {
