@@ -65,3 +65,42 @@
   font-size: 15px;
   height: 30px;
 }
+
+.popover-response-options {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  position: relative;
+
+  .popover-response-option {
+    border: 0;
+    color: $main-white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 35px;
+    margin: 10px;
+    text-transform: uppercase;
+
+    &:first-child {
+      background-color: $main-purple;
+    }
+
+    &:nth-child(2) {
+      background-color: $main-orange;
+    }
+
+    &:nth-child(3) {
+      background-color: $main-yellow;
+    }
+  }
+}
+
+.pointer {
+  background-color: $main-background-light-gray;
+  height: 20px;
+  position: absolute;
+  right: -40px;
+  top: 43%;
+  transform: rotate(45deg);
+  width: 20px;
+}

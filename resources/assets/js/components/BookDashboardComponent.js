@@ -195,25 +195,27 @@ class UploadResponseButton extends Component {
           onRequestClose={() => this.setState({ showingOptions: false })}
         >
           <div className='popover-response-options'>
-            <RaisedButton
+            <button
               className='popover-response-option'
-              primary
-              label='Write A Response'
-              onClick={() => browserHistory.push(`/app/responses/write/${this.props.assignmentId}`)}
-            />
-            <RaisedButton primary label='Upload A Text File' />
-            <RaisedButton
+              onClick={() => {
+                browserHistory.push(`/app/responses/write/${this.props.assignmentId}`);
+              }}
+            >
+              Write A Response
+            </button>
+            <button
               className='popover-response-option'
-              primary
-              label='Upload A Video File'
               onClick={() => browserHistory.push(`/app/responses/video/${this.props.assignmentId}`)}
-            />
-            <RaisedButton
+            >
+              Upload A Video
+            </button>
+            <button
               className='popover-response-option'
-              primary
-              label='Upload An Image File'
               onClick={() => browserHistory.push(`/app/responses/image/${this.props.assignmentId}`)}
-            />
+            >
+              Upload An Image
+            </button>
+            <div className='pointer'></div>
           </div>
         </Popover>
       </div>
