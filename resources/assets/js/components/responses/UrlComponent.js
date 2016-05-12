@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/lib/text-field';
 import { connect } from 'react-redux';
 
 import {
   fetchAssignedBooks,
   saveResponse
 } from '../../actions/crudActions';
-
-import FlatButton from 'material-ui/lib/flat-button';
 
 const mapStateToProps = (state) => {
   return {
