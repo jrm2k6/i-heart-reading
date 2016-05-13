@@ -54,7 +54,7 @@ export default class LateralMenu extends Component {
         break;
 
       case 'logout':
-        browserHistory.push('/logout');
+        window.location.replace('/logout');
         break;
 
       default:
