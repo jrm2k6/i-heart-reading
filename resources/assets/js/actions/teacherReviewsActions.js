@@ -45,8 +45,6 @@ function getCurrentAssignmentSuccess(assignment) {
   };
 }
 
-
-
 export function fetchAssignmentsToReview() {
   return getRequest(URL_MY_REVIEWS, assignmentToReviewFetched, assignmentToReviewFetchedError);
 }
