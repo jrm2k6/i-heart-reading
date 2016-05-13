@@ -100,7 +100,7 @@ class UploadImageComponent extends Component {
                 >
                   add_a_photo
                 </FontIcon>
-                <span className='dropzone-first-hint'>Drop An Image to upload</span>
+                <span className='dropzone-first-hint'>Drop an image to upload</span>
                 <span className='dropzone-second-hint'>(or click!)</span>
               </div>
               {previews}
