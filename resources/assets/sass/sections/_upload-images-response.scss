@@ -23,6 +23,15 @@
   flex-direction: column;
   height: 100%;
   justify-content: center;
+  position: relative;
+}
+
+.dropzone-hint-no-photo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
 }
 
 .dropzone-first-hint {
@@ -31,4 +40,58 @@
 
 .dropzone-second-hint {
   font-size: 19px;
+}
+
+.previews {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  img {
+    width: 100%;
+  }
+
+  &:hover {
+    opacity: .6;
+    .replace-current-image {
+      opacity: 1;
+    }
+  }
+}
+
+.replace-current-image {
+  align-items: center;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: auto;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+
+  span {
+    color: $white;
+    font-size: 25px;
+    font-weight: bold;
+  }
+}
+
+.clear-image-button {
+  @extend .add-book-submit-button;
+  background-color: $primary-action;
+  border-color: darken($primary-action, 10%);
+}
+
+.upload-image-response-actions {
+  display: flex;
+  margin: 20px;
+
+  button {
+    margin: 0 10px;
+  }
 }

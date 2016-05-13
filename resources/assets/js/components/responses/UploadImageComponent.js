@@ -72,8 +72,32 @@ class UploadImageComponent extends Component {
     if (this.state.currentAssignment) {
       const previews = (this.state.fileToUpload) ?
         (<div className='previews'>
-          <img width={100} height={100} src={this.state.fileToUpload.preview} />
+          <div className='replace-current-image'>
+            <FontIcon
+              className='material-icons'
+              style={{ color: '#fff', fontSize: '65px' }}
+            >
+              replay
+            </FontIcon>
+            <span>Click to replace</span>
+          </div>
+          <img src={this.state.fileToUpload.preview} />
         </div>)
+        : null;
+
+      const contentHint = (!this.state.fileToUpload) ?
+        (
+          <div className='dropzone-hint-no-photo'>
+            <FontIcon
+              style={{ color: '#00bfe8', fontSize: '100px' }}
+              className='material-icons'
+            >
+              add_a_photo
+            </FontIcon>
+            <span className='dropzone-first-hint'>Drop an image to upload</span>
+            <span className='dropzone-second-hint'>(or click!)</span>
+          </div>
+        )
         : null;
 
       return (
@@ -94,25 +118,25 @@ class UploadImageComponent extends Component {
               accept={'image/*'}
             >
               <div className='dropzone-hint'>
-                <FontIcon
-                  style={{ color: '#00bfe8', fontSize: '100px' }}
-                  className='material-icons'
-                >
-                  add_a_photo
-                </FontIcon>
-                <span className='dropzone-first-hint'>Drop an image to upload</span>
-                <span className='dropzone-second-hint'>(or click!)</span>
+                {contentHint}
+                {previews}
               </div>
-              {previews}
             </Dropzone>
           </div>
-          <div className='response-actions'>
+          <div className='upload-image-response-actions'>
             <button
               className='add-book-submit-button'
               disabled={this.state.fileToUpload === null}
               onClick={() => { this.onSave(); }}
             >
               Save
+            </button>
+            <button
+              className='clear-image-button'
+              disabled={this.state.fileToUpload === null}
+              onClick={() => { this.setState({ fileToUpload: null }); }}
+            >
+              Clear
             </button>
           </div>
         </div>
