@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import IconButton from 'material-ui/lib/icon-button';
 import {
   StudentSection,
@@ -14,6 +15,8 @@ class AssignmentToReviewItem extends Component {
     const book = assignmentToReview.book;
     const response = assignmentToReview.response;
     const review = assignmentToReview.current_review;
+    const linkContent = `/app/responses/student-response/${assignmentToReview.response.id}`
+
     return (
         <div className='assignment-review-item'>
           <StudentSection student={student} />
@@ -22,6 +25,7 @@ class AssignmentToReviewItem extends Component {
           <ReviewStatusSection review={review} />
           <span className='review-actions'>
             <IconButton
+              onClick={this.loadResponse}
               iconClassName='material-icons'
               iconStyle={{
                 color: '#00bfe8',
@@ -31,7 +35,7 @@ class AssignmentToReviewItem extends Component {
             >
               insert_comment
             </IconButton>
-            Review
+            <Link className='link-response' to={linkContent}>Review</Link>
           </span>
         </div>
     );

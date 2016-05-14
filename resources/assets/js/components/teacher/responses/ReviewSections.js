@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 class StudentSection extends Component {
   render() {
@@ -44,8 +43,6 @@ class ResponseSection extends Component {
     }
   }
   render() {
-    const { response } = this.props;
-    const linkContent = `/app/responses/student-response/${response.id}`
     const responseTypeIcon = this.getResponseTypeIcon();
     return (
         <span className='review-actions'>

@@ -96,3 +96,17 @@
   text-transform: uppercase;
   width: 30%;
 }
+
+.link-response {
+  color: $main-light-blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: $main-light-blue;
+  }
+
+  &:visited {
+    color: $main-light-blue;
+  }
+}
