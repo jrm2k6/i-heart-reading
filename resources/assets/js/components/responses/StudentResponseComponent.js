@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { markdown } from 'markdown';
-import FlatButton from 'material-ui/lib/flat-button';
-import RadioButton from 'material-ui/lib/radio-button';
-import RadioButtonGroup from 'material-ui/lib/radio-button-group';
-import TextField from 'material-ui/lib/text-field';
 import { getAssignment, getResponse,
   createReview
 } from '../../actions/teacherReviewsActions';
@@ -45,13 +42,26 @@ class StudentResponseComponent extends Component {
     this.props.onGetCurrentAssignment(parseInt(this.props.params.responseId, 10));
   }
 
+  getClassnameButton(type) {
+    if (this.state.decision === type) {
+      return `review-action-button ${type}`;
+    }
+
+    return 'review-action-button';
+  }
+
+  getValueButton(typeWhenSelected, type) {
+    if (this.state.decision === typeWhenSelected) {
+      return `${type}!`;
+    }
+    return `${type}`;
+  }
+
   getCommentBox() {
     return (
-      <div>
-        <TextField
-          hintText='Enter your comment'
-          floatingLabelText='Comment'
-          multiLine
+      <div className='review-response-comment-container'>
+        <textarea
+          placeholder='Enter your comment'
           rows={10}
           onChange={(e) => {this.setState({ commentContent: e.target.value });}}
         />
@@ -104,33 +114,52 @@ class StudentResponseComponent extends Component {
       null;
 
     return (
-        <div>
+        <div className='review-response-container'>
+          <div className='review-response-header-container'>
+            <div className='review-response-header-title'>
+              Response for
+            </div>
+          </div>
           {responseComponent}
           {commentBox}
           <div className='review-actions'>
-            <RadioButtonGroup
-              name='review_decision'
-              onChange={(val) => { this.updateDecision(val); }}
-            >
-              <RadioButton
-                value='accepted'
-                label='Approve'
-              />
-              <RadioButton
-                value='rejected'
-                label='Reject'
-              />
-            </RadioButtonGroup>
-            <FlatButton
-              label='Add Comment'
-              className='add-comment-response-button'
-              onClick={() => { this.setState({ showingCommentBox: true });}}
-            />
-            <FlatButton
-              label='Save'
-              className='add-comment-response-button'
-              onClick={() => {this.saveReview()}}
-            />
+            <div className='review-actions-row'>
+              <button
+                className={this.getClassnameButton('approved')}
+                onClick={() => { this.setState({ decision: 'approved' });}}
+              >
+                <i className='material-icons'>thumb_up</i>
+                {this.getValueButton('approved', 'Good Job')}
+              </button>
+              <button
+                className={this.getClassnameButton('rejected')}
+                onClick={() => { this.setState({ decision: 'rejected' });}}
+              >
+                <i className='material-icons'>thumb_down</i>
+                {this.getValueButton('rejected', 'Needs Improvement')}
+              </button>
+            </div>
+            <div className='review-actions-row'>
+              <button
+                className='review-action-button add-comment'
+                onClick={() => { this.setState({ showingCommentBox: true });}}
+              >
+                Add Comment
+              </button>
+              <button
+                className='review-action-button submit-review'
+                onClick={() => {this.saveReview()}}
+                disabled={!this.state.decision}
+              >
+                Submit Review
+              </button>
+              <button
+                className='review-action-button skip-review'
+                onClick={() => { browserHistory.push('/app/responses'); }}
+              >
+                Skip Review
+              </button>
+            </div>
           </div>
         </div>
     );

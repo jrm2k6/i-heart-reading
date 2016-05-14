@@ -1,0 +1,99 @@
+.review-response-header-container {
+  align-items: center;
+  background-color: $white;
+  display: flex;
+  font-size: 24px;
+  height: 70px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.review-response-header-title {
+  margin-left: 20px;
+}
+
+.review-response-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-response-content {
+  height: 70%;
+  width: 70%;
+}
+
+.review-response-comment-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+
+  textarea {
+    @extend %form-textarea;
+    width: 70%;
+  }
+}
+
+.review-actions {
+  width: 100%;
+}
+
+.review-actions-row {
+  display: flex;
+  margin: 15px;
+}
+
+.review-action-button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  font-size: 19px;
+  height: 35px;
+  justify-content: center;
+  margin: 0 10px;
+  outline: none;
+  text-align: center;
+  text-transform: uppercase;
+
+  i {
+    margin: 0 5px;
+  }
+
+  &.approved {
+    color: $validation-green;
+    font-weight: bold;
+  }
+
+  &.rejected {
+    color: $error-color;
+    font-weight: bold;
+  }
+}
+
+.submit-review {
+  background-color: $validation-green;
+  border: 1px solid $validation-green-button-border;
+  color: $main-white;
+
+  &:disabled {
+    background-color: lighten($main-light-gray, 10%);
+    border: 0;
+  }
+}
+
+.add-comment {
+  background-color: $main-light-blue;
+  border: 1px solid darken($main-light-blue, 10%);;
+  color: $main-white;
+}
+
+.skip-review {
+  background-color: $main-yellow;
+  border: 1px solid darken($main-yellow, 10%);;
+  color: $main-white;
+}

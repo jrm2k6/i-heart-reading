@@ -8,3 +8,13 @@
 
   @include placeholder-color($main-dark-gray);
 }
+
+%form-textarea {
+  border: 0;
+  color: $secondary-dark-gray;
+  font-size: 18px;
+  outline: none;
+  padding-left: 10px;
+
+  @include placeholder-color($main-dark-gray);
+}
