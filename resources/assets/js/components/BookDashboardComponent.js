@@ -138,6 +138,9 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
   let uploadResponseOption = (isRead) ?
         <UploadResponseButton assignmentId={id}/> : null;
 
+  let editOption = (!isRead) ?
+  <IconButton iconClassName='material-icons' onClick={onClickEdit}>create</IconButton> : null;
+
   return (
     <div className='my-books-item' key={id}>
       <span className='book-properties'>{title}</span>
@@ -146,12 +149,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
       <span className='book-properties'>{percentProgression}</span>
       <div className='book-actions'>
         <div className='assignment-options'>
-          <IconButton
-            iconClassName='material-icons'
-            onClick={onClickEdit}
-          >
-            create
-          </IconButton>
+          {editOption}
           <IconButton
             iconClassName='material-icons'
             iconStyle={{ color: '#d50000' }}
