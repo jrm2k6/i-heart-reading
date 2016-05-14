@@ -7,8 +7,17 @@ class Response extends Model
 {
     use SoftDeletes;
 
+    public $appends = [
+        'response_type_name'
+    ];
+
     public function responseType()
     {
         return $this->belongsTo(ResponseType::class);
+    }
+
+    public function getResponseTypeNameAttribute()
+    {
+       return $this->responseType->name;
     }
 }

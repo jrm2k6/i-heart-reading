@@ -8,6 +8,10 @@ class AssignmentReview extends Model
     use SoftDeletes;
     
     protected $table = 'assignment_reviews';
+    
+    public $appends = [
+        'decision_type_name'    
+    ];
 
     public function isNegative()
     {
@@ -17,5 +21,11 @@ class AssignmentReview extends Model
     public function decisionType()
     {
         return $this->belongsTo(DecisionType::class);
+    }
+
+    public function getDecisionTypeNameAttribute()
+    {
+        $decisionType = $this->decisionType;
+        return ($decisionType) ? $decisionType->name : null;
     }
 }
