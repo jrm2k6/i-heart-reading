@@ -33,8 +33,7 @@ class AssignmentReviewsController extends Controller
             ->filter(function($book) {
                 return $book->currentReview() == null ||
                     $book->currentReview()->isNegative();
-            });
-
+            })->values();
         return response(['assignment_reviews' => $reviews], 200);
     }
 
