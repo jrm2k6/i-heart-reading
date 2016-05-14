@@ -71,7 +71,7 @@ class BookComponent extends Component {
   render() {
     return (
         <div className='my-books-container'>
-          <span className='my-books-title-section'>Your books</span>
+          <span className='my-books-title-section'>My books</span>
           <div className='my-books-list-container'>
             <div className='my-books-list-header'>
               <span className='book-properties'>Title</span>
