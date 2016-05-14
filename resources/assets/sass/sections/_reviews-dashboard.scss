@@ -77,3 +77,22 @@
     }
   }
 }
+
+.completed-review-action-container {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+  padding-right: 15px;
+}
+
+.see-completed-reviews {
+  background-color: $primary-action;
+  border: 1px solid darken($primary-action, 10%);
+  color: $main-white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 35px;
+  text-transform: uppercase;
+  width: 30%;
+}

@@ -43,6 +43,11 @@ class TeacherResponsesDashboardComponent extends Component {
                 />
               ))}
             </div>
+            <div className='completed-review-action-container'>
+              <button className='see-completed-reviews'>
+                See Completed Reviews
+              </button>
+            </div>
           </div>
       );
     } else {
