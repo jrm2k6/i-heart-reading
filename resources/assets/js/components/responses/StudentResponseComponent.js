@@ -129,11 +129,11 @@ class StudentResponseComponent extends Component {
           <div className='review-actions'>
             <div className='review-actions-row'>
               <button
-                className={this.getClassnameButton('approved')}
-                onClick={() => { this.setState({ decision: 'approved' });}}
+                className={this.getClassnameButton('accepted')}
+                onClick={() => { this.setState({ decision: 'accepted' });}}
               >
                 <i className='material-icons'>thumb_up</i>
-                {this.getValueButton('approved', 'Good Job')}
+                {this.getValueButton('accepted', 'Good Job')}
               </button>
               <button
                 className={this.getClassnameButton('rejected')}
