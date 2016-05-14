@@ -27,12 +27,14 @@ class TeacherResponsesDashboardComponent extends Component {
     if (this.props.assignmentsToReview) {
       return (
           <div className='teacher-dashboard-container'>
+            <span className='teacher-dashboard-title-section'>My reviews</span>
             <div className='teacher-reviews-list'>
               <div className='assignment-review-item-header'>
-                <div>Student</div>
-                <div>Book</div>
-                <div>Response</div>
-                <div>Status</div>
+                <span className='review-properties'>Student</span>
+                <span className='review-properties'>Book</span>
+                <span className='review-actions'>Response</span>
+                <span className='review-actions'>Status</span>
+                <span className='review-actions'></span>
               </div>
               {this.props.assignmentsToReview.map(assignmentToReview => (
                 <AssignmentToReviewItem

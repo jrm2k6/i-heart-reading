@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IconButton from 'material-ui/lib/icon-button';
 import {
   StudentSection,
   BookSection,
@@ -19,6 +20,19 @@ class AssignmentToReviewItem extends Component {
           <BookSection book={book} />
           <ResponseSection response={response} />
           <ReviewStatusSection review={review} />
+          <span className='review-actions'>
+            <IconButton
+              iconClassName='material-icons'
+              iconStyle={{
+                color: '#00bfe8',
+                fontSize: '24px'
+              }}
+              style={{ padding: '4px', border: '0', width: 'auto', height: 'auto' }}
+            >
+              insert_comment
+            </IconButton>
+            Review
+          </span>
         </div>
     );
   }

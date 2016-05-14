@@ -5,9 +5,9 @@ class StudentSection extends Component {
   render() {
     const { student } = this.props;
     return (
-        <div className='assignment-review-student-section'>
-          <span>{student.name}</span>
-        </div>
+        <span className='review-properties'>
+          {student.name}
+        </span>
     );
   }
 }
@@ -17,45 +17,65 @@ class BookSection extends Component {
     const { book } = this.props;
 
     return (
-        <div className='assignment-review-book-section'>
-          <span>{book.title} ({book.author})</span>
-        </div>
+        <span className='review-properties'>
+          {book.title} ({book.author})
+        </span>
     );
   }
 }
 
 class ResponseSection extends Component {
+  getResponseTypeIcon() {
+    const { response } = this.props;
+
+    switch (response.response_type_name) {
+      case 'text':
+        return <i className='material-icons'>create</i>;
+
+      case 'image':
+        return <i className='material-icons'>insert_photo</i>;
+
+      case 'video':
+        return <i className='material-icons'>movie</i>;
+
+      default:
+        return <span></span>
+
+    }
+  }
   render() {
     const { response } = this.props;
     const linkContent = `/app/responses/student-response/${response.id}`
+    const responseTypeIcon = this.getResponseTypeIcon();
     return (
-        <div className='assignment-review-response-section'>
-          <Link to={linkContent}>
-          <span>{response.response_type_id}</span>
-          </Link>
-        </div>
+        <span className='review-actions'>
+          {responseTypeIcon}
+        </span>
     );
   }
 }
 
 class ReviewStatusSection extends Component {
-  render() {
+  getIconReview() {
     const { review } = this.props;
-
-    if (review) {
+    if (review && review.decision_type_name) {
       return (
-          <div className='assignment-review-review-section'>
-            <span>{review.decision_type_id}</span>
-          </div>
+        <i className='material-icons rejected'>thumb_down</i>
       );
-    } else {
-      return (
-        <div className='assignment-review-review-section'>
-          <span>No Review</span>
-        </div>
-      )
     }
 
+    return (
+      <i className='material-icons'>hourglass_empty</i>
+    );
+  }
+
+  render() {
+    const iconReview = this.getIconReview();
+    return (
+      <span className='review-actions'>
+        {iconReview}
+      </span>
+    );
   }
 }
 
