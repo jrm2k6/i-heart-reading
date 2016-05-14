@@ -86,7 +86,7 @@ class StudentResponseComponent extends Component {
       case 3:
         return (
           <div className='video-response-content'>
-            <a href={currentResponse.url}>Video</a>
+            <a href={currentResponse.url} target='_blank'>Open Video</a>
           </div>
         );
       case 4:
@@ -104,7 +104,7 @@ class StudentResponseComponent extends Component {
 
   render() {
     let responseComponent = null;
-    const { currentResponse } = this.props;
+    const { currentResponse, currentAssignment } = this.props;
     if (currentResponse) {
       responseComponent = this.getResponseComponent(currentResponse);
     }
@@ -113,12 +113,16 @@ class StudentResponseComponent extends Component {
       this.getCommentBox() :
       null;
 
+    const headerTitle = (currentAssignment) ?
+      (<div className='review-response-header-title'>
+        {currentAssignment.user.name} - {currentAssignment.book.title}
+      </div>)
+      : null;
+
     return (
         <div className='review-response-container'>
           <div className='review-response-header-container'>
-            <div className='review-response-header-title'>
-              Response for
-            </div>
+            {headerTitle}
           </div>
           {responseComponent}
           {commentBox}

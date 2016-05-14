@@ -97,3 +97,28 @@
   border: 1px solid darken($main-yellow, 10%);;
   color: $main-white;
 }
+
+.video-response-content {
+  background-color: $white;
+  font-size: 25px;
+  height: 40%;
+  padding: 20px;
+  text-align: center;
+  width: 40%;
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  a:visited, a:hover {
+    color: #000;
+  }
+}
+
+.textual-response-content {
+  background-color: $white;
+  font-size: 16px;
+  height: 40%;
+  padding: 10px 20px;
+  width: 90%;
+}
