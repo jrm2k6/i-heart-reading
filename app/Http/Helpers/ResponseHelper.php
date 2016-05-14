@@ -15,10 +15,10 @@ class ResponseHelper
             $file = $request->file('file');
 
             if ($file) {
-                $pathFile = Auth::user()->id . '_' . uniqid() . '.jpg';
-                Storage::put('responses/' . $pathFile, file_get_contents($file->getRealPath()));
+                $pathFile = 'responses/' . Auth::user()->id . '_' . uniqid() . '.jpg';
+                Storage::put($pathFile, file_get_contents($file->getRealPath()));
 
-                return $pathFile;
+                return '/' . $pathFile;
             }
         }
         
