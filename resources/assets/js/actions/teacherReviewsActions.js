@@ -45,28 +45,54 @@ function getCurrentAssignmentSuccess(assignment) {
   };
 }
 
-export function fetchAssignmentsToReview() {
-  return getRequest(URL_MY_REVIEWS, assignmentToReviewFetched, assignmentToReviewFetchedError);
+export function fetchAssignmentsToReview(optionalCallback = null) {
+  return getRequest(URL_MY_REVIEWS,
+    (data) => {
+      if (optionalCallback) {
+        optionalCallback(data);
+      }
+
+      return assignmentToReviewFetched(data);
+    }, assignmentToReviewFetchedError);
 }
 
 export function getResponse(responseId) {
+  const getCurrentResponse = (assignmentsToReview, _responseId) => {
+    return assignmentsToReview.map(assignmentToReview => assignmentToReview.response)
+      .find(currentResponse => currentResponse.id === _responseId);
+  }
   return (dispatch, getState) => {
     const assignmentsToReview = getState().teacherReviewsReducer.assignmentsToReview;
     if (assignmentsToReview !== null) {
-      const response = assignmentsToReview.map(assignmentToReview => assignmentToReview.response)
-        .find(currentResponse => currentResponse.id === responseId);
+      const response = getCurrentResponse(assignmentsToReview, responseId);
       dispatch(getCurrentResponseSuccess(response));
+    } else {
+      const successHandler = (data) => {
+        const response = getCurrentResponse(data.assignment_reviews, responseId);
+        return dispatch(getCurrentResponseSuccess(response));
+      }
+      dispatch(fetchAssignmentsToReview(successHandler));
     }
   }
 }
 
 export function getAssignment(responseId) {
+  const getCurrentAssignment = (assignmentsToReview, _responseId) => {
+    return assignmentsToReview.filter(assignmentToReview => assignmentToReview.response)
+      .find(assignmentToReview => assignmentToReview.response.id === _responseId);
+  }
+
   return (dispatch, getState) => {
     const assignmentsToReview = getState().teacherReviewsReducer.assignmentsToReview;
     if (assignmentsToReview !== null) {
-      const assignment = assignmentsToReview.filter(assignmentToReview => assignmentToReview.response)
-        .find(assignmentToReview => assignmentToReview.response.id === responseId);
+      const assignment = getCurrentAssignment(assignmentsToReview, responseId)
       dispatch(getCurrentAssignmentSuccess(assignment));
+    } else {
+      const successHandler = (data) => {
+        const assignment = getCurrentAssignment(data.assignment_reviews, responseId);
+        return dispatch(getCurrentAssignmentSuccess(assignment));
+      }
+      dispatch(fetchAssignmentsToReview(successHandler));
     }
   }
 }
