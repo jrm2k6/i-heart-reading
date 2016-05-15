@@ -12,7 +12,7 @@ import Popover from 'material-ui/lib/popover/popover';
 
 const mapStateToProps = (state) => {
   return {
-    books: state.bookReducers.assignedBooks
+    assignedBooks: state.bookReducers.assignedBooks
   };
 };
 
@@ -46,6 +46,8 @@ class BookComponent extends Component {
     res.id = item.id;
     res.title = item.book.title;
     res.author = item.book.author;
+    res.currentResponse = item.response;
+    res.currentReview = item.current_review;
 
     let pagesProgression = `0/${item.book.num_pages}`;
     let percentProgression = '0%';
@@ -81,13 +83,14 @@ class BookComponent extends Component {
               <span className='book-actions'></span>
             </div>
             <div>
-              {this.props.books.map((item) => {
+              {this.props.assignedBooks.map((item) => {
                 return (
                   <AssignmentItem
                     properties={this.getProperties(item)}
                     onDeleteAssignedBook={this.props.onDeleteAssignedBook}
                     onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
                     onMarkBookAsRead={this.props.onMarkBookAsRead}
+                    onClickReview={() => {browserHistory.push(`/app/responses/update/${item.id}`);}}
                   />
                 );
               })}
@@ -113,12 +116,14 @@ class AssignmentItem extends Component {
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
         onClickEdit={() => this.setState({ inEditMode: true })}
         onClickMarkAsRead={this.props.onMarkBookAsRead}
+        onClickReview={this.props.onClickReview}
       />
     :
       <EditableAssignmentItem
         properties={this.props.properties}
         onDeleteAssignedBook={this.props.onDeleteAssignedBook}
         onClickGoBack={() => this.setState({ inEditMode: false })}
+        onClickReview={this.props.onClickReview}
         onClickSave={(id, numPages) => {
           this.setState({ inEditMode: false });
           this.props.onUpdateAssignmentProgress(id, numPages);
@@ -130,19 +135,32 @@ class AssignmentItem extends Component {
 }
 
 const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
-    onClickEdit, onClickMarkAsRead }) => {
-  const { id, title, author, pagesProgression, percentProgression, isRead } = properties;
+    onClickEdit, onClickMarkAsRead, onClickReview }) => {
+  const { id, title, author,
+    pagesProgression, percentProgression,
+    isRead, currentResponse, currentReview
+  } = properties;
+
   let markAsReadOption = (percentProgression === '100%' && !isRead) ?
-        <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
+    <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
-        <UploadResponseButton assignmentId={id}/> : null;
+    <UploadResponseButton assignmentId={id}/> : null;
 
   let editOption = (!isRead) ?
-  <IconButton iconClassName='material-icons' onClick={onClickEdit}>create</IconButton> : null;
+    <IconButton iconClassName='material-icons' onClick={onClickEdit}>create</IconButton> : null;
+
+  let viewAssignmentButton = (currentResponse) ?
+    <IconButton iconClassName='material-icons' onClick={onClickReview}>mode_edit</IconButton>
+    : null;
+
+  let className = 'my-books-item';
+  if (currentReview) {
+    className = `${className} ${currentReview.decision_type_name}`;
+  }
 
   return (
-    <div className='my-books-item' key={id}>
+    <div className={className} key={id}>
       <span className='book-properties'>{title}</span>
       <span className='book-properties'>{author}</span>
       <span className='book-properties'>{pagesProgression}</span>
@@ -150,6 +168,9 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
       <div className='book-actions'>
         <div className='assignment-options'>
           {editOption}
+          {markAsReadOption}
+          {uploadResponseOption}
+          {viewAssignmentButton}
           <IconButton
             iconClassName='material-icons'
             iconStyle={{ color: '#d50000' }}
@@ -157,8 +178,6 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
           >
             delete_forever
           </IconButton>
-          {markAsReadOption}
-          {uploadResponseOption}
         </div>
       </div>
     </div>
