@@ -8,9 +8,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import AddBookComponent from './components/AddBookComponent';
 import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
-import HomeComponent from './components/HomeComponent';
+import TeacherHomeComponent from './components/teacher/TeacherHomeComponent';
 import TeacherResponsesComponent from './components/teacher/responses/TeacherResponsesComponent';
 import StudentResponseComponent from './components/responses/StudentResponseComponent';
+import WriteResponseComponent from './components/responses/WriteResponseComponent';
+import UrlComponent from './components/responses/UrlComponent';
+import UploadImageComponent from './components/responses/UploadImageComponent';
+import UpdateCurrentResponse from './components/responses/UpdateCurrentResponse';
 import TeacherResponsesDashboardComponent from
   './components/teacher/responses/TeacherResponsesDashboardComponent';
 import reducers from './reducers';
@@ -32,7 +36,7 @@ const store = createStoreWithMiddleware(appReducer);
       <Provider store={store}>
         <Router history={browserHistory}>
           <Route path='app' component={AppComponent}>
-              <IndexRoute component={HomeComponent} />
+              <IndexRoute component={TeacherHomeComponent} />
               <Route path='books' component={BookComponent}>
                   <IndexRoute component={BookDashboardComponent} />
                   <Route path='add' component={AddBookComponent} />
@@ -40,7 +44,12 @@ const store = createStoreWithMiddleware(appReducer);
               <Route path='responses' component={TeacherResponsesComponent}>
                   <IndexRoute component={TeacherResponsesDashboardComponent} />
                   <Route path='student-response/:responseId' component={StudentResponseComponent} />
-              </Route>
+                  <Route path='write/:assignmentId' component={WriteResponseComponent} />
+                  <Route path='image/:assignmentId' component={UploadImageComponent} />
+                  <Route path='video/:assignmentId' component={UrlComponent} />
+                  <Route path='link/:assignmentId' component={UrlComponent} />
+                  <Route path='update/:assignmentId' component={UpdateCurrentResponse} />
+            </Route>
           </Route>
         </Router>
       </Provider>, document.getElementById('app-container'));
