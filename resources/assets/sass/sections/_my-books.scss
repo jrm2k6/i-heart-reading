@@ -46,8 +46,26 @@
   transition: 250ms;
 
   &:hover {
-    background-color: lighten($main-background-light-gray, .9);
+    background-color: lighten($main-background-light-gray, 10%);
     transition: 250ms;
+  }
+
+  &.accepted {
+    background-color: lighten($validation-green, 52%);
+
+    &:hover {
+      background-color: lighten($validation-green, 48%);
+      transition: 250ms;
+    }
+  }
+
+  &.rejected {
+    background-color: lighten($main-orange, 25%);
+
+    &:hover {
+      background-color: lighten($main-orange, 20%);
+      transition: 250ms;
+    }
   }
 
   span.book-properties {

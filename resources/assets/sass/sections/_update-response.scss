@@ -1,0 +1,32 @@
+.update-response-current-review-status {
+  flex: 1;
+  i {
+    font-size: 60px;
+
+    &.accepted {
+      color: $validation-green;
+    }
+
+    &.rejected {
+      color: $error-color;
+    }
+  }
+}
+
+.update-response-current-review {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width: 80%;
+}
+
+.update-response-current-review-comment {
+  background-color: $white;
+  flex: 8;
+  padding: 20px;
+}
+
+.no-comment {
+  color: $secondary-dark-gray;
+}
