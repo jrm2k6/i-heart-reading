@@ -67,6 +67,14 @@ export default class LateralMenu extends Component {
 
   render() {
     const options = this.getTeacherOptions();
+    const { user } = this.props;
+    let name = null;
+    let role = null;
+
+    if (user) {
+      name = user.name;
+      role = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+    }
 
     return (
       <div className='ihr-lateral-menu'>
@@ -78,8 +86,8 @@ export default class LateralMenu extends Component {
             <img src='/images/icons/people.png' />
           </div>
           <div className='profile-short-description'>
-            <span className='profile-name'>Jeremy Dagorn</span>
-            <span className='profile-title'>Student/Teacher</span>
+            <span className='profile-name'>{name}</span>
+            <span className='profile-title'>{role}</span>
           </div>
         </div>
         <div className='menu-container' >
