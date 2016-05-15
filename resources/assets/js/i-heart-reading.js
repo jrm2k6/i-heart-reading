@@ -14,6 +14,7 @@ import ResponsesDashboardComponent from './components/responses/ResponsesDashboa
 import WriteResponseComponent from './components/responses/WriteResponseComponent';
 import UrlComponent from './components/responses/UrlComponent';
 import UploadImageComponent from './components/responses/UploadImageComponent';
+import UpdateCurrentResponse from './components/responses/UpdateCurrentResponse';
 import reducers from './reducers';
 
 import AppComponent from './components/AppComponent';
@@ -42,6 +43,7 @@ const store = createStoreWithMiddleware(appReducer);
                   <Route path='image/:assignmentId' component={UploadImageComponent} />
                   <Route path='video/:assignmentId' component={UrlComponent} />
                   <Route path='link/:assignmentId' component={UrlComponent} />
+                  <Route path='update/:assignmentId' component={UpdateCurrentResponse} />
               </Route>
           </Route>
         </Router>
