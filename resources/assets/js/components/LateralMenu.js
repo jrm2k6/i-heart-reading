@@ -5,10 +5,14 @@ export default class LateralMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: null
+      activeTab: null,
+      randomBackgroundColor: this.getRandomColor()
     };
   }
 
+  getRandomColor() {
+    return `rgb(${this.getRandomInt(1, 256)}, ${this.getRandomInt(1, 256)}, ${this.getRandomInt(1, 256)})`;
+  }
   getClassnameItem(name) {
     let className = 'menu-item';
 
@@ -65,15 +69,21 @@ export default class LateralMenu extends Component {
     this.setState({ activeTab: tabName });
   }
 
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
   render() {
     const options = this.getTeacherOptions();
     const { user } = this.props;
     let name = null;
     let role = null;
+    let firstLetter = null;
 
     if (user) {
       name = user.name;
       role = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+      firstLetter = user.name.charAt(0);
     }
 
     return (
@@ -83,7 +93,9 @@ export default class LateralMenu extends Component {
         </div>
         <div className='profile-container'>
           <div className='profile-avatar'>
-            <img src='/images/icons/people.png' />
+            <div className='profile' style={{ backgroundColor: this.state.randomBackgroundColor }}>
+              {firstLetter}
+            </div>
           </div>
           <div className='profile-short-description'>
             <span className='profile-name'>{name}</span>
