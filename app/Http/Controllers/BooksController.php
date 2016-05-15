@@ -22,7 +22,7 @@ class BooksController extends Controller
 
     public function getMyBooks()
     {
-        $books = Auth::user()->assignedBooks()->with('book', 'progress')->get();
+        $books = Auth::user()->assignedBooks()->with('book', 'progress', 'response')->get();
         return response(['books' => $books], 200);
     }
 
