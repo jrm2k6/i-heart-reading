@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createBook, fetchBooks } from '../actions/crudActions';
+import { createBook, fetchBooks, fetchAssignedBooks } from '../actions/crudActions';
 
 class BookComponent extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchBooks();
+    this.props.fetchAssignedBooks();
   }
 
   render() {
@@ -12,6 +13,7 @@ class BookComponent extends React.Component {
         <div>
           {React.cloneElement(this.props.children, {
             books: this.props.books,
+            assignedBooks: this.props.assignedBooks,
             onAddBook: this.props.onAddBook
           })}
         </div>
@@ -21,7 +23,8 @@ class BookComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    books: state.bookReducers.books
+    books: state.bookReducers.books,
+    assignedBooks: state.bookReducers.assignedBooks
   };
 };
 
@@ -33,6 +36,10 @@ const mapDispatchToProps = (dispatch) => {
 
     fetchBooks: () => {
       dispatch(fetchBooks());
+    },
+
+    fetchAssignedBooks: () => {
+      dispatch(fetchAssignedBooks());
     }
   };
 };
