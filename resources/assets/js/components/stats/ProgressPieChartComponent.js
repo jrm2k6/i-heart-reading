@@ -172,6 +172,7 @@ class ProgressPieChartComponent extends React.Component {
               radius={110}
               innerRadius={70}
               showOuterLabels={false}
+              showInnerLabels={false}
               showTooltip={false}
               sectorBorderColor='white'
               colors={colors}
