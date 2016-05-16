@@ -159,27 +159,22 @@ class ProgressPieChartComponent extends React.Component {
     const colors = this.getColorsFromUpdates(colorUpdates);
 
     return (
-      <div className='home-component-container'>
-        <div className='home-component-pie-chart-container'>
-          <div className='home-component-pie-chart-header'>
-            <span>My progress</span>
-          </div>
-          <div className='home-component-pie-chart'>
-            <PieChart
-              data={values}
-              width={450}
-              height={400}
-              radius={110}
-              innerRadius={70}
-              showOuterLabels={false}
-              showInnerLabels={false}
-              showTooltip={false}
-              sectorBorderColor='white'
-              colors={colors}
-            />
-          </div>
+      <div className='home-component-pie-chart-container'>
+        <div className='home-component-pie-chart'>
+          <PieChart
+            data={values}
+            width={450}
+            height={400}
+            radius={110}
+            innerRadius={70}
+            showOuterLabels={false}
+            showInnerLabels={false}
+            showTooltip={false}
+            sectorBorderColor='white'
+            colors={colors}
+          />
         </div>
-      </div>
+    </div>
     );
   }
 }
