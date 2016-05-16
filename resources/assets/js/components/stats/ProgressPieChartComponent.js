@@ -1,33 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchStats } from '../actions/crudActions';
-import ProgressPieChartComponent from './stats/ProgressPieChartComponent';
+import React from 'react';
+import rd3 from 'rd3';
+const PieChart = rd3.PieChart;
 
-
-const mapStateToProps = (state) => {
-  return {
-    stats: state.progressReducer.stats
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchStats: () => { dispatch(fetchStats()); }
-  };
-};
-
-class HomeComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      timeView: 'yearly'
-    };
-  }
-
-  componentDidMount() {
-    this.props.fetchStats();
-  }
-
+class ProgressPieChartComponent extends React.Component {
   getPercentageValue(valueToCheck, goal, max = 100) {
     let _value = Math.round(valueToCheck * max / goal);
     _value = (_value >= max) ? max : _value;
@@ -43,7 +18,7 @@ class HomeComponent extends Component {
     let percentages = null;
     const goalDailyPages = 25;
 
-    switch (this.state.timeView) {
+    switch (this.props.timeView) {
       case 'daily':
         percentages = this.getPercentageValue(stats.daily.num_pages_read, goalDailyPages);
 
@@ -96,7 +71,7 @@ class HomeComponent extends Component {
   }
 
   getColors() {
-    switch (this.state.timeView) {
+    switch (this.props.timeView) {
       case 'daily':
         return idx => ['#ffc400', '#babec3'][idx];
       case 'weekly':
@@ -111,15 +86,31 @@ class HomeComponent extends Component {
   }
 
   render() {
+    const { stats } = this.props;
+    const pieData = (Object.keys(stats).length > 0) ? this.getDataForView(stats) : [];
     return (
       <div className='home-component-container'>
-        <ProgressPieChartComponent
-          stats={this.props.stats}
-          timeView={this.state.timeView}
-        />
+        <div className='home-component-pie-chart-container'>
+          <div className='home-component-pie-chart-header'>
+            <span>My progress</span>
+          </div>
+          <div className='home-component-pie-chart'>
+            <PieChart
+              data={pieData}
+              width={450}
+              height={400}
+              radius={110}
+              innerRadius={70}
+              showOuterLabels={false}
+              showTooltip={false}
+              sectorBorderColor='white'
+              colors={this.getColors()}
+            />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);
+export default ProgressPieChartComponent;
