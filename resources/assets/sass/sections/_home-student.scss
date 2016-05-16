@@ -1,0 +1,13 @@
+.home-component-pie-chart-container {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.home-component-pie-chart-header {
+  color: $secondary-dark-blue;
+  font-size: 25px;
+  margin: 15px;
+}
