@@ -51,6 +51,21 @@ class ProgressPieChartComponent extends React.Component {
     const defaultValues = [];
     let updateColorType = 0;
 
+    if (percentagesBooks) {
+      if (percentagesBooks.done > 0) {
+        defaultValues.push({ label: 'Books read', value: percentagesBooks.done });
+      } else {
+        updateColorType += NO_FINISHED_BOOKS;
+      }
+
+      if (percentagesBooks.remaining > 0) {
+        defaultValues.push({ label: 'Books to read', value: percentagesBooks.remaining });
+      } else {
+        updateColorType += NO_REMAINING_BOOKS;
+      }
+
+    }
+
     if (percentagesPages.done > 0) {
       defaultValues.push({ label: 'Pages read', value: percentagesPages.done });
     } else {
@@ -61,20 +76,6 @@ class ProgressPieChartComponent extends React.Component {
       defaultValues.push({ label: 'Pages read', value: percentagesPages.remaining });
     } else {
       updateColorType += NO_REMAINING_PAGES;
-    }
-
-    if (percentagesBooks) {
-      if (percentagesBooks.remaining > 0) {
-        defaultValues.push({ label: 'Books to read', value: percentagesBooks.remaining });
-      } else {
-        updateColorType += NO_REMAINING_BOOKS;
-      }
-
-      if (percentagesBooks.done > 0) {
-        defaultValues.push({ label: 'Books read', value: percentagesBooks.done });
-      } else {
-        updateColorType += NO_FINISHED_BOOKS;
-      }
     }
 
     return { values: defaultValues, colorUpdates: updateColorType };
@@ -125,26 +126,27 @@ class ProgressPieChartComponent extends React.Component {
         break;
 
       default:
-        indexes = [];
+        if (this.props.timeView !== 'yearly') {
+          indexes = [0, 1];
+        } else {
+          indexes = [0, 1, 2, 3];
+        }
         break;
     }
 
     const defaultColors = this.getColors();
     const colors = indexes.map(i => defaultColors[i]);
-
     return idx => colors[idx];
   }
 
   getColors() {
     switch (this.props.timeView) {
       case 'daily':
-        return ['#ffc400', '#babec3'];
       case 'weekly':
-        return ['#38a4dd', '#babec3'];
       case 'monthly':
-        return ['#b39ddb', '#babec3'];
+        return ['#ffc400', '#babec3'];
       case 'yearly':
-        return ['#ffc400', '#babec3', '#babec3', '#b39ddb'];
+        return ['#b39ddb', '#babec3', '#babec3', '#ffc400'];
       default:
         return ['#ffc400', '#babec3'];
     }
@@ -163,8 +165,8 @@ class ProgressPieChartComponent extends React.Component {
         <div className='home-component-pie-chart'>
           <PieChart
             data={values}
-            width={450}
-            height={400}
+            width={275}
+            height={225}
             radius={110}
             innerRadius={70}
             showOuterLabels={false}
@@ -172,6 +174,7 @@ class ProgressPieChartComponent extends React.Component {
             showTooltip={false}
             sectorBorderColor='white'
             colors={colors}
+            margin={10}
           />
         </div>
     </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStats } from '../actions/crudActions';
 import ProgressPieChartComponent from './stats/ProgressPieChartComponent';
+import InteractiveChartLegend from './stats/InteractiveChartLegend';
 
 
 const mapStateToProps = (state) => {
@@ -20,7 +21,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'yearly'
+      timeView: 'daily'
     };
   }
 
@@ -31,10 +32,18 @@ class HomeComponent extends Component {
   render() {
     return (
       <div className='home-component-container'>
-        <ProgressPieChartComponent
-          stats={this.props.stats}
-          timeView={this.state.timeView}
-        />
+        <div className='home-component-pie-card'>
+          <div className='home-component-pie-chart-header'>
+            <span>My progress</span>
+          </div>
+          <div className='home-component-interactive-chart'>
+            <ProgressPieChartComponent
+              stats={this.props.stats}
+              timeView={this.state.timeView}
+            />
+          <InteractiveChartLegend timeView={this.state.timeView} />
+          </div>
+        </div>
       </div>
     );
   }

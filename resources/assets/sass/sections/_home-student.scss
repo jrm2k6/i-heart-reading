@@ -1,8 +1,9 @@
-.home-component-pie-chart-container {
+.home-component-pie-card {
   background-color: $white;
   box-shadow: 1px 1px 1px $card-shadow-color;
   display: flex;
   flex-direction: column;
+  height: 40%;
   width: 500px;
 }
 
@@ -10,4 +11,45 @@
   color: $secondary-dark-blue;
   font-size: 25px;
   margin: 15px;
+}
+
+.home-component-interactive-chart {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.home-component-interactive-chart-legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.legend-row {
+  align-items: center;
+  display: flex;
+  margin: 5px 10px;
+}
+
+.legend-caption {
+  color: $legend-caption-color;
+  font-size: 16px;
+}
+
+.legend-square {
+  height: 14px;
+  margin-right: 7px;
+  width: 14px;
+
+  &.remaining {
+    background-color: $main-light-gray;
+  }
+
+  &.num-pages-read {
+    background-color: $main-yellow;
+  }
+
+  &.num-books-read {
+    background-color: $main-purple;
+  }
 }
