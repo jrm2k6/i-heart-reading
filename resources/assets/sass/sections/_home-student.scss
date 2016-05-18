@@ -1,10 +1,31 @@
+.home-component-container {
+  display: flex;
+  flex: 1;
+}
+
+.home-component-left-section {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home-component-right-section {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .home-component-pie-card {
   background-color: $white;
   box-shadow: 1px 1px 1px $card-shadow-color;
   display: flex;
   flex-direction: column;
   height: 40%;
-  width: 500px;
+  width: 100%;
 }
 
 .home-component-pie-chart-header {
@@ -52,4 +73,110 @@
   &.num-books-read {
     background-color: $main-purple;
   }
+}
+
+.stats-card-row {
+  align-items: center;
+  display: flex;
+  height: 20%;
+  justify-content: center;
+  width: 100%;
+}
+
+.home-component-stats-card {
+  align-items: center;
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex: 1;
+  height: 100px;
+  justify-content: center;
+  margin: 20px 10px;
+}
+
+.home-component-stats-card-left {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
+
+  i {
+    color: $white;
+    font-size: 40px;
+  }
+
+  &.books-read {
+    background-color: $main-orange;
+  }
+
+  &.pages-read {
+    background-color: $card-blue;
+  }
+}
+
+.home-component-stats-card-right {
+  align-items: center;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: center;
+
+  &.books-read {
+    .home-component-stats-card-title {
+      color: $main-orange;
+    }
+  }
+
+  &.pages-read {
+    .home-component-stats-card-title {
+      color: $card-blue;
+    }
+  }
+
+  .home-component-stats-card-title {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+}
+
+.latest-updates {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+}
+
+.latest-updates-title {
+  color: $main-purple;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.yearly-objective {
+  align-items: center;
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+
+  img {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+.description-objective-title {
+  color: $main-orange;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.description-objective {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
