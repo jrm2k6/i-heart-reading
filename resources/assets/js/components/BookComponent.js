@@ -10,7 +10,7 @@ class BookComponent extends React.Component {
 
   render() {
     return (
-        <div>
+        <div style={{ flex: 1 }}>
           {React.cloneElement(this.props.children, {
             books: this.props.books,
             assignedBooks: this.props.assignedBooks,
