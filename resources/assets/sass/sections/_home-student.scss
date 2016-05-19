@@ -116,11 +116,14 @@
 }
 
 .home-component-stats-card-right {
-  align-items: center;
   display: flex;
   flex: 2;
   flex-direction: column;
   justify-content: center;
+
+  span {
+    margin: 0 auto;
+  }
 
   &.books-read {
     .home-component-stats-card-title {

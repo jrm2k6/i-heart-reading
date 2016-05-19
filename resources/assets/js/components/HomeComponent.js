@@ -22,7 +22,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'daily'
+      timeView: 'monthly'
     };
   }
 
@@ -30,7 +30,23 @@ class HomeComponent extends Component {
     this.props.fetchStats();
   }
 
+  getYearlyObjective() {
+    const YEARLY_OBJECTIVE = 35;
+    const { stats } = this.props;
+
+    if (stats.yearly) {
+      const yearly = stats.yearly;
+      const done = parseInt(yearly.books_read, 10);
+      const percentage = Math.round(done * 100 / 35);
+
+      return `${percentage}% - ${done} of ${YEARLY_OBJECTIVE} books`;
+    }
+
+    return '';
+  }
+
   render() {
+
     return (
       <div className='home-component-container'>
         <div className='home-component-left-section'>
@@ -63,10 +79,10 @@ class HomeComponent extends Component {
             <img src='images/icons/trophy.png' />
             <div className='description-objective'>
               <span className='description-objective-title'>
-                Your yearly objective
+                Yearly Goal Progression
               </span>
               <span className='description-objective-content'>
-                85% - 23 of 35 books
+                {this.getYearlyObjective()}
               </span>
             </div>
           </div>

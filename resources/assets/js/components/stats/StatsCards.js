@@ -1,6 +1,9 @@
 import React from 'react';
 
 const StatsCards = ({ stats, timeView }) => {
+  const currentStats = stats[timeView];
+  const booksRead = (currentStats) ? currentStats.books_read : '';
+  const pagesRead = (currentStats) ? currentStats.num_pages_read : '';
   return (
     <div className='stats-card-row'>
       <div className='home-component-stats-card'>
@@ -9,7 +12,7 @@ const StatsCards = ({ stats, timeView }) => {
         </div>
         <div className='home-component-stats-card-right books-read'>
           <span className='home-component-stats-card-title'>Books Read</span>
-          <span className='home-component-stats-card-content'>10</span>
+          <span className='home-component-stats-card-content'>{booksRead}</span>
         </div>
       </div>
       <div className='home-component-stats-card'>
@@ -18,7 +21,7 @@ const StatsCards = ({ stats, timeView }) => {
         </div>
         <div className='home-component-stats-card-right pages-read'>
           <span className='home-component-stats-card-title'>Pages Read</span>
-          <span className='home-component-stats-card-content'>1000</span>
+          <span className='home-component-stats-card-content'>{pagesRead}</span>
         </div>
       </div>
     </div>
