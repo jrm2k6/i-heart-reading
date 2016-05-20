@@ -80,7 +80,6 @@ export function fetchStats() {
 
 
 function updatesFetched(data) {
-  console.log(data);
   return {
     type: SUCCESS_UPDATES_FETCHED,
     payload: data.updates
