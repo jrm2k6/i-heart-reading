@@ -33,7 +33,7 @@ const SearchBookSuggestions = ({ suggestions, onClick }) => (
           <span className='book-properties'>{suggestion.author}</span>
           <span className='book-properties'>Details</span>
           <span
-            className='book-actions'
+            className='book-actions assign'
             onClick={() => {onClick(suggestion.id);}}
           >
             Assign
