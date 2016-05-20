@@ -39,6 +39,11 @@ class BookAssignment extends Model
         return $this->belongsTo(Response::class);
     }
 
+    public function updates()
+    {
+        return $this->hasMany(AssignmentUpdate::class, 'assignment_id');
+    }
+
     public function reviews()
     {
         return $this->hasMany(AssignmentReview::class, 'assignment_id');

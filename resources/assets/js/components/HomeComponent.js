@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStats } from '../actions/crudActions';
+import { fetchStats, fetchUpdates } from '../actions/crudActions';
 import ProgressPieChartComponent from './stats/ProgressPieChartComponent';
 import InteractiveChartLegend from './stats/InteractiveChartLegend';
+import LatestUpdatesCard from './stats/LatestUpdatesCard';
 import StatsCards from './stats/StatsCards';
 
 
 const mapStateToProps = (state) => {
   return {
-    stats: state.progressReducer.stats
+    stats: state.progressReducer.stats,
+    updates: state.userProfileReducer.updates
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStats: () => { dispatch(fetchStats()); }
+    fetchStats: () => { dispatch(fetchStats()); },
+    fetchLatestUpdates: () => { dispatch(fetchUpdates()); }
   };
 };
 
@@ -28,6 +31,7 @@ class HomeComponent extends Component {
 
   componentDidMount() {
     this.props.fetchStats();
+    this.props.fetchLatestUpdates();
   }
 
   getYearlyObjective() {
@@ -46,12 +50,12 @@ class HomeComponent extends Component {
   }
 
   render() {
-
+    const { stats, updates } = this.props;
     return (
       <div className='home-component-container'>
         <div className='home-component-left-section'>
           <StatsCards
-            stats={this.props.stats}
+            stats={stats}
             timeView={this.state.timeView}
           />
           <div className='home-component-pie-card'>
@@ -60,19 +64,10 @@ class HomeComponent extends Component {
             </div>
             <div className='home-component-interactive-chart'>
               <ProgressPieChartComponent
-                stats={this.props.stats}
+                stats={stats}
                 timeView={this.state.timeView}
               />
-            <InteractiveChartLegend timeView={this.state.timeView} />
-            </div>
-          </div>
-        </div>
-        <div className='home-component-right-section'>
-          <div className='latest-updates'>
-            <div className='latest-updates-title'>
-              My latest updates
-            </div>
-            <div className='latest-updates-content'>
+              <InteractiveChartLegend timeView={this.state.timeView} />
             </div>
           </div>
           <div className='yearly-objective'>
@@ -86,6 +81,9 @@ class HomeComponent extends Component {
               </span>
             </div>
           </div>
+        </div>
+        <div className='home-component-right-section'>
+          <LatestUpdatesCard latestUpdates={updates} />
         </div>
       </div>
     );

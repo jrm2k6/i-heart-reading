@@ -1,9 +1,9 @@
-import {
-  FETCH_USER_SUCCESS
-} from '../actions/userProfileActions';
+import { FETCH_USER_SUCCESS } from '../actions/userProfileActions';
+import { SUCCESS_UPDATES_FETCHED } from '../actions/crudActions';
 
 const initialState = {
-  user: null
+  user: null,
+  updates: null
 };
 
 export default function userProfileReducer(state = initialState, action) {
@@ -11,6 +11,11 @@ export default function userProfileReducer(state = initialState, action) {
     case FETCH_USER_SUCCESS:
       return Object.assign({}, state, {
         user: action.payload
+      });
+
+    case SUCCESS_UPDATES_FETCHED:
+      return Object.assign({}, state, {
+        updates: action.payload
       });
     default:
       return state;

@@ -9,7 +9,9 @@ export const BOOK_CREATED = 'BOOK_CREATED';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
 export const FETCH_STATS = 'FETCH_STATS';
+export const FETCH_UPDATES = 'FETCH_UPDATES';
 export const ERROR_ASSIGNED_BOOK_FETCHED = 'ERROR_ASSIGNED_BOOK_FETCHED';
+export const ERROR_UPDATES_FETCHED = 'ERROR_UPDATES_FETCHED';
 export const ERROR_ASSIGNMENT_CREATED = 'ERROR_ASSIGNMENT_CREATED';
 export const ERROR_ASSIGNMENT_DELETED = 'ERROR_ASSIGNMENT_DELETED';
 export const ERROR_ASSIGNMENT_PROGRESS_UPDATED = 'ERROR_ASSIGNMENT_PROGRESS_UPDATED';
@@ -22,6 +24,7 @@ export const MARKED_BOOK_AS_READ = 'MARKED_BOOK_AS_READ';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
 export const SUCCESS_SAVE_RESPONSE = 'SUCCESS_SAVE_RESPONSE';
 export const SUCCESS_STATS_FETCHED = 'SUCCESS_STATS_FETCHED';
+export const SUCCESS_UPDATES_FETCHED = 'SUCCESS_UPDATES_FETCHED';
 export const ERROR_SAVE_RESPONSE = 'ERROR_SAVE_RESPONSE';
 export const UPDATE_ASSIGNMENT_PROGRESS = 'UPDATE_ASSIGNMENT_PROGRESS';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
@@ -32,6 +35,7 @@ export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 export const API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL = '/api/assignment-progress';
 export const API_RESPONSES_RESOURCE_URL = '/api/responses';
 export const API_STATS_RESOURCE_URL = '/api/stats/me';
+export const API_UPDATES_RESOURCE_URL = '/api/updates/me';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -73,6 +77,26 @@ function errorStatsFetched() {
 export function fetchStats() {
   return apiActions.getRequest(API_STATS_RESOURCE_URL, statsFetched, errorStatsFetched);
 }
+
+
+function updatesFetched(data) {
+  console.log(data);
+  return {
+    type: SUCCESS_UPDATES_FETCHED,
+    payload: data.updates
+  };
+}
+
+function errorUpdatesFetched() {
+  return {
+    type: ERROR_UPDATES_FETCHED
+  };
+}
+
+export function fetchUpdates() {
+  return apiActions.getRequest(API_UPDATES_RESOURCE_URL, updatesFetched, errorUpdatesFetched);
+}
+
 
 export function assignedBooksFetched(data) {
   return {
