@@ -63,7 +63,6 @@ class ProgressPieChartComponent extends React.Component {
       } else {
         updateColorType += NO_REMAINING_BOOKS;
       }
-
     }
 
     if (percentagesPages.done > 0) {

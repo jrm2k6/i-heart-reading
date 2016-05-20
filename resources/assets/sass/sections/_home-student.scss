@@ -29,8 +29,26 @@
 
 .home-component-pie-chart-header {
   color: $secondary-dark-blue;
+  display: flex;
   font-size: 25px;
+  justify-content: space-between;
   margin: 15px;
+}
+
+.home-component-timeview-select {
+  appearance: none;
+  background: transparent url('/images/svgs/ic_keyboard_arrow_down.svg') no-repeat right center;
+  border: 1px solid lighten($secondary-dark-blue, 50%);
+  border-radius: 0;
+  color: lighten($secondary-dark-blue, 50%);
+  font-size: 15px;
+  outline: none;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.home-component-timeview-select-container {
+  width: 150px;
 }
 
 .home-component-interactive-chart {

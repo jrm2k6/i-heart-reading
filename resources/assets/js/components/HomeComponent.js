@@ -61,6 +61,18 @@ class HomeComponent extends Component {
           <div className='home-component-pie-card'>
             <div className='home-component-pie-chart-header'>
               <span>My progress</span>
+              <div className='home-component-timeview-select-container'>
+                <select
+                  className='home-component-timeview-select'
+                  value={this.state.timeView}
+                  onChange={(e) => { this.setState({ timeView: e.target.value }); }}
+                >
+                  <option value='daily'>Daily View</option>
+                  <option value='weekly'>Weekly View</option>
+                  <option value='monthly'>Monthly View</option>
+                  <option value='yearly'>Yearly View</option>
+                </select>
+              </div>
             </div>
             <div className='home-component-interactive-chart'>
               <ProgressPieChartComponent
