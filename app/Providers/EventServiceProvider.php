@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\StudentAssignmentEnded' => [
             'App\Listeners\CreateAssignmentEnded',
-            'App\Listeners\UpdateStats'
+            'App\Listeners\UpdateStatsForAssignmentEnded'
         ],
     ];
 
