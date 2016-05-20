@@ -216,9 +216,11 @@
   color: $white;
   cursor: pointer;
   outline: none;
+  padding: 15px;
 
   &:disabled {
     background-color: lighten($main-light-gray, 10%);
     border: 0;
+    cursor: not-allowed;
   }
 }

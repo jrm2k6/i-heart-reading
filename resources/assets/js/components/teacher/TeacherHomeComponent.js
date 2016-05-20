@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
-import ItemProgression from '../stats/ItemProgression';
-import StatsComponent from '../stats/StatsComponent';
 import { connect } from 'react-redux';
-import { fetchStats } from '../../actions/crudActions';
+import { fetchStudentsUpdates } from '../../actions/teacherReviewsActions';
+import StudentUpdatesComponent from '../stats/StudentUpdatesComponent';
 
 
 const mapStateToProps = (state) => {
   return {
-    stats: state.progressReducer.stats
+    studentUpdates: state.teacherReviewsReducer.updates
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStats: () => { dispatch(fetchStats()); }
+    fetchStudentUpdates: () => { dispatch(fetchStudentsUpdates()); }
   };
 };
 
 class TeacherHomeComponent extends Component {
   componentDidMount() {
-    this.props.fetchStats();
+    this.props.fetchStudentUpdates();
   }
 
   render() {
     return (
       <div className='home-component-container'>
-        Home Component
+        <StudentUpdatesComponent latestUpdates={this.props.studentUpdates} />
       </div>
     );
   }

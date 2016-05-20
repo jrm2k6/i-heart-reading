@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-class LatestUpdatesCard extends Component {
+class StudentUpdatesComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentEndIndex: 10
+      currentEndIndex: 20
     };
   }
 
@@ -14,14 +14,15 @@ class LatestUpdatesCard extends Component {
     return this.props.latestUpdates
       .slice(0, currentEndIndex)
       .map((update, index) => {
+        const studentName = update.assignment.user.name;
         const bookTitle = update.assignment.book.title;
         const numPages = update.num_pages;
         const isRead = update.mark_book_read;
         const when = moment(update.updated_at).fromNow();
 
-        const properties = { bookTitle, numPages, isRead, when };
+        const properties = { studentName, bookTitle, numPages, isRead, when };
 
-        return <LatestUpdateRow key={index} properties={properties} />
+        return <StudentUpdateRow key={index} properties={properties} />
       });
   }
 
@@ -32,16 +33,16 @@ class LatestUpdatesCard extends Component {
       : 'No Updates!';
 
     return (
-      <div className='latest-updates'>
-        <div className='latest-updates-title'>
-          My latest updates
+      <div className='student-updates'>
+        <div className='student-updates-title'>
+          Your students updates
         </div>
-        <div className='latest-updates-content'>
+        <div className='student-updates-content'>
           {rows}
         </div>
-        <div className='latest-updates-more'>
+        <div className='student-updates-more'>
           <button
-            className='latest-updates-more-btn'
+            className='student-updates-more-btn'
             onClick={() => {
               if (this.state.currentEndIndex < latestUpdates.length) {
                 this.setState({ currentEndIndex: this.state.currentEndIndex + 10 });
@@ -57,20 +58,21 @@ class LatestUpdatesCard extends Component {
   }
 }
 
-const LatestUpdateRow = ({ properties }) => {
+const StudentUpdateRow = ({ properties }) => {
   let text = '';
   if (properties.isRead) {
-    text = `You marked ${properties.bookTitle} as read.`;
+    text = `${properties.studentName} marked ${properties.bookTitle} as read.`;
   } else {
-    text = `You read ${properties.numPages} pages of ${properties.bookTitle}.`;
+    text = `${properties.studentName} read ${properties.numPages} pages of ${properties.bookTitle}.`;
   }
 
   return (
-    <div className='update-row'>
-      <span className='update-row-content'>{text}</span>
-      <span className='update-row-readable-time'>({properties.when})</span>
+    <div className='student-update-row'>
+      <div className='student-update-avatar'>{properties.studentName[0]}</div>
+      <span className='student-update-row-content'>{text}</span>
+      <span className='student-update-row-readable-time'>({properties.when})</span>
     </div>
   );
 }
 
-export default LatestUpdatesCard;
+export default StudentUpdatesComponent;

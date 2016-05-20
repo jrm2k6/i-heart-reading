@@ -2,6 +2,8 @@ import { getRequest, postRequest } from './apiActions';
 
 export const FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS = 'FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS';
 export const FETCH_ASSIGNMENTS_TO_REVIEW_ERROR = 'FETCH_ASSIGNMENTS_TO_REVIEW_ERROR';
+export const FETCH_STUDENT_UPDATES_SUCCESS = 'FETCH_STUDENT_UPDATES_SUCCESS';
+export const FETCH_STUDENT_UPDATES_ERROR = 'FETCH_STUDENT_UPDATES_ERROR';
 export const GET_CURRENT_RESPONSE_SUCCESS = 'GET_CURRENT_RESPONSE_SUCCESS';
 export const GET_CURRENT_ASSIGNMENT_SUCCESS = 'GET_CURRENT_ASSIGNMENT_SUCCESS';
 export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
@@ -9,6 +11,7 @@ export const CREATE_REVIEW_ERROR = 'CREATE_REVIEW_ERROR';
 
 const URL_MY_REVIEWS = '/api/assignment-reviews/me';
 const URL_REVIEWS = '/api/assignment-reviews';
+const URL_STUDENT_UPDATES = '/api/teacher/me/updates';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -111,4 +114,22 @@ function createReviewSuccess() {
 
 export function createReview(responseId, props) {
   return postRequest(URL_REVIEWS, props, createReviewSuccess, createReviewError, _headers);
+}
+
+function fetchStudentUpdatesSuccess(data) {
+  return {
+    type: FETCH_STUDENT_UPDATES_SUCCESS,
+    payload: data.updates
+  };
+}
+
+function fetchStudentsUpdatesError() {
+  return {
+    type: FETCH_STUDENT_UPDATES_ERROR
+  };
+}
+
+export function fetchStudentsUpdates() {
+  return getRequest(URL_STUDENT_UPDATES, fetchStudentUpdatesSuccess,
+    fetchStudentsUpdatesError, _headers);
 }
