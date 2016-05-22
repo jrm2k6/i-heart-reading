@@ -159,7 +159,8 @@ return [
         /*
          * Third Party
          */
-        Intervention\Image\ImageServiceProvider::class
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -209,6 +210,7 @@ return [
         /*
          * Custom
          */
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
         'Image' => Intervention\Image\Facades\Image::class
     ],
 
