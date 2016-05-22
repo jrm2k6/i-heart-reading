@@ -44,6 +44,8 @@
       outline: none;
       padding-left: 10px;
       width: 100%;
+
+      @include placeholder-color(lighten($main-light-gray, 15%));
     }
 
     .form-input-icon {

@@ -11,7 +11,10 @@
 
         <div>
             <div class="input-with-picture" tabindex="0">
-                <input type="text" class="form-input" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-input"
+                       name="name" value="{{ old('name') }}"
+                       placeholder="Mark Twain"
+                >
                 <div class="form-input-icon"><img src="/images/icons/people.png" /></div>
             </div>
             @if ($errors->has('name'))
@@ -23,7 +26,10 @@
 
         <div>
             <div class="input-with-picture" tabindex="1">
-                <input type="email" class="form-input" name="email" value="{{ old('email') }}">
+                <input type="email" class="form-input"
+                       name="email" value="{{ old('email') }}"
+                       placeholder="mark.twain@email.com"
+                >
                 <div class="form-input-icon"><img src="/images/icons/email.png" /></div>
             </div>
             @if ($errors->has('email'))
@@ -35,7 +41,7 @@
 
         <div>
             <div class="input-with-picture" tabindex="2">
-                <input type="password" class="form-input" name="password">
+                <input type="password" class="form-input" name="password" placeholder="Your password">
                 <div class="form-input-icon"><img src="/images/icons/lock.png" /></div>
             </div>
             @if ($errors->has('password'))
@@ -47,7 +53,9 @@
 
         <div>
             <div class="input-with-picture" tabindex="3">
-                <input type="password" class="form-input" name="password_confirmation">
+                <input type="password" class="form-input" name="password_confirmation"
+                       placeholder="Confirm your password"
+                >
                 <div class="form-input-icon"><img src="/images/icons/lock.png" /></div>
             </div>
 
