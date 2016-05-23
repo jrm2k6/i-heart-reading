@@ -8,7 +8,11 @@
 
     <form class="login-form" role="form" method="POST" action="{{ url('/login') }}">
         {!! csrf_field() !!}
-
+        @if ($errors->count() > 0)
+            <div class="alert error">
+                {{$errors->first('email')}}
+            </div>
+        @endif
         <div>
             <div class="input-with-picture">
                 <input type="email" class="form-input"
@@ -16,11 +20,6 @@
                        placeholder="mark.twain@email.com"
                 >
                 <div class="form-input-icon"><img src="/images/icons/email.png" /></div>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
             </div>
         </div>
 
@@ -28,11 +27,6 @@
             <div class="input-with-picture">
                 <input type="password" class="form-input" name="password" placeholder="Your password">
                 <div class="form-input-icon"><img src="/images/icons/lock.png" /></div>
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-                @endif
             </div>
         </div>
 
