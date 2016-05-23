@@ -38,7 +38,7 @@ class HomeComponent extends Component {
     const YEARLY_OBJECTIVE = 35;
     const { stats } = this.props;
 
-    if (stats.yearly) {
+    if (stats && stats.yearly) {
       const yearly = stats.yearly;
       const done = parseInt(yearly.books_read, 10);
       const percentage = Math.round(done * 100 / 35);

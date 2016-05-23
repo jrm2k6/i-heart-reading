@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StatsCards = ({ stats, timeView }) => {
-  const currentStats = stats[timeView];
+  const currentStats = stats && stats[timeView];
   const booksRead = (currentStats) ? currentStats.books_read : '';
   const pagesRead = (currentStats) ? currentStats.num_pages_read : '';
   return (

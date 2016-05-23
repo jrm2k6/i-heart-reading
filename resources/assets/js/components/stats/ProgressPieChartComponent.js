@@ -153,30 +153,36 @@ class ProgressPieChartComponent extends React.Component {
 
   render() {
     const { stats } = this.props;
-    const { values, colorUpdates } = (Object.keys(stats).length > 0) ?
-        this.getDataForView(stats)
-      : { values: [], colorUpdates: 0 };
+    if (stats) {
+      const { values, colorUpdates } = (Object.keys(stats).length > 0) ?
+          this.getDataForView(stats)
+        : { values: [], colorUpdates: 0 };
 
-    const colors = this.getColorsFromUpdates(colorUpdates);
+      const colors = this.getColorsFromUpdates(colorUpdates);
+
+      return (
+        <div className='home-component-pie-chart-container'>
+          <div className='home-component-pie-chart'>
+            <PieChart
+              data={values}
+              width={275}
+              height={225}
+              radius={110}
+              innerRadius={70}
+              showOuterLabels={false}
+              showInnerLabels={false}
+              showTooltip={false}
+              sectorBorderColor='white'
+              colors={colors}
+              margin={10}
+            />
+          </div>
+        </div>
+      );
+    }
 
     return (
-      <div className='home-component-pie-chart-container'>
-        <div className='home-component-pie-chart'>
-          <PieChart
-            data={values}
-            width={275}
-            height={225}
-            radius={110}
-            innerRadius={70}
-            showOuterLabels={false}
-            showInnerLabels={false}
-            showTooltip={false}
-            sectorBorderColor='white'
-            colors={colors}
-            margin={10}
-          />
-        </div>
-    </div>
+      <div className='no-stats-pie'>No Data</div>
     );
   }
 }
