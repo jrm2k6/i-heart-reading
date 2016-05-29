@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { runSearch } from '../actions/searchActions';
 import { createAssignment } from '../actions/crudActions';
 
@@ -19,6 +20,7 @@ const SearchBookComponent = ({ onSearch, onClickAssign, currentQuery,
         suggestions={suggestions}
         onClick={(bookId) => {
           onClickAssign(bookId, user.id);
+          browserHistory.push('/app/books');
         }}
       />
     );
