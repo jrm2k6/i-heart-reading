@@ -3,20 +3,38 @@ import { connect } from 'react-redux';
 import { runSearch } from '../actions/searchActions';
 import { createAssignment } from '../actions/crudActions';
 
-const SearchBookComponent = ({ onSearch, onClickAssign, suggestions, user }) => (
-  <div className='search-book-container'>
-    <input
-      className='search-book-input'
-      onChange={(e) => {onSearch(e.target.value);}}
-      placeholder='Enter a title or an author'
-    >
-    </input>
-    <SearchBookSuggestions
-      suggestions={suggestions}
-      onClick={(bookId) => {onClickAssign(bookId, user.id);}}
-    />
- </div>
-);
+const SearchBookComponent = ({ onSearch, onClickAssign, currentQuery,
+    suggestions, noSuggestions, isSearching, user }) => {
+
+  let results = null;
+  if (currentQuery === null || currentQuery.length === 0) {
+    results = <div>Please enter a query</div>;
+  } else if (isSearching) {
+    results = <div>Searching</div>;
+  } else if (noSuggestions) {
+    results = <div>No books found!</div>;
+  } else {
+    results = (
+      <SearchBookSuggestions
+        suggestions={suggestions}
+        onClick={(bookId) => {
+          onClickAssign(bookId, user.id);
+        }}
+      />
+    );
+  }
+  return (
+    <div className='search-book-container'>
+      <input
+        className='search-book-input'
+        onChange={(e) => {onSearch(e.target.value);}}
+        placeholder='Enter a title or an author'
+      >
+      </input>
+      {results}
+    </div>
+  );
+};
 
 const SearchBookSuggestions = ({ suggestions, onClick }) => (
   <div className='search-book-suggestions-container'>
@@ -48,6 +66,9 @@ const SearchBookSuggestions = ({ suggestions, onClick }) => (
 const mapStateToProps = (state) => {
   return {
     suggestions: state.searchReducer.suggestions,
+    noSuggestions: state.searchReducer.noSuggestions,
+    isSearching: state.searchReducer.isSearching,
+    currentQuery: state.searchReducer.currentQuery,
     user: state.userProfileReducer.user
   };
 };
