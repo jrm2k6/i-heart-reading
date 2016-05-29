@@ -78,7 +78,9 @@ class UrlComponent extends Component {
               Your response for:
             </span>
             <span className='header-response-details'>
-              <b>{this.state.currentAssignment.book.title}</b> by {this.state.currentAssignment.book.author}
+              <b>
+                {this.state.currentAssignment.book.title}
+              </b> by {this.state.currentAssignment.book.author}
             </span>
           </div>
           <div className='url-input-wrapper'>
