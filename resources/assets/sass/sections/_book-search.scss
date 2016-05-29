@@ -19,6 +19,17 @@
   flex-direction: column;
 }
 
+.search-hint {
+  align-items: center;
+  background-color: lighten($main-light-gray, 10%);
+  color: $main-white;
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  margin: 10px;
+  padding: 20px;
+}
+
 .search-book-suggestions-header {
   align-items: center;
   background-color: $secondary-dark-blue;

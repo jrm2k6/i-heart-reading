@@ -8,11 +8,11 @@ const SearchBookComponent = ({ onSearch, onClickAssign, currentQuery,
 
   let results = null;
   if (currentQuery === null || currentQuery.length === 0) {
-    results = <div>Please enter a query</div>;
+    results = <div className='search-hint'>Please enter a query</div>;
   } else if (isSearching) {
-    results = <div>Searching</div>;
+    results = <div className='search-hint'>Searching</div>;
   } else if (noSuggestions) {
-    results = <div>No books found!</div>;
+    results = <div className='search-hint'>No books found!</div>;
   } else {
     results = (
       <SearchBookSuggestions
