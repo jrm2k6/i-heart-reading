@@ -101,10 +101,20 @@
 .video-response-content {
   background-color: $white;
   font-size: 25px;
-  height: 40%;
+  height: 300px;
   padding: 20px;
   text-align: center;
-  width: 40%;
+  width: 80%;
+
+  .youtube-ember-player-container {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .youtube-video {
+    height: 100%;
+    width: 100%;
+  }
 
   a {
     color: #000;

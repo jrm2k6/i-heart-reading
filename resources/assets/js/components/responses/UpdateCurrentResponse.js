@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { markdown } from 'markdown';
 import { fetchAssignedBooks } from '../../actions/crudActions';
+import YoutubeEmbedPlayer from './YoutubeEmbedPlayer';
 
 const mapStateToProps = (state) => {
   return {
@@ -73,6 +74,17 @@ class UpdateResponseComponent extends Component {
           </div>
         );
       case 3:
+        const videoIdRegex = /.*youtube.com.*v=([A-Za-z0-9_-]*).*/;
+        const matches = videoIdRegex.exec(currentResponse.url);
+        if (matches) {
+          const _videoId = matches[1];
+          return (
+            <div className='video-response-content'>
+              <YoutubeEmbedPlayer videoId={_videoId} />
+            </div>
+          );
+        }
+
         return (
           <div className='video-response-content'>
             <a href={currentResponse.url} target='_blank'>Open Video</a>
