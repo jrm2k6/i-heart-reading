@@ -73,13 +73,14 @@ class UpdateResponseComponent extends Component {
             <img src={currentResponse.url} />
           </div>
         );
+
       case 3:
         const videoIdRegex = /.*youtube.com.*v=([A-Za-z0-9_-]*).*/;
         const matches = videoIdRegex.exec(currentResponse.url);
         if (matches) {
           const _videoId = matches[1];
           return (
-            <div className='video-response-content'>
+            <div className='video-response-content youtube'>
               <YoutubeEmbedPlayer videoId={_videoId} />
             </div>
           );
