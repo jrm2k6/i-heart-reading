@@ -273,9 +273,9 @@ export function saveResponse(props) {
 
   if (attachments.length > 0) {
     return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
-      res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
+      res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
   }
 
   return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
-    res => { return successCreateResponse(assignmentId, res); }, errorSaveResponse, _headers);
+    res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
 }

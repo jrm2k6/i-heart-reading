@@ -4,14 +4,16 @@ import {
 } from '../actions/alertsActions.js';
 
 const initialState = {
-  currentAlert: null
+  currentTypeAlert: null,
+  currentContentAlert: null
 };
 
 export default function progressReducer(state = initialState, action) {
   switch (action.type) {
     case SHOW_ALERT:
       return Object.assign({}, state, {
-        currentAlert: action.payload.alert
+        currentTypeAlert: action.payload.typeAlert,
+        currentContentAlert: action.payload.content
       });
 
     case DISMISS_ALERT:
