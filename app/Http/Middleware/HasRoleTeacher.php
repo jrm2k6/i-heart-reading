@@ -15,7 +15,7 @@ class HasRoleTeacher
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->user()->isTeacher()) {
+        if (! $request->user() || ! $request->user()->isTeacher()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
