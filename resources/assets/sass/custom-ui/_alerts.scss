@@ -21,3 +21,30 @@
     background-color: $main-purple;
   }
 }
+
+.alert-container {
+  bottom: auto;
+  color: $main-white;
+  font-size: 15px;
+  left: auto;
+  padding: 10px;
+  position: absolute;
+  right: 35px;
+  top: 20px;
+
+  &.error {
+    background-color: $error-color;
+  }
+
+  &.success {
+    background-color: $success-color;
+  }
+
+  &.warning {
+    background-color: $main-orange;
+  }
+
+  &.info {
+    background-color: $main-purple;
+  }
+}

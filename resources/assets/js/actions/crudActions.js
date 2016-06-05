@@ -1,4 +1,5 @@
 import * as apiActions from './apiActions';
+import { displaySuccessAlert } from './alertsActions';
 
 export const ASSIGNED_BOOKS_FETCHED = 'ASSIGNED_BOOKS_FETCHED';
 export const ASSIGNMENT_CREATED = 'ASSIGNMENT_CREATED';
@@ -168,9 +169,15 @@ export function errorAssignmentDeleted() {
 }
 
 export function deleteAssignment(id) {
-  const successAssignmentDeleted = () => assignmentDeleted(id);
-  return apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
-    successAssignmentDeleted, errorAssignmentDeleted, _headers);
+  return dispatch => {
+    const successAssignmentDeleted = () => {
+      dispatch(displaySuccessAlert('Book successfully deleted'));
+      assignmentDeleted(id);
+    };
+
+    dispatch(apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
+      successAssignmentDeleted, errorAssignmentDeleted, _headers));
+  };
 }
 
 export function assignmentProgressUpdated(data) {
