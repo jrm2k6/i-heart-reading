@@ -4,6 +4,7 @@ import {
   ASSIGNMENT_PROGRESS_UPDATED,
   BOOKS_FETCHED,
   BOOK_CREATED,
+  ERROR_ASSIGNED_BOOK_FETCHED,
   MARKED_BOOK_AS_READ
 } from '../actions/crudActions';
 
@@ -56,6 +57,11 @@ export default function bookReducers(state = initialState, action) {
       _books = state.books.concat(action.payload.book);
       return Object.assign({}, state, {
         books: _books
+      });
+
+    case ERROR_ASSIGNED_BOOK_FETCHED:
+      return Object.assign({}, state, {
+        assignedBooks: []
       });
 
     default:

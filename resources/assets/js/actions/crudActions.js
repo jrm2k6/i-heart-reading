@@ -1,5 +1,5 @@
 import * as apiActions from './apiActions';
-import { displaySuccessAlert } from './alertsActions';
+import { displaySuccessAlert, displayErrorAlert } from './alertsActions';
 
 export const ASSIGNED_BOOKS_FETCHED = 'ASSIGNED_BOOKS_FETCHED';
 export const ASSIGNMENT_CREATED = 'ASSIGNMENT_CREATED';
@@ -53,9 +53,12 @@ function booksFetched(data) {
 }
 
 function errorBooksFetched() {
-  return {
-    type: ERROR_BOOKS_FETCHED
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error while fetching existing books!'));
+    return {
+      type: ERROR_BOOKS_FETCHED
+    };
+  }
 }
 
 export function fetchBooks() {
@@ -106,9 +109,12 @@ export function assignedBooksFetched(data) {
 }
 
 export function errorAssignedBooksFetched() {
-  return {
-    type: ERROR_ASSIGNED_BOOK_FETCHED
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error while fetching your books!'));
+    return {
+      type: ERROR_ASSIGNED_BOOK_FETCHED
+    };
+  }
 }
 
 export function fetchAssignedBooks() {

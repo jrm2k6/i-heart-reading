@@ -71,6 +71,7 @@ class BookComponent extends Component {
   }
 
   render() {
+    const assignedBooks = this.props.assignedBooks || [];
     return (
         <div className='my-books-container'>
           <span className='my-books-title-section'>My books</span>
@@ -83,7 +84,7 @@ class BookComponent extends Component {
               <span className='book-actions'></span>
             </div>
             <div>
-              {this.props.assignedBooks.map((item) => {
+              {assignedBooks.map((item) => {
                 return (
                   <AssignmentItem
                     properties={this.getProperties(item)}
