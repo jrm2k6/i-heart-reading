@@ -172,7 +172,7 @@ export function deleteAssignment(id) {
   return dispatch => {
     const successAssignmentDeleted = () => {
       dispatch(displaySuccessAlert('Book successfully deleted'));
-      assignmentDeleted(id);
+      dispatch(assignmentDeleted(id));
     };
 
     dispatch(apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
