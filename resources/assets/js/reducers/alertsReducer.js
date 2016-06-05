@@ -18,7 +18,8 @@ export default function progressReducer(state = initialState, action) {
 
     case DISMISS_ALERT:
       return Object.assign({}, state, {
-        currentAlert: null
+        currentContentAlert: null,
+        currentTypeAlert: null
       });
 
     default:
