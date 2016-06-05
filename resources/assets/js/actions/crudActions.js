@@ -124,17 +124,23 @@ export function fetchAssignedBooks() {
 
 
 export function assignmentCreated(data) {
-  return {
-    type: ASSIGNMENT_CREATED,
-    payload: data
-  };
+  return dispatch => {
+    dispatch(displaySuccessAlert('Assignment successfully created!'))
+    return {
+      type: ASSIGNMENT_CREATED,
+      payload: data
+    };
+  }
 }
 
 export function errorAssignmentCreated(data) {
-  return {
-    type: ERROR_ASSIGNMENT_CREATED,
-    payload: data
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error when creating assignment!'));
+    return {
+      type: ERROR_ASSIGNMENT_CREATED,
+      payload: data
+    };
+  }
 }
 
 export function createAssignment(bookId, userId) {
@@ -177,7 +183,7 @@ export function errorAssignmentDeleted() {
 export function deleteAssignment(id) {
   return dispatch => {
     const successAssignmentDeleted = () => {
-      dispatch(displaySuccessAlert('Book successfully deleted'));
+      dispatch(displaySuccessAlert('Book successfully deleted!'));
       dispatch(assignmentDeleted(id));
     };
 
@@ -210,16 +216,24 @@ export function updateAssignmentProgress(_id, _numPages) {
 }
 
 export function markedBookAsReadSuccess(data) {
-  return {
-    type: MARKED_BOOK_AS_READ,
-    payload: data
-  };
+  return dispatch => {
+    dispatch(displaySuccessAlert('Book marked as read!'));
+
+    return {
+      type: MARKED_BOOK_AS_READ,
+      payload: data
+    };
+  }
 }
 
 export function errorMarkBookAsRead() {
-  return {
-    type: ERROR_MARKED_BOOK_AS_READ
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error when marking book as read!'));
+
+    return {
+      type: ERROR_MARKED_BOOK_AS_READ
+    };
+  }
 }
 
 export function markBookAsRead(_id) {
@@ -229,16 +243,23 @@ export function markBookAsRead(_id) {
 }
 
 function errorSaveResponse() {
-  return {
-    type: ERROR_SAVE_RESPONSE
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error when saving response!'));
+
+    return {
+      type: ERROR_SAVE_RESPONSE
+    };
+  }
 }
 
 function successSaveResponse(data) {
-  return {
-    type: SUCCESS_SAVE_RESPONSE,
-    payload: data
-  };
+  return dispatch => {
+    dispatch(displaySuccessAlert('Response successfully saved!'));
+    return {
+      type: SUCCESS_SAVE_RESPONSE,
+      payload: data
+    };
+  }
 }
 
 function successCreateResponse(assignmendId, res) {
