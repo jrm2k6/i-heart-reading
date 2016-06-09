@@ -1,4 +1,5 @@
 import { getRequest, postRequest } from './apiActions';
+import { displaySuccessAlert, displayErrorAlert } from './alertsActions';
 
 export const FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS = 'FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS';
 export const FETCH_ASSIGNMENTS_TO_REVIEW_ERROR = 'FETCH_ASSIGNMENTS_TO_REVIEW_ERROR';
@@ -28,10 +29,13 @@ function assignmentToReviewFetched(data) {
 }
 
 function assignmentToReviewFetchedError(err) {
-  return {
-    type: FETCH_ASSIGNMENTS_TO_REVIEW_ERROR,
-    payload: err
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error while fetching your assignments to review!'))
+    return {
+      type: FETCH_ASSIGNMENTS_TO_REVIEW_ERROR,
+      payload: err
+    };
+  }
 }
 
 function getCurrentResponseSuccess(response) {
@@ -101,15 +105,22 @@ export function getAssignment(responseId) {
 }
 
 function createReviewError() {
-  return {
-    type: CREATE_REVIEW_ERROR
-  };
+  return dispatch => {
+    dispatch(displayErrorAlert('Error while creating review!'));
+
+    return {
+      type: CREATE_REVIEW_ERROR
+    };
+  }
 }
 
 function createReviewSuccess() {
-  return {
-    type: CREATE_REVIEW_SUCCESS
-  };
+  return dispatch => {
+    dispatch(displaySuccessAlert('Review successfully created!'));
+    return {
+      type: CREATE_REVIEW_SUCCESS
+    };
+  }
 }
 
 export function createReview(responseId, props) {
