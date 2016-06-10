@@ -29,17 +29,62 @@ const mapDispatchToProps = (dispatch) => {
 
 
 class TeacherResponsesDashboardComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingCompletedReviews: false
+    };
+  }
+
   componentDidMount() {
     this.props.fetchAssignmentsToReview();
   }
 
+  getCompletedReviews() {
+    if (this.props.completedReviews) {
+      if (this.state.showingCompletedReviews) {
+        if (this.props.completedReviews.length > 0) {
+          return (
+            <div className='teacher-dashboard-container'>
+              <span className='teacher-dashboard-title-section'>My Completed Reviews</span>
+              <div className='teacher-reviews-list'>
+                <div className='assignment-review-item-header'>
+                  <span className='review-properties'>Student</span>
+                  <span className='review-properties'>Book</span>
+                  <span className='review-actions'>Response</span>
+                  <span className='review-actions'>Status</span>
+                </div>
+                {this.props.completedReviews.map(completedReview => (
+                  <CompletedReviewItem
+                    key={completedReview.id}
+                    completedReview={completedReview}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        } else {
+          return (
+            <div>No Completed Reviews!</div>
+          );
+        }
+      }
+    }
+
+    return null;
+  }
+
   render() {
+    const contentButton = (this.state.showingCompletedReviews) ?
+      'Hide Completed Reviews' : 'Show Completed Reviews';
     const completedReviewsBtn = (
       <div className='completed-review-action-container'>
         <button
-          onClick={() => { this.props.fetchCompletedReviews()}}
+          onClick={() => { this.props.fetchCompletedReviews();
+            this.setState({ showingCompletedReviews: !this.state.showingCompletedReviews });
+          }}
           className='see-completed-reviews'>
-          See Completed Reviews
+          {contentButton}
         </button>
       </div>
     );
@@ -65,25 +110,7 @@ class TeacherResponsesDashboardComponent extends Component {
       </div>
     ) : null;
 
-    const completedReviewsTable = (this.props.completedReviews) ? (
-      <div className='teacher-dashboard-container'>
-        <span className='teacher-dashboard-title-section'>My Completed Reviews</span>
-        <div className='teacher-reviews-list'>
-          <div className='assignment-review-item-header'>
-            <span className='review-properties'>Student</span>
-            <span className='review-properties'>Book</span>
-            <span className='review-actions'>Response</span>
-            <span className='review-actions'>Status</span>
-          </div>
-          {this.props.completedReviews.map(completedReview => (
-            <CompletedReviewItem
-              key={completedReview.id}
-              completedReview={completedReview}
-            />
-          ))}
-        </div>
-      </div>
-    ) : null;
+    const completedReviewsTable = this.getCompletedReviews();
 
     return (
       <div>
