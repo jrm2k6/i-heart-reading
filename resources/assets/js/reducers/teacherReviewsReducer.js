@@ -1,5 +1,6 @@
 import {
   FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS,
+  FETCH_COMPLETED_REVIEWS_SUCCESS,
   FETCH_STUDENT_UPDATES_SUCCESS,
   GET_CURRENT_ASSIGNMENT_SUCCESS,
   GET_CURRENT_RESPONSE_SUCCESS
@@ -7,6 +8,7 @@ import {
 
 const initialState = {
   assignmentsToReview: null,
+  completedReviews: null,
   updates: null,
   currentResponse: null,
   currentAssignment: null
@@ -17,6 +19,10 @@ export default function techerReviewsReducer(state = initialState, action) {
     case FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS:
       return Object.assign({}, state, {
         assignmentsToReview: action.payload
+      });
+    case FETCH_COMPLETED_REVIEWS_SUCCESS:
+      return Object.assign({}, state, {
+        completedReviews: action.payload
       });
     case FETCH_STUDENT_UPDATES_SUCCESS:
       return Object.assign({}, state, {

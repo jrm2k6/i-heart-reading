@@ -38,7 +38,7 @@
   }
 }
 
-.assignment-review-item {
+.assignment-review-item, .completed-review-item {
   align-items: center;
   background-color: $white;
   border-bottom: 1px solid lighten($main-light-gray, .8);
@@ -74,7 +74,20 @@
       &.rejected {
         color: $error-color;
       }
+
+      &.accepted {
+        color: $validation-green;
+      }
     }
+  }
+}
+
+.completed-review-item {
+  background-color: lighten($validation-green, 52%);
+
+  &:hover {
+    background-color: lighten($validation-green, 48%);
+    transition: 250ms;
   }
 }
 

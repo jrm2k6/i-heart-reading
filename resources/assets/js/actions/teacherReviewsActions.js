@@ -3,6 +3,8 @@ import { displaySuccessAlert, displayErrorAlert } from './alertsActions';
 
 export const FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS = 'FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS';
 export const FETCH_ASSIGNMENTS_TO_REVIEW_ERROR = 'FETCH_ASSIGNMENTS_TO_REVIEW_ERROR';
+export const FETCH_COMPLETED_REVIEWS_SUCCESS = 'FETCH_COMPLETED_REVIEWS_SUCCESS';
+export const FETCH_COMPLETED_REVIEWS_ERROR = 'FETCH_COMPLETED_REVIEWS_ERROR';
 export const FETCH_STUDENT_UPDATES_SUCCESS = 'FETCH_STUDENT_UPDATES_SUCCESS';
 export const FETCH_STUDENT_UPDATES_ERROR = 'FETCH_STUDENT_UPDATES_ERROR';
 export const GET_CURRENT_RESPONSE_SUCCESS = 'GET_CURRENT_RESPONSE_SUCCESS';
@@ -11,6 +13,7 @@ export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const CREATE_REVIEW_ERROR = 'CREATE_REVIEW_ERROR';
 
 const URL_MY_REVIEWS = '/api/assignment-reviews/me';
+const URL_MY_COMPLETED_REVIEWS = '/api/assignment-reviews/me/completed';
 const URL_REVIEWS = '/api/assignment-reviews';
 const URL_STUDENT_UPDATES = '/api/teacher/me/updates';
 
@@ -35,7 +38,7 @@ function assignmentToReviewFetchedError(err) {
       type: FETCH_ASSIGNMENTS_TO_REVIEW_ERROR,
       payload: err
     };
-  }
+  };
 }
 
 function getCurrentResponseSuccess(response) {
@@ -67,7 +70,7 @@ export function getResponse(responseId) {
   const getCurrentResponse = (assignmentsToReview, _responseId) => {
     return assignmentsToReview.map(assignmentToReview => assignmentToReview.response)
       .find(currentResponse => currentResponse.id === _responseId);
-  }
+  };
   return (dispatch, getState) => {
     const assignmentsToReview = getState().teacherReviewsReducer.assignmentsToReview;
     if (assignmentsToReview !== null) {
@@ -77,31 +80,31 @@ export function getResponse(responseId) {
       const successHandler = (data) => {
         const response = getCurrentResponse(data.assignment_reviews, responseId);
         return dispatch(getCurrentResponseSuccess(response));
-      }
+      };
       dispatch(fetchAssignmentsToReview(successHandler));
     }
-  }
+  };
 }
 
 export function getAssignment(responseId) {
   const getCurrentAssignment = (assignmentsToReview, _responseId) => {
     return assignmentsToReview.filter(assignmentToReview => assignmentToReview.response)
       .find(assignmentToReview => assignmentToReview.response.id === _responseId);
-  }
+  };
 
   return (dispatch, getState) => {
     const assignmentsToReview = getState().teacherReviewsReducer.assignmentsToReview;
     if (assignmentsToReview !== null) {
-      const assignment = getCurrentAssignment(assignmentsToReview, responseId)
+      const assignment = getCurrentAssignment(assignmentsToReview, responseId);
       dispatch(getCurrentAssignmentSuccess(assignment));
     } else {
       const successHandler = (data) => {
         const assignment = getCurrentAssignment(data.assignment_reviews, responseId);
         return dispatch(getCurrentAssignmentSuccess(assignment));
-      }
+      };
       dispatch(fetchAssignmentsToReview(successHandler));
     }
-  }
+  };
 }
 
 function createReviewError() {
@@ -111,7 +114,7 @@ function createReviewError() {
     return {
       type: CREATE_REVIEW_ERROR
     };
-  }
+  };
 }
 
 function createReviewSuccess() {
@@ -143,4 +146,25 @@ function fetchStudentsUpdatesError() {
 export function fetchStudentsUpdates() {
   return getRequest(URL_STUDENT_UPDATES, fetchStudentUpdatesSuccess,
     fetchStudentsUpdatesError, _headers);
+}
+
+function completedReviewsFetched(data) {
+  return {
+    type: FETCH_COMPLETED_REVIEWS_SUCCESS,
+    payload: data.completed_reviews
+  };
+}
+
+function completedReviewsFetchedError() {
+  return dispatch => {
+    dispatch(displayErrorAlert('Error while fetching completed reviews!'));
+    return {
+      type: FETCH_COMPLETED_REVIEWS_ERROR
+    };
+  };
+}
+
+export function fetchCompletedReviews() {
+  return getRequest(URL_MY_COMPLETED_REVIEWS,
+      completedReviewsFetched, completedReviewsFetchedError);
 }

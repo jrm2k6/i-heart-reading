@@ -56,9 +56,15 @@ class ReviewStatusSection extends Component {
   getIconReview() {
     const { review } = this.props;
     if (review && review.decision_type_name) {
-      return (
-        <i className='material-icons rejected'>thumb_down</i>
-      );
+      if (review.decision_type_name === 'rejected') {
+        return (
+          <i className='material-icons rejected'>thumb_down</i>
+        );
+      } else {
+        return (
+          <i className='material-icons accepted'>thumb_up</i>
+        );
+      }
     }
 
     return (

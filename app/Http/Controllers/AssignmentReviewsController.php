@@ -21,11 +21,6 @@ class AssignmentReviewsController extends Controller
         //
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getMyAssignmentsToReview()
     {
         $reviews = BookAssignment::with('user', 'book', 'response')
@@ -35,6 +30,17 @@ class AssignmentReviewsController extends Controller
                     $book->currentReview()->isNegative();
             })->values();
         return response(['assignment_reviews' => $reviews], 200);
+    }
+
+    public function getCompletedReviews()
+    {
+        $reviews = BookAssignment::with('user', 'book', 'response')
+            ->hasResponse()->get()
+            ->filter(function($book) {
+                return $book->currentReview() !== null &&
+                $book->currentReview()->isPositive();
+            })->values();
+        return response(['completed_reviews' => $reviews], 200);
     }
 
     /**

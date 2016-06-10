@@ -18,6 +18,11 @@ class AssignmentReview extends Model
         return $this->decisionType->name == 'rejected';
     }
 
+    public function isPositive()
+    {
+        return $this->decisionType->name == 'accepted';
+    }
+
     public function decisionType()
     {
         return $this->belongsTo(DecisionType::class);
