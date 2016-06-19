@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
   return {
     assignmentsToReview: state.teacherReviewsReducer.assignmentsToReview,
     completedReviews: state.teacherReviewsReducer.completedReviews
-    ,
   };
 };
 
