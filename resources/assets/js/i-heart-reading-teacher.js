@@ -15,6 +15,7 @@ import WriteResponseComponent from './components/responses/WriteResponseComponen
 import UrlComponent from './components/responses/UrlComponent';
 import UploadImageComponent from './components/responses/UploadImageComponent';
 import UpdateCurrentResponse from './components/responses/UpdateCurrentResponse';
+import EmailNotConfirmedComponent from './components/EmailNotConfirmedComponent';
 import TeacherResponsesDashboardComponent from
   './components/teacher/responses/TeacherResponsesDashboardComponent';
 import reducers from './reducers';
@@ -36,19 +37,20 @@ const store = createStoreWithMiddleware(appReducer);
       <Provider store={store}>
         <Router history={browserHistory}>
           <Route path='app' component={AppComponent}>
-              <IndexRoute component={TeacherHomeComponent} />
-              <Route path='books' component={BookComponent}>
-                  <IndexRoute component={BookDashboardComponent} />
-                  <Route path='add' component={AddBookComponent} />
-              </Route>
-              <Route path='responses' component={TeacherResponsesComponent}>
-                  <IndexRoute component={TeacherResponsesDashboardComponent} />
-                  <Route path='student-response/:responseId' component={StudentResponseComponent} />
-                  <Route path='write/:assignmentId' component={WriteResponseComponent} />
-                  <Route path='image/:assignmentId' component={UploadImageComponent} />
-                  <Route path='video/:assignmentId' component={UrlComponent} />
-                  <Route path='link/:assignmentId' component={UrlComponent} />
-                  <Route path='update/:assignmentId' component={UpdateCurrentResponse} />
+            <Route component={EmailNotConfirmedComponent} />
+            <IndexRoute component={TeacherHomeComponent} />
+            <Route path='books' component={BookComponent}>
+                <IndexRoute component={BookDashboardComponent} />
+                <Route path='add' component={AddBookComponent} />
+            </Route>
+            <Route path='responses' component={TeacherResponsesComponent}>
+                <IndexRoute component={TeacherResponsesDashboardComponent} />
+                <Route path='student-response/:responseId' component={StudentResponseComponent} />
+                <Route path='write/:assignmentId' component={WriteResponseComponent} />
+                <Route path='image/:assignmentId' component={UploadImageComponent} />
+                <Route path='video/:assignmentId' component={UrlComponent} />
+                <Route path='link/:assignmentId' component={UrlComponent} />
+                <Route path='update/:assignmentId' component={UpdateCurrentResponse} />
             </Route>
           </Route>
         </Router>

@@ -15,6 +15,7 @@ import WriteResponseComponent from './components/responses/WriteResponseComponen
 import UrlComponent from './components/responses/UrlComponent';
 import UploadImageComponent from './components/responses/UploadImageComponent';
 import UpdateCurrentResponse from './components/responses/UpdateCurrentResponse';
+import EmailNotConfirmedComponent from './components/EmailNotConfirmedComponent';
 import reducers from './reducers';
 
 import AppComponent from './components/AppComponent';
@@ -33,6 +34,7 @@ const store = createStoreWithMiddleware(appReducer);
         <Router history={browserHistory}>
           <Route path='app' component={AppComponent}>
               <IndexRoute component={HomeComponent} />
+              <Route component={EmailNotConfirmedComponent} />
               <Route path='books' component={BookComponent}>
                   <IndexRoute component={BookDashboardComponent} />
                   <Route path='add' component={AddBookComponent} />
