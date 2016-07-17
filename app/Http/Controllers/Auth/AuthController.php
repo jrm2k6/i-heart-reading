@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -64,10 +65,14 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        event(new UserRegistered($user));
+
+        return $user;
     }
 }
