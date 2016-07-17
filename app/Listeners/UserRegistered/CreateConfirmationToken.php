@@ -3,8 +3,10 @@
 namespace App\Listeners\UserRegistered;
 
 use App\Events\UserRegistered;
+use App\Models\EmailConfirmation;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Hash;
 
 class CreateConfirmationToken
 {
@@ -15,7 +17,6 @@ class CreateConfirmationToken
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -26,6 +27,12 @@ class CreateConfirmationToken
      */
     public function handle(UserRegistered $event)
     {
-        //
+        $token = str_random(30);
+        $email = $event->user->email;
+
+        EmailConfirmation::create([
+           'token' => $token,
+            'email' => $email
+        ]);
     }
 }
