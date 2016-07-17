@@ -17,6 +17,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UserRegistered\CreateConfirmationToken',
             'App\Listeners\UserRegistered\SendConfirmationEmail'
         ],
+        'App\Events\UserConfirmed' => [
+            'App\Listeners\UserConfirmed\MarkUserAsConfirmed',
+        ],
+        'App\Events\ConfirmationEmailResent' => [
+            'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail',
+        ],
         'App\Events\StudentAssignmentUpdated' => [
             'App\Listeners\CreateAssignmentUpdate',
             'App\Listeners\UpdateStats'
