@@ -26,7 +26,7 @@ class EmailTransactionController extends Controller
             event(new UserConfirmed($email));
             return redirect('app');
         } else {
-            return view('errors.confirmation_emails_error');
+            return view('errors.confirmation_emails_error')->with('showHint', false);
         }
     }
 
