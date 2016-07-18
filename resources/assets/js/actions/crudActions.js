@@ -62,7 +62,11 @@ function errorBooksFetched() {
 }
 
 export function fetchBooks() {
-  return apiActions.getRequest(API_BOOKS_RESOURCE_URL, booksFetched, errorBooksFetched);
+  return dispatch => {
+    return apiActions.getRequest(API_BOOKS_RESOURCE_URL).then(
+      (res) => { dispatch(booksFetched(res)); },
+      (err) => { dispatch(errorBooksFetched(err)); });
+  };
 }
 
 function statsFetched(data) {
@@ -79,7 +83,11 @@ function errorStatsFetched() {
 }
 
 export function fetchStats() {
-  return apiActions.getRequest(API_STATS_RESOURCE_URL, statsFetched, errorStatsFetched);
+  return dispatch => {
+    return apiActions.getRequest(API_STATS_RESOURCE_URL).then(
+      (res) => { dispatch(statsFetched(res)); },
+      (err) => { dispatch(errorStatsFetched(err)); });
+  };
 }
 
 
@@ -97,7 +105,12 @@ function errorUpdatesFetched() {
 }
 
 export function fetchUpdates() {
-  return apiActions.getRequest(API_UPDATES_RESOURCE_URL, updatesFetched, errorUpdatesFetched);
+  return dispatch => {
+    return apiActions.getRequest(API_UPDATES_RESOURCE_URL).then(
+      res => { dispatch(updatesFetched(res)); },
+      err => { dispatch(errorUpdatesFetched(err)); }
+    );
+  }
 }
 
 
@@ -118,8 +131,12 @@ export function errorAssignedBooksFetched() {
 }
 
 export function fetchAssignedBooks() {
-  return apiActions.getRequest(API_ASSIGNED_BOOKS_RESOURCE_URL, assignedBooksFetched,
-    errorAssignedBooksFetched);
+  return dispatch => {
+    return apiActions.getRequest(API_ASSIGNED_BOOKS_RESOURCE_URL).then(
+      res => { dispatch(assignedBooksFetched(res)); },
+      err => { dispatch(errorAssignedBooksFetched(err)); }
+    );
+  };
 }
 
 

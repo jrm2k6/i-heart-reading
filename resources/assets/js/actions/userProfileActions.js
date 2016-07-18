@@ -20,5 +20,10 @@ export function errorUserFetched(err) {
 }
 
 export function fetchUser() {
-  return getRequest(URL_ME, userFetched, errorUserFetched);
+  return dispatch => {
+    return getRequest(URL_ME).then(
+      res => { dispatch(userFetched(res)); },
+      err => { dispatch(errorUserFetched(err)); }
+    );
+  };
 }

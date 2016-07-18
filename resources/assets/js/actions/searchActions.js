@@ -7,8 +7,6 @@ export const SEARCH_SUCCESS_NO_SUGGESTIONS = 'SEARCH_SUCCESS_NO_SUGGESTIONS';
 
 const URL_SEARCH = '/api/books/search';
 
-let t = null;
-
 function runSearchSuccess(data) {
   if (data.suggestions.length === 0) {
     return {
@@ -43,12 +41,9 @@ function startSearch(_query) {
 export function runSearch(_query) {
   return dispatch => {
     dispatch(startSearch(_query));
-    if (t !== null) {
-      window.clearTimeout(t);
-    }
-
-    t = window.setTimeout(() => {
-      dispatch(getRequest(URL_SEARCH, runSearchSuccess, runSearchError, { query: _query }));
-    }, 2000);
+    return getRequest(URL_SEARCH, { query: _query }).then(
+      res => { dispatch(runSearchSuccess(res)); },
+      err => { dispatch(runSearchError(err)); }
+    );
   };
 }

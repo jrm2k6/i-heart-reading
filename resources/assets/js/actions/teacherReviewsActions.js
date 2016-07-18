@@ -56,14 +56,18 @@ function getCurrentAssignmentSuccess(assignment) {
 }
 
 export function fetchAssignmentsToReview(optionalCallback = null) {
-  return getRequest(URL_MY_REVIEWS,
-    (data) => {
-      if (optionalCallback) {
-        optionalCallback(data);
-      }
+  return dispatch => {
+    return getRequest(URL_MY_REVIEWS).then(
+      res => {
+        if (optionalCallback) {
+          optionalCallback(res);
+        }
 
-      return assignmentToReviewFetched(data);
-    }, assignmentToReviewFetchedError);
+        dispatch(assignmentToReviewFetched(res));
+      },
+      err => { dispatch(assignmentToReviewFetchedError(err)); }
+    );
+  };
 }
 
 export function getResponse(responseId) {
@@ -144,8 +148,12 @@ function fetchStudentsUpdatesError() {
 }
 
 export function fetchStudentsUpdates() {
-  return getRequest(URL_STUDENT_UPDATES, fetchStudentUpdatesSuccess,
-    fetchStudentsUpdatesError, _headers);
+  return dispatch => {
+    return getRequest(URL_STUDENT_UPDATES).then(
+      res => { dispatch(fetchStudentUpdatesSuccess(res)); },
+      err => { dispatch(fetchStudentsUpdatesError(err)); }
+    );
+  };
 }
 
 function completedReviewsFetched(data) {
@@ -165,6 +173,10 @@ function completedReviewsFetchedError() {
 }
 
 export function fetchCompletedReviews() {
-  return getRequest(URL_MY_COMPLETED_REVIEWS,
-      completedReviewsFetched, completedReviewsFetchedError);
+  return dispatch => {
+    return getRequest(URL_MY_COMPLETED_REVIEWS).then(
+      res => { dispatch(completedReviewsFetched(res)); },
+      err => { dispatch(completedReviewsFetchedError(err)); }
+    );
+  };
 }

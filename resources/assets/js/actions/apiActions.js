@@ -1,4 +1,5 @@
 import request from 'superagent';
+import Promise from 'bluebird';
 export const ASYNC_CALL_STARTED = 'ASYNC_CALL_STARTED';
 
 export function asyncStarted() {
@@ -7,19 +8,18 @@ export function asyncStarted() {
   };
 }
 
-export function getRequest(url, successAction, errorAction, data = {}) {
-  return dispatch => {
-    dispatch(asyncStarted());
+export function getRequest(url, data = {}) {
+  return new Promise((resolve, reject) => {
     request.get(url)
       .query(data)
       .end((err, res) => {
         if (err) {
-          dispatch(errorAction(err));
+          reject(err);
         }
 
-        dispatch(successAction(res.body));
+        resolve(res.body);
       });
-  };
+  });
 }
 
 export function postRequest(url, data, successAction, errorAction, headers = {}) {
