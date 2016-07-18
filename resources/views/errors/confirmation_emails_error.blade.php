@@ -14,6 +14,13 @@
                 </div>
             @endif
             <div>
+                @if ($showHint)
+                    <div class="show-hint-confirmation">
+                        <p>It looks like your email is not confirmed! Bummer.</p>
+                        <p>Make sure to check your inbox (including your Spam folder), to confirm your email address</p></p>
+                    </div>
+
+                @endif
                 <div class="input-with-picture">
                     <input type="email" class="form-input"
                            name="email" value="{{ old('email') }}"

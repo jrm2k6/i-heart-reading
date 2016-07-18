@@ -64,3 +64,10 @@
     padding-top: 75px;
   }
 }
+
+.show-hint-confirmation {
+  background-color: lighten($main-light-gray, 25%);
+  color: $main-dark-blue;
+  font-size: 18px;
+  padding: 20px;
+}
