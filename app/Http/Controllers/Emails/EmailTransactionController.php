@@ -30,6 +30,11 @@ class EmailTransactionController extends Controller
         }
     }
 
+    public function showConfirmationEmailPage()
+    {
+        return view('errors.confirmation_emails_error')->with('showHint', true);
+    }
+
     public function resendConfirmationEmail(Request $request) {
         $this->validate($request, [
             'email' => 'required|exists:users,email'
