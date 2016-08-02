@@ -161,6 +161,8 @@ return [
          */
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -211,7 +213,8 @@ return [
          * Custom
          */
         'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

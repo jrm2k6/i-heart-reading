@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'goodreads' => [
+        'client_id' => env('GOODREADS_KEY'),
+        'client_secret' => env('GOODREADS_SECRET'),
+        'redirect' => env('GOODREADS_REDIRECT_URI'),
+    ],
+
 ];

@@ -31,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\CreateAssignmentEnded',
             'App\Listeners\UpdateStatsForAssignmentEnded'
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
+        ],
     ];
 
     /**

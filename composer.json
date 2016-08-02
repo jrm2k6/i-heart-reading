@@ -12,7 +12,8 @@
         "predis/predis": "^1.0",
         "bugsnag/bugsnag-laravel": "1.*",
         "guzzlehttp/guzzle": "^6.2",
-        "socialiteproviders/goodreads": "^2.0"
+        "socialiteproviders/goodreads": "^2.0",
+        "laravel/socialite": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
