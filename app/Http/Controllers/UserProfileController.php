@@ -3,8 +3,9 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
+use App\Http\Requests\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 
 class UserProfileController extends Controller
@@ -42,7 +43,8 @@ class UserProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return response(['user' => $user], 200);
     }
 
     /**

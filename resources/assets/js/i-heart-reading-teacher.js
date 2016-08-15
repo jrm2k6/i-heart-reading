@@ -17,6 +17,7 @@ import UrlComponent from './components/responses/UrlComponent';
 import UploadImageComponent from './components/responses/UploadImageComponent';
 import UpdateCurrentResponse from './components/responses/UpdateCurrentResponse';
 import EmailNotConfirmedComponent from './components/EmailNotConfirmedComponent';
+import ProfileComponent from './components/profile/ProfileComponent';
 import TeacherResponsesDashboardComponent from
   './components/teacher/responses/TeacherResponsesDashboardComponent';
 import reducers from './reducers';
@@ -55,6 +56,7 @@ const getRoutes = (store) => {
     <Route path='app' component={AppComponent} onEnter={verifyUserIsConfirmed}>
       <Route component={EmailNotConfirmedComponent} />
       <IndexRoute component={TeacherHomeComponent} />
+      <Route path='student/:id' component={ProfileComponent} />
       <Route path='books' component={BookComponent}>
           <IndexRoute component={BookDashboardComponent} />
           <Route path='add' component={AddBookComponent} />
