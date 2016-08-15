@@ -11,6 +11,7 @@
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js" data-apikey="{{env('BUGSNAG_API_KEY')}}"></script>
     <!-- Styles -->
      <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 </head>
