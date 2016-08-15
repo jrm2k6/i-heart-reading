@@ -49,7 +49,7 @@ const getRoutes = (store) => {
         (err) => { console.log(err); }
       );
     }
-  }
+  };
 
   return (
     <Route path='app' component={AppComponent} onEnter={verifyUserIsConfirmed}>
