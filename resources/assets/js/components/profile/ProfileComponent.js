@@ -1,20 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStudent } from '../../actions/studentSearchActions';
+import { fetchStats, fetchUpdates } from '../../actions/crudActions';
 
 const mapStateToProps = (state) => {
   return {
     currentStudent: state.studentReducer.currentStudent
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchStudent: (id) => {
       dispatch(fetchStudent(id));
+    },
+
+    fetchStats: (id) => {
+      dispatch(fetchStats(id));
+    },
+
+    fetchUpdates: (id) => {
+      dispatch(fetchUpdates(id));
     }
   };
-}
+};
 
 class ProfileComponent extends React.Component {
   render() {
@@ -68,6 +77,8 @@ class ProfileComponent extends React.Component {
   componentDidMount() {
     const { id } = this.props.params;
     this.props.fetchStudent(id);
+    this.props.fetchStats(id);
+    this.props.fetchUpdates(id);
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileComponent);

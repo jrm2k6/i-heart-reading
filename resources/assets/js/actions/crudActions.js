@@ -73,6 +73,31 @@ export function fetchBooks() {
   };
 }
 
+function statsFetched(data, studentId) {
+  return {
+    type: SUCCESS_STATS_FETCHED,
+    payload: {
+      stats: data,
+      studentId
+    }
+  };
+}
+
+function errorStatsFetched(err) {
+  return {
+    type: ERROR_STATS_FETCHED,
+    payload: err
+  };
+}
+
+export function fetchStats(studentId) {
+  return dispatch => {
+    return apiActions.getRequest(`${API_STATS_RESOURCE_URL}/${studentId}`).then(
+      (res) => { dispatch(statsFetched(res, studentId)); },
+      (err) => { dispatch(errorStatsFetched(err)); });
+  };
+}
+
 function myStatsFetched(data) {
   return {
     type: SUCCESS_MY_STATS_FETCHED,
@@ -113,6 +138,31 @@ export function fetchMyUpdates() {
     return apiActions.getRequest(API_MY_UPDATES_RESOURCE_URL).then(
       res => { dispatch(myUpdatesFetched(res)); },
       err => { dispatch(errorMyUpdatesFetched(err)); }
+    );
+  };
+}
+
+function updatesFetched(data, studentId) {
+  return {
+    type: SUCCESS_UPDATES_FETCHED,
+    payload: {
+      updates: data.updates,
+      studentId
+    }
+  };
+}
+
+function errorUpdatesFetched() {
+  return {
+    type: ERROR_UPDATES_FETCHED
+  };
+}
+
+export function fetchUpdates(studentId) {
+  return dispatch => {
+    return apiActions.getRequest(`${API_UPDATES_RESOURCE_URL}/${studentId}`).then(
+      res => { dispatch(updatesFetched(res, studentId)); },
+      err => { dispatch(errorUpdatesFetched(err)); }
     );
   };
 }
