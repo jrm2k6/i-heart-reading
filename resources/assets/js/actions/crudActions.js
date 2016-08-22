@@ -9,21 +9,23 @@ export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 export const BOOK_CREATED = 'BOOK_CREATED';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const DELETE_BOOK = 'DELETE_BOOK';
-export const FETCH_STATS = 'FETCH_STATS';
-export const FETCH_UPDATES = 'FETCH_UPDATES';
 export const ERROR_ASSIGNED_BOOK_FETCHED = 'ERROR_ASSIGNED_BOOK_FETCHED';
-export const ERROR_UPDATES_FETCHED = 'ERROR_UPDATES_FETCHED';
+export const ERROR_MY_UPDATES_FETCHED = 'ERROR_MY_UPDATES_FETCHED';
+export const ERROR_UPDATES_FETCHED = 'ERROR_MY_UPDATES_FETCHED';
 export const ERROR_ASSIGNMENT_CREATED = 'ERROR_ASSIGNMENT_CREATED';
 export const ERROR_ASSIGNMENT_DELETED = 'ERROR_ASSIGNMENT_DELETED';
 export const ERROR_ASSIGNMENT_PROGRESS_UPDATED = 'ERROR_ASSIGNMENT_PROGRESS_UPDATED';
 export const ERROR_BOOK_CREATED = 'ERROR_BOOK_CREATED';
 export const ERROR_BOOKS_FETCHED = 'ERROR_BOOKS_FETCHED';
 export const ERROR_MARKED_BOOK_AS_READ = 'ERROR_MARKED_BOOK_AS_READ';
+export const ERROR_MY_STATS_FETCHED = 'ERROR_MY_STATS_FETCHED';
 export const ERROR_STATS_FETCHED = 'ERROR_STATS_FETCHED';
 export const MARK_BOOK_AS_READ = 'MARK_BOOK_AS_READ';
 export const MARKED_BOOK_AS_READ = 'MARKED_BOOK_AS_READ';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
 export const SUCCESS_SAVE_RESPONSE = 'SUCCESS_SAVE_RESPONSE';
+export const SUCCESS_MY_STATS_FETCHED = 'SUCCESS_MY_STATS_FETCHED';
+export const SUCCESS_MY_UPDATES_FETCHED = 'SUCCESS_MY_UPDATES_FETCHED';
 export const SUCCESS_STATS_FETCHED = 'SUCCESS_STATS_FETCHED';
 export const SUCCESS_UPDATES_FETCHED = 'SUCCESS_UPDATES_FETCHED';
 export const ERROR_SAVE_RESPONSE = 'ERROR_SAVE_RESPONSE';
@@ -36,7 +38,9 @@ export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 export const API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL = '/api/assignment-progress';
 export const API_RESPONSES_RESOURCE_URL = '/api/responses';
 export const API_MY_STATS_RESOURCE_URL = '/api/stats/me';
+export const API_STATS_RESOURCE_URL = '/api/stats';
 export const API_MY_UPDATES_RESOURCE_URL = '/api/updates/me';
+export const API_UPDATES_RESOURCE_URL = '/api/updates';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -69,50 +73,49 @@ export function fetchBooks() {
   };
 }
 
-function statsFetched(data) {
+function myStatsFetched(data) {
   return {
-    type: SUCCESS_STATS_FETCHED,
+    type: SUCCESS_MY_STATS_FETCHED,
     payload: data
   };
 }
 
-function errorStatsFetched() {
+function errorMyStatsFetched() {
   return {
-    type: ERROR_STATS_FETCHED
+    type: ERROR_MY_STATS_FETCHED
   };
 }
 
-export function fetchStats() {
+export function fetchMyStats() {
   return dispatch => {
     return apiActions.getRequest(API_MY_STATS_RESOURCE_URL).then(
-      (res) => { dispatch(statsFetched(res)); },
-      (err) => { dispatch(errorStatsFetched(err)); });
+      (res) => { dispatch(myStatsFetched(res)); },
+      (err) => { dispatch(errorMyStatsFetched(err)); });
   };
 }
 
 
-function updatesFetched(data) {
+function myUpdatesFetched(data) {
   return {
-    type: SUCCESS_UPDATES_FETCHED,
+    type: SUCCESS_MY_UPDATES_FETCHED,
     payload: data.updates
   };
 }
 
-function errorUpdatesFetched() {
+function errorMyUpdatesFetched() {
   return {
-    type: ERROR_UPDATES_FETCHED
+    type: ERROR_MY_UPDATES_FETCHED
   };
 }
 
-export function fetchUpdates() {
+export function fetchMyUpdates() {
   return dispatch => {
     return apiActions.getRequest(API_MY_UPDATES_RESOURCE_URL).then(
-      res => { dispatch(updatesFetched(res)); },
-      err => { dispatch(errorUpdatesFetched(err)); }
+      res => { dispatch(myUpdatesFetched(res)); },
+      err => { dispatch(errorMyUpdatesFetched(err)); }
     );
   };
 }
-
 
 export function assignedBooksFetched(data) {
   return {

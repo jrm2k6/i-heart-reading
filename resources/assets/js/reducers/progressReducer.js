@@ -1,5 +1,5 @@
 import {
-  SUCCESS_STATS_FETCHED
+  SUCCESS_MY_STATS_FETCHED
 } from '../actions/crudActions';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 export default function progressReducer(state = initialState, action) {
   switch (action.type) {
-    case SUCCESS_STATS_FETCHED:
+    case SUCCESS_MY_STATS_FETCHED:
       return Object.assign({}, state, {
         stats: action.payload.stats
       });

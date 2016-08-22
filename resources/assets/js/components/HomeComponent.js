@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStats, fetchUpdates } from '../actions/crudActions';
+import { fetchMyStats, fetchMyUpdates } from '../actions/crudActions';
 import ProgressPieChartComponent from './stats/ProgressPieChartComponent';
 import InteractiveChartLegend from './stats/InteractiveChartLegend';
 import LatestUpdatesCard from './stats/LatestUpdatesCard';
@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStats: () => { dispatch(fetchStats()); },
-    fetchLatestUpdates: () => { dispatch(fetchUpdates()); }
+    fetchStats: () => { dispatch(fetchMyStats()); },
+    fetchLatestUpdates: () => { dispatch(fetchMyUpdates()); }
   };
 };
 
