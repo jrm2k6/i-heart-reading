@@ -35,8 +35,8 @@ export const API_BOOKS_RESOURCE_URL = '/api/books';
 export const API_BOOKS_ASSIGNMENT_RESOURCE_URL = '/api/assignments';
 export const API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL = '/api/assignment-progress';
 export const API_RESPONSES_RESOURCE_URL = '/api/responses';
-export const API_STATS_RESOURCE_URL = '/api/stats/me';
-export const API_UPDATES_RESOURCE_URL = '/api/updates/me';
+export const API_MY_STATS_RESOURCE_URL = '/api/stats/me';
+export const API_MY_UPDATES_RESOURCE_URL = '/api/updates/me';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -84,7 +84,7 @@ function errorStatsFetched() {
 
 export function fetchStats() {
   return dispatch => {
-    return apiActions.getRequest(API_STATS_RESOURCE_URL).then(
+    return apiActions.getRequest(API_MY_STATS_RESOURCE_URL).then(
       (res) => { dispatch(statsFetched(res)); },
       (err) => { dispatch(errorStatsFetched(err)); });
   };
@@ -106,11 +106,11 @@ function errorUpdatesFetched() {
 
 export function fetchUpdates() {
   return dispatch => {
-    return apiActions.getRequest(API_UPDATES_RESOURCE_URL).then(
+    return apiActions.getRequest(API_MY_UPDATES_RESOURCE_URL).then(
       res => { dispatch(updatesFetched(res)); },
       err => { dispatch(errorUpdatesFetched(err)); }
     );
-  }
+  };
 }
 
 
@@ -127,7 +127,7 @@ export function errorAssignedBooksFetched() {
     return {
       type: ERROR_ASSIGNED_BOOK_FETCHED
     };
-  }
+  };
 }
 
 export function fetchAssignedBooks() {
@@ -157,7 +157,7 @@ export function errorAssignmentCreated(data) {
       type: ERROR_ASSIGNMENT_CREATED,
       payload: data
     };
-  }
+  };
 }
 
 export function createAssignment(bookId, userId) {
@@ -240,7 +240,7 @@ export function markedBookAsReadSuccess(data) {
       type: MARKED_BOOK_AS_READ,
       payload: data
     };
-  }
+  };
 }
 
 export function errorMarkBookAsRead() {
@@ -250,7 +250,7 @@ export function errorMarkBookAsRead() {
     return {
       type: ERROR_MARKED_BOOK_AS_READ
     };
-  }
+  };
 }
 
 export function markBookAsRead(_id) {
@@ -266,7 +266,7 @@ function errorSaveResponse() {
     return {
       type: ERROR_SAVE_RESPONSE
     };
-  }
+  };
 }
 
 function successSaveResponse(data) {
@@ -276,7 +276,7 @@ function successSaveResponse(data) {
       type: SUCCESS_SAVE_RESPONSE,
       payload: data
     };
-  }
+  };
 }
 
 function successCreateResponse(assignmendId, res) {
