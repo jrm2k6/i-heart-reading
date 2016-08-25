@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStudent } from '../../actions/studentSearchActions';
 import { fetchStats, fetchUpdates } from '../../actions/crudActions';
+import StudentTimeline from './StudentTimeline';
 
 const mapStateToProps = (state) => {
   return {
@@ -93,9 +94,7 @@ class ProfileComponent extends React.Component {
               </div>
             </div>
           </div>
-          <div className='profile-container-timeline'>
-            Random timeline
-          </div>
+          <StudentTimeline updates={currentStudent.updates} />
         </div>
       );
     }
