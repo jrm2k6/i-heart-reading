@@ -62,7 +62,7 @@ function errorBooksFetched() {
     return {
       type: ERROR_BOOKS_FETCHED
     };
-  }
+  };
 }
 
 export function fetchBooks() {
@@ -77,7 +77,7 @@ function statsFetched(data, studentId) {
   return {
     type: SUCCESS_STATS_FETCHED,
     payload: {
-      stats: data,
+      stats: data.stats,
       studentId
     }
   };

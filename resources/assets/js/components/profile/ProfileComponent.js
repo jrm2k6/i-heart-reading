@@ -26,11 +26,42 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class ProfileComponent extends React.Component {
+  getYearlyBooksRead() {
+    const { currentStudent } = this.props;
+    let content = '...';
+    if (currentStudent && currentStudent.stats && currentStudent.stats.yearly) {
+      const numBooksRead = currentStudent.stats.yearly.books_read;
+      const booksWord = parseInt(numBooksRead, 10) > 1 ? 'books' : 'book';
+      content = `${numBooksRead} ${booksWord} read!`;
+    }
+    return (
+      <div className='right-section'>
+        {content}
+      </div>
+    );
+  }
+
+  getYearlyPagesRead() {
+    const { currentStudent } = this.props;
+    let content = '...';
+    if (currentStudent && currentStudent.stats && currentStudent.stats.yearly) {
+      const pagesRead = currentStudent.stats.yearly.num_pages_read;
+      const pagesWord = parseInt(pagesRead, 10) > 1 ? 'pages' : 'page';
+      content = `${pagesRead} ${pagesWord} read!`;
+    }
+    return (
+      <div className='right-section'>
+        {content}
+      </div>
+    );
+  }
+
+
   render() {
     const { currentStudent } = this.props;
 
     if (currentStudent) {
-      const firstLetter = currentStudent.name[0];
+      const firstLetter = (currentStudent.name) ? currentStudent.name[0] : '?';
       return (
         <div className='profile-page-container'>
           <div className='profile-left'>
@@ -49,16 +80,14 @@ class ProfileComponent extends React.Component {
                   <div className='left-section'>
                     <i className='material-icons'>import_contacts</i>
                   </div>
-                  <div className='right-section'>
-                    30 books read!
-                  </div>
+                  {this.getYearlyBooksRead()}
                 </div>
                 <div className='profile-number-pages-read'>
                   <div className='left-section'>
                     <i className='material-icons'>insert_drive_file</i>
                   </div>
                   <div className='right-section'>
-                    1500 pages read!
+                    {this.getYearlyPagesRead()}
                   </div>
                 </div>
               </div>
