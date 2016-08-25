@@ -1,10 +1,7 @@
 <?php namespace App\Http\Controllers\Emails;
 
 use App\Events\ConfirmationEmailResent;
-use App\Events\StudentAssignmentEnded;
-use App\Events\StudentAssignmentUpdated;
 use App\Events\UserConfirmed;
-use App\Models\AssignmentProgress;
 use App\Models\User;
 use Illuminate\Http\Request;
 
