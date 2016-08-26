@@ -48,7 +48,9 @@ class AssignmentUpdatesController extends Controller
         $assignmentsUpdateIds = User::find($studentId)->assignments->pluck('id');
 
         $updatesWithBooks = AssignmentUpdate::whereIn('assignment_id', $assignmentsUpdateIds)
-            ->orderBy('updated_at', 'desc')->with('assignment.book')->get();
+            ->orderBy('updated_at', 'desc')
+            ->with(['assignment.book', 'assignment.response'])
+            ->get();
 
         return response(['user_id' => $studentId, 'updates' => $updatesWithBooks], 200);
     }
