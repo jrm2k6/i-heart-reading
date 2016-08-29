@@ -25,7 +25,9 @@ function updateStudentUpdates(stateUpdates, action) {
   const newItem = {};
   const responsesUpdates = action.payload.updates
     .filter(update => update.assignment.response !== null)
-    .map(update => update.assignment.response);
+    .map(update => Object.assign({}, update.assignment.response,
+      { book: update.assignment.book }
+    ));
   const uniqueResponsesUpdates = responsesUpdates.reduce((acc, current) => {
     if (acc.find(elem => elem.id === current.id) === undefined) {
       const _acc = acc.concat(current);
