@@ -9,38 +9,46 @@ import {
 
 const initialState = {
   currentStudent: null,
-  stats: [],
-  updates: []
+  stats: {},
+  updates: {}
 };
 
-function updateCurrentStudent(currentStudent, action) {
-  return Object.assign({}, currentStudent, {
-    stats: action.payload.stats
-  });
-}
-
-function updateCurrentStudentUpdates(currentStudent, action) {
-  return Object.assign({}, currentStudent, {
-    updates: action.payload.updates
-  });
-}
-
 function updateStudentUpdates(stateUpdates, action) {
-  const stats = stateUpdates.filter(studentStats =>
-    Object.keys(studentStats)[0] !== action.payload.studentId);
+  const keysToKeep = Object.keys(stateUpdates).
+    filter(key => key !== action.payload.studentId);
+  const updatesToKeep = keysToKeep.map(key => {
+    const res = {};
+    res[key] = stateUpdates[key];
+    return res;
+  });
 
   const newItem = {};
-  newItem[action.payload.studentId] = action.payload.updates;
-  return stats.concat(newItem);
+  const responsesUpdates = action.payload.updates
+    .filter(update => update.assignment.response !== null)
+    .map(update => update.assignment.response);
+
+  newItem[action.payload.studentId] = action.payload.updates.concat(responsesUpdates)
+  console.log('new item', newItem);
+  const res = Object.assign({}, updatesToKeep, newItem);
+  console.log('res', res);
+
+  return res;
 }
 
 function updateStats(stateStats, action) {
-  const stats = stateStats.filter(studentStats =>
-    Object.keys(studentStats)[0] !== action.payload.studentId);
+  const keysToKeep = Object.keys(stateStats).filter(key => key !== action.payload.studentId);
+  const statsToKeep = keysToKeep.map(key => {
+    const res = {};
+    res[key] = stateStats[key];
+    return res;
+  });
 
   const newItem = {};
   newItem[action.payload.studentId] = action.payload.stats;
-  return stats.concat(newItem);
+  const res = Object.assign({}, statsToKeep, newItem);
+  console.log('res', res);
+
+  return res;
 }
 
 export default function studentReducer(state = initialState, action) {
@@ -52,14 +60,12 @@ export default function studentReducer(state = initialState, action) {
 
     case SUCCESS_STATS_FETCHED:
       return Object.assign({}, state, {
-        currentStudent: updateCurrentStudent(state.currentStudent, action),
         stats: updateStats(state.stats, action)
       });
 
     case SUCCESS_UPDATES_FETCHED:
       return Object.assign({}, state, {
-        currentStudent: updateCurrentStudentUpdates(state.currentStudent, action),
-        stats: updateStudentUpdates(state.updates, action)
+        updates: updateStudentUpdates(state.updates, action),
       });
 
     default:

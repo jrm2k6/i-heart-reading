@@ -5,9 +5,16 @@ import { fetchStats, fetchUpdates } from '../../actions/crudActions';
 import StudentTimeline from './StudentTimeline';
 
 const mapStateToProps = (state) => {
-  return {
-    currentStudent: state.studentReducer.currentStudent
-  };
+  const _state = {};
+
+  _state.currentStudent = state.studentReducer.currentStudent;
+
+  if (_state.currentStudent) {
+    _state.currentStudentStats = state.studentReducer.stats[_state.currentStudent.id];
+    _state.currentStudentUpdates = state.studentReducer.updates[_state.currentStudent.id];
+  }
+
+  return _state;
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,10 +35,10 @@ const mapDispatchToProps = (dispatch) => {
 
 class ProfileComponent extends React.Component {
   getYearlyBooksRead() {
-    const { currentStudent } = this.props;
+    const { currentStudentStats } = this.props;
     let content = '...';
-    if (currentStudent && currentStudent.stats && currentStudent.stats.yearly) {
-      const numBooksRead = currentStudent.stats.yearly.books_read;
+    if (currentStudentStats && currentStudentStats.yearly) {
+      const numBooksRead = currentStudentStats.yearly.books_read;
       const booksWord = parseInt(numBooksRead, 10) > 1 ? 'books' : 'book';
       content = `${numBooksRead} ${booksWord} read!`;
     }
@@ -43,10 +50,10 @@ class ProfileComponent extends React.Component {
   }
 
   getYearlyPagesRead() {
-    const { currentStudent } = this.props;
+    const { currentStudentStats } = this.props;
     let content = '...';
-    if (currentStudent && currentStudent.stats && currentStudent.stats.yearly) {
-      const pagesRead = currentStudent.stats.yearly.num_pages_read;
+    if (currentStudentStats && currentStudentStats.yearly) {
+      const pagesRead = currentStudentStats.yearly.num_pages_read;
       const pagesWord = parseInt(pagesRead, 10) > 1 ? 'pages' : 'page';
       content = `${pagesRead} ${pagesWord} read!`;
     }
@@ -59,7 +66,7 @@ class ProfileComponent extends React.Component {
 
 
   render() {
-    const { currentStudent } = this.props;
+    const { currentStudent, currentStudentUpdates } = this.props;
 
     if (currentStudent) {
       const firstLetter = (currentStudent.name) ? currentStudent.name[0] : '?';
@@ -94,7 +101,7 @@ class ProfileComponent extends React.Component {
               </div>
             </div>
           </div>
-          <StudentTimeline updates={currentStudent.updates} />
+          <StudentTimeline updates={currentStudentUpdates} />
         </div>
       );
     }
