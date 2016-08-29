@@ -26,13 +26,16 @@ function updateStudentUpdates(stateUpdates, action) {
   const responsesUpdates = action.payload.updates
     .filter(update => update.assignment.response !== null)
     .map(update => update.assignment.response);
+  const uniqueResponsesUpdates = responsesUpdates.reduce((acc, current) => {
+    if (acc.find(elem => elem.id === current.id) === undefined) {
+      const _acc = acc.concat(current);
+      return _acc;
+    }
+    return acc;
+  }, []);
 
-  newItem[action.payload.studentId] = action.payload.updates.concat(responsesUpdates)
-  console.log('new item', newItem);
-  const res = Object.assign({}, updatesToKeep, newItem);
-  console.log('res', res);
-
-  return res;
+  newItem[action.payload.studentId] = action.payload.updates.concat(uniqueResponsesUpdates);
+  return Object.assign({}, updatesToKeep, newItem);
 }
 
 function updateStats(stateStats, action) {
