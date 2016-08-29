@@ -46,7 +46,6 @@ function updateStats(stateStats, action) {
   const newItem = {};
   newItem[action.payload.studentId] = action.payload.stats;
   const res = Object.assign({}, statsToKeep, newItem);
-  console.log('res', res);
 
   return res;
 }
