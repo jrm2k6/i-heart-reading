@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 class StudentUpdatesComponent extends Component {
   constructor(props) {
@@ -14,13 +15,14 @@ class StudentUpdatesComponent extends Component {
     return this.props.latestUpdates
       .slice(0, currentEndIndex)
       .map((update, index) => {
+        const studentId = update.assignment.user.id;
         const studentName = update.assignment.user.name;
         const bookTitle = update.assignment.book.title;
         const numPages = update.num_pages;
         const isRead = update.mark_book_read;
         const when = moment(update.updated_at).fromNow();
 
-        const properties = { studentName, bookTitle, numPages, isRead, when };
+        const properties = { studentName, studentId, bookTitle, numPages, isRead, when };
 
         return <StudentUpdateRow key={index} properties={properties} />
       });
@@ -68,8 +70,12 @@ const StudentUpdateRow = ({ properties }) => {
 
   return (
     <div className='student-update-row'>
-      <div className='student-update-avatar'>{properties.studentName[0]}</div>
-      <span className='student-update-row-content'>{text}</span>
+      <div className='student-update-avatar'>
+        <Link to={`/app/student/${properties.studentId}`}>{properties.studentName[0]}</Link>
+        </div>
+      <span className='student-update-row-content'>
+        {text}
+      </span>
       <span className='student-update-row-readable-time'>({properties.when})</span>
     </div>
   );

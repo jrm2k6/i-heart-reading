@@ -1,0 +1,174 @@
+.profile-page-container {
+  background-color: $white;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .profile-avatar {
+    align-items: center;
+    background-color: red;
+    border-radius: 50%;
+    color: $main-white;
+    display: flex;
+    font-size: 24px;
+    height: 50px;
+    justify-content: center;
+    width: 50px;
+  }
+
+  .profile-name {
+    text-transform: uppercase;
+  }
+
+  .profile-email {
+    color: $main-light-gray;
+    font-size: 13px;
+  }
+}
+
+.profile-left {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  flex: 1;
+}
+
+.profile-container-timeline {
+  border-left: 1px solid $light-gray-border;
+  flex: 3;
+}
+
+.profile-basic-info-row {
+  background-color: $white;
+  display: flex;
+  padding: 15px 5px;
+}
+
+.profile-basic-info {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+}
+
+.profile-container-stats {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 0 10px;
+
+  .right-section {
+    align-items: center;
+    color: $main-dark-gray;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.profile-number-books-read {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+
+  .left-section {
+    align-items: center;
+    background-color: $main-orange;
+    color: $white;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    padding: 0 10px;
+  }
+}
+
+.profile-number-pages-read {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+
+  .left-section {
+    align-items: center;
+    background-color: $card-blue;
+    color: $white;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    padding: 0 10px;
+  }
+}
+
+.profile-number-accepted-responses {
+  background-color: $white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+
+  .left-section {
+    align-items: center;
+    background-color: $success-color;
+    color: $white;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    padding: 0 10px;
+  }
+}
+
+.profile-container-timeline {
+  background-color: $main-white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 15px;
+  left: -10px;
+  position: absolute;
+  width: 15px;
+
+  &.rejected {
+    background-color: $error-color;
+  }
+
+  &.accepted {
+    background-color: $success-color;
+  }
+
+  &.no-decision {
+    background-color: $main-orange;
+  }
+
+  &.pages-read {
+    background-color: $main-dark-blue;
+  }
+
+  &.book-read {
+    background-color: $main-light-blue;
+  }
+}
+
+.timeline-update-row {
+  font-size: 14px;
+  margin: 10px 15px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.student-update-row-content {
+  margin-right: 10px;
+}
+
+.student-update-row-readable-time {
+  color: $main-light-gray;
+}
+
+.option-response-item {
+  margin-left: 15px;
+}

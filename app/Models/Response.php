@@ -16,6 +16,11 @@ class Response extends Model
         return $this->belongsTo(ResponseType::class);
     }
 
+    public function assignment()
+    {
+        return $this->belongsTo(BookAssignment::class);
+    }
+
     public function getResponseTypeNameAttribute()
     {
        return $this->responseType->name;

@@ -12,10 +12,19 @@ class StatsController extends Controller
     public function getStats()
     {
         $userId = Auth::user()->id;
-        $stats = Cache::get('stats_'.$userId);
+        return $this->getStatsForStudent($userId);
+    }
 
-        return response([
-            'stats' => $stats
-        ], 200);
+    public function getStatsForStudent($studentId)
+    {
+        $stats = Cache::get('stats_'.$studentId);
+
+        if ($stats) {
+            return response([
+                'stats' => $stats
+            ], 200);
+        }
+
+        return response(null, 400);
     }
 }
