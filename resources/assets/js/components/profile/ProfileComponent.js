@@ -64,6 +64,32 @@ class ProfileComponent extends React.Component {
     );
   }
 
+  getNumAcceptedResponses() {
+    const { currentStudentUpdates } = this.props;
+    if (currentStudentUpdates) {
+      const responses = currentStudentUpdates.filter(
+        update => update.response_type_id !== undefined
+      );
+      const acceptedResponses = responses.filter(
+        response => response.currentReview !== null &&
+          response.currentReview.decision_type_name === 'accepted'
+      );
+      const numAcceptedResponses = acceptedResponses.length;
+
+      const content = (numAcceptedResponses === 0) ? 'No accepted reponses!'
+        : (numAcceptedResponses > 1) ? `${numAcceptedResponses} accepted responses!`
+          : '1 accepted response!';
+      return (
+        <div className='right-section'>
+          {content}
+        </div>
+      );
+    }
+
+    return (
+      <div className='right-section'>...</div>
+    );
+  }
 
   render() {
     const { currentStudent, currentStudentUpdates } = this.props;
@@ -96,6 +122,14 @@ class ProfileComponent extends React.Component {
                   </div>
                   <div className='right-section'>
                     {this.getYearlyPagesRead()}
+                  </div>
+                </div>
+                <div className='profile-number-accepted-responses'>
+                  <div className='left-section'>
+                    <i className='material-icons'>done</i>
+                  </div>
+                  <div className='right-section'>
+                    {this.getNumAcceptedResponses()}
                   </div>
                 </div>
               </div>
