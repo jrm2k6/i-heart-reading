@@ -26,7 +26,7 @@ function updateStudentUpdates(stateUpdates, action) {
   const responsesUpdates = action.payload.updates
     .filter(update => update.assignment.response !== null)
     .map(update => Object.assign({}, update.assignment.response,
-      { book: update.assignment.book }
+      { book: update.assignment.book, currentReview: update.assignment.current_review }
     ));
   const uniqueResponsesUpdates = responsesUpdates.reduce((acc, current) => {
     if (acc.find(elem => elem.id === current.id) === undefined) {

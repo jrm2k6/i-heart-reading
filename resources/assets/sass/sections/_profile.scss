@@ -33,12 +33,12 @@
 }
 
 .profile-container-timeline {
+  border-left: 1px solid $light-gray-border;
   flex: 3;
 }
 
 .profile-basic-info-row {
   background-color: $white;
-  border-bottom: 1px solid black;
   display: flex;
   padding: 15px 5px;
 }
@@ -100,4 +100,56 @@
     justify-content: center;
     padding: 0 10px;
   }
+}
+
+.profile-container-timeline {
+  background-color: $main-white;
+  box-shadow: 1px 1px 1px $card-shadow-color;
+}
+
+.circle {
+  border-radius: 50%;
+  height: 15px;
+  left: -10px;
+  position: absolute;
+  width: 15px;
+
+  &.rejected {
+    background-color: $error-color;
+  }
+
+  &.accepted {
+    background-color: $success-color;
+  }
+
+  &.no-decision {
+    background-color: $main-orange;
+  }
+
+  &.pages-read {
+    background-color: $main-dark-blue;
+  }
+
+  &.book-read {
+    background-color: $main-light-blue;
+  }
+}
+
+.timeline-update-row {
+  font-size: 14px;
+  margin: 10px 15px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.student-update-row-content {
+  margin-right: 10px;
+}
+
+.student-update-row-readable-time {
+  color: $main-light-gray;
+}
+
+.option-response-item {
+  margin-left: 15px;
 }

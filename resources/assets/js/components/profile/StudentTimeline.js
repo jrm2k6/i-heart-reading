@@ -4,10 +4,14 @@ import TimelineItem from './TimelineItem';
 class StudentTimeline extends React.Component {
   render() {
     const { updates } = this.props;
+
     if (updates) {
+      const chronologicalUpdates = updates.sort((update1, update2) =>
+         new Date(update2.updated_at) - new Date(update1.updated_at)
+      );
       return (
         <div className='profile-container-timeline'>
-          {updates.map(update => <TimelineItem update={update} />)}
+          {chronologicalUpdates.map(update => <TimelineItem update={update} />)}
         </div>
       );
     }
