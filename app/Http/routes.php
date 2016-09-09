@@ -34,6 +34,11 @@ foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
+    Route::get('/signup/{optional?}', [
+        'as' => 'signup',
+        'uses' => 'SignupController@index'
+    ])->where('optional', '(.*)');
+
     Route::get('/app/{optional?}', [
         'as' => 'app',
         'uses' => 'HomeController@index'
