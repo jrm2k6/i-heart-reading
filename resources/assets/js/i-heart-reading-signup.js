@@ -7,6 +7,8 @@ import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import SignupComponent from './components/signup/SignupComponent';
 import RegisterSchoolComponent from './components/signup/RegisterSchoolComponent';
+import PrimaryContactComponent from './components/signup/PrimaryContactComponent';
+import GroupCreationComponent from './components/signup/GroupCreationComponent';
 
 const appReducer = combineReducers(Object.assign({}, {}, {
   routing: routeReducer
@@ -21,6 +23,8 @@ const getRoutes = (store) => {
   return (
     <Route path='signup' component={SignupComponent}>
       <IndexRoute component={RegisterSchoolComponent} />
+      <Route path='contact' component={PrimaryContactComponent} />
+      <Route path='classrooms' component={GroupCreationComponent} />
     </Route>
   );
 };
