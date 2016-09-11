@@ -1,5 +1,6 @@
 import {
   ASSIGNED_BOOKS_FETCHED,
+  ASSIGNMENT_CREATED,
   ASSIGNMENT_DELETED,
   ASSIGNMENT_PROGRESS_UPDATED,
   BOOKS_FETCHED,
@@ -37,6 +38,11 @@ export default function bookReducers(state = initialState, action) {
     case ASSIGNED_BOOKS_FETCHED:
       return Object.assign({}, state, {
         assignedBooks: action.payload.books
+      });
+
+    case ASSIGNMENT_CREATED:
+      return Object.assign({}, state, {
+        assignedBooks: action.payload.books.concat(action.payload.books)
       });
 
     case ASSIGNMENT_DELETED:
