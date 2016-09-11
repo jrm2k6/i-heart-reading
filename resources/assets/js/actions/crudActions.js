@@ -296,7 +296,7 @@ export function updateAssignmentProgress(_id, _numPages) {
 export function markedBookAsReadSuccess(data) {
   return dispatch => {
     dispatch(displaySuccessAlert('Book marked as read!'));
-
+    console.log('markedBookasRead', data);
     return {
       type: MARKED_BOOK_AS_READ,
       payload: data

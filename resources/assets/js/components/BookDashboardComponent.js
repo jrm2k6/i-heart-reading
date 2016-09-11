@@ -146,7 +146,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
     <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
-    <UploadResponseButton assignmentId={id}/> : null;
+    <UploadResponseButton assignmentId={id} /> : null;
 
   let editOption = (!isRead) ?
     <IconButton iconClassName='material-icons' onClick={onClickEdit}>create</IconButton> : null;

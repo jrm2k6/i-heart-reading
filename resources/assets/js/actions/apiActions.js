@@ -1,12 +1,5 @@
 import request from 'superagent';
 import Promise from 'bluebird';
-export const ASYNC_CALL_STARTED = 'ASYNC_CALL_STARTED';
-
-export function asyncStarted() {
-  return {
-    type: ASYNC_CALL_STARTED
-  };
-}
 
 export function getRequest(url, data = {}) {
   return new Promise((resolve, reject) => {
@@ -60,8 +53,6 @@ export function postRequestWithAttachments(url, data, attachments, headers = {})
 
 export function putRequest(url, data, successAction, errorAction, headers = {}) {
   return dispatch => {
-    dispatch(asyncStarted());
-
     request.put(url).send(data)
     .set(headers)
     .end((err, res) => {
@@ -76,8 +67,6 @@ export function putRequest(url, data, successAction, errorAction, headers = {}) 
 
 export function deleteRequest(url, successAction, errorAction, headers = {}) {
   return dispatch => {
-    dispatch(asyncStarted());
-
     request.del(url)
     .set(headers)
     .end((err, res) => {
