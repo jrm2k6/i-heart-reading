@@ -22,27 +22,22 @@ export function getRequest(url, data = {}) {
   });
 }
 
-export function postRequest(url, data, successAction, errorAction, headers = {}) {
-  return dispatch => {
-    dispatch(asyncStarted());
-
+export function postRequest(url, data, headers = {}) {
+  return new Promise((resolve, reject) => {
     request.post(url).send(data)
     .set(headers)
     .end((err, res) => {
       if (err) {
-        dispatch(errorAction(err));
+        reject(err);
       }
 
-      dispatch(successAction(res.body));
+      resolve(res.body);
     });
-  };
+  });
 }
 
-export function postRequestWithAttachments(url, data, attachments,
-  successAction, errorAction, headers = {}) {
-  return dispatch => {
-    dispatch(asyncStarted());
-
+export function postRequestWithAttachments(url, data, attachments, headers = {}) {
+  return new Promise((resolve, reject) => {
     const req = request.post(url).set(headers);
 
     Object.keys(data).forEach((key) => {
@@ -55,12 +50,12 @@ export function postRequestWithAttachments(url, data, attachments,
 
     req.end((err, res) => {
       if (err) {
-        dispatch(errorAction(err));
+        reject(err);
       }
 
-      dispatch(successAction(res.body));
+      resolve(res.body);
     });
-  };
+  });
 }
 
 export function putRequest(url, data, successAction, errorAction, headers = {}) {
