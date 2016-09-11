@@ -214,15 +214,19 @@ export function errorAssignmentCreated(data) {
 }
 
 export function createAssignment(bookId, userId) {
-  return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
-    { book_id: bookId, user_id: userId },
-    assignmentCreated, errorAssignmentCreated, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
+      { book_id: bookId, user_id: userId }, _headers).then(
+        res => dispatch(assignmentCreated(res)),
+        err => dispatch(errorAssignmentCreated(err))
+    );
+  };
 }
 
 export function bookCreated(data) {
   return (dispatch, getState) => {
     const userId = getState().userProfileReducer.user.id;
-    dispatch(createAssignment(data.book.id, userId));
+    return dispatch(createAssignment(data.book.id, userId));
   };
 }
 
@@ -233,8 +237,12 @@ export function errorBookCreated() {
 }
 
 export function createBook(dataBook) {
-  return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook,
-    bookCreated, errorBookCreated, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook, _headers).then(
+      res => dispatch(bookCreated(res)),
+      err => dispatch(errorBookCreated(err))
+    );
+  };
 }
 
 export function assignmentDeleted(_id) {
@@ -376,10 +384,19 @@ export function saveResponse(props) {
   }
 
   if (attachments.length > 0) {
-    return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
-      res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
+    return dispatch => {
+      return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data,
+        attachments, _headers).then(
+        res => dispatch(successCreateResponse(assignmentId, res)),
+        err => dispatch(errorSaveResponse(err))
+      );
+    };
   }
 
-  return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
-    res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data, _headers).then(
+        res => dispatch(successCreateResponse(assignmentId, res)),
+        err => dispatch(errorSaveResponse(err))
+      );
+  };
 }
