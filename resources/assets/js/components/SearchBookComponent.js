@@ -19,8 +19,11 @@ const SearchBookComponent = ({ onSearch, onClickAssign, currentQuery,
       <SearchBookSuggestions
         suggestions={suggestions}
         onClick={(bookId) => {
-          onClickAssign(bookId, user.id);
-          browserHistory.push('/app/books');
+          onClickAssign(bookId, user.id).finally(
+            function() {
+              browserHistory.push('/app/books');
+            }
+          );
         }}
       />
     );
@@ -81,9 +84,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(runSearch(data));
     },
 
-    onClickAssign: (bookId, userId) => {
-      dispatch(createAssignment(bookId, userId));
-    }
+    onClickAssign: (bookId, userId) => dispatch(createAssignment(bookId, userId))
   };
 };
 
