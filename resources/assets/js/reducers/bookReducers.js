@@ -33,7 +33,7 @@ function updateProgressBooks(_progress, assignedBooks) {
 export default function bookReducers(state = initialState, action) {
   let _assignedBooks;
   let _books;
-  console.log(action);
+
   switch (action.type) {
     case ASSIGNED_BOOKS_FETCHED:
       return Object.assign({}, state, {
@@ -51,14 +51,11 @@ export default function bookReducers(state = initialState, action) {
 
     case ASSIGNMENT_PROGRESS_UPDATED:
       _assignedBooks = updateProgressBooks(action.payload.progress, state.assignedBooks);
-      console.log(state.assignedBooks);
-      console.log('after');
-      console.log(_assignedBooks);
       return Object.assign({}, state, { assignedBooks: _assignedBooks });
 
     case MARKED_BOOK_AS_READ:
-      console.log('fucking action', action);
-      break;
+      _assignedBooks = updateProgressBooks(action.payload.progress, state.assignedBooks);
+      return Object.assign({}, state, { assignedBooks: _assignedBooks });
 
     case BOOKS_FETCHED:
       return Object.assign({}, state, {
