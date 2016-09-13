@@ -51,18 +51,18 @@ export function postRequestWithAttachments(url, data, attachments, headers = {})
   });
 }
 
-export function putRequest(url, data, successAction, errorAction, headers = {}) {
-  return dispatch => {
+export function putRequest(url, data, headers = {}) {
+  return new Promise((resolve, reject) => {
     request.put(url).send(data)
     .set(headers)
     .end((err, res) => {
       if (err) {
-        dispatch(errorAction(err));
+        reject(err);
       }
 
-      dispatch(successAction(res.body));
+      resolve(res.body);
     });
-  };
+  });
 }
 
 export function deleteRequest(url, successAction, errorAction, headers = {}) {
