@@ -87,6 +87,7 @@ class BookComponent extends Component {
               {assignedBooks.map((item) => {
                 return (
                   <AssignmentItem
+                    key={item.id}
                     properties={this.getProperties(item)}
                     onDeleteAssignedBook={this.props.onDeleteAssignedBook}
                     onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
