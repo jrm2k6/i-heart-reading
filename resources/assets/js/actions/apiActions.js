@@ -65,16 +65,16 @@ export function putRequest(url, data, headers = {}) {
   });
 }
 
-export function deleteRequest(url, successAction, errorAction, headers = {}) {
-  return dispatch => {
+export function deleteRequest(url, headers = {}) {
+  return new Promise((resolve, reject) => {
     request.del(url)
     .set(headers)
     .end((err, res) => {
       if (err) {
-        dispatch(errorAction(err));
+        reject(err);
       }
 
-      dispatch(successAction(res.body));
+      resolve(res.body);
     });
-  };
+  });
 }
