@@ -298,13 +298,9 @@ export function updateAssignmentProgress(_id, _numPages) {
 }
 
 export function markedBookAsReadSuccess(data) {
-  return dispatch => {
-    dispatch(displaySuccessAlert('Book marked as read!'));
-    console.log('markedBookasRead', data);
-    return {
-      type: MARKED_BOOK_AS_READ,
-      payload: data
-    };
+  return {
+    type: MARKED_BOOK_AS_READ,
+    payload: data
   };
 }
 
@@ -322,7 +318,10 @@ export function markBookAsRead(_id) {
   const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
   return dispatch => {
     return apiActions.putRequest(url, {}, _headers).then(
-        res => dispatch(markedBookAsReadSuccess(res)),
+        res => {
+          dispatch(displaySuccessAlert('Book marked as read!'));
+          return dispatch(markedBookAsReadSuccess(res))
+        },
         err => dispatch(errorMarkBookAsRead(err))
       );
   };
