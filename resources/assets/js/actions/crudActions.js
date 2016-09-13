@@ -262,11 +262,13 @@ export function deleteAssignment(id) {
   return dispatch => {
     const successAssignmentDeleted = () => {
       dispatch(displaySuccessAlert('Book successfully deleted!'));
-      dispatch(assignmentDeleted(id));
+      return dispatch(assignmentDeleted(id));
     };
 
-    dispatch(apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
-      successAssignmentDeleted, errorAssignmentDeleted, _headers));
+    return apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`, _headers).then(
+      () => dispatch(successAssignmentDeleted()),
+      () => dispatch(errorAssignmentDeleted())
+    );
   };
 }
 
