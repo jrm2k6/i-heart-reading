@@ -284,13 +284,17 @@ export function errorAssignmentProgressUpdated() {
 }
 
 export function updateAssignmentProgress(_id, _numPages) {
-  const dataProgress = {
-    id: _id,
-    num_pages_read: _numPages
+  return dispatch => {
+    const dataProgress = {
+      id: _id,
+      num_pages_read: _numPages
+    };
+    const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
+    return apiActions.putRequest(url, dataProgress, _headers).then(
+      res => dispatch(assignmentProgressUpdated(res)),
+      err => dispatch(errorAssignmentProgressUpdated(err))
+    );
   };
-  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
-  return apiActions.putRequest(url, dataProgress,
-    assignmentProgressUpdated, errorAssignmentProgressUpdated, _headers);
 }
 
 export function markedBookAsReadSuccess(data) {
@@ -316,8 +320,12 @@ export function errorMarkBookAsRead() {
 
 export function markBookAsRead(_id) {
   const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
-  return apiActions.putRequest(url, {},
-    markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
+  return dispatch => {
+    return apiActions.putRequest(url, {}, _headers).then(
+        res => dispatch(markedBookAsReadSuccess(res)),
+        err => dispatch(errorMarkBookAsRead(err))
+      );
+  };
 }
 
 function errorSaveResponse() {
@@ -355,8 +363,10 @@ function successCreateResponse(assignmendId, res) {
       book_id: currentAssignment.book.id
     };
 
-    dispatch(apiActions.putRequest(url, data,
-      successSaveResponse, errorSaveResponse, _headers));
+    return apiActions.putRequest(url, data, _headers).then(
+        _res => dispatch(successSaveResponse(_res)),
+        err => dispatch(errorSaveResponse(err))
+      );
   };
 }
 
