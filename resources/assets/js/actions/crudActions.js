@@ -214,15 +214,19 @@ export function errorAssignmentCreated(data) {
 }
 
 export function createAssignment(bookId, userId) {
-  return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
-    { book_id: bookId, user_id: userId },
-    assignmentCreated, errorAssignmentCreated, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_BOOKS_ASSIGNMENT_RESOURCE_URL,
+      { book_id: bookId, user_id: userId }, _headers).then(
+        res => dispatch(assignmentCreated(res)),
+        err => dispatch(errorAssignmentCreated(err))
+    );
+  };
 }
 
 export function bookCreated(data) {
   return (dispatch, getState) => {
     const userId = getState().userProfileReducer.user.id;
-    dispatch(createAssignment(data.book.id, userId));
+    return dispatch(createAssignment(data.book.id, userId));
   };
 }
 
@@ -233,8 +237,12 @@ export function errorBookCreated() {
 }
 
 export function createBook(dataBook) {
-  return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook,
-    bookCreated, errorBookCreated, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_BOOKS_RESOURCE_URL, dataBook, _headers).then(
+      res => dispatch(bookCreated(res)),
+      err => dispatch(errorBookCreated(err))
+    );
+  };
 }
 
 export function assignmentDeleted(_id) {
@@ -254,11 +262,13 @@ export function deleteAssignment(id) {
   return dispatch => {
     const successAssignmentDeleted = () => {
       dispatch(displaySuccessAlert('Book successfully deleted!'));
-      dispatch(assignmentDeleted(id));
+      return dispatch(assignmentDeleted(id));
     };
 
-    dispatch(apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`,
-      successAssignmentDeleted, errorAssignmentDeleted, _headers));
+    return apiActions.deleteRequest(`${API_BOOKS_ASSIGNMENT_RESOURCE_URL}/${id}`, _headers).then(
+      () => dispatch(successAssignmentDeleted()),
+      () => dispatch(errorAssignmentDeleted())
+    );
   };
 }
 
@@ -276,23 +286,23 @@ export function errorAssignmentProgressUpdated() {
 }
 
 export function updateAssignmentProgress(_id, _numPages) {
-  const dataProgress = {
-    id: _id,
-    num_pages_read: _numPages
+  return dispatch => {
+    const dataProgress = {
+      id: _id,
+      num_pages_read: _numPages
+    };
+    const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
+    return apiActions.putRequest(url, dataProgress, _headers).then(
+      res => dispatch(assignmentProgressUpdated(res)),
+      err => dispatch(errorAssignmentProgressUpdated(err))
+    );
   };
-  const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}`;
-  return apiActions.putRequest(url, dataProgress,
-    assignmentProgressUpdated, errorAssignmentProgressUpdated, _headers);
 }
 
 export function markedBookAsReadSuccess(data) {
-  return dispatch => {
-    dispatch(displaySuccessAlert('Book marked as read!'));
-
-    return {
-      type: MARKED_BOOK_AS_READ,
-      payload: data
-    };
+  return {
+    type: MARKED_BOOK_AS_READ,
+    payload: data
   };
 }
 
@@ -308,8 +318,15 @@ export function errorMarkBookAsRead() {
 
 export function markBookAsRead(_id) {
   const url = `${API_BOOKS_ASSIGNMENT_PROGRESS_RESOURCE_URL}/${_id}/read`;
-  return apiActions.putRequest(url, {},
-    markedBookAsReadSuccess, errorMarkBookAsRead, _headers);
+  return dispatch => {
+    return apiActions.putRequest(url, {}, _headers).then(
+        res => {
+          dispatch(displaySuccessAlert('Book marked as read!'));
+          return dispatch(markedBookAsReadSuccess(res))
+        },
+        err => dispatch(errorMarkBookAsRead(err))
+      );
+  };
 }
 
 function errorSaveResponse() {
@@ -347,8 +364,10 @@ function successCreateResponse(assignmendId, res) {
       book_id: currentAssignment.book.id
     };
 
-    dispatch(apiActions.putRequest(url, data,
-      successSaveResponse, errorSaveResponse, _headers));
+    return apiActions.putRequest(url, data, _headers).then(
+        _res => dispatch(successSaveResponse(_res)),
+        err => dispatch(errorSaveResponse(err))
+      );
   };
 }
 
@@ -376,10 +395,19 @@ export function saveResponse(props) {
   }
 
   if (attachments.length > 0) {
-    return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data, attachments,
-      res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
+    return dispatch => {
+      return apiActions.postRequestWithAttachments(API_RESPONSES_RESOURCE_URL, data,
+        attachments, _headers).then(
+        res => dispatch(successCreateResponse(assignmentId, res)),
+        err => dispatch(errorSaveResponse(err))
+      );
+    };
   }
 
-  return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data,
-    res => successCreateResponse(assignmentId, res), errorSaveResponse, _headers);
+  return dispatch => {
+    return apiActions.postRequest(API_RESPONSES_RESOURCE_URL, data, _headers).then(
+        res => dispatch(successCreateResponse(assignmentId, res)),
+        err => dispatch(errorSaveResponse(err))
+      );
+  };
 }

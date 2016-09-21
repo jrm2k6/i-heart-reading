@@ -53,8 +53,9 @@ export default class AddBookComponent extends React.Component {
         book_nb_pages: this.state.bookNumPages
       };
 
-      this.props.onAddBook(data);
-      browserHistory.push('/app/books');
+      this.props.onAddBook(data).finally(
+        function() { browserHistory.push('/app/books'); }
+      );
     }
   }
 

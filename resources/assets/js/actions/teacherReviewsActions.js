@@ -63,7 +63,7 @@ export function fetchAssignmentsToReview(optionalCallback = null) {
           optionalCallback(res);
         }
 
-        dispatch(assignmentToReviewFetched(res));
+        return dispatch(assignmentToReviewFetched(res));
       },
       err => { dispatch(assignmentToReviewFetchedError(err)); }
     );
@@ -127,11 +127,16 @@ function createReviewSuccess() {
     return {
       type: CREATE_REVIEW_SUCCESS
     };
-  }
+  };
 }
 
 export function createReview(responseId, props) {
-  return postRequest(URL_REVIEWS, props, createReviewSuccess, createReviewError, _headers);
+  return dispatch => {
+    return postRequest(URL_REVIEWS, props, _headers).then(
+      res => { dispatch(createReviewSuccess(res)); },
+      err => { dispatch(createReviewError(err)); }
+    );
+  };
 }
 
 function fetchStudentUpdatesSuccess(data) {

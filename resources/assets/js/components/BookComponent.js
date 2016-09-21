@@ -30,9 +30,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddBook: (data) => {
-      dispatch(createBook(data));
-    },
+    onAddBook: (data) => dispatch(createBook(data)),
 
     fetchBooks: () => {
       dispatch(fetchBooks());

@@ -87,6 +87,7 @@ class BookComponent extends Component {
               {assignedBooks.map((item) => {
                 return (
                   <AssignmentItem
+                    key={item.id}
                     properties={this.getProperties(item)}
                     onDeleteAssignedBook={this.props.onDeleteAssignedBook}
                     onUpdateAssignmentProgress={this.props.onUpdateAssignmentProgress}
@@ -146,7 +147,7 @@ const ReadOnlyAssignmentItem = ({ properties, onDeleteAssignedBook,
     <MarkAsReadOption clickHandler={() => onClickMarkAsRead(id)} /> : null;
 
   let uploadResponseOption = (isRead) ?
-    <UploadResponseButton assignmentId={id}/> : null;
+    <UploadResponseButton assignmentId={id} /> : null;
 
   let editOption = (!isRead) ?
     <IconButton iconClassName='material-icons' onClick={onClickEdit}>create</IconButton> : null;
