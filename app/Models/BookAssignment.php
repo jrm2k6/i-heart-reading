@@ -29,6 +29,15 @@ class BookAssignment extends Model
         return $this->belongsTo(Book::class);
     }
 
+    public function bookMarkedAsRead()
+    {
+        return $this->updates->map(function($update) {
+            return $update->mark_book_read;
+        })->reject(function($item) {
+            return !$item;
+        })->count() == 1;
+    }
+
     public function progress()
     {
         return $this->hasOne(AssignmentProgress::class, 'assignment_id');
