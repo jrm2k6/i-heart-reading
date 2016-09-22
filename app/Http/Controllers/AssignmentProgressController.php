@@ -69,17 +69,21 @@ class AssignmentProgressController extends Controller
 
     public function markAsRead($id)
     {
-        $assignment = AssignmentProgress::find($id);
+        $assignmentProgress = AssignmentProgress::find($id);
 
-        if (! $assignment) {
+        if (! $assignmentProgress) {
             return response(['errors' => ['Assignment not existing!']], 422);
         }
 
-        $assignment->update([
+        if ($assignmentProgress->is_read) {
+            return response(['errors' => ['Book already marked as read!']], 422);
+        }
+
+        $assignmentProgress->update([
            'is_read' => true
         ]);
 
-        event(new StudentAssignmentEnded($assignment->id));
+        event(new StudentAssignmentEnded($assignmentProgress->id));
 
         return response(['progress' => AssignmentProgress::find($id)], 200);
     }
