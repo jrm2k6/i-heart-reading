@@ -55,27 +55,27 @@ class UpdateStatsUser extends Command
         );
 
 
-        $daily_updates = $updates->groupBy('current_day')->map(function($group) {
+        $dailyUpdates = $updates->groupBy('current_day')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $weekly_updates = $updates->groupBy('current_week')->map(function($group) {
+        $weeklyUpdates = $updates->groupBy('current_week')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $monthly_updates = $updates->groupBy('current_month')->map(function($group) {
+        $monthlyUpdates = $updates->groupBy('current_month')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $yearly_updates = $updates->groupBy('current_year')->map(function($group) {
+        $yearlyUpdates = $updates->groupBy('current_year')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
         $stats = [
-            'daily' => $daily_updates,
-            'weekly' => $weekly_updates,
-            'monthly' => $monthly_updates,
-            'yearly' => $yearly_updates
+            'daily' => $dailyUpdates,
+            'weekly' => $weeklyUpdates,
+            'monthly' => $monthlyUpdates,
+            'yearly' => $yearlyUpdates
         ];
 
         Cache::forget('stats_'.$userId);
@@ -85,15 +85,15 @@ class UpdateStatsUser extends Command
     private function reduceGroup($group)
     {
         return $group->reduce(function($acc, $current) {
-            $is_completed_book = (int) $current->get('mark_book_read');
-            $num_pages_read = $current->get('num_pages');
+            $isCompletedBook = (int) $current->get('mark_book_read');
+            $numPagesRead = $current->get('num_pages');
 
-            $updated_num_pages_read = $acc['num_pages_read'] + $num_pages_read;
-            $updated_completed_books = $acc['books_read'] + $is_completed_book;
+            $updatedNumPagesRead = $acc['num_pages_read'] + $numPagesRead;
+            $updatedCompletedBooks = $acc['books_read'] + $isCompletedBook;
 
             return [
-                'num_pages_read' => $updated_num_pages_read,
-                'books_read' => $updated_completed_books
+                'num_pages_read' => $updatedNumPagesRead,
+                'books_read' => $updatedCompletedBooks
             ];
 
         }, ['num_pages_read' => 0, 'books_read' => 0]);
