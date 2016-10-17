@@ -24,12 +24,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail',
         ],
         'App\Events\StudentAssignmentUpdated' => [
-            'App\Listeners\CreateAssignmentUpdate',
-            'App\Listeners\UpdateStats'
+            'App\Listeners\StudentAssignmentUpdated\CreateAssignmentUpdate',
+            'App\Listeners\StudentAssignmentUpdated\UpdateStats'
         ],
         'App\Events\StudentAssignmentEnded' => [
-            'App\Listeners\CreateAssignmentEnded',
-            'App\Listeners\UpdateStatsForAssignmentEnded'
+            'App\Listeners\StudentAssignmentEnded\CreateAssignmentEnded',
+            'App\Listeners\StudentAssignmentEnded\UpdateStatsForAssignmentEnded'
         ],
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
