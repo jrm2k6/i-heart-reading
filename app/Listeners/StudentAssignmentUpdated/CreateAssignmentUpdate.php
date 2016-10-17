@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\StudentAssignmentUpdated;
 
+use App\Events\AssignmentUpdateCreated;
 use App\Events\StudentAssignmentUpdated;
 use App\Models\AssignmentUpdate;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,5 +32,7 @@ class CreateAssignmentUpdate
         $assignmentUpdate->assignment_id = $event->assignmentId;
         $assignmentUpdate->num_pages = $event->nbPages;
         $assignmentUpdate->save();
+
+        event(new AssignmentUpdateCreated($event->assignmentId));
     }
 }

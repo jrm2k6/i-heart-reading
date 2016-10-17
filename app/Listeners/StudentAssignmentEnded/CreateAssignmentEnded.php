@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\StudentAssignmentEnded;
 
+use App\Events\AssignmentEndedUpdateCreated;
 use App\Events\StudentAssignmentEnded;
 use App\Models\AssignmentUpdate;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,5 +32,7 @@ class CreateAssignmentEnded
         $assignmentUpdate->assignment_id = $event->assignmentId;
         $assignmentUpdate->mark_book_read = true;
         $assignmentUpdate->save();
+
+        event(new AssignmentEndedUpdateCreated($event->assignmentId));
     }
 }

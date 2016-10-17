@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\AssignmentEndedUpdateCreated;
 
-use App\Events\StudentAssignmentEnded;
+use App\Events\AssignmentEndedUpdateCreated;
 use App\Models\BookAssignment;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,7 +26,7 @@ class UpdateStatsForAssignmentEnded
      * @param  StudentAssignmentEnded  $event
      * @return void
      */
-    public function handle(StudentAssignmentEnded $event)
+    public function handle(AssignmentEndedUpdateCreated $event)
     {
         $assignment = BookAssignment::find($event->assignmentId);
         $userId = $assignment->user->id;
