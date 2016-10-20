@@ -18,4 +18,9 @@ class AssignmentUpdate extends Model
     {
         return $this->belongsTo(BookAssignment::class, 'assignment_id');
     }
+
+    public function previousAssignmentUpdate()
+    {
+        return $this->belongsTo(AssignmentUpdate::class, 'previous_assignment_id');
+    }
 }
