@@ -39,7 +39,7 @@ class CreateAssignmentEnded
         Cache::forget('previous_assignment_id_for_' . $assignmentId);
         Cache::forever('previous_assignment_id_for_' . $assignmentId, $assignmentUpdate->id);
 
-        event(new AssignmentEndedUpdateCreated($event->assignmentId));
+        event(new AssignmentEndedUpdateCreated($assignmentId));
     }
 
     private function findPreviousUpdate($assignmentId) {
