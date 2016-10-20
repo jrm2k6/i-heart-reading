@@ -42,7 +42,8 @@ class UpdateStatsUser extends Command
 
         $updates = User::find($userId)->assignmentUpdates->map(
             function($update) {
-
+                
+                $previousAssignmentUpdate = $update->previousAssignmentUpdate;
                 $sameYear = $update->created_at->year == Carbon::now()->year;
                 return collect([
                     'current_day' => (int) ($update->created_at->dayOfYear == Carbon::now()->dayOfYear && $sameYear),
@@ -50,10 +51,10 @@ class UpdateStatsUser extends Command
                     'current_month' => (int) ($update->created_at->month == Carbon::now()->month && $sameYear),
                     'current_year' => (int) ($sameYear),
                     'num_pages' => $update->num_pages,
+                    'previous_num_pages' => $previousAssignmentUpdate ? $previousAssignmentUpdate->num_pages : null,
                     'mark_book_read' => $update->mark_book_read]);
             }
         );
-
 
         $dailyUpdates = $updates->groupBy('current_day')->map(function($group) {
             return $this->reduceGroup($group);
@@ -87,8 +88,9 @@ class UpdateStatsUser extends Command
         return $group->reduce(function($acc, $current) {
             $isCompletedBook = (int) $current->get('mark_book_read');
             $numPagesRead = $current->get('num_pages');
-
-            $updatedNumPagesRead = $acc['num_pages_read'] + $numPagesRead;
+            $previousPagesRead = $current->get('previous_num_pages');
+            $toSubtract = $previousPagesRead ?? 0;
+            $updatedNumPagesRead = $acc['num_pages_read'] + $numPagesRead - $previousPagesRead;
             $updatedCompletedBooks = $acc['books_read'] + $isCompletedBook;
 
             return [
