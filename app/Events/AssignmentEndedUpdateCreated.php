@@ -10,7 +10,7 @@ class AssignmentEndedUpdateCreated extends Event
 {
     use SerializesModels;
 
-    protected $assignmentId;
+    public $assignmentId;
 
     /**
      * Create a new event instance.
