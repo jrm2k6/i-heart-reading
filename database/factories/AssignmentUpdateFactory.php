@@ -4,6 +4,7 @@ $factory->defineAs(App\Models\AssignmentUpdate::class, 'default', function (Fake
     return [
         'assignment_id' => 1,
         'num_pages' => 100,
-        'mark_book_read' => false
+        'mark_book_read' => false,
+        'previous_assignment_id' => null
     ];
 });
