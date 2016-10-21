@@ -34,6 +34,7 @@ class CreateAssignmentEnded
         $assignmentUpdate = new AssignmentUpdate;
         $assignmentUpdate->assignment_id = $assignmentId;
         $assignmentUpdate->mark_book_read = true;
+        $assignmentUpdate->previous_assignment_id = $previousUpdateId;
         $assignmentUpdate->save();
 
         Cache::forget('previous_assignment_id_for_' . $assignmentId);
