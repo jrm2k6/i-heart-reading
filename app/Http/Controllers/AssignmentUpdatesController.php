@@ -17,7 +17,7 @@ class AssignmentUpdatesController extends Controller
                 return $assignment->updates;
             }
         )->flatten()->pluck('id');
-        
+
         $updatesWithBooks = AssignmentUpdate::whereIn('id', $assignmentsUpdates)
             ->orderBy('updated_at', 'desc')
             ->with('assignment.book')->get();

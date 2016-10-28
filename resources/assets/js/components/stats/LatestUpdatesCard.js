@@ -15,7 +15,7 @@ class LatestUpdatesCard extends Component {
       .slice(0, currentEndIndex)
       .map((update, index) => {
         const bookTitle = update.assignment.book.title;
-        const numPages = update.num_pages;
+        const numPages = update.num_pages_read;
         const isRead = update.mark_book_read;
         const when = moment(update.updated_at).fromNow();
 
