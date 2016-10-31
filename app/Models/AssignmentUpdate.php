@@ -11,7 +11,7 @@ class AssignmentUpdate extends Model
      * @var array
      */
     protected $fillable = [
-        'assignment_id', 'num_pages', 'mark_book_read'
+        'assignment_id', 'num_pages', 'mark_book_read', 'previous_assignment_id'
     ];
 
     protected $appends = [
