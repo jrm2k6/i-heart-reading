@@ -30,6 +30,10 @@ class AssignmentUpdate extends Model
 
     public function getNumPagesReadAttribute()
     {
+        if ($this->mark_book_read == true) {
+            return 0;
+        }
+
         if ($this->previous_assignment_id != null) {
             $previousAssignmentPagesRead = $this->previousAssignmentUpdate->num_pages;
             return $this->num_pages - $previousAssignmentPagesRead;
