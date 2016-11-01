@@ -9,7 +9,7 @@ class TimelineItem extends React.Component {
     if (update.assignment) {
       const book = update.assignment.book;
       const wasMarkedAsRead = update.mark_book_read === 1;
-      const numPagesRead = update.num_pages;
+      const numPagesRead = update.num_pages_read;
 
       if (wasMarkedAsRead) {
         return (
