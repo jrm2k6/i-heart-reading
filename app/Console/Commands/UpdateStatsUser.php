@@ -90,7 +90,11 @@ class UpdateStatsUser extends Command
             $numPagesRead = $current->get('num_pages');
             $previousPagesRead = $current->get('previous_num_pages');
             $toSubtract = $previousPagesRead ?? 0;
-            $updatedNumPagesRead = $acc['num_pages_read'] + $numPagesRead - $previousPagesRead;
+            $updatedNumPagesRead = $acc['num_pages_read'];
+            if ($isCompletedBook == 0) {
+                 $updatedNumPagesRead += $numPagesRead - $previousPagesRead;
+            }
+
             $updatedCompletedBooks = $acc['books_read'] + $isCompletedBook;
 
             return [
