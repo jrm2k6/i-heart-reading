@@ -20,7 +20,7 @@ class StudentUpdatesComponent extends Component {
         const bookTitle = update.assignment.book.title;
         const numPages = update.num_pages_read;
         const isRead = update.mark_book_read;
-        const when = moment(update.updated_at).fromNow();
+        const when = moment(update.created_at).fromNow();
 
         const properties = { studentName, studentId, bookTitle, numPages, isRead, when };
 

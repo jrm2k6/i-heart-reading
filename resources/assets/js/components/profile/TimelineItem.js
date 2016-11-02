@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 class TimelineItem extends React.Component {
   getUpdateContent() {
     const { update } = this.props;
-    const when = moment(update.updated_at).fromNow();
+    const when = moment(update.created_at).fromNow();
     if (update.assignment) {
       const book = update.assignment.book;
       const wasMarkedAsRead = update.mark_book_read === 1;
