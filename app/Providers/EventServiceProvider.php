@@ -18,22 +18,26 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UserRegistered\SendConfirmationEmail'
         ],
         'App\Events\UserConfirmed' => [
-            'App\Listeners\UserConfirmed\MarkUserAsConfirmed',
+            'App\Listeners\UserConfirmed\MarkUserAsConfirmed'
         ],
         'App\Events\ConfirmationEmailResent' => [
-            'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail',
+            'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail'
         ],
         'App\Events\StudentAssignmentUpdated' => [
-            'App\Listeners\CreateAssignmentUpdate',
-            'App\Listeners\UpdateStats'
+            'App\Listeners\StudentAssignmentUpdated\CreateAssignmentUpdate'
         ],
         'App\Events\StudentAssignmentEnded' => [
-            'App\Listeners\CreateAssignmentEnded',
-            'App\Listeners\UpdateStatsForAssignmentEnded'
+            'App\Listeners\StudentAssignmentEnded\CreateAssignmentEnded'  
+        ],
+        'App\Events\AssignmentUpdateCreated' => [
+            'App\Listeners\AssignmentUpdateCreated\UpdateStats'
+        ],
+        'App\Events\AssignmentEndedUpdateCreated' => [
+            'App\Listeners\AssignmentEndedUpdateCreated\UpdateStatsForAssignmentEnded'
         ],
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
-        ],
+        ]
     ];
 
     /**

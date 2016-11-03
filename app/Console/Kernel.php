@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\UpdateStatsUser::class,
         Commands\SendTestEmail::class,
+        Commands\OneTimeCommands\AttachPreviousAssignmentUpdateId::class,
+        Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class
     ];
 
     /**

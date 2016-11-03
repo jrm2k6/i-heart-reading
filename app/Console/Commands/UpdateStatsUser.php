@@ -42,7 +42,8 @@ class UpdateStatsUser extends Command
 
         $updates = User::find($userId)->assignmentUpdates->map(
             function($update) {
-
+                
+                $previousAssignmentUpdate = $update->previousAssignmentUpdate;
                 $sameYear = $update->created_at->year == Carbon::now()->year;
                 return collect([
                     'current_day' => (int) ($update->created_at->dayOfYear == Carbon::now()->dayOfYear && $sameYear),
@@ -50,32 +51,32 @@ class UpdateStatsUser extends Command
                     'current_month' => (int) ($update->created_at->month == Carbon::now()->month && $sameYear),
                     'current_year' => (int) ($sameYear),
                     'num_pages' => $update->num_pages,
+                    'previous_num_pages' => $previousAssignmentUpdate ? $previousAssignmentUpdate->num_pages : null,
                     'mark_book_read' => $update->mark_book_read]);
             }
         );
 
-
-        $daily_updates = $updates->groupBy('current_day')->map(function($group) {
+        $dailyUpdates = $updates->groupBy('current_day')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $weekly_updates = $updates->groupBy('current_week')->map(function($group) {
+        $weeklyUpdates = $updates->groupBy('current_week')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $monthly_updates = $updates->groupBy('current_month')->map(function($group) {
+        $monthlyUpdates = $updates->groupBy('current_month')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
-        $yearly_updates = $updates->groupBy('current_year')->map(function($group) {
+        $yearlyUpdates = $updates->groupBy('current_year')->map(function($group) {
             return $this->reduceGroup($group);
         })->get(1);
 
         $stats = [
-            'daily' => $daily_updates,
-            'weekly' => $weekly_updates,
-            'monthly' => $monthly_updates,
-            'yearly' => $yearly_updates
+            'daily' => $dailyUpdates,
+            'weekly' => $weeklyUpdates,
+            'monthly' => $monthlyUpdates,
+            'yearly' => $yearlyUpdates
         ];
 
         Cache::forget('stats_'.$userId);
@@ -85,15 +86,20 @@ class UpdateStatsUser extends Command
     private function reduceGroup($group)
     {
         return $group->reduce(function($acc, $current) {
-            $is_completed_book = (int) $current->get('mark_book_read');
-            $num_pages_read = $current->get('num_pages');
+            $isCompletedBook = (int) $current->get('mark_book_read');
+            $numPagesRead = $current->get('num_pages');
+            $previousPagesRead = $current->get('previous_num_pages');
+            $toSubtract = $previousPagesRead ?? 0;
+            $updatedNumPagesRead = $acc['num_pages_read'];
+            if ($isCompletedBook == 0) {
+                 $updatedNumPagesRead += $numPagesRead - $previousPagesRead;
+            }
 
-            $updated_num_pages_read = $acc['num_pages_read'] + $num_pages_read;
-            $updated_completed_books = $acc['books_read'] + $is_completed_book;
+            $updatedCompletedBooks = $acc['books_read'] + $isCompletedBook;
 
             return [
-                'num_pages_read' => $updated_num_pages_read,
-                'books_read' => $updated_completed_books
+                'num_pages_read' => $updatedNumPagesRead,
+                'books_read' => $updatedCompletedBooks
             ];
 
         }, ['num_pages_read' => 0, 'books_read' => 0]);

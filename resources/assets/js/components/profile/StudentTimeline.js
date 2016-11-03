@@ -7,7 +7,7 @@ class StudentTimeline extends React.Component {
 
     if (updates) {
       const chronologicalUpdates = updates.sort((update1, update2) =>
-         new Date(update2.updated_at) - new Date(update1.updated_at)
+         new Date(update2.created_at) - new Date(update1.created_at)
       );
       return (
         <div className='profile-container-timeline'>
