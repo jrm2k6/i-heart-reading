@@ -2,7 +2,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\School;
 
-class AssignmentUpdatesControllerTest extends TestCase
+class SchoolControllerTest extends TestCase
 {
     use WithoutMiddleware;
 
