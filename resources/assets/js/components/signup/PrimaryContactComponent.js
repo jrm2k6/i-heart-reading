@@ -49,7 +49,7 @@ class PrimaryContactComponent extends Component {
     } else {
       console.log("error");
     }
-    browserHistory.push('signup/classrooms');
+    browserHistory.push('/signup/classrooms');
   }
 }
 
