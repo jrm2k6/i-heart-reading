@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 import PrimaryContactForm from './forms/PrimaryContactForm';
+import { createContact } from '../../actions/signup/signupContactActions';
 
 class PrimaryContactComponent extends Component {
   constructor(props) {
@@ -45,12 +47,24 @@ class PrimaryContactComponent extends Component {
       && rolePrimaryContact !== null;
 
     if (isValid) {
-      console.log("submit the shit");
+      this.props.createContact(this.state).then(
+        res => { browserHistory.push('/signup/classrooms') }
+      );
     } else {
       console.log("error");
     }
-    browserHistory.push('/signup/classrooms');
   }
 }
 
-export default PrimaryContactComponent;
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createContact: (data) => dispatch(createContact(data))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrimaryContactComponent);

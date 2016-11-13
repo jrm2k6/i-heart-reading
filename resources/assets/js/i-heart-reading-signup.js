@@ -5,12 +5,13 @@ import thunk from 'redux-thunk';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import signupReducers from './reducers/signup';
 import SignupComponent from './components/signup/SignupComponent';
 import RegisterSchoolComponent from './components/signup/RegisterSchoolComponent';
 import PrimaryContactComponent from './components/signup/PrimaryContactComponent';
 import GroupCreationComponent from './components/signup/GroupCreationComponent';
 
-const appReducer = combineReducers(Object.assign({}, {}, {
+const appReducer = combineReducers(Object.assign({}, signupReducers, {
   routing: routeReducer
 }));
 

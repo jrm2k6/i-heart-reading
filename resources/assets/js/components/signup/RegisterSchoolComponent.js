@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import RegisterSchoolForm from './forms/RegisterSchoolForm';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { createSchool } from '../../actions/signup/signupSchoolActions';
 
 class RegisterSchoolComponent extends Component {
   constructor(props) {
@@ -41,12 +43,26 @@ class RegisterSchoolComponent extends Component {
     const isValid = nameSchool !== null && addressSchool !== null && domainNameSchool !== null;
 
     if (isValid) {
-      console.log("submit the shit");
+      this.props.createSchool(this.state).then(
+        res => { browserHistory.push('signup/contact'); }
+      );
     } else {
       console.log("error");
     }
-    browserHistory.push('signup/contact');
+    // browserHistory.push('signup/contact');
   }
 }
 
-export default RegisterSchoolComponent;
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createSchool: (data) => dispatch(createSchool(data))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterSchoolComponent);
