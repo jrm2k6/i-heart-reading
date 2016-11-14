@@ -18,7 +18,8 @@ const _headers = {
 export function createSchool({ nameSchool, addressSchool, domainNameSchool }) {
   return dispatch => {
     return apiActions.postRequest(SIGNUP_SCHOOL_URL,
-      { name: nameSchool, address: addressSchool, domain_name: domainNameSchool }, _headers).then(
+      { name: nameSchool, address: addressSchool, domain_name: domainNameSchool },
+      _headers).then(
         res => dispatch(schoolCreated(res)),
         err => dispatch(errorSchoolCreated(err))
     );

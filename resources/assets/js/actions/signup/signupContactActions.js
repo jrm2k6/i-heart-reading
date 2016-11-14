@@ -15,10 +15,11 @@ const _headers = {
 };
 
 
-export function createContact({ namePrimaryContact, emailAddressPrimaryContact, rolePrimaryContact }) {
+export function createContact({ namePrimaryContact, emailAddressPrimaryContact, rolePrimaryContact, schoolId }) {
   return dispatch => {
     return apiActions.postRequest(SIGNUP_SCHOOL_CONTACT_URL,
-      { name: namePrimaryContact, email_address: emailAddressPrimaryContact, role: rolePrimaryContact }, _headers).then(
+      { name: namePrimaryContact, email_address: emailAddressPrimaryContact, role: rolePrimaryContact, school_id: schoolId },
+      _headers).then(
         res => dispatch(contactCreated(res)),
         err => dispatch(errorContactCreated(err))
     );

@@ -45,19 +45,24 @@ class PrimaryContactComponent extends Component {
     const isValid = namePrimaryContact !== null
       && emailAddressPrimaryContact !== null
       && rolePrimaryContact !== null;
-
-    if (isValid) {
-      this.props.createContact(this.state).then(
-        res => { browserHistory.push('/signup/classrooms') }
-      );
-    } else {
-      console.log("error");
+    if (this.props.currentSchool) {
+      const schoolData = Object.assign({}, this.state, {
+        schoolId: this.props.currentSchool.id
+      });
+      if (isValid) {
+        this.props.createContact(schoolData).then(
+          res => { browserHistory.push('/signup/classrooms') }
+        );
+      } else {
+        console.log("error");
+      }
     }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    currentSchool: state.signupReducer.currentSchool
   };
 };
 
