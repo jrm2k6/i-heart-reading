@@ -49,7 +49,6 @@ class RegisterSchoolComponent extends Component {
     } else {
       console.log("error");
     }
-    // browserHistory.push('signup/contact');
   }
 }
 
