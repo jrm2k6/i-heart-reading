@@ -1,6 +1,8 @@
 import {
   CONTACT_CREATED,
-  ERROR_CONTACT_CREATED
+  ERROR_CONTACT_CREATED,
+  CONTACT_VERIFIED,
+  ERROR_CONTACT_VERIFIED
 } from '../../actions/signup/signupContactActions';
 
 import {
@@ -15,8 +17,9 @@ import {
 
 const initialState = {
   currentSchool: null,
-  currentPrimaryContact: null,
-  currentGroups: []
+  currentPrimaryContact: {name: 'Jeremy Dagorn', email_address: 'jeremy.dagorn@gmail.com', role: 'Dumb'},
+  currentGroups: [],
+  contactExists: false
 };
 
 export default function signupReducer(state = initialState, action) {
@@ -48,6 +51,11 @@ export default function signupReducer(state = initialState, action) {
     case ERROR_GROUP_CREATED:
       return Object.assign({}, state, {
       });
+
+    case CONTACT_VERIFIED:
+      return Object.assign({}, state, {
+        contactExists: action.data.exists
+      })
 
     default:
       return state;

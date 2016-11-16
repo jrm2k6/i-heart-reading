@@ -1,10 +1,14 @@
 import * as apiActions from '../apiActions';
 import { displaySuccessAlert, displayErrorAlert } from '../alertsActions';
 
-const SIGNUP_SCHOOL_CONTACT_URL = '/api/school/contact'
+const SIGNUP_SCHOOL_CONTACT_URL = '/api/school/contact';
+const SIGNUP_VERIFY_CONTACT_URL = '/api/school/contact/verify';
 const CREATE_CONTACT = 'CREATE_CONTACT';
 export const CONTACT_CREATED = 'CONTACT_CREATED';
-export const ERROR_CONTACT_CREATED = 'ERROR_CONTACTL_CREATED';
+export const ERROR_CONTACT_CREATED = 'ERROR_CONTACT_CREATED';
+const VERIFY_CONTACT = 'VERIFY_CONTACT';
+export const CONTACT_VERIFIED = 'CONTACT_VERIFIED';
+export const ERROR_CONTACT_VERIFIED = 'ERROR_CONTACT_VERIFIED';
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
@@ -34,6 +38,31 @@ function contactCreated(data) {
 }
 
 function errorContactCreated(data) {
+  return {
+    type: ERROR_CONTACT_CREATED,
+    data: data.errors
+  };
+}
+
+export function verifyContact() {
+  return (dispatch, getState) => {
+    const primaryContact = getState().signupReducer.currentPrimaryContact;
+    return apiActions.getRequest(SIGNUP_VERIFY_CONTACT_URL,
+      { email_address: primaryContact.email_address }).then(
+        res => dispatch(contactVerified(res)),
+        err => dispatch(errorContactVerified(err))
+    );
+  }
+}
+
+function contactVerified(data) {
+  return {
+    type: CONTACT_VERIFIED,
+    data: data
+  };
+}
+
+function errorContactVerified(data) {
   return {
     type: ERROR_CONTACT_CREATED,
     data: data.errors

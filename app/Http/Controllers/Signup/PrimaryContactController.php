@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\PrimaryContact;
+use App\Models\User;
 
 class PrimaryContactController extends Controller
 {
@@ -43,6 +44,17 @@ class PrimaryContactController extends Controller
         ]);
 
         return response(['primary_contact' => $primaryContact], 201)->header('Location', '/api/school/contact/'.$primaryContact->id);
+    }
+
+    public function verifyExists(Request $request)
+    {
+        $emailAddress = $request->input('email_address');
+        if ($emailAddress) {
+            $exists = User::where('email', $emailAddress)->count() == 1;
+            return response(['exists' => $exists]);
+        }
+
+            return response([], 400);
     }
 
     /**

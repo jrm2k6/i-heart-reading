@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import GroupCreationForm from './forms/GroupCreationForm';
 import ListGroups from './ListGroups';
 import { createGroup } from '../../actions/signup/signupSchoolGroupAction';
@@ -57,7 +58,7 @@ class GroupCreationComponent extends Component {
   }
 
   handleSaveChanges() {
-    console.log('save changes');
+    browserHistory.push('/signup/verify');
   }
 }
 

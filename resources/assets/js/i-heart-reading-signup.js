@@ -10,6 +10,7 @@ import SignupComponent from './components/signup/SignupComponent';
 import RegisterSchoolComponent from './components/signup/RegisterSchoolComponent';
 import PrimaryContactComponent from './components/signup/PrimaryContactComponent';
 import GroupCreationComponent from './components/signup/GroupCreationComponent';
+import VerificationComponent from './components/signup/VerificationComponent';
 
 const appReducer = combineReducers(Object.assign({}, signupReducers, {
   routing: routeReducer
@@ -26,6 +27,7 @@ const getRoutes = (store) => {
       <IndexRoute component={RegisterSchoolComponent} />
       <Route path='contact' component={PrimaryContactComponent} />
       <Route path='classrooms' component={GroupCreationComponent} />
+      <Route path='verify' component={VerificationComponent} />
     </Route>
   );
 };
