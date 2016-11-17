@@ -1,3 +1,4 @@
 import signupReducer from './signupReducer';
+import userProfileReducer from '../userProfileReducer';
 
-module.exports = { signupReducer };
+module.exports = { signupReducer, userProfileReducer };

@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { fetchUser } from './actions/userProfileActions';
 import signupReducers from './reducers/signup';
 import SignupComponent from './components/signup/SignupComponent';
 import RegisterSchoolComponent from './components/signup/RegisterSchoolComponent';
@@ -22,8 +23,20 @@ const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunk)(
 const store = createStoreWithMiddleware(appReducer);
 
 const getRoutes = (store) => {
+  const hasLoggedInUser = (nextState, replaceState, callback) => {
+    const state = store.getState();
+    if (!state.userProfileReducer.user) {
+      store.dispatch(fetchUser()).then(
+        ({ type, payload }) => {
+            callback();
+        },
+        (err) => { console.log(err); }
+      );
+    }
+  };
+
   return (
-    <Route path='signup' component={SignupComponent}>
+    <Route path='signup' component={SignupComponent} onEnter={hasLoggedInUser}>
       <IndexRoute component={RegisterSchoolComponent} />
       <Route path='contact' component={PrimaryContactComponent} />
       <Route path='classrooms' component={GroupCreationComponent} />
