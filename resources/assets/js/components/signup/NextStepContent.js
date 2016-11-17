@@ -4,7 +4,7 @@ import PasswordInput from './forms/PasswordInput';
 
 class NextStepContent extends Component {
   componentWillMount() {
-    if (this.props.contactExists) {
+    if (!this.props.contactExists) {
       window.location = '/register';
     }
   }
