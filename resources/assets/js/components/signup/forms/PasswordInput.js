@@ -12,7 +12,11 @@ class PasswordInput extends Component {
   render() {
     return (
       <div>
-        <input onChange={(e) => { this.setState({ password: e.target.value }); }}
+        <span>Enter your password, please!</span>
+        <input onChange={(e) => { this.setState({ password: e.target.value }); }} />
+        <button onClick={ () => { this.props.verifyPassword(this.state.password)}}>
+          Validate
+        </button>
       </div>
     );
   }
