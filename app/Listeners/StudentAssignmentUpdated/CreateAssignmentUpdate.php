@@ -49,8 +49,11 @@ class CreateAssignmentUpdate
             return $previousAssignmentIdCached;
         } else {
             $ascUpdates = AssignmentUpdate::where('assignment_id', $assignmentId)
-                ->orderBy('created_at', 'DESC')->get()->last();
-            return $ascUpdates;
+                ->orderBy('created_at', 'DESC');
+            if ($ascUpdates->count() > 0) {
+                return $ascUpdates->get()->last()->id;
+            }
+            return null;
         }
     }
 }
