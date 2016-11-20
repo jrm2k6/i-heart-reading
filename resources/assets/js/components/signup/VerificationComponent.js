@@ -32,7 +32,6 @@ class VerificationComponent extends Component {
   }
 
   render() {
-    console.log(this.props);
     const content = (this.state.verifyingUser) ?
       <VerifyingUserMessage /> :
       <NextStepContent contactExists={this.props.contactExists} />
