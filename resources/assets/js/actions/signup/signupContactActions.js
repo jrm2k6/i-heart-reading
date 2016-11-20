@@ -3,7 +3,7 @@ import { displaySuccessAlert, displayErrorAlert } from '../alertsActions';
 
 const SIGNUP_SCHOOL_CONTACT_URL = '/api/school/contact';
 const SIGNUP_VERIFY_CONTACT_URL = '/api/school/contact/verify';
-const SIGNUP_VERIFY_PASSWORD_CURRENT_USER = '/api/me/password/verify';
+const SIGNUP_VERIFY_PASSWORD_CURRENT_USER = '/api/user/me/password/verify';
 const CREATE_CONTACT = 'CREATE_CONTACT';
 export const CONTACT_CREATED = 'CONTACT_CREATED';
 export const ERROR_CONTACT_CREATED = 'ERROR_CONTACT_CREATED';
@@ -73,11 +73,11 @@ function errorContactVerified(data) {
   };
 }
 
-export function verifyPassword() {
+export function verifyPassword(password) {
   return (dispatch, getState) => {
     const primaryContact = getState().signupReducer.currentPrimaryContact;
-    return apiActions.getRequest(SIGNUP_VERIFY_PASSWORD_CURRENT_USER,
-      { password: password }).then(
+    return apiActions.postRequest(SIGNUP_VERIFY_PASSWORD_CURRENT_USER,
+      { password: password }, _headers).then(
         res => dispatch(passwordVerified(res)),
         err => dispatch(errorPasswordVerified(err))
     );
