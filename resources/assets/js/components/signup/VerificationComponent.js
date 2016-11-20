@@ -22,7 +22,6 @@ class VerificationComponent extends Component {
     // Done
 
     if (this.props.currentPrimaryContact !== null) {
-      console.log('getting contact');
       this.props.verifyContact().then(
         res => { this.setState({ verifyingUser: false }); }
       );
@@ -34,7 +33,10 @@ class VerificationComponent extends Component {
   render() {
     const content = (this.state.verifyingUser) ?
       <VerifyingUserMessage /> :
-      <NextStepContent contactExists={this.props.contactExists} />
+      <NextStepContent
+        contactExists={this.props.contactExists}
+        currentUser={this.props.currentUser}
+      />
     return (
       <div className='register-school-container'>
         <div className='section-header'>
@@ -52,6 +54,7 @@ class VerificationComponent extends Component {
 const mapStateToProps = (state) => {
   return {
     currentPrimaryContact: state.signupReducer.currentPrimaryContact,
+    currentUser: state.userProfileReducer.user,
     contactExists: state.signupReducer.contactExists
   };
 };
