@@ -27,6 +27,17 @@ class GroupCreationForm extends Component {
           <span>Grade/Type</span>
           <select onChange={this.updateGrade}>
             <option>K1</option>
+            <option>K2</option>
+            <option>K3</option>
+            <option>K4</option>
+            <option>K5</option>
+            <option>K6</option>
+            <option>K7</option>
+            <option>K8</option>
+            <option>K9</option>
+            <option>K10</option>
+            <option>K11</option>
+            <option>K12</option>
             <option>Other</option>
           </select>
         </div>
