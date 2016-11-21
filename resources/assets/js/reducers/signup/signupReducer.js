@@ -17,7 +17,7 @@ import {
 
 const initialState = {
   currentSchool: null,
-  currentPrimaryContact: {name: 'Jeremy Dagorn', email_address: 'jeremy.dagorn@gmail.com', role: 'Dumb'},
+  currentPrimaryContact: null,
   currentGroups: [],
   contactExists: false
 };

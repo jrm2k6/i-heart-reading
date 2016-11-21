@@ -17,10 +17,12 @@ elixir(function(mix) {
         .browserify('i-heart-reading.js')
         .browserify('i-heart-reading-teacher.js')
         .browserify('i-heart-reading-signup.js')
+        .browserify('i-heart-reading-admin.js')
         .version([
             'public/js/i-heart-reading.js',
             'public/js/i-heart-reading-teacher.js',
             'public/js/i-heart-reading-signup.js',
+            'public/js/i-heart-reading-admin.js',
             'public/css/app.css'])
         .copy('public/images', 'public/build/css/images');
 });

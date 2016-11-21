@@ -39,6 +39,11 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'SignupController@index'
     ])->where('optional', '(.*)');
 
+    Route::get('/admin/{optional?}', [
+        'as' => 'signup',
+        'uses' => 'IHeartReadingAdminController@index'
+    ])->where('optional', '(.*)');
+
     Route::get('/app/{optional?}', [
         'as' => 'app',
         'uses' => 'HomeController@index'
