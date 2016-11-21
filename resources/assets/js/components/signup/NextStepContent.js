@@ -42,6 +42,10 @@ class NextStepContent extends Component {
     } else if (this.state.showSuccessContent) {
       return (
         <div>
+          <div>
+            Looks like you are all set up!
+            You can now access <a href='/admin/dashboard'>your dashboard!</a>
+          </div>
         </div>
       );
     }
