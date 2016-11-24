@@ -8,7 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { fetchUser } from './actions/userProfileActions';
 import adminReducers from './reducers/admin';
 import AdminComponent from './components/admin/AdminComponent';
-import AdminDashboardComponent from './components/admin/AdminDashboardComponent';
+import AdminHomeComponent from './components/admin/AdminHomeComponent';
 
 const appReducer = combineReducers(Object.assign({}, adminReducers, {
   routing: routeReducer
@@ -34,7 +34,7 @@ const getRoutes = (store) => {
 
   return (
     <Route path='admin' component={AdminComponent} onEnter={hasLoggedInUser}>
-      <IndexRoute component={AdminDashboardComponent} />
+      <IndexRoute component={AdminHomeComponent} />
     </Route>
   );
 };
