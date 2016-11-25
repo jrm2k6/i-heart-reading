@@ -1,11 +1,10 @@
-<?php
-
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class AdminTeacherController extends Controller
 {
