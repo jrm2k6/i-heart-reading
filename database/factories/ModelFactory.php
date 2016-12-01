@@ -128,6 +128,13 @@ $factory->define(App\Models\Teacher::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Models\SchoolAdmin::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' =>  $faker->randomNumber() ,
+        'school_id' =>  $faker->randomNumber() ,
+    ];
+});
+
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' =>  $faker->name ,
@@ -138,4 +145,3 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' =>  str_random(10) ,
     ];
 });
-
