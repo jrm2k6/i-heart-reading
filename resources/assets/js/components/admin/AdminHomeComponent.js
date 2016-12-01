@@ -10,4 +10,4 @@ class AdminHomeComponent extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminComponent);
+export default AdminHomeComponent;
