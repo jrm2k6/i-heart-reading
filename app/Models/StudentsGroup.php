@@ -8,4 +8,13 @@ class StudentsGroup extends Model
     use SoftDeletes;
 
     protected $table = 'students_groups';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'group_id'
+    ];
 }
