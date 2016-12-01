@@ -6,17 +6,17 @@ class AdminTeacherControllerTest extends TestCase
 {
     use WithoutMiddleware;
 
-    public function testCreateSchool()
+    public function testCreateTeacher()
     {
         // given
         $user = factory(App\Models\User::class)->create();
         $school = factory(App\Models\School::class)->create();
         $userId = $user->id;
         $schoolId = $school->id;
-        
+
         // when
         $response = $this->call('POST', 'api/teacher', [
-            'user_id' => $userId, 
+            'user_id' => $userId,
             'school_id' => $schoolId,
         ]);
 
@@ -28,7 +28,7 @@ class AdminTeacherControllerTest extends TestCase
         ]);
     }
 
-    public function testUpdateSchool()
+    public function testUpdateTeacher()
     {
         // given
         $user = factory(App\Models\User::class)->create();
@@ -44,7 +44,7 @@ class AdminTeacherControllerTest extends TestCase
         // when
         $response = $this->call('PUT', 'api/teacher/'.$teacher->id, [
             'teacher_id' => $teacher->id,
-            'user_id' => $newUser->id, 
+            'user_id' => $newUser->id,
             'school_id' => $newSchool->id
         ]);
 
@@ -56,7 +56,7 @@ class AdminTeacherControllerTest extends TestCase
         ]);
     }
 
-    public function testDeleteSchool()
+    public function testDeleteTeacher()
     {
         // given
         $user = factory(App\Models\User::class)->create();
@@ -72,7 +72,7 @@ class AdminTeacherControllerTest extends TestCase
         // then
         $this->assertResponseStatus(200);
         $deletedTeacher = Teacher::onlyTrashed()->get()->filter(function($current) use ($teacher) {
-            return $current->id == $teacher->id; 
+            return $current->id == $teacher->id;
         })->first();
         $this->assertNotNull($deletedTeacher->deleted_at);
     }
