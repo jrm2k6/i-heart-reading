@@ -18,4 +18,9 @@ class SchoolAdmin extends Model
   protected $fillable = [
       'school_id', 'user_id'
   ];
+
+  public function school()
+  {
+      return $this->belongsTo(School::class);
+  }
 }

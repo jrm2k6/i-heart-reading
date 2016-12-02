@@ -41,4 +41,16 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(AssignmentUpdate::class, BookAssignment::class, 'user_id', 'assignment_id');
     }
+
+    public function asAdmin()
+    {
+        //TODO: double check why it is a collection
+        return $this->hasOne(SchoolAdmin::class)->first();
+    }
+
+    public function asTeacher()
+    {
+        //TODO: double check why it is a collection
+        return $this->hasOne(Teacher::class)->first();
+    }
 }
