@@ -17,6 +17,11 @@ class AdminAdministratorController extends Controller
       //
   }
 
+  public function getAdminUser()
+  {
+      $authUser = Auth::user();
+  }
+
   /**
    * Show the form for creating a new resource.
    *
