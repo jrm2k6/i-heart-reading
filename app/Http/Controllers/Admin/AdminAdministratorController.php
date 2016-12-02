@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Models\SchoolAdmin;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 class AdminAdministratorController extends Controller
 {
   /**
@@ -68,7 +69,7 @@ class AdminAdministratorController extends Controller
   public function update(Request $request, $id)
   {
       $this->validate($request, [
-          'teacher_id' => 'required|exists:teachers,id',
+          'school_id' => 'required|exists:schools,id',
           'user_id' => 'required|exists:users,id',
           'administrator_id' => 'required|exists:school_admins,id'
       ]);
