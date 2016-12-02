@@ -10,7 +10,7 @@ class AdminSchoolAdminControllerTest extends TestCase
     {
         // given
         $user = factory(App\Models\User::class)->create();
-        $school = factory(App\Models\School::class)->create();
+        $school = factory(App\Models\School::class)->create(['domain_name' => 'domain1']);
         $userId = $user->id;
         $schoolId = $school->id;
 
@@ -32,17 +32,17 @@ class AdminSchoolAdminControllerTest extends TestCase
     {
         // given
         $user = factory(App\Models\User::class)->create();
-        $school = factory(App\Models\School::class)->create(['domain_name' => 'first']);
+        $school = factory(App\Models\School::class)->create(['domain_name' => 'domain2']);
         $userId = $user->id;
         $schoolId = $school->id;
 
         $newUser = factory(App\Models\User::class)->create();
-        $newSchool = factory(App\Models\School::class)->create(['domain_name' => 'second']);
+        $newSchool = factory(App\Models\School::class)->create(['domain_name' => 'domain3']);
 
         $administrator = factory(App\Models\SchoolAdmin::class)->create(['user_id' => $userId, 'school_id' => $schoolId]);
 
         // when
-        $response = $this->call('PUT', 'api/administrator/'.$teacher->id, [
+        $response = $this->call('PUT', 'api/administrator/'.$administrator->id, [
             'administrator_id' => $administrator->id,
             'user_id' => $newUser->id,
             'school_id' => $newSchool->id
@@ -61,7 +61,7 @@ class AdminSchoolAdminControllerTest extends TestCase
     {
         // given
         $user = factory(App\Models\User::class)->create();
-        $school = factory(App\Models\School::class)->create(['domain_name' => 'third']);
+        $school = factory(App\Models\School::class)->create(['domain_name' => 'domain4']);
         $userId = $user->id;
         $schoolId = $school->id;
 
