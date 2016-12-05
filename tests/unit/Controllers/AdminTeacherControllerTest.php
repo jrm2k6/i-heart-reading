@@ -1,10 +1,12 @@
 <?php
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\Teacher;
+use Testing\Traits\DatabaseTruncate;
 
 class AdminTeacherControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTruncate;
 
     public function testCreateTeacher()
     {

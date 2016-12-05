@@ -1,10 +1,12 @@
 <?php
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\StudentsGroup;
+use Testing\Traits\DatabaseTruncate;
 
 class AdminGroupStudentsControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTruncate;
 
     public function testCreateGroupStudents()
     {

@@ -1,9 +1,11 @@
 <?php
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Testing\Traits\DatabaseTruncate;
 
 class AssignmentUpdatesControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTruncate;
     
     public function testGetMyUpdates()
     {
@@ -31,7 +33,7 @@ class AssignmentUpdatesControllerTest extends TestCase
              ->seeJsonStructure([
                  'updates' => [
                      '*' => [
-                         "assignment" => [ 
+                         "assignment" => [
                              "book", "book_id",
                         ],
                         "mark_book_read", "num_pages", "previous_assignment_id",

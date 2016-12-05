@@ -2,10 +2,12 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\School;
 use App\Models\SchoolGroup;
+use Testing\Traits\DatabaseTruncate;
 
 class SchoolGroupControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTruncate;
 
     public function testCreateGroupSchool()
     {

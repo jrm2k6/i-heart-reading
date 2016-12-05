@@ -1,10 +1,12 @@
 <?php
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\PrimaryContact;
+use Testing\Traits\DatabaseTruncate;
 
 class PrimaryContactControllerTest extends TestCase
 {
     use WithoutMiddleware;
+    use DatabaseTruncate;
 
     public function testCreatePrimaryContact()
     {
