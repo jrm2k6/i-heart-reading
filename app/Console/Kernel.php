@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\UpdateStatsUser::class,
         Commands\SendTestEmail::class,
         Commands\OneTimeCommands\AttachPreviousAssignmentUpdateId::class,
-        Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class
+        Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class,
+        Commands\Testing\DeleteContentTestingDatabase::class
     ];
 
     /**
