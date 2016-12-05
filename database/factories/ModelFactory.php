@@ -12,23 +12,17 @@ $factory->define(App\Models\AssignmentReview::class, function (Faker\Generator $
     return [
         'assignment_id' =>  $faker->randomNumber() ,
         'reviewer_id' =>  $faker->randomNumber() ,
-        'decision_type_id' =>  function () {
-             return factory(App\Models\DecisionType::class)->create()->id;
-        } ,
+        'decision_type_id' =>  $faker->randomDigit ,
         'comment' =>  $faker->text ,
     ];
 });
 
 $factory->define(App\Models\AssignmentUpdate::class, function (Faker\Generator $faker) {
     return [
-        'assignment_id' =>  function () {
-             return factory(App\Models\BookAssignment::class)->create()->id;
-        } ,
+        'assignment_id' =>  $faker->randomNumber() ,
         'num_pages' =>  $faker->randomNumber() ,
-        'mark_book_read' =>  $faker->randomNumber() ,
-        'previous_assignment_id' =>  function () {
-             return factory(App\Models\AssignmentUpdate::class)->create()->id;
-        } ,
+        'mark_book_read' =>  0 ,
+        'previous_assignment_id' => null ,
         'created_at_old' =>  $faker->dateTimeBetween() ,
         'updated_at_old' =>  $faker->dateTimeBetween() ,
     ];
@@ -44,15 +38,9 @@ $factory->define(App\Models\Book::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\BookAssignment::class, function (Faker\Generator $faker) {
     return [
-        'user_id' =>  function () {
-             return factory(App\Models\User::class)->create()->id;
-        } ,
-        'book_id' =>  function () {
-             return factory(App\Models\Book::class)->create()->id;
-        } ,
-        'response_id' =>  function () {
-             return factory(App\Models\Response::class)->create()->id;
-        } ,
+        'user_id' =>  $faker->randomDigit ,
+        'book_id' =>  $faker->randomDigit ,
+        'response_id' =>  null ,
     ];
 });
 
@@ -80,12 +68,8 @@ $factory->define(App\Models\PrimaryContact::class, function (Faker\Generator $fa
 
 $factory->define(App\Models\Response::class, function (Faker\Generator $faker) {
     return [
-        'response_type_id' =>  function () {
-             return factory(App\Models\ResponseType::class)->create()->id;
-        } ,
-        'assignment_id' =>  function () {
-             return factory(App\Models\BookAssignment::class)->create()->id;
-        } ,
+        'response_type_id' =>  $faker->randomDigit ,
+        'assignment_id' =>  $faker->randomDigit ,
         'content' =>  $faker->text ,
         'url' =>  $faker->url ,
     ];
