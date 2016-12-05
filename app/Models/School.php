@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class School extends Model
 {
     use SoftDeletes;
@@ -16,4 +17,14 @@ class School extends Model
     protected $fillable = [
         'name', 'address', 'domain_name',
     ];
+
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(SchoolGroup::class);
+    }
 }
