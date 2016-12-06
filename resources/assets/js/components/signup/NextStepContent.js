@@ -44,7 +44,7 @@ class NextStepContent extends Component {
         <div>
           <div>
             Looks like you are all set up!
-            You can now access <a href='/admin/dashboard'>your dashboard!</a>
+            You can now access <a href='/admin'>your dashboard!</a>
           </div>
         </div>
       );
