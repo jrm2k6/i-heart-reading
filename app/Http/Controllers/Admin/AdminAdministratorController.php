@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Models\SchoolAdmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAdministratorController extends Controller
 {
@@ -19,7 +20,26 @@ class AdminAdministratorController extends Controller
 
   public function getAdminUser()
   {
-      $authUser = Auth::user();
+      $authAdmin = Auth::user()->asAdmin();
+      if ($authAdmin != null) {
+          $school = $authAdmin->school;
+          $teachers = null;
+          $groups = null;
+
+          if ($school) {
+              $teachers = $school->teachers;
+              $groups = $school->groups;
+          }
+          
+          return response([
+            'admin' => $authAdmin,
+            'school' => $school,
+            'groups' => $groups,
+            'teachers' => $teachers
+          ], 200);
+      }
+
+      return response(null, 401);
   }
 
   /**
