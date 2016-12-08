@@ -18,4 +18,18 @@ class Teacher extends Model
     protected $fillable = [
         'school_id', 'user_id'
     ];
+
+    protected $appends = [
+        'user'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getUserAttribute()
+    {
+        return $this->user()->first();
+    }
 }

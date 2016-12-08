@@ -48,9 +48,8 @@ class User extends Authenticatable
         return $this->hasOne(SchoolAdmin::class)->first();
     }
 
-    public function asTeacher()
+    public function teacher()
     {
-        //TODO: double check why it is a collection
-        return $this->hasOne(Teacher::class)->first();
+        return $this->hasOne(Teacher::class);
     }
 }
