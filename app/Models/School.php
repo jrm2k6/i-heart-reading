@@ -27,4 +27,9 @@ class School extends Model
     {
         return $this->hasMany(SchoolGroup::class);
     }
+
+    public function admins()
+    {
+        return $this->hasMany(SchoolAdmin::class);
+    }
 }

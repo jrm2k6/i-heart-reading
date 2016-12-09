@@ -25,14 +25,17 @@ class AdminAdministratorController extends Controller
           $school = $authAdmin->school;
           $teachers = null;
           $groups = null;
+          $admins = null;
 
           if ($school) {
               $teachers = $school->teachers;
               $groups = $school->groups;
+              $admins = $school->admins;
           }
           
           return response([
             'admin' => $authAdmin,
+            'admins' => $admins,
             'school' => $school,
             'groups' => $groups,
             'teachers' => $teachers
