@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-class AddTeacherForm extends Component {
+class AddAdminForm extends Component {
   constructor(props) {
       super(props);
-      // get list current admins from that school
+
+
+      // get list current teachers from that school
       this.state = {
         name: null,
         email: null,
@@ -17,7 +19,7 @@ class AddTeacherForm extends Component {
 
   render() {
     return (
-      <div className='admin-add-teacher-form'>
+      <div className='admin-add-admin-form'>
         <div>
           <span>Name</span>
           <input onChange={this.updateName} />
@@ -47,4 +49,4 @@ class AddTeacherForm extends Component {
 }
 
 
-export default AddTeacherForm;
+export default AddAdminForm;
