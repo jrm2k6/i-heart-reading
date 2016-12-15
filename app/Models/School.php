@@ -32,4 +32,9 @@ class School extends Model
     {
         return $this->hasMany(SchoolAdmin::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
