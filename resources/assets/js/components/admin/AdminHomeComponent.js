@@ -10,7 +10,8 @@ class AdminHomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentToShow: null
+      componentToShow: null,
+      nameComponent: null
     };
   }
 
@@ -24,19 +25,22 @@ class AdminHomeComponent extends Component {
         <TeacherStats teachers={this.props.teachers}
           admins={this.props.admins}
           school={this.props.school}
-          showComponent={(component) => { this.setState({ componentToShow: component }); }}
+          showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'teachers' }); }}
+          showingComponent={this.state.nameComponent === 'teachers'}
         />
         <AdminStats
           teachers={this.props.teachers}
           admins={this.props.admins}
           school={this.props.school}
-          showComponent={(component) => { this.setState({ componentToShow: component }); }}
+          showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'admins' }); }}
+          showingComponent={this.state.nameComponent === 'admins'}
         />
         <GroupStats
           teachers={this.props.teachers}
           school={this.props.school}
           groups={this.props.groups}
-          showComponent={(component) => { this.setState({ componentToShow: component }); }}
+          showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'groups' }); }}
+          showingComponent={this.state.nameComponent === 'groups'}
         />
         <div>
           {this.state.componentToShow}

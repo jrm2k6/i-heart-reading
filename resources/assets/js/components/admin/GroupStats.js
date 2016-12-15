@@ -2,22 +2,14 @@ import React, { Component } from 'react';
 import DashboardGroupsComponent from './DashboardGroupsComponent';
 
 class GroupStats extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-        showingDashboard: false
-      };
-  }
-
   render() {
     return (
       <div className='stats-container-item'>
         <div>{this.props.groups.length} groups</div>
         <div className='stats-container-item-expand'
-          onClick={() => { if (!this.state.showingDashboard) {
+          onClick={() => { if (!this.props.showingComponent) {
             this.props.showComponent(<DashboardGroupsComponent />);
-            this.setState({ showingDashboard: true }); }}
-          }
+          }}}
         >
           <i className='material-icons'>keyboard_arrow_down</i>
         </div>
