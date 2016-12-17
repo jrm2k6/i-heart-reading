@@ -8,7 +8,8 @@ const initialState = {
   school: null,
   teachers: [],
   admins: [],
-  groups: []
+  groups: [],
+  users: []
 };
 
 export default function signupReducer(state = initialState, action) {

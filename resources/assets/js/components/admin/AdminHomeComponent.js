@@ -39,6 +39,7 @@ class AdminHomeComponent extends Component {
           teachers={this.props.teachers}
           school={this.props.school}
           groups={this.props.groups}
+          user={this.props.users}
           showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'groups' }); }}
           showingComponent={this.state.nameComponent === 'groups'}
         />
@@ -56,7 +57,8 @@ const mapStateToProps = (state) => {
     teachers: state.adminReducer.teachers,
     admins: state.adminReducer.admins,
     school: state.adminReducer.school,
-    groups: state.adminReducer.groups
+    groups: state.adminReducer.groups,
+    users: state.adminReducer.users
   };
 };
 

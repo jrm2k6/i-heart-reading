@@ -4,15 +4,16 @@ class AddAdminForm extends Component {
   constructor(props) {
       super(props);
 
-
       // get list current teachers from that school
       this.state = {
         name: null,
         email: null,
-        temporaryPassword: Math.random().toString(36).substring(7)
+        temporaryPassword: Math.random().toString(36).substring(2, 13),
+        selectedTeacherId: null
       };
 
       this.updateName = this.updateName.bind(this);
+      this.updateSelectedTeacher = this.updateSelectedTeacher.bind(this);
       this.updateEmail = this.updateEmail.bind(this);
       this.handleCreate = this.handleCreate.bind(this);
   }
@@ -21,22 +22,23 @@ class AddAdminForm extends Component {
     return (
       <div className='admin-add-admin-form'>
         <div>
-          <span>Name</span>
-          <input onChange={this.updateName} />
+          <span>Teacher</span>
+          <select onChange={this.updateSelectedTeacher}>
+            {this.props.teachers.map((teacher) =>
+              <option value={teacher.id} key={teacher.id}>{teacher.user.name}</option>
+            )}
+          </select>
         </div>
         <div>
-          <span>Email</span>
-          <input onChange={this.updateEmail} />
-        </div>
-        <div>
-          <button onClick={this.handleCreate}>Create</button>
+          <button onClick={this.handleCreate}>Make Admin</button>
         </div>
       </div>
     );
   }
 
   handleCreate() {
-    this.props.handleValidate(this.state);
+    const { name, email, temporaryPassword, selectedTeacherId } = this.state;
+    this.props.handleValidate({ name, email, password: temporaryPassword, user_id: selectedTeacherId });
   }
 
   updateName(e) {
@@ -45,6 +47,10 @@ class AddAdminForm extends Component {
 
   updateEmail(e) {
     this.setState({ email: e.target.value });
+  }
+
+  updateSelectedTeacher(e) {
+    this.setState({ selectedTeacherId: e.target.value });
   }
 }
 

@@ -8,7 +8,7 @@ class TeacherStats extends Component {
         <div>{this.props.teachers.length} teachers</div>
         <div className='stats-container-item-expand'
           onClick={() => { if (!this.props.showingComponent) {
-            this.props.showComponent(<DashboardTeacherComponent />);
+            this.props.showComponent(<DashboardTeacherComponent admins={this.props.admins}/>);
           }}}
         >
           <i className='material-icons'>keyboard_arrow_down</i>

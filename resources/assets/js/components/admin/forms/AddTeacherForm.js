@@ -7,34 +7,35 @@ class AddTeacherForm extends Component {
       this.state = {
         name: null,
         email: null,
-        temporaryPassword: Math.random().toString(36).substring(7)
+        temporaryPassword: Math.random().toString(36).substring(7),
+        selectedAdminId: null
       };
 
       this.updateName = this.updateName.bind(this);
       this.updateEmail = this.updateEmail.bind(this);
       this.handleCreate = this.handleCreate.bind(this);
+      this.updateSelectedAdmin = this.updateSelectedAdmin.bind(this);
   }
 
   render() {
     return (
       <div className='admin-add-teacher-form'>
+        <span>Teacher</span>
+        <select onChange={this.updateSelectedAdmin}>
+          {this.props.admins.map((admin) =>
+            <option value={admin.user.id} key={admin.id}>{admin.user.name}</option>
+          )}
+        </select>
         <div>
-          <span>Name</span>
-          <input onChange={this.updateName} />
-        </div>
-        <div>
-          <span>Email</span>
-          <input onChange={this.updateEmail} />
-        </div>
-        <div>
-          <button onClick={this.handleCreate}>Create</button>
+          <button onClick={this.handleCreate}>Make Teacher</button>
         </div>
       </div>
     );
   }
 
   handleCreate() {
-    this.props.handleValidate(this.state);
+    const { name, email, temporaryPassword, selectedAdminId } = this.state;
+    this.props.handleValidate({ name, email, password: temporaryPassword, user_id: selectedAdminId });
   }
 
   updateName(e) {
@@ -43,6 +44,10 @@ class AddTeacherForm extends Component {
 
   updateEmail(e) {
     this.setState({ email: e.target.value });
+  }
+
+  updateSelectedAdmin(e) {
+    this.setState({ selectedAdminId: e.target.value });
   }
 }
 
