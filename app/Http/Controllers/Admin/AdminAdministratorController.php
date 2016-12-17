@@ -31,6 +31,7 @@ class AdminAdministratorController extends Controller
               $teachers = $school->teachers;
               $groups = $school->groups;
               $admins = $school->admins;
+              $users = $school->users;
           }
           
           return response([
@@ -38,7 +39,8 @@ class AdminAdministratorController extends Controller
             'admins' => $admins,
             'school' => $school,
             'groups' => $groups,
-            'teachers' => $teachers
+            'teachers' => $teachers,
+            'users' => $users
           ], 200);
       }
 
