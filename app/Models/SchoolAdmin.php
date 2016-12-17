@@ -19,6 +19,20 @@ class SchoolAdmin extends Model
       'school_id', 'user_id'
   ];
 
+  protected $appends = [
+      'user'
+  ];
+
+  public function user()
+  {
+      return $this->belongsTo(User::class);
+  }
+
+  public function getUserAttribute()
+  {
+      return $this->user()->first();
+  }
+
   public function school()
   {
       return $this->belongsTo(School::class);
