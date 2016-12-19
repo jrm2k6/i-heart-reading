@@ -1,11 +1,68 @@
+@keyframes flexFill {
+  to {
+    opacity: 1;
+    flex: 1;
+    position: relative;
+    height: 65px;
+  }
+}
+
+@keyframes flexDisappear {
+  to {
+    opacity: 0;
+    flex: 0;
+    position: absolute;
+  }
+}
+
+@keyframes flexListAppear {
+  to {
+    opacity: 1;
+    flex: 1;
+    position: relative;
+  }
+}
+
+@keyframes stickToTop {
+  to {
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0;
+  }
+}
+
+@keyframes moveToCenter {
+  to {
+    align-items: center;
+    justify-content: center;
+    margin: 10% 10%;
+  }
+}
+
 .home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.home-container-squares {
   align-items: center;
   display: flex;
+  flex: 1;
+  flex-direction: row;
   justify-content: center;
   margin: 10% 10%;
-  width: 100%;
 
+  &.stick-to-top {
+    animation: stickToTop 500ms ease forwards;
+  }
+
+  &.centered {
+    animation: moveToCenter 500ms ease forwards;
+  }
 }
+
 .stats-container-item {
   align-items: center;
   border: 1px solid black;
@@ -13,8 +70,39 @@
   flex-direction: column;
   display: flex;
   justify-content: center;
+
+  &.visible {
+    animation: flexFill 500ms ease forwards;
+  }
+
+  &.invisible {
+    animation: flexDisappear 10ms ease forwards;
+  }
+
+  &.visible-list {
+    animation: flexListAppear 500ms ease forwards;
+  }
+
+  .stats-container-item-horizontal-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .stats-container-item-horizontal-content-left {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
 }
 
 .stats-container-item-expand {
   cursor: pointer;
+}
+
+.home-container-dynamic-content {
+  flex: 9;
 }
