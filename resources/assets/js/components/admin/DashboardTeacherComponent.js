@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AddTeacherForm from './forms/AddTeacherForm';
+import ListTeachers from './ListTeachers';
 import { createTeacher } from '../../actions/admin/adminDashboardActions';
 
 const mapStateToProps = (state) => {
@@ -21,23 +22,33 @@ class DashboardTeacherComponent extends Component {
     super(props);
 
     this.state = {
-      showingList: false
+      showingList: true
     };
 
     this.handleValidate = this.handleValidate.bind(this);
   }
 
   render() {
-    const component = (this.state.showingList) ?
-      <div>List Teachers</div> :
-      <AddTeacherForm
-        admins={this.props.admins}
-        handleValidate={this.handleValidate}
-      />
+    const component = (this.state.showingList) ? this.getTeacherList() : this.getTeacherForm();
     return (
       <div>
         {component}
       </div>
+    );
+  }
+
+  getTeacherForm() {
+    return (
+      <AddTeacherForm
+        admins={this.props.admins}
+        handleValidate={this.handleValidate}
+      />
+    );
+  }
+
+  getTeacherList() {
+    return (
+      <ListTeachers teachers={this.props.teachers} />
     );
   }
 

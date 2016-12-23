@@ -14,7 +14,10 @@ class TeacherStats extends Component {
     const expandButton = (!this.props.showingComponent) ?
       (<div className='stats-container-item-expand'
         onClick={() => { if (!this.props.showingComponent) {
-          this.props.showComponent(<DashboardTeacherComponent admins={this.props.admins}/>);
+          this.props.showComponent(<DashboardTeacherComponent
+            admins={this.props.admins}
+            teachers={this.props.teachers}
+          />);
         }}}
       >
         <i className='material-icons'>keyboard_arrow_down</i>

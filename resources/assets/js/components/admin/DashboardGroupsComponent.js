@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GroupCreationForm from '../signup/forms/GroupCreationForm';
+import ListGroups from './ListGroups';
 import { createGroup } from '../../actions/admin/adminDashboardActions';
 
 const mapStateToProps = (state) => {
@@ -20,7 +21,7 @@ class DashboardGroupsComponent extends Component {
     super(props);
 
     this.state = {
-      showingList: false
+      showingList: true
     };
 
     this.handleValidate = this.handleValidate.bind(this);
@@ -28,7 +29,7 @@ class DashboardGroupsComponent extends Component {
 
   render() {
     const component = (this.state.showingList) ?
-      <div>List Groups</div> :
+      <ListGroups groups={this.props.groups} /> :
       <GroupCreationForm handleValidate={this.handleValidate} />
     return (
       <div>
