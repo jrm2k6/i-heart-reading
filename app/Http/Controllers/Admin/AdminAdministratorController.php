@@ -21,6 +21,7 @@ class AdminAdministratorController extends Controller
   public function getAdminUser()
   {
       $authAdmin = Auth::user()->asAdmin();
+
       if ($authAdmin != null) {
           $school = $authAdmin->school;
           $teachers = null;
@@ -29,11 +30,11 @@ class AdminAdministratorController extends Controller
 
           if ($school) {
               $teachers = $school->teachers;
-              $groups = $school->groups;
+              $groups = $school->groups()->with('teacher')->get();
               $admins = $school->admins;
               $users = $school->users;
           }
-          
+
           return response([
             'admin' => $authAdmin,
             'admins' => $admins,

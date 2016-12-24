@@ -20,12 +20,23 @@ class Teacher extends Model
     ];
 
     protected $appends = [
-        'user'
+        'user',
+        'num_groups'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(SchoolGroup::class);
+    }
+
+    public function getNumGroupsAttribute()
+    {
+        return $this->groups->count();
     }
 
     public function getUserAttribute()

@@ -14,6 +14,11 @@ class SchoolGroup extends Model
      */
 
     protected $fillable = [
-        'name', 'grade', 'nickname', 'school_id',
+        'name', 'grade', 'nickname', 'school_id', 'teacher_id'
     ];
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
 }
