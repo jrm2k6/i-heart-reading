@@ -56,6 +56,11 @@
 
   &.stick-to-top {
     animation: stickToTop 500ms ease forwards;
+    background-color: $white;
+    color: $secondary-dark-blue;
+    border-bottom: 3px solid $secondary-dark-blue;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   &.centered {
@@ -65,7 +70,6 @@
 
 .stats-container-item {
   align-items: center;
-  border: 1px solid black;
   flex: 1;
   flex-direction: column;
   display: flex;
@@ -95,6 +99,13 @@
       flex: 1;
       justify-content: center;
     }
+  }
+
+  .stats-container-item-close {
+    color: $secondary-dark-blue;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 10px;
   }
 
 }

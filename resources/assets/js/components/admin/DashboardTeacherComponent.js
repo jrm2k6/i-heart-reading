@@ -48,7 +48,10 @@ class DashboardTeacherComponent extends Component {
 
   getTeacherList() {
     return (
-      <ListTeachers teachers={this.props.teachers} />
+      <ListTeachers
+        teachers={this.props.teachers}
+        onAddTeacher={() => { this.setState({ showingList: false }); }}
+      />
     );
   }
 

@@ -29,7 +29,10 @@ class DashboardGroupsComponent extends Component {
 
   render() {
     const component = (this.state.showingList) ?
-      <ListGroups groups={this.props.groups} /> :
+      <ListGroups
+        groups={this.props.groups}
+        onAddGroup={() => { this.setState({ showingList: false }); }}
+      /> :
       <GroupCreationForm handleValidate={this.handleValidate} />
     return (
       <div>
