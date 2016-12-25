@@ -32,17 +32,14 @@ class DashboardAdminComponent extends Component {
     const component = (this.state.showingList) ?
       <ListAdmins
         admins={this.props.admins}
-        onAddTeacher={() => { this.setState({ showingList: false }); }}
+        onAddAdmin={() => { this.setState({ showingList: false }); }}
       /> :
       <AddAdminForm
         handleValidate={this.handleValidate}
         teachers={this.props.teachers}
       />
-    return (
-      <div>
-        {component}
-      </div>
-    );
+
+    return component;
   }
 
   handleValidate(data) {

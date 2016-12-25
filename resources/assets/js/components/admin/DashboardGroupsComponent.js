@@ -33,12 +33,12 @@ class DashboardGroupsComponent extends Component {
         groups={this.props.groups}
         onAddGroup={() => { this.setState({ showingList: false }); }}
       /> :
-      <GroupCreationForm handleValidate={this.handleValidate} />
-    return (
-      <div>
-        {component}
-      </div>
-    );
+      <GroupCreationForm
+        handleValidate={this.handleValidate}
+        className='admin-group-creation-form'
+      />
+
+    return component;
   }
 
   handleValidate(data) {

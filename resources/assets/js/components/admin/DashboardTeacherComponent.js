@@ -30,11 +30,7 @@ class DashboardTeacherComponent extends Component {
 
   render() {
     const component = (this.state.showingList) ? this.getTeacherList() : this.getTeacherForm();
-    return (
-      <div>
-        {component}
-      </div>
-    );
+    return component;
   }
 
   getTeacherForm() {

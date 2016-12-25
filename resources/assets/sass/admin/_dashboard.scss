@@ -1,5 +1,6 @@
 .admin-list-container {
   display: flex;
+  flex: 1;
   flex-direction: column;
   margin: 10px;
 }
@@ -61,4 +62,83 @@
     background-color: lighten($main-background-light-gray, 10%);
     transition: 250ms;
   }
+}
+
+.admin-add-teacher-form, .admin-group-creation-form, .admin-add-admin-form  {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.admin-form-submit-btn {
+  background-color: $validation-green;
+  border: 1px solid $validation-green-button-border;
+  color: $main-white;
+  cursor: pointer;
+  font-size: 20px;
+  height: 40px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.admin-select-wrapper {
+  background-color: $white;
+  margin: 10px 0;
+  position: relative;
+
+  .admin-select-arrow {
+    color: $main-dark-gray;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+  }
+}
+
+.admin-form-select {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid $main-dark-gray;
+  border-radius: 0;
+  color: $main-dark-gray;
+  font-size: 18px;
+  height: 45px;
+  transition: 250ms;
+  padding: 10px 10px;
+  width: 250px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    border: 1px solid black;
+    color: black;
+    transition: 250ms;
+
+    .admin-select-arrow {
+      color: black;
+    }
+  }
+}
+
+.explanation {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin: 20px 20px;
+  padding: 20px 20px;
+}
+
+.form-input-label {
+  color: $main-dark-gray;
+  margin: 5px;
+}
+
+.form-input-group {
+  margin: 10px 0;
 }

@@ -107,7 +107,6 @@
     font-size: 20px;
     margin-right: 10px;
   }
-
 }
 
 .stats-container-item-expand {
@@ -115,5 +114,6 @@
 }
 
 .home-container-dynamic-content {
+  display: flex;
   flex: 9;
 }

@@ -4,7 +4,6 @@ class AddAdminForm extends Component {
   constructor(props) {
       super(props);
 
-      // get list current teachers from that school
       this.state = {
         name: null,
         email: null,
@@ -21,17 +20,26 @@ class AddAdminForm extends Component {
   render() {
     return (
       <div className='admin-add-admin-form'>
-        <div>
-          <span>Teacher</span>
-          <select onChange={this.updateSelectedTeacher}>
-            {this.props.teachers.map((teacher) =>
-              <option value={teacher.id} key={teacher.id}>{teacher.user.name}</option>
-            )}
-          </select>
+          <div className='explanation'>
+            You can make any member of your staff an admin.
+          </div>
+          <div className='admin-select-wrapper'>
+            <span className='admin-select-arrow'>
+              <i className='material-icons'>keyboard_arrow_down</i>
+            </span>
+            <select className='admin-form-select'
+              onChange={this.updateSelectedTeacher}
+            >
+              {this.props.teachers.map((teacher) =>
+                <option value={teacher.id} key={teacher.id}>{teacher.user.name}</option>
+              )}
+            </select>
         </div>
-        <div>
-          <button onClick={this.handleCreate}>Make Admin</button>
-        </div>
+        <button className='admin-form-submit-btn'
+          onClick={this.handleCreate}
+        >
+          Make Admin
+        </button>
       </div>
     );
   }

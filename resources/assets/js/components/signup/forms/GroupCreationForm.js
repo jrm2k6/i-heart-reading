@@ -18,36 +18,53 @@ class GroupCreationForm extends Component {
 
   render() {
     return (
-      <div className='register-school-form'>
-        <div>
-          <span>Name</span>
-          <input onChange={this.updateGroupName} />
+      <div className={this.props.className}>
+        <div className='form-input-group'>
+          <div className='form-input-label'>Name</div>
+          <div>
+            <input className='form-input'
+              onChange={this.updateGroupName}
+            />
+          </div>
         </div>
         <div>
-          <span>Grade/Type</span>
-          <select onChange={this.updateGrade}>
-            <option>K1</option>
-            <option>K2</option>
-            <option>K3</option>
-            <option>K4</option>
-            <option>K5</option>
-            <option>K6</option>
-            <option>K7</option>
-            <option>K8</option>
-            <option>K9</option>
-            <option>K10</option>
-            <option>K11</option>
-            <option>K12</option>
-            <option>Other</option>
-          </select>
+          <div className='form-input-label'>Grade/Type</div>
+          <div className='admin-select-wrapper'>
+            <span className='admin-select-arrow'>
+              <i className='material-icons'>keyboard_arrow_down</i>
+            </span>
+            <select className='admin-form-select'
+              onChange={this.updateGrade}
+            >
+              <option>K1</option>
+              <option>K2</option>
+              <option>K3</option>
+              <option>K4</option>
+              <option>K5</option>
+              <option>K6</option>
+              <option>K7</option>
+              <option>K8</option>
+              <option>K9</option>
+              <option>K10</option>
+              <option>K11</option>
+              <option>K12</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <span>Nickname</span>
-          <input onChange={this.updateNickname} />
+        <div className='form-input-group'>
+          <div className='form-input-label'>Nickname</div>
+          <div>
+            <input className='form-input'
+              onChange={this.updateNickname}
+            />
+          </div>
         </div>
-        <div>
-          <button onClick={this.handleCreate}>Create</button>
-        </div>
+        <button className='admin-form-submit-btn'
+          onClick={this.handleCreate}
+        >
+          Create
+        </button>
       </div>
     );
   }
@@ -69,4 +86,7 @@ class GroupCreationForm extends Component {
   }
 }
 
+GroupCreationForm.defaultProps = {
+  className: 'register-school-form'
+}
 export default GroupCreationForm;

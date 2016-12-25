@@ -20,15 +20,26 @@ class AddTeacherForm extends Component {
   render() {
     return (
       <div className='admin-add-teacher-form'>
-        <span>Teacher</span>
-        <select onChange={this.updateSelectedAdmin}>
-          {this.props.admins.map((admin) =>
-            <option value={admin.user.id} key={admin.id}>{admin.user.name}</option>
-          )}
-        </select>
-        <div>
-          <button onClick={this.handleCreate}>Make Teacher</button>
+        <div className='explanation'>
+          You can make any member of your staff a teacher.
         </div>
+        <div className='admin-select-wrapper'>
+          <span className='admin-select-arrow'>
+            <i className='material-icons'>keyboard_arrow_down</i>
+          </span>
+          <select className='admin-form-select'
+            onChange={this.updateSelectedAdmin}
+          >
+            {this.props.admins.map((admin) =>
+              <option value={admin.user.id} key={admin.id}>{admin.user.name}</option>
+            )}
+          </select>
+        </div>
+        <button className='admin-form-submit-btn'
+          onClick={this.handleCreate}
+        >
+          Make Teacher
+        </button>
       </div>
     );
   }
