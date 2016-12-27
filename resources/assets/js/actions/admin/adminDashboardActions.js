@@ -115,6 +115,30 @@ function errorAdminCreated(data) {
   };
 }
 
+export function deleteAdmin(userId) {
+  return dispatch => {
+    return apiActions.deleteRequest(`${ADMIN_ADMINISTRATOR_URL}/${userId}`, _headers)
+    .then(
+      res => dispatch(adminDeleted(userId)),
+      err => dispatch(errorAdminDeleted(err))
+    );
+  }
+}
+
+function adminDeleted(userId) {
+  return {
+    type: ADMINISTRATOR_DELETED,
+    data: { idAdminDeleted: userId }
+  };
+}
+
+function errorAdminDeleted(data) {
+  return {
+    type: ERROR_ADMINISTRATOR_DELETED,
+    data: data.errors
+  };
+}
+
 export function createGroup({ name, grade, nickname }) {
   return (dispatch, getState) => {
     const schoolId = getState().adminReducer.school.id;

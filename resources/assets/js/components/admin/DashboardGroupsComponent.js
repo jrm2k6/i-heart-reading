@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     }
   };
 };
+
 class DashboardGroupsComponent extends Component {
   constructor(props) {
     super(props);
