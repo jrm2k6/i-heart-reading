@@ -145,12 +145,31 @@
 
 .yellow {
   background-color: $main-yellow;
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-yellow;
+    }
+  }
 }
 
 .purple {
   background-color: $main-purple;
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-purple;
+    }
+  }
 }
 
 .orange {
   background-color: $main-orange;
+
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-orange;
+    }
+  }
 }
