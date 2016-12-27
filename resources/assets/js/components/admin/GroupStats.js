@@ -3,8 +3,8 @@ import DashboardGroupsComponent from './DashboardGroupsComponent';
 
 class GroupStats extends Component {
   render() {
-    const className = `stats-container-item ${this.props.className}`;
-    const content = `${this.props.groups.length} groups`;
+    const className = `stats-container-item ${this.props.className} purple`;
+    const content = `${this.props.groups.length}`;
 
     const closeButton = (this.props.showingComponent) ?
       (<div className='stats-container-item-close' onClick={this.props.closeComponent}>
@@ -12,7 +12,12 @@ class GroupStats extends Component {
         </div>) : null;
 
     const expandButton = (!this.props.showingComponent) ?
-      (<div className='stats-container-item-expand'
+      (<div className='stats-container-item-expand'>
+        <i className='material-icons'>keyboard_arrow_down</i>
+      </div>) : null;
+
+    return (
+      <div className={className}
         onClick={() => { if (!this.props.showingComponent) {
           this.props.showComponent(<DashboardGroupsComponent
             teachers={this.props.teachers}
@@ -21,13 +26,16 @@ class GroupStats extends Component {
           />);
         }}}
       >
-        <i className='material-icons'>keyboard_arrow_down</i>
-      </div>) : null;
-
-    return (
-      <div className={className}>
         <div className='stats-container-item-horizontal-content'>
-          <div className='stats-container-item-horizontal-content-left'>{content}</div>
+          <div className='stats-container-item-horizontal-content-left'>
+            <div className='stats-container-item-left'>
+              <i className='material-icons'>group</i>
+              <div>
+                <span className='number'>{content}</span>
+                <span className='description'>groups</span>
+              </div>
+            </div>
+          </div>
           {closeButton}
         </div>
         {expandButton}

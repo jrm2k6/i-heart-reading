@@ -23,7 +23,9 @@ class AdminHomeComponent extends Component {
     const { componentToShow, nameComponent } = this.state;
     const { teachers, admins, school, users, groups } = this.props;
     const additionalClassName = (componentToShow !== null) ? 'stick-to-top' : 'centered';
+    const additionalClassNameDynamicContent = (componentToShow !== null) ? 'non-empty' : 'empty';
     const containerSquareClassName = `home-container-squares ${additionalClassName}`;
+    const dynamicContentClassName = `home-container-dynamic-content ${additionalClassNameDynamicContent}`;
     return (
       <div className='home-container'>
         <div className={containerSquareClassName}>
@@ -55,7 +57,7 @@ class AdminHomeComponent extends Component {
             className={this.getClassName('groups')}
           />
         </div>
-        <div className='home-container-dynamic-content'>
+        <div className={dynamicContentClassName}>
           {componentToShow}
         </div>
       </div>
