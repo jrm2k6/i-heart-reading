@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class ListItemTeacher extends Component {
+import { showModal } from '../../actions/modals/modalActions';
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showModal: (component, data) => {
+      dispatch(showModal(component, data));
+    }
+  };
+};
+
+
+class ListItemTeacher extends Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +29,9 @@ export default class ListItemTeacher extends Component {
   render() {
     const listItemOptions = (this.state.hovering) ? (
       <div className='admin-list-item-option'>
-        <i className='material-icons admin-list-item-option-edit-icon'>
+        <i className='material-icons admin-list-item-option-edit-icon'
+          onClick={this.props.showModal}
+        >
           edit
         </i>
         <i className='material-icons admin-list-item-option-delete-icon'>
@@ -33,3 +52,6 @@ export default class ListItemTeacher extends Component {
     );
   }
 }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListItemTeacher)

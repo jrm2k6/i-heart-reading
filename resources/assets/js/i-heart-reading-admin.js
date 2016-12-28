@@ -7,6 +7,7 @@ import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { fetchUser } from './actions/userProfileActions';
 import adminReducers from './reducers/admin';
+import modalReducer from './reducers/modals';
 import AdminComponent from './components/admin/AdminComponent';
 import AdminHomeComponent from './components/admin/AdminHomeComponent';
 
