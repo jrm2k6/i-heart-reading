@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from '../../actions/modals/modalActions';
+import UpdateTeacherModal from './modals/UpdateTeacherModal';
 
 const mapStateToProps = (state) => {
   return {
@@ -30,7 +31,7 @@ class ListItemTeacher extends Component {
     const listItemOptions = (this.state.hovering) ? (
       <div className='admin-list-item-option'>
         <i className='material-icons admin-list-item-option-edit-icon'
-          onClick={this.props.showModal}
+          onClick={() => { this.props.showModal(UpdateTeacherModal, {teacher: this.props.teacher}); }}
         >
           edit
         </i>

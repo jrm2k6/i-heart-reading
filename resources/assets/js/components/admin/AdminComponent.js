@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LateralMenu from './LateralMenu';
 import Modal from 'react-modal';
+import UpdateTeacherModal from './modals/UpdateTeacherModal';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { fetchUser } from '../../actions/userProfileActions';
 import { hideModal } from '../../actions/modals/modalActions';
@@ -32,7 +33,9 @@ const mapDispatchToProps = (dispatch) => {
 
 class AdminComponent extends Component {
   render() {
-    const showingModal = this.props.showingModal;
+    const { showingModal, modalComponent, modalData } = this.props;
+    const element = (showingModal && modalComponent) ?
+      React.createElement(modalComponent, modalData) : null;
     return (
       <div className='root-component'>
           <LateralMenu history={this.props.history} user={this.props.user} />
@@ -43,7 +46,7 @@ class AdminComponent extends Component {
             isOpen={showingModal}
             onRequestClose={this.props.hideModal}
           >
-            <div>AHAHHA</div>
+            {element}
           </Modal>
       </div>
     );
