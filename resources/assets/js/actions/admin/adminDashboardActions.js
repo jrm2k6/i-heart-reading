@@ -15,6 +15,7 @@ const UPDATE_ADMIN = 'UPDATE_ADMIN';
 const DELETE_TEACHER = 'DELETE_TEACHER';
 const DELETE_GROUP = 'DELETE_GROUP';
 const DELETE_ADMIN = 'DELETE_ADMIN';
+const CREATE_TRANSFER_GROUP = 'CREATE_TRANSFER_GROUP';
 export const TEACHER_CREATED = 'TEACHER_CREATED';
 export const ADMINISTRATOR_CREATED = 'ADMINISTRATOR_CREATED';
 export const GROUP_CREATED = 'GROUP_CREATED';
@@ -33,6 +34,8 @@ export const GROUP_DELETED = 'GROUP_DELETED';
 export const ERROR_TEACHER_DELETED = 'ERROR_TEACHER_DELETED';
 export const ERROR_ADMINISTRATOR_DELETED = 'ERROR_ADMINISTRATOR_DELETED';
 export const ERROR_GROUP_DELETED = 'ERROR_GROUP_DELETED';
+export const ERROR_TRANSFER_GROUP = 'ERROR_TRANSFER_GROUP';
+export const GROUP_TRANSFERRED = 'GROUP_TRANSFERRED';
 
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
@@ -160,6 +163,30 @@ function groupCreated(data) {
 function errorGroupCreated(data) {
   return {
     type: GROUP_CREATED,
+    data: data.errors
+  };
+}
+
+export function createGroupTransfer(groupId, teacherId) {
+  return dispatch => {
+    return apiActions.putRequest(`${ADMIN_GROUPS_URL}/${groupId}` ,
+      { teacher_id: teacherId }, _headers).then(
+        res => dispatch(groupTransferred(res)),
+        err => dispatch(errorTransferGroup(err))
+    );
+  }
+}
+
+function groupTransferred(data) {
+  return {
+    type: GROUP_TRANSFERRED,
+    data: data
+  };
+}
+
+function errorTransferGroup(data) {
+  return {
+    type: ERROR_TRANSFER_GROUP,
     data: data.errors
   };
 }

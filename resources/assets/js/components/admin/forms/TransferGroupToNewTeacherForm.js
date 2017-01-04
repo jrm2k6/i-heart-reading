@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createGroupTransfer } from '../../../actions/admin/adminDashboardActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,6 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    transferGroupTo: (groupId, teacherId) => {
+      dispatch(createGroupTransfer(groupId, teacherId));
+    }
   };
 };
 
@@ -19,8 +23,8 @@ class TransferGroupToNewTeacherForm extends Component {
       super(props);
 
       this.state = {
-        groupId: null,
-        selectedTeacherId: null
+        groupId: -1,
+        selectedTeacherId: -1
       };
 
       this.updateSelectedGroup = this.updateSelectedGroup.bind(this);
@@ -52,14 +56,25 @@ class TransferGroupToNewTeacherForm extends Component {
   }
 
   handleValidateTransfer() {
+    const { onlyGroup, teacher } = this.props;
+    const teacherId = (onlyGroup) ? teacher.id : this.state.selectedTeacherId;
+
+    if (this.state.groupId === -1 || (!onlyGroup && teacherId === -1)) {
+      // TODO: show alerts error or fix disabled state
+      console.log('Please select something');
+    } else {
+      this.props.transferGroupTo(this.state.groupId, teacherId);
+    }
   }
 
   updateSelectedGroup(e) {
-    this.setState({ groupId: e.target.value });
+    const selectedId = e.target.value;
+    this.setState({ groupId: parseInt(selectedId, 10) });
   }
 
   updateSelectedTeacher(e) {
-    this.setState({ selectedTeacherId: e.target.value });
+    const selectedId = e.target.value;
+    this.setState({ selectedTeacherId: parseInt(selectedId, 10) });
   }
 
   getGroups() {
@@ -69,8 +84,10 @@ class TransferGroupToNewTeacherForm extends Component {
 
     return (
       <select className='admin-form-select'
+        value={this.state.groupId}
         onChange={this.updateSelectedGroup}
       >
+        <option value={-1} key={0} className='disabled-option'>Select a group</option>
         { groups.map((group) =>
           <option value={group.id} key={group.id}>{group.name}</option>
         )}
@@ -92,8 +109,10 @@ class TransferGroupToNewTeacherForm extends Component {
             <i className='material-icons'>keyboard_arrow_down</i>
           </span>
           <select className='admin-form-select'
+            value={this.state.selectedTeacherId}
             onChange={this.updateSelectedTeacher}
           >
+            <option value={-1} key={0} className='disabled-option'>Select a teacher</option>
             {teachers.map((teacher) =>
               <option value={teacher.id} key={teacher.id}>{teacher.user.name}</option>
             )}
