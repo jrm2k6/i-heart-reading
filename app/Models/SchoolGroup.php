@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class SchoolGroup extends Model
 {
     use SoftDeletes;
@@ -20,5 +21,10 @@ class SchoolGroup extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function studentGroups()
+    {
+        return $this->hasMany(StudentsGroup::class, 'group_id');
     }
 }

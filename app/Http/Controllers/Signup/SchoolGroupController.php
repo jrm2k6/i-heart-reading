@@ -18,6 +18,21 @@ class SchoolGroupController extends Controller
         //
     }
 
+    public function getStudents(Request $request, $id)
+    {
+        $group = SchoolGroup::find($id);
+
+        if (!group) {
+            return response(null, 400);
+        }
+
+        $studentGroups = $group->studentGroups;
+        $studentIds = $studentGroups->pluck('user_id');
+        $students = User::whereIn('id', $studentIds)->get();
+
+        return response(['group' => $id, 'students' => $students], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
