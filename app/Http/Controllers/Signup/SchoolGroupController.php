@@ -67,7 +67,8 @@ class SchoolGroupController extends Controller
             'name' => 'string',
             'grade' => 'string',
             'nickname' => 'string',
-            'school_id' => 'exists:schools,id'
+            'school_id' => 'exists:schools,id',
+            'teacher_id' => 'exists:teachers,id',
         ]);
 
         $group = SchoolGroup::find($id);
@@ -75,9 +76,13 @@ class SchoolGroupController extends Controller
         if (! $group)
             return response(null, 400);
 
-        $group->update($request->only('name', 'grade', 'nickname', 'school_id'));
+        $nonNullParams = collect($request->only('name', 'grade', 'nickname', 'school_id', 'teacher_id'))->filter(function($param) {
+           return $param != null;
+        })->toArray();
 
-        return response(['group' => $group, 200]);
+        $group->update($nonNullParams);
+
+        return response(['group' => $group], 200);
     }
 
     /**
