@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\SchoolGroup;
+use App\Models\User;
 
 class SchoolGroupController extends Controller
 {
@@ -22,7 +23,7 @@ class SchoolGroupController extends Controller
     {
         $group = SchoolGroup::find($id);
 
-        if (!group) {
+        if (!$group) {
             return response(null, 400);
         }
 
@@ -31,6 +32,34 @@ class SchoolGroupController extends Controller
         $students = User::whereIn('id', $studentIds)->get();
 
         return response(['group' => $id, 'students' => $students], 200);
+    }
+
+    public function getStudentsExcept(Request $request)
+    {
+        $blacklist = $request->input('blacklist');
+        
+        $ids = [];
+        if ($blacklist != null) {
+            $ids = explode(',', $blacklist); 
+        }
+        
+        $groups = SchoolGroup::whereNotIn('id', $ids)->get();
+        $groupsWithStudents = $groups->map(function($group) {
+            $studentGroups = $group->studentGroups;
+            $students = [];
+            
+            if ($studentGroups !== null) {
+                $studentIds = $studentGroups->pluck('user_id');
+                $students = User::whereIn('id', $studentIds)->get()->toArray();
+            }
+            
+            return [
+                'id' => $group->id,
+                'students' => $students
+            ];
+        });
+
+        return response($groupsWithStudents, 200);
     }
 
     /**
