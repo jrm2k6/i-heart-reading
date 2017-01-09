@@ -3,7 +3,8 @@ import { displaySuccessAlert, displayErrorAlert } from '../alertsActions';
 
 const API_CREATE_USER = '/api/user/new';
 const ADMIN_TEACHER_URL = '/api/teacher';
-const ADMIN_GROUPS_URL = '/api/school/group';
+const ADMIN_SCHOOL_GROUPS_URL = '/api/school/group';
+const ADMIN_GROUP_URL = '/api/group';
 const ADMIN_STUDENT_GROUP_URL = '/api/groups';
 const ADMIN_ADMINISTRATOR_URL = '/api/administrator';
 const CREATE_TEACHER = 'CREATE_TEACHER';
@@ -36,6 +37,10 @@ export const ERROR_ADMINISTRATOR_DELETED = 'ERROR_ADMINISTRATOR_DELETED';
 export const ERROR_GROUP_DELETED = 'ERROR_GROUP_DELETED';
 export const ERROR_TRANSFER_GROUP = 'ERROR_TRANSFER_GROUP';
 export const GROUP_TRANSFERRED = 'GROUP_TRANSFERRED';
+export const ERROR_FETCH_STUDENTS_GROUP = 'ERROR_FETCH_STUDENTS_GROUP';
+export const STUDENTS_GROUP_FETCHED = 'STUDENTS_GROUP_FETCHED';
+export const ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT = 'ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT';
+export const FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED = 'FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED';
 
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
@@ -145,7 +150,7 @@ function errorAdminDeleted(data) {
 export function createGroup({ name, grade, nickname }) {
   return (dispatch, getState) => {
     const schoolId = getState().adminReducer.school.id;
-    return apiActions.postRequest(ADMIN_GROUPS_URL,
+    return apiActions.postRequest(ADMIN_SCHOOL_GROUPS_URL,
       { name, grade, nickname, school_id: schoolId }, _headers).then(
         res => dispatch(groupCreated(res)),
         err => dispatch(errorGroupCreated(err))
@@ -177,6 +182,11 @@ export function createGroupTransfer(groupId, teacherId) {
   }
 }
 
+export function createStudentsTransfer(groupId, studentIds) {
+  return dispatch => {
+  }
+}
+
 function groupTransferred(data) {
   return {
     type: GROUP_TRANSFERRED,
@@ -187,6 +197,54 @@ function groupTransferred(data) {
 function errorTransferGroup(data) {
   return {
     type: ERROR_TRANSFER_GROUP,
+    data: data.errors
+  };
+}
+
+export function fetchStudentGroup(groupId) {
+  return dispatch => {
+    return apiActions.getRequest(`${ADMIN_GROUP_URL}/${groupId}/students` ,
+      { teacher_id: teacherId }, _headers).then(
+        res => dispatch(studentGroupFetched(res)),
+        err => dispatch(errorFetchStudentsGroup(err))
+    );
+  }
+}
+
+function studentGroupFetched(data) {
+  return {
+    type: STUDENTS_GROUP_FETCHED,
+    data: data
+  };
+}
+
+function errorFetchStudentsGroup(data) {
+  return {
+    type: ERROR_FETCH_STUDENTS_GROUP,
+    data: data.errors
+  };
+}
+
+export function fetchStudentGroupsExcept(groupId) {
+  return dispatch => {
+    return apiActions.getRequest(`${ADMIN_GROUP_URL}/students/all?blacklist=${groupId}`)
+      .then(
+        res => dispatch(studentsGroupExceptFetched(res)),
+        err => dispatch(errorFetchStudentsGroup(err))
+      );
+  }
+}
+
+function studentsGroupExceptFetched(data) {
+  return {
+    type: FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED,
+    data
+  };
+}
+
+function errorstudentsGroupExcept(data) {
+  return {
+    type: ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT,
     data: data.errors
   };
 }

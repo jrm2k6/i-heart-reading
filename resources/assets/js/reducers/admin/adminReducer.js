@@ -5,7 +5,8 @@ import {
 
 import {
   ADMINISTRATOR_DELETED,
-  GROUP_TRANSFERRED
+  GROUP_TRANSFERRED,
+  FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED
 } from '../../actions/admin/adminDashboardActions';
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
   teachers: [],
   admins: [],
   groups: [],
-  users: []
+  users: {}
 };
 
 function updateAdmins(currentAdmins, idAdminDeleted) {
@@ -23,6 +24,19 @@ function updateAdmins(currentAdmins, idAdminDeleted) {
 
 function updateGroups(currentGroups, _group) {
   return currentGroups.filter(group => group.id !== _group.id).concat(_group);
+}
+
+function updateGroupsStudents(groups, groupWithStudents) {
+  const updatedGroups = groups.map(group => {
+    const studentsForGroup = groupWithStudents.find(groupWithStudent => groupWithStudent.id === group.id);
+    if (studentsForGroup) {
+      group.students = studentsForGroup.students;
+    }
+
+    group.students = (group.students) ? group.students : [];
+  });
+
+  return groups;
 }
 
 export default function signupReducer(state = initialState, action) {
@@ -40,6 +54,11 @@ export default function signupReducer(state = initialState, action) {
     case GROUP_TRANSFERRED:
       return Object.assign({}, initialState, {
         groups: updateGroups(state.groups, action.data.group)
+      });
+
+    case FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED:
+      return Object.assign({}, initialState, {
+        groups: updateGroupsStudents(state.groups, action.data)
       });
 
     default:
