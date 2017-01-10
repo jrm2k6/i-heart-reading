@@ -72,7 +72,7 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::yesterday()
+            'created_at' => Carbon::now()->startOfWeek()
         ]);
         
         // when
@@ -80,14 +80,20 @@ class UpdateStatsUserTest extends TestCase
         
         // then
         $stats = Cache::get('stats_' . $user->id);
-
         $this->assertEquals($stats['yearly']['num_pages_read'], 100);
         $this->assertEquals($stats['monthly']['num_pages_read'], 100);
         $this->assertEquals($stats['weekly']['num_pages_read'], 100);
         $this->assertEquals($stats['yearly']['books_read'], 0);
         $this->assertEquals($stats['monthly']['books_read'], 0);
         $this->assertEquals($stats['weekly']['books_read'], 0);
-        $this->assertNull($stats['daily']);
+
+        if (Carbon::now()->dayOfYear === Carbon::now()->startOfWeek()->dayOfYear) {
+            $this->assertEquals($stats['daily']['num_pages_read'], 100);
+            $this->assertEquals($stats['daily']['books_read'], 0);
+
+        } else {
+            $this->assertNull($stats['daily']);
+        }
     }
 
     public function testStatsWithUpdatesThisMonth()
@@ -102,7 +108,7 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::now()->startOfMonth()
+            'created_at' => Carbon::now()->startOfMonth()->addWeek()
         ]);
         
         // when
@@ -131,9 +137,9 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::now()->startOfYear()
+            'created_at' => Carbon::now()->startOfYear()->subMonths(2)
         ]);
-        
+
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
         
