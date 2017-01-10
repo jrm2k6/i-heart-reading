@@ -40,16 +40,20 @@ class UpdateStatsUser extends Command
     {
         $userId = $this->argument('userId');
 
+        $startDate = Carbon::createFromDate(2016, 9, 1);
+        $endDate = Carbon::createFromDate(2017, 6, 1);
+
         $updates = User::find($userId)->assignmentUpdates->map(
-            function($update) {
+            function($update) use ($startDate, $endDate) {
                 
                 $previousAssignmentUpdate = $update->previousAssignmentUpdate;
-                $sameYear = $update->created_at->year == Carbon::now()->year;
+                $duringCurrentYear = $update->created_at->between($startDate, $endDate);
+
                 return collect([
-                    'current_day' => (int) ($update->created_at->dayOfYear == Carbon::now()->dayOfYear && $sameYear),
-                    'current_week' => (int) ($update->created_at->weekOfYear == Carbon::now()->weekOfYear && $sameYear),
-                    'current_month' => (int) ($update->created_at->month == Carbon::now()->month && $sameYear),
-                    'current_year' => (int) ($sameYear),
+                    'current_day' => (int) ($update->created_at->dayOfYear == Carbon::now()->dayOfYear && $duringCurrentYear),
+                    'current_week' => (int) ($update->created_at->weekOfYear == Carbon::now()->weekOfYear && $duringCurrentYear),
+                    'current_month' => (int) ($update->created_at->month == Carbon::now()->month && $duringCurrentYear),
+                    'current_year' => (int) ($duringCurrentYear),
                     'num_pages' => $update->num_pages,
                     'previous_num_pages' => $previousAssignmentUpdate ? $previousAssignmentUpdate->num_pages : null,
                     'mark_book_read' => $update->mark_book_read]);

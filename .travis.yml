@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 7.0
+
+addons:
+  mariadb: '10.1'
+
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev
+script:
+  - ./run-tests.sh
