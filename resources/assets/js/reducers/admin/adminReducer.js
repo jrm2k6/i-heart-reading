@@ -6,7 +6,8 @@ import {
 import {
   ADMINISTRATOR_DELETED,
   GROUP_TRANSFERRED,
-  FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED
+  FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED,
+  STUDENTS_GROUP_FETCHED
 } from '../../actions/admin/adminDashboardActions';
 
 const initialState = {
@@ -57,6 +58,7 @@ export default function signupReducer(state = initialState, action) {
       });
 
     case FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED:
+    case STUDENTS_GROUP_FETCHED:
       return Object.assign({}, initialState, {
         groups: updateGroupsStudents(state.groups, action.data)
       });

@@ -7,6 +7,7 @@ import UpdateGroupModal from './modals/UpdateGroupModal';
 
 const mapStateToProps = (state) => {
   return {
+    groups: state.adminReducer.groups
   };
 };
 
@@ -34,7 +35,7 @@ class ListItemGroup extends Component {
     const listItemOptions = (this.state.hovering) ? (
       <div className='admin-list-item-option'>
         <i className='material-icons admin-list-item-option-edit-icon'
-          onClick={() => { this.props.showModal(UpdateGroupModal, {group: this.props.group}); }}
+          onClick={() => { this.props.showModal(UpdateGroupModal, { group: this.props.group, groups: this.props.groups }); }}
         >
           edit
         </i>

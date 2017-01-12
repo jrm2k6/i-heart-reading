@@ -7,17 +7,35 @@ export default class UpdateGroupModal extends Component {
 
     this.state = {
       showingGroupsOptions: true,
-      selectedOption: null
+      selectedOption: 'transfer-to-me',
+      selectedStudents: [],
+      selectedGroup: -1
     };
+
+    this.handleValidateTransfer = this.handleValidateTransfer.bind(this);
+    this.updateSelectedGroup = this.updateSelectedGroup.bind(this);
   }
 
   render() {
     const { group } = this.props;
-    const content = (this.state.showingGroupsOptions) ? (
+    const groupPicker = (this.state.selectedOption === 'transfer-to-other') ? this.getGroups() : null;
+
+    const content = (
       <div>
-        <StudentsPicker {...this.props} />
+        <span>{group.id} - { group.name}</span>
+        {this.getRadioButtons()}
+        <StudentsPicker {...this.props}
+          sendSelectedStudents={(students) => { this.setState({ selectedStudents: students }); }}
+          onlyCurrentGroup={this.state.selectedOption !== 'transfer-to-me'}
+        />
+        {groupPicker}
+        <button className='admin-form-submit-btn'
+          onClick={this.handleValidateTransfer}
+        >
+          Transfer Students
+        </button>
       </div>
-    ) : null;
+    );
 
     return (
       <div className='update-group'>
@@ -58,5 +76,34 @@ export default class UpdateGroupModal extends Component {
         </div>
       </div>
     );
+  }
+
+  getGroups() {
+    const groups = this.props.groups.filter(group => group.id !== this.props.group.id);
+
+    return (
+      <select className='admin-form-select'
+        value={this.state.groupId}
+        onChange={this.updateSelectedGroup}
+      >
+        <option value={-1} key={0} className='disabled-option'>Select a group</option>
+        { groups.map((group) =>
+          <option value={group.id} key={group.id}>{group.name}</option>
+        )}
+      </select>
+    );
+  }
+
+  updateSelectedGroup(e) {
+    this.setState({ selectedGroup: e.target.value });
+  }
+
+  handleValidateTransfer() {
+    const groupId = (this.state.selectedOption === 'transfer-to-me') ?
+      this.props.group.id : this.state.selectedGroup;
+
+    if (groupId !== -1) {
+      const selectedStudents = this.state.selectedStudents.map(student => student.value);
+    }
   }
 }

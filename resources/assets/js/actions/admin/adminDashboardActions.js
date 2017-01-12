@@ -37,6 +37,8 @@ export const ERROR_ADMINISTRATOR_DELETED = 'ERROR_ADMINISTRATOR_DELETED';
 export const ERROR_GROUP_DELETED = 'ERROR_GROUP_DELETED';
 export const ERROR_TRANSFER_GROUP = 'ERROR_TRANSFER_GROUP';
 export const GROUP_TRANSFERRED = 'GROUP_TRANSFERRED';
+export const ERROR_TRANSFER_STUDENTS = 'ERROR_TRANSFER_STUDENTS';
+export const STUDENTS_TRANSFERRED = 'STUDENTS_TRANSFERRED';
 export const ERROR_FETCH_STUDENTS_GROUP = 'ERROR_FETCH_STUDENTS_GROUP';
 export const STUDENTS_GROUP_FETCHED = 'STUDENTS_GROUP_FETCHED';
 export const ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT = 'ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT';
@@ -182,11 +184,6 @@ export function createGroupTransfer(groupId, teacherId) {
   }
 }
 
-export function createStudentsTransfer(groupId, studentIds) {
-  return dispatch => {
-  }
-}
-
 function groupTransferred(data) {
   return {
     type: GROUP_TRANSFERRED,
@@ -201,10 +198,28 @@ function errorTransferGroup(data) {
   };
 }
 
-export function fetchStudentGroup(groupId) {
+export function createStudentsTransfer(groupId, studentIds) {
   return dispatch => {
-    return apiActions.getRequest(`${ADMIN_GROUP_URL}/${groupId}/students` ,
-      { teacher_id: teacherId }, _headers).then(
+  }
+}
+
+function studentsTransferred(data) {
+  return {
+    type: STUDENTS_TRANSFERRED,
+    data: data
+  };
+}
+
+function errorTransferStudents(data) {
+  return {
+    type: ERROR_TRANSFER_STUDENTS,
+    data: data.errors
+  };
+}
+
+export function fetchStudentsGroup(groupId) {
+  return dispatch => {
+    return apiActions.getRequest(`${ADMIN_GROUP_URL}/${groupId}/students`).then(
         res => dispatch(studentGroupFetched(res)),
         err => dispatch(errorFetchStudentsGroup(err))
     );
@@ -214,7 +229,7 @@ export function fetchStudentGroup(groupId) {
 function studentGroupFetched(data) {
   return {
     type: STUDENTS_GROUP_FETCHED,
-    data: data
+    data: [data]
   };
 }
 
