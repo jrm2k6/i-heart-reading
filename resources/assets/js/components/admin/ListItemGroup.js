@@ -29,7 +29,7 @@ class ListItemGroup extends Component {
   }
 
   render() {
-    const { name, nickname, grade, teacher } = this.props.group;
+    const { name, nickname, grade, teacher, students } = this.props.group;
     const teacherContent = (teacher != null) ? teacher.user.name : 'No Teacher Assigned';
 
     const listItemOptions = (this.state.hovering) ? (
@@ -52,6 +52,7 @@ class ListItemGroup extends Component {
       >
         <span>{name} ({nickname})</span>
         <span>{grade}</span>
+        <span>{students.length}</span>
         <span>{teacherContent}</span>
         {listItemOptions}
       </div>

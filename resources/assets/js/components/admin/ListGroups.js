@@ -8,6 +8,7 @@ export default class ListGroups extends Component {
         <div className='admin-list-header'>
           <span>Name</span>
           <span>Grade</span>
+          <span># Students</span>
           <span>Teacher</span>
           <span className='add-new-btn' onClick={this.props.onAddGroup}>Add</span>
         </div>
