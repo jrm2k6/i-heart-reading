@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import StudentsPicker from '../forms/StudentsPicker';
 
-export default class UpdateGroupModal extends Component {
+import { createStudentsTransfer } from '../../../actions/admin/adminDashboardActions';
+
+const mapStateToProps = (state) => {
+  return {
+    groups: state.adminReducer.groups
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    transferStudentsToGroup: (groupId, studentIds) => {
+      dispatch(createStudentsTransfer(groupId, studentIds));
+    }
+  };
+};
+
+class UpdateGroupModal extends Component {
   constructor(props) {
     super(props);
 
@@ -104,6 +121,9 @@ export default class UpdateGroupModal extends Component {
 
     if (groupId !== -1) {
       const selectedStudents = this.state.selectedStudents.map(student => student.value);
+      this.props.transferStudentsToGroup(groupId, selectedStudents);
     }
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateGroupModal);

@@ -18,6 +18,10 @@ class SchoolGroup extends Model
         'name', 'grade', 'nickname', 'school_id', 'teacher_id'
     ];
 
+    protected $appends = [
+        'students'
+    ];
+
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
@@ -26,5 +30,13 @@ class SchoolGroup extends Model
     public function studentGroups()
     {
         return $this->hasMany(StudentsGroup::class, 'group_id');
+    }
+
+    public function getStudentsAttribute()
+    {
+        $studentIds = $this->studentGroups->pluck('user_id');
+        $students = User::whereIn('id', $studentIds)->get()->toArray();
+
+        return $students;
     }
 }

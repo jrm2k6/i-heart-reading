@@ -200,6 +200,11 @@ function errorTransferGroup(data) {
 
 export function createStudentsTransfer(groupId, studentIds) {
   return dispatch => {
+    return apiActions.putRequest(`${ADMIN_GROUP_URL}/${groupId}/students`,
+    { group_id: groupId, student_ids: studentIds }, _headers).then(
+        res => dispatch(studentsTransferred(res)),
+        err => dispatch(errorTransferStudents(err))
+    );
   }
 }
 

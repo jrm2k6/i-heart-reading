@@ -7,7 +7,8 @@ import {
   ADMINISTRATOR_DELETED,
   GROUP_TRANSFERRED,
   FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED,
-  STUDENTS_GROUP_FETCHED
+  STUDENTS_GROUP_FETCHED,
+  STUDENTS_TRANSFERRED
 } from '../../actions/admin/adminDashboardActions';
 
 const initialState = {
@@ -40,6 +41,22 @@ function updateGroupsStudents(groups, groupWithStudents) {
   return groups;
 }
 
+function updateGroupsAfterTransfer(groups, updatedData) {
+  const { group, students } = updatedData;
+  const studentsToRemoveFromOtherGroups = students.map(student => student.user_id);
+
+  const groupsWithRemovedStudents = groups.map(currentGroup => {
+    const updatedStudents = currentGroup.students.filter(student => studentsToRemoveFromOtherGroups.filter(
+      id => id === student.id)
+    .length === 0);
+    return Object.assign({}, currentGroup, {students: updatedStudents});
+  });
+
+  const groupsWithNewlyUpdateGroupRemoved = groupsWithRemovedStudents.filter(currentGroup => currentGroup.id !== group.id).concat(group);
+
+  return groupsWithNewlyUpdateGroupRemoved;
+}
+
 export default function signupReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_ADMIN_USER_SUCCESS:
@@ -61,6 +78,11 @@ export default function signupReducer(state = initialState, action) {
     case STUDENTS_GROUP_FETCHED:
       return Object.assign({}, initialState, {
         groups: updateGroupsStudents(state.groups, action.data)
+      });
+
+    case STUDENTS_TRANSFERRED:
+      return Object.assign({}, initialState, {
+        groups: updateGroupsAfterTransfer(state.groups, action.data)
       });
 
     default:

@@ -86,7 +86,8 @@ class SchoolGroupController extends Controller
         });
 
         $students = StudentsGroup::whereIn('user_id', $studentsIds)->get();
-        return response(['students' => $students], 200);
+        $group = SchoolGroup::find($id);
+        return response(['students' => $students, 'group' => $group], 200);
     }
 
     /**
