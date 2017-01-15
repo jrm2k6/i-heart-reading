@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\SchoolGroup;
+use App\Models\StudentsGroup;
 use App\Models\User;
 
 class SchoolGroupController extends Controller
@@ -60,6 +61,32 @@ class SchoolGroupController extends Controller
         });
 
         return response($groupsWithStudents, 200);
+    }
+
+    /**
+    * Gets a group id and a list of user ids as part of the request payload.
+    * Updates the group_id attached to those user_ids
+    */
+    public function updateStudentsGroup(Request $request, $id)
+    {
+        $this->validate($request, [
+            'group_id' => 'required|exists:school_groups,id',
+            'student_ids' => 'required|array',
+            'student_ids.*' => 'exists:users,id' 
+        ]);
+
+        $studentsIds = $request->input('student_ids');
+        collect($studentsIds)->each(function($studentId) use ($id) {
+            $studentsGroup = StudentsGroup::where('user_id', $studentId)->first();
+            if ($studentsGroup != null) {
+                $studentsGroup->update(['group_id' => $id]);
+            } else {
+                StudentsGroup::create(['user_id' => $studentId, 'group_id' => $id]);
+            }
+        });
+
+        $students = StudentsGroup::whereIn('user_id', $studentsIds)->get();
+        return response(['students' => $students], 200);
     }
 
     /**
