@@ -32,7 +32,7 @@ class SchoolGroupController extends Controller
         $studentIds = $studentGroups->pluck('user_id');
         $students = User::whereIn('id', $studentIds)->get();
 
-        return response(['group' => $id, 'students' => $students], 200);
+        return response(['id' => (int) $id, 'students' => $students], 200);
     }
 
     public function getStudentsExcept(Request $request)
