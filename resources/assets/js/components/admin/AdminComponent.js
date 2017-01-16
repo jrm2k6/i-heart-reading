@@ -30,6 +30,21 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+const overrideModalDefaultStyles = () => {
+  Modal.defaultStyles.overlay.backgroundColor = "rgba(0, 0, 0, 0.85)";
+  Modal.defaultStyles.content.width = "60%";
+  Modal.defaultStyles.content.height = "60%";
+  Modal.defaultStyles.content.top = "0";
+  Modal.defaultStyles.content.bottom = "0";
+  Modal.defaultStyles.content.left = "0";
+  Modal.defaultStyles.content.right = "0";
+  Modal.defaultStyles.content.margin = "auto";
+  Modal.defaultStyles.content.padding = "0";
+  Modal.defaultStyles.content.borderRadius = "1px";
+  Modal.defaultStyles.content.border = "none";
+}
+
+overrideModalDefaultStyles();
 
 class AdminComponent extends Component {
   render() {

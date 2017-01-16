@@ -6,7 +6,7 @@ export default class UpdateTeacherModal extends Component {
     super(props);
 
     this.state = {
-      showingGroupsOptions: false,
+      showingGroupsOptions: true,
       selectedOption: null
     };
   }
@@ -20,25 +20,16 @@ export default class UpdateTeacherModal extends Component {
       </div>
     ) : (
       <div>
-        <div className='update-teacher-groups'>
-          <div className='update-teacher-groups-top'>
-            <div className='update-teacher-groups-left'></div>
-              {teacher.groups.length} groups
-            <div className='update-teacher-groups-right'></div>
-          </div>
-        </div>
-        <div className='update-teacher-groups-bottom'>
-          <button onClick={() => { this.setState({ showingGroupsOptions: true }); }}>
-            Manage groups
-          </button>
-        </div>
+        <button onClick={() => { this.setState({ showingGroupsOptions: true }); }}>
+          Manage groups
+        </button>
       </div>
     );
 
     return (
       <div className='update-teacher'>
         <div className='update-teacher-header'>
-          {teacher.user.name}
+          <div className='update-teacher-name'>{teacher.user.name}</div>
         </div>
         <div className='update-teacher-content'>
           {content}
@@ -49,29 +40,41 @@ export default class UpdateTeacherModal extends Component {
 
   getRadioButtons() {
     const { teacher } = this.props;
+
+    const contentLabelTransferToOther = `Assign one of ${teacher.user.name}'s group to another teacher.`
+    const contentLabelTransferToCurrentTeacher = `Assign a new group to ${teacher.user.name}.`;
     return (
       <div className='update-teacher-manage-groups-options'>
-        <div class='checkbox'>
-          <input className='ihr-checkbox'
+        <div className='ihr-radio-wrapper'
+          onClick={() => { this.setState({ selectedOption: 'transfer-to-me' }); }}
+        >
+          <input className='ihr-radio'
             type='radio'
             name='transfer-to-me'
             id='transfer-to-me'
             value='transfer-to-me'
             checked={'transfer-to-me' == this.state.selectedOption}
-            onChange={() => { this.setState({ selectedOption: 'transfer-to-me' }); }}
           />
-          <label forName='transfer-to-me'><span></span>Assign a new group to {teacher.user.name}</label>
+          <div className='ihr-check'></div>
+          <label className='label-ihr' forName='transfer-to-me'>
+            {contentLabelTransferToCurrentTeacher}
+          </label>
         </div>
-        <div class='checkbox'>
-          <input className='ihr-checkbox'
+        <div className='ihr-radio-wrapper'
+          onClick={() => { this.setState({ selectedOption: 'transfer-to-other' }); }}
+        >
+          <input className='ihr-radio'
             type='radio'
             name='transfer-to-other'
             id='transfer-to-other'
             value='transfer-to-other'
             checked={'transfer-to-other' == this.state.selectedOption}
-            onChange={() => { this.setState({ selectedOption: 'transfer-to-other' }); }}
+
           />
-          <label forName='transfer-to-me'><span></span>Assign {teacher.user.name}s group to another teacher</label>
+          <div className='ihr-check'></div>
+          <label className='label-ihr' forName='transfer-to-me'>
+            {contentLabelTransferToOther}
+          </label>
         </div>
       </div>
     );

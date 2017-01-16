@@ -83,7 +83,8 @@ class StudentsPicker extends Component {
   render() {
     return (
       <Select
-          name="student-picker-select"
+          className='student-picker-select'
+          name='student-picker-select'
           value={this.state.selectedStudents}
           options={this.getCurrentOptions()}
           noResultsText={'No Students Found!'}

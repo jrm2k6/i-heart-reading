@@ -35,7 +35,6 @@ class TransferGroupToNewTeacherForm extends Component {
   render() {
     return (
       <div className='admin-add-admin-form'>
-        <span>Select a group</span>
         <div className='admin-select-wrapper'>
           <span className='admin-select-arrow'>
             <i className='material-icons'>keyboard_arrow_down</i>
@@ -43,9 +42,6 @@ class TransferGroupToNewTeacherForm extends Component {
           {this.getGroups()}
         </div>
         {this.getTeachers()}
-        <div className='explanation'>
-          You are about to transfer the group to that teacher
-        </div>
         <button className='admin-form-submit-btn'
           onClick={this.handleValidateTransfer}
         >
@@ -103,7 +99,6 @@ class TransferGroupToNewTeacherForm extends Component {
 
     return (
       <div>
-        <span>Select a teacher</span>
         <div className='admin-select-wrapper'>
           <span className='admin-select-arrow'>
             <i className='material-icons'>keyboard_arrow_down</i>
