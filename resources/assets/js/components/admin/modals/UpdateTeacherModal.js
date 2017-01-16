@@ -41,7 +41,7 @@ export default class UpdateTeacherModal extends Component {
   getRadioButtons() {
     const { teacher } = this.props;
 
-    const contentLabelTransferToOther = `Assign one of ${teacher.user.name}'s group to another teacher.`
+    const contentLabelTransferToOther = `Assign one of ${teacher.user.name}'s groups to another teacher.`
     const contentLabelTransferToCurrentTeacher = `Assign a new group to ${teacher.user.name}.`;
     return (
       <div className='update-teacher-manage-groups-options'>
