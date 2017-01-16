@@ -176,7 +176,7 @@ function errorGroupCreated(data) {
 
 export function createGroupTransfer(groupId, teacherId) {
   return dispatch => {
-    return apiActions.putRequest(`${ADMIN_GROUPS_URL}/${groupId}` ,
+    return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}` ,
       { teacher_id: teacherId }, _headers).then(
         res => dispatch(groupTransferred(res)),
         err => dispatch(errorTransferGroup(err))
