@@ -4,12 +4,24 @@ class PrimaryContactForm extends Component {
   render() {
     return (
       <div className='register-school-form'>
-        <span>Name of Primary contact</span>
-        <input onChange={this.props.updateNamePrimaryContact}/>
-        <span>Email address of contact</span>
-        <input onChange={this.props.updateEmailAddressPrimaryContact} />
-        <span>Role</span>
-        <input onChange={this.props.updateRolePrimaryContact} />
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Name of Primary contact</span>
+          <input className='signup-form-input'
+            onChange={this.props.updateNamePrimaryContact}
+          />
+        </div>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Email address of contact</span>
+          <input className='signup-form-input'
+          onChange={this.props.updateEmailAddressPrimaryContact}
+          />
+        </div>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Role</span>
+          <input className='signup-form-input'
+            onChange={this.props.updateRolePrimaryContact}
+          />
+        </div>
       </div>
     );
   }

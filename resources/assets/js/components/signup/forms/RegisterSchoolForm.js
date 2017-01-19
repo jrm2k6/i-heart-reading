@@ -4,17 +4,24 @@ class RegisterSchoolForm extends Component {
   render() {
     return (
       <div className='register-school-form'>
-        <div>
-          <span>Name of School</span>
-          <input onChange={this.props.updateNameSchool}/>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Name of School</span>
+          <input className='signup-form-input'
+            onChange={this.props.updateNameSchool}
+          />
         </div>
-        <div>
-          <span>Address School</span>
-          <input onChange={this.props.updateAddressSchool}/>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Address School</span>
+          <input className='signup-form-input'
+            onChange={this.props.updateAddressSchool}
+          />
         </div>
-        <div>
-          <span>Domain name for email address school</span>
-          <input onChange={this.props.updateDomainEmailSchool}/>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Domain name for email address school</span>
+          <input className='signup-form-input'
+            placeholder="@myschooldomain.com"
+            onChange={this.props.updateDomainEmailSchool}
+          />
         </div>
       </div>
     );

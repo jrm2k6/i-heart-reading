@@ -7,7 +7,6 @@ injectTapEventPlugin();
 class SignupComponent extends Component {
   render() {
     return (
-
       <div className='signup-root-component'>
         <div className='signup-header'>
             <div className='logo-container'>

@@ -19,16 +19,14 @@ class GroupCreationForm extends Component {
   render() {
     return (
       <div className={this.props.className}>
-        <div className='form-input-group'>
-          <div className='form-input-label'>Name</div>
-          <div>
-            <input className='form-input'
-              onChange={this.updateGroupName}
-            />
-          </div>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Name</span>
+          <input className='form-input'
+            onChange={this.updateGroupName}
+          />
         </div>
         <div>
-          <div className='form-input-label'>Grade/Type</div>
+          <span className='signup-form-label'>Grade/Type</span>
           <div className='admin-select-wrapper'>
             <span className='admin-select-arrow'>
               <i className='material-icons'>keyboard_arrow_down</i>
@@ -52,13 +50,11 @@ class GroupCreationForm extends Component {
             </select>
           </div>
         </div>
-        <div className='form-input-group'>
-          <div className='form-input-label'>Nickname</div>
-          <div>
-            <input className='form-input'
-              onChange={this.updateNickname}
-            />
-          </div>
+        <div className='signup-form-input-wrapper'>
+          <span className='signup-form-label'>Nickname</span>
+          <input className='form-input'
+            onChange={this.updateNickname}
+          />
         </div>
         <button className='admin-form-submit-btn'
           onClick={this.handleCreate}

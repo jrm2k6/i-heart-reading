@@ -4,3 +4,108 @@
   height: 200px;
   justify-content: center;
 }
+
+.register-school-container, .register-school-primary-contact-container,
+.register-school-group-creation-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-header {
+  color: $main-dark-gray;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.signup-form-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+
+  .signup-form-input {
+    border: 0;
+    color: $main-dark-gray;
+    font-size: 20px;
+    height: 35px;
+    outline: none;
+    padding-left: 10px;
+    width: 100%;
+
+    @include placeholder-color(lighten($main-light-gray, 15%));
+  }
+
+  .signup-form-label {
+    color: $main-light-gray;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+}
+
+.section-navigation {
+  align-self: center;
+  background-color: $white;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+
+  .section-navigation-btn {
+    border: 1px solid;
+    color: $main-white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 45px;
+    width: 90px;
+
+    &.next-btn, &.continue-btn {
+      background-color: $main-light-blue;
+      border-color: $main-light-blue;
+
+      &:hover {
+        background-color: lighten($main-light-blue, 0.9);
+      }
+    }
+
+    &.continue-btn {
+      padding: 0 20px;
+      width: auto;
+    }
+
+    &.previous-btn {
+      &.disabled {
+        background-color: $main-background-light-gray;
+        border-color: $main-background-light-gray;
+      }
+    }
+  }
+}
+
+.register-school-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.group-creation {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add-new-classroom-button {
+  border: 1px solid $main-dark-blue;
+  background-color: $main-dark-blue;
+  color: $main-white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 45px;
+  padding: 0 15px;
+  width: auto;
+}

@@ -31,8 +31,11 @@ class RegisterSchoolComponent extends Component {
           />
         </div>
         <div className='section-navigation'>
-          <button>Previous</button>
-          <button onClick={this.handleClick}>Next</button>
+          <button className='section-navigation-btn previous-btn'>Previous</button>
+          <button className='section-navigation-btn next-btn'
+            onClick={this.handleClick}>
+            Next
+          </button>
         </div>
       </div>
     );

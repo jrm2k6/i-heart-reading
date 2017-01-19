@@ -29,15 +29,19 @@ class GroupCreationComponent extends Component {
         <div className='section-header'>
           Time to create your classrooms/groups
         </div>
-        <div className='section-form'>
-          <button onClick={this.handleAddNewClassroom}>
+        <div className='section-form group-creation'>
+          <button className='add-new-classroom-button'
+            onClick={this.handleAddNewClassroom}>
             Add a new classroom
           </button>
-          <button onClick={this.handleSaveChanges}>
-            Save Changes
+          {creationForm}
+        </div>
+        <div className='section-navigation'>
+          <button className='section-navigation-btn continue-btn'
+            onClick={this.handleSaveChanges}>
+              Continue
           </button>
         </div>
-        {creationForm}
       </div>
     );
   }
