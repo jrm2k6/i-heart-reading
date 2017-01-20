@@ -64,7 +64,7 @@ class SchoolController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'address' => 'required|string',
-            'domain_name' => 'required|string|unique:schools,domain_name'
+            'domain_name' => 'required|string|unique:schools,domain_name,'.$id
         ]);
 
         $school = School::find($id);
