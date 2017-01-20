@@ -1,5 +1,6 @@
 import {
   CONTACT_CREATED,
+  CONTACT_UPDATED,
   ERROR_CONTACT_CREATED,
   CONTACT_VERIFIED,
   ERROR_CONTACT_VERIFIED
@@ -7,6 +8,7 @@ import {
 
 import {
   SCHOOL_CREATED,
+  SCHOOL_UPDATED,
   ERROR_SCHOOL_CREATED
 } from '../../actions/signup/signupSchoolActions';
 
@@ -25,6 +27,7 @@ const initialState = {
 export default function signupReducer(state = initialState, action) {
   switch (action.type) {
     case CONTACT_CREATED:
+    case CONTACT_UPDATED:
       return Object.assign({}, state, {
         currentPrimaryContact: action.data
       });
@@ -34,6 +37,7 @@ export default function signupReducer(state = initialState, action) {
       });
 
     case SCHOOL_CREATED:
+    case SCHOOL_UPDATED:
       return Object.assign({}, state, {
         currentSchool: action.data
       });

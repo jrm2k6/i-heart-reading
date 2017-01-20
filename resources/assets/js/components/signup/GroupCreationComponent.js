@@ -37,6 +37,10 @@ class GroupCreationComponent extends Component {
           {creationForm}
         </div>
         <div className='section-navigation'>
+          <button className='section-navigation-btn previous-btn'
+            onClick={this.handlePreviousClick}>
+              Previous
+          </button>
           <button className='section-navigation-btn continue-btn'
             onClick={this.handleSaveChanges}>
               Continue
@@ -63,6 +67,10 @@ class GroupCreationComponent extends Component {
 
   handleSaveChanges() {
     browserHistory.push('/signup/verify');
+  }
+
+  handlePreviousClick() {
+    browserHistory.push('/signup/contact')
   }
 }
 

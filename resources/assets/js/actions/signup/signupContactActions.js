@@ -7,6 +7,8 @@ const SIGNUP_VERIFY_PASSWORD_CURRENT_USER = '/api/user/me/password/verify';
 const CREATE_CONTACT = 'CREATE_CONTACT';
 export const CONTACT_CREATED = 'CONTACT_CREATED';
 export const ERROR_CONTACT_CREATED = 'ERROR_CONTACT_CREATED';
+export const CONTACT_UPDATED = 'CONTACT_UPDATED';
+export const ERROR_CONTACT_UPDATED = 'ERROR_CONTACT_UPDATED';
 const VERIFY_CONTACT = 'VERIFY_CONTACT';
 export const CONTACT_VERIFIED = 'CONTACT_VERIFIED';
 export const ERROR_CONTACT_VERIFIED = 'ERROR_CONTACT_VERIFIED';
@@ -34,6 +36,17 @@ export function createContact({ namePrimaryContact, emailAddressPrimaryContact, 
   }
 }
 
+export function updateContact({ namePrimaryContact, emailAddressPrimaryContact, rolePrimaryContact, schoolId, id }) {
+  return dispatch => {
+    return apiActions.putRequest(`${SIGNUP_SCHOOL_CONTACT_URL}/${id}`,
+      { name: namePrimaryContact, email_address: emailAddressPrimaryContact,
+        role: rolePrimaryContact, school_id: schoolId }, _headers).then(
+        res => dispatch(contactCreated(res)),
+        err => dispatch(errorContactCreated(err))
+    );
+  }
+}
+
 function contactCreated(data) {
   return {
     type: CONTACT_CREATED,
@@ -44,6 +57,20 @@ function contactCreated(data) {
 function errorContactCreated(data) {
   return {
     type: ERROR_CONTACT_CREATED,
+    data: data.errors
+  };
+}
+
+function contactUpdated(data) {
+  return {
+    type: CONTACT_UPDATED,
+    data: data.primary_contact
+  };
+}
+
+function errorContactUpdated(data) {
+  return {
+    type: ERROR_CONTACT_UPDATED,
     data: data.errors
   };
 }

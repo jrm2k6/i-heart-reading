@@ -2,7 +2,26 @@ import React, { Component } from 'react';
 import RegisterSchoolForm from './forms/RegisterSchoolForm';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { createSchool } from '../../actions/signup/signupSchoolActions';
+import { createSchool, updateSchool } from '../../actions/signup/signupSchoolActions';
+
+const mapStateToProps = (state) => {
+  return {
+    currentSchool: state.signupReducer.currentSchool
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createOrUpdateSchool: (data, shouldUpdate) => {
+      if (shouldUpdate) {
+        return dispatch(updateSchool(data))
+      } else {
+        return dispatch(createSchool(data))
+      }
+    }
+  };
+};
+
 
 class RegisterSchoolComponent extends Component {
   constructor(props) {
@@ -15,6 +34,17 @@ class RegisterSchoolComponent extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { currentSchool } = this.props;
+    if (currentSchool) {
+      this.setState({
+        nameSchool: currentSchool.name,
+        addressSchool: currentSchool.address,
+        domainNameSchool: currentSchool.domain_name,
+      });
+    }
   }
 
   render() {
@@ -31,7 +61,6 @@ class RegisterSchoolComponent extends Component {
           />
         </div>
         <div className='section-navigation'>
-          <button className='section-navigation-btn previous-btn'>Previous</button>
           <button className='section-navigation-btn next-btn'
             onClick={this.handleClick}>
             Next
@@ -43,10 +72,14 @@ class RegisterSchoolComponent extends Component {
 
   handleClick() {
     const { nameSchool, addressSchool, domainNameSchool } = this.state;
+    const { currentSchool } = this.props;
+
     const isValid = nameSchool !== null && addressSchool !== null && domainNameSchool !== null;
 
     if (isValid) {
-      this.props.createSchool(this.state).then(
+      const shouldUpdate = this.props.currentSchool !== null;
+      const data = (shouldUpdate) ? Object.assign({}, this.state, {id: currentSchool.id}) : this.state;
+      this.props.createOrUpdateSchool(data, shouldUpdate).then(
         res => { browserHistory.push('signup/contact'); }
       );
     } else {
@@ -54,17 +87,5 @@ class RegisterSchoolComponent extends Component {
     }
   }
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createSchool: (data) => dispatch(createSchool(data))
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterSchoolComponent);

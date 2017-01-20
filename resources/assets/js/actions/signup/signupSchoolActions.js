@@ -4,7 +4,9 @@ import { displaySuccessAlert, displayErrorAlert } from '../alertsActions';
 const SIGNUP_SCHOOL_URL = '/api/school'
 const CREATE_SCHOOL = 'CREATE_SCHOOL';
 export const SCHOOL_CREATED = 'SCHOOL_CREATED';
+export const SCHOOL_UPDATED = 'SCHOOL_UPDATED';
 export const ERROR_SCHOOL_CREATED = 'ERROR_SCHOOL_CREATED';
+export const ERROR_SCHOOL_UPDATED = 'ERROR_SCHOOL_UPDATED';
 
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
@@ -26,6 +28,18 @@ export function createSchool({ nameSchool, addressSchool, domainNameSchool }) {
   }
 }
 
+export function updateSchool({ nameSchool, addressSchool, domainNameSchool, id }) {
+  return dispatch => {
+    return apiActions.putRequest(`${SIGNUP_SCHOOL_URL}/${id}`,
+      { name: nameSchool, address: addressSchool, domain_name: domainNameSchool },
+      _headers).then(
+        res => dispatch(schoolUpdated(res)),
+        err => dispatch(errorSchoolCreated(err))
+    );
+  }
+}
+
+
 function schoolCreated(data) {
   return {
     type: SCHOOL_CREATED,
@@ -33,9 +47,23 @@ function schoolCreated(data) {
   };
 }
 
+function schoolUpdated(data) {
+  return {
+    type: SCHOOL_UPDATED,
+    data: data.school
+  };
+}
+
 function errorSchoolCreated(data) {
   return {
     type: ERROR_SCHOOL_CREATED,
+    data: data.errors
+  };
+}
+
+function errorSchoolUpdated(data) {
+  return {
+    type: ERROR_SCHOOL_UPDATED,
     data: data.errors
   };
 }
