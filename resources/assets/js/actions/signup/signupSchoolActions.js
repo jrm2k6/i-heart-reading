@@ -13,7 +13,8 @@ const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
     .filter((meta) => meta.name === 'csrf-token')[0].content;
 
 const _headers = {
-  'X-CSRF-TOKEN': csrfToken
+  'X-CSRF-TOKEN': csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
 };
 
 
