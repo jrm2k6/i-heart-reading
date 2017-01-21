@@ -9,7 +9,7 @@ class SchoolAdmin extends Model
 
   protected $table = 'school_admins';
 
-      /**
+   /**
    * The attributes that are mass assignable.
    *
    * @var array
