@@ -72,3 +72,21 @@
     </form>
 </div>
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            var searchParams = window.location.search.substring(1);
+            var params = searchParams.split('&');
+            if (params.length > 0) {
+                var firstKeyValueParams = params[0].split('=');
+                if (firstKeyValueParams[0] == 'email') {
+                    var email = firstKeyValueParams[1];
+                    if (email) {
+                        $("input[name='email']").first().val(email)
+                    }
+                }
+            }
+        });
+    </script>
+@endsection
