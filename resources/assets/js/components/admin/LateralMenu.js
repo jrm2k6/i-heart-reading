@@ -30,6 +30,10 @@ export default class LateralMenu extends Component {
         browserHistory.push('/admin');
         break;
 
+      case 'dashboard':
+        window.location.replace('/app');
+        break;
+
       case 'logout':
         window.location.replace('/logout');
         break;
@@ -79,6 +83,11 @@ export default class LateralMenu extends Component {
             onClick={() => { this.handleClickMenu('home');}}
           >
             <i className='material-icons'>home</i><span>Home</span>
+          </div>
+          <div className={this.getClassnameItem('dashboard')}
+            onClick={() => { this.handleClickMenu('dashboard');}}
+          >
+            <i className='material-icons'>dashboard</i><span>Dashboard</span>
           </div>
           <div className={this.getClassnameItem('logout')}
             onClick={() => { this.handleClickMenu('logout');}}
