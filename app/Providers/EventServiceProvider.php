@@ -18,7 +18,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UserRegistered\SendConfirmationEmail'
         ],
         'App\Events\UserConfirmed' => [
-            'App\Listeners\UserConfirmed\MarkUserAsConfirmed'
+            'App\Listeners\UserConfirmed\MarkUserAsConfirmed',
+            'App\Listeners\UserConfirmed\MakeUserAdminIfPrimaryContact'
         ],
         'App\Events\ConfirmationEmailResent' => [
             'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail'
