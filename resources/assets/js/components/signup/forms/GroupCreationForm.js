@@ -14,6 +14,7 @@ class GroupCreationForm extends Component {
       this.updateGrade = this.updateGrade.bind(this);
       this.updateNickname = this.updateNickname.bind(this);
       this.handleCreate = this.handleCreate.bind(this);
+      this.handleCancel = this.handleCancel.bind(this);
   }
 
   render() {
@@ -56,11 +57,18 @@ class GroupCreationForm extends Component {
             onChange={this.updateNickname}
           />
         </div>
-        <button className='admin-form-submit-btn'
-          onClick={this.handleCreate}
-        >
-          Create
-        </button>
+        <div className='admin-form-btns-wrapper'>
+          <button className='admin-form-submit-btn'
+            onClick={this.handleCreate}
+          >
+            Create
+          </button>
+          <button className='admin-form-submit-btn cancel-btn'
+            onClick={this.handleCancel}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     );
   }
@@ -68,6 +76,11 @@ class GroupCreationForm extends Component {
   handleCreate() {
     this.props.handleValidate(this.state);
   }
+
+  handleCancel() {
+    this.props.handleCancel();
+  }
+
 
   updateGroupName(e) {
     this.setState({ name: e.target.value });
