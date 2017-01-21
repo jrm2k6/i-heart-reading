@@ -4,6 +4,18 @@ import { connect } from 'react-redux';
 import { verifyPassword } from '../../actions/signup/signupContactActions';
 import PasswordInput from './forms/PasswordInput';
 
+const mapStateToProps = (state) => {
+  return {
+    currentPrimaryContact: state.signupReducer.currentPrimaryContact
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    verifyPassword: (password) => dispatch(verifyPassword(password))
+  };
+};
+
 class NextStepContent extends Component {
   constructor(props) {
       super(props);
@@ -16,7 +28,7 @@ class NextStepContent extends Component {
   componentWillMount() {
     // check user logged in
     if (!this.props.contactExists) {
-      window.location = '/register';
+      window.location = `/register?email=${this.props.currentPrimaryContact.email_address}`;
     } else if (!this.props.currentUser){
       window.location = '/login';
     }
@@ -53,16 +65,5 @@ class NextStepContent extends Component {
     return null;
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    verifyPassword: (password) => dispatch(verifyPassword(password))
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NextStepContent);
