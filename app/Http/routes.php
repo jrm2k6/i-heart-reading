@@ -34,6 +34,8 @@ foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
+    Route::get('/organization/{token}', 'TokenController@verifyOrganizationTokenAndRedirect');
+
     Route::get('/signup/{optional?}', [
         'as' => 'signup',
         'uses' => 'SignupController@index'
