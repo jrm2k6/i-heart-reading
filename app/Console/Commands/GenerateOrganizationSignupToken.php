@@ -38,7 +38,7 @@ class GenerateOrganizationSignupToken extends Command
      */
     public function handle()
     {
-        $token = str_random(40);
+        $token = str_random(10);
         SignupOrganizationToken::create([
             'token' => $token
         ]);

@@ -14,7 +14,7 @@ class CreateTableSignupOrganizationTokens extends Migration
     {
         Schema::create('signup_organization_tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token');
+            $table->string('token', 10);
             $table->timestamps();
             $table->softDeletes();
         });
