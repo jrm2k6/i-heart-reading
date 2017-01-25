@@ -3,7 +3,7 @@ import { displaySuccessAlert, displayErrorAlert } from '../alertsActions';
 
 const API_CREATE_USER = '/api/user/new';
 const ADMIN_TEACHER_URL = '/api/teacher';
-const ADMIN_SCHOOL_GROUPS_URL = '/api/school/group';
+const ADMIN_SCHOOL_GROUPS_URL = '/api/admin/group';
 const ADMIN_GROUP_URL = '/api/group';
 const ADMIN_STUDENT_GROUP_URL = '/api/groups';
 const ADMIN_ADMINISTRATOR_URL = '/api/administrator';
