@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/organization/{token}', 'TokenController@verifyOrganizationTokenAndRedirect');
 
     Route::get('/signup/{optional?}', [
+        'middleware' => 'can_signup_as_organization',
         'as' => 'signup',
         'uses' => 'SignupController@index'
     ])->where('optional', '(.*)');
