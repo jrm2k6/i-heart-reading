@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Events\Signup\SchoolCreated;
+use App\Http\Requests;
 use App\Models\School;
 
 class SchoolController extends Controller
@@ -37,6 +38,8 @@ class SchoolController extends Controller
             'address' => $request->input('address'),
             'domain_name' => $request->input('domain_name')
         ]);
+
+        event(new SchoolCreated($school->id, $request->session()));
 
         return response(['school' => $school], 201)->header('Location', '/api/school/'.$school->id);
     }

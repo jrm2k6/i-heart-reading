@@ -36,6 +36,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AssignmentEndedUpdateCreated' => [
             'App\Listeners\AssignmentEndedUpdateCreated\UpdateStatsForAssignmentEnded'
         ],
+
+        'App\Events\Signup\SchoolCreated' => [
+            'App\Listeners\Signup\SchoolCreated\AttachOrganizationTokenToCreatedSchool'
+        ],
+
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
         ]

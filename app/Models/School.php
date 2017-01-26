@@ -15,7 +15,7 @@ class School extends Model
      */
 
     protected $fillable = [
-        'name', 'address', 'domain_name',
+        'name', 'address', 'domain_name', 'organization_token_id'
     ];
 
     public function teachers()
