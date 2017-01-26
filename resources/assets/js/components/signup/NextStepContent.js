@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { verifyPassword } from '../../actions/signup/signupContactActions';
+import { confirmSignup } from '../../actions/signup/signupActions';
 import PasswordInput from './forms/PasswordInput';
 
 const mapStateToProps = (state) => {
@@ -12,7 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    verifyPassword: (password) => dispatch(verifyPassword(password))
+    verifyPassword: (password) => dispatch(verifyPassword(password)),
+    confirmSignup: () => dispatch(confirmSignup())
   };
 };
 
@@ -26,7 +28,7 @@ class NextStepContent extends Component {
   }
 
   componentWillMount() {
-    // check user logged in
+    this.props.confirmSignup();
     if (!this.props.contactExists) {
       window.location = `/register?email=${this.props.currentPrimaryContact.email_address}`;
     } else if (!this.props.currentUser) {
