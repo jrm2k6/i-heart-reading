@@ -29,7 +29,7 @@ class NextStepContent extends Component {
     // check user logged in
     if (!this.props.contactExists) {
       window.location = `/register?email=${this.props.currentPrimaryContact.email_address}`;
-    } else if (!this.props.currentUser){
+    } else if (!this.props.currentUser) {
       window.location = '/login';
     }
   }
