@@ -35,7 +35,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/organization/{token}', 'TokenController@verifyOrganizationTokenAndRedirect');
-
+    Route::get('/confirm-token', 'TokenController@confirmOrganizationToken');
+    Route::post('/verify-token', 'TokenController@verifyOrganizationToken');
+    
     Route::get('/signup/{optional?}', [
         'middleware' => 'can_signup_as_organization',
         'as' => 'signup',

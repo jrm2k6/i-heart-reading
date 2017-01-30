@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserRegistered;
 use App\Models\User;
+use App\Models\PrimaryContact;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -23,7 +25,11 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers {
+        register as parentRegister;
+    }
+
+    use ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
@@ -74,5 +80,30 @@ class AuthController extends Controller
         event(new UserRegistered($user));
 
         return $user;
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $primaryContact = PrimaryContact::where('email_address', $request->input('email'))->first();
+
+        if ($primaryContact != null) {
+            return redirect($this->redirectPathForExistingPrimaryContact());
+        }
+
+        return $this->parentRegister($request);
+
+    }
+
+    public function redirectPathForExistingPrimaryContact()
+    {
+        return '/confirm-token';
     }
 }

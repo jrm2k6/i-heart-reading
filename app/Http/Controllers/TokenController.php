@@ -18,4 +18,14 @@ class TokenController extends Controller
 
         return response()->view('errors.404', [], 404);
     }
+
+    public function confirmOrganizationToken()
+    {
+        return view('auth.confirm-token');
+    }
+
+    public function verifyOrganizationToken()
+    {
+
+    }
 }
