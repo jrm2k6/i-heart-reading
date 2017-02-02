@@ -16,8 +16,13 @@
         <div class='signup-form-input-wrapper'>
           <span class='signup-form-label'>Enter your organization token</span>
           <input class='signup-form-input' name='organization_token' />
-          <input class='signup-form-input' type='hidden' name='email' value='{{$email}}' />
         </div>
+        <div class='signup-form-input-wrapper'>
+          <span class='signup-form-label'>Re-enter your password</span>
+          <input class='signup-form-input' type='password' name='password' />
+        </div>
+        <input type='hidden' name='email' value='{{$email}}' />
+          <input type='hidden' name='name' value='{{$name}}' />
         <button type="submit" class="btn-login-submit">
             Verify Token
         </button>

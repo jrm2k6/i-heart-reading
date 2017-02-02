@@ -2,7 +2,11 @@
 
 use Illuminate\Http\Request;
 
+use App\Events\UserRegistered;
 use App\Http\Requests;
+use App\Models\User;
+use App\Models\School;
+use App\Models\PrimaryContact;
 use App\Models\SignupOrganizationToken;
 
 class TokenController extends Controller
@@ -22,15 +26,46 @@ class TokenController extends Controller
     public function confirmOrganizationToken(Request $request)
     {
         $email = $request->input('email');
-        return view('auth.confirm-token', ['email' => $email]);
+        $name = $request->input('name');
+        return view('auth.confirm-token', ['email' => $email, 'name' => $name]);
     }
 
     public function verifyOrganizationToken(Request $request)
     {
         $this->validate($request, [
-            'organization_token' => 'required|string'
+            'organization_token' => 'required|string',
+            'name' => 'required|string',
+            'password' => 'required|string',
+            'email' => 'required|email|exists:primary_contacts,email_address'
         ]);
 
-        dd($request->all());
+
+        $organizationToken = $request->input('organization_token');
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $password = $request->input('password');
+
+        $organizationToken = SignupOrganizationToken::where('token', $organizationToken)->first();
+        
+        if ($organizationToken && $email) {
+        
+            $schoolOrganizationToken = School::where('organization_token_id', $organizationToken->id)->first();
+            $primaryContact = PrimaryContact::where('email_address', $email)->first();
+            
+            if ($primaryContact->school_id === $schoolOrganizationToken->id) {
+                $user = User::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => bcrypt($password),
+                    'role' => 'admin'
+                ]);
+
+                event(new UserRegistered($user));
+
+                return redirect('/login');
+            }
+        }
+
+        return redirect('/confirm-token')->with('error', 'Invalid organization token!');
     }
 }

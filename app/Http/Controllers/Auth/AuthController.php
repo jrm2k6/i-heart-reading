@@ -97,7 +97,8 @@ class AuthController extends Controller
         $primaryContact = PrimaryContact::where('email_address', $email)->first();
 
         if ($primaryContact != null) {
-            return redirect()->action($this->redirectActionForExistingPrimaryContact(), ['email' => $email]);
+            return redirect()->action($this->redirectActionForExistingPrimaryContact(), 
+                $request->only('name', 'email'));
         }
 
         return $this->parentRegister($request);
