@@ -92,18 +92,20 @@ class AuthController extends Controller
             );
         }
 
-        $primaryContact = PrimaryContact::where('email_address', $request->input('email'))->first();
+        $email = $request->input('email');
+
+        $primaryContact = PrimaryContact::where('email_address', $email)->first();
 
         if ($primaryContact != null) {
-            return redirect($this->redirectPathForExistingPrimaryContact());
+            return redirect()->action($this->redirectActionForExistingPrimaryContact(), ['email' => $email]);
         }
 
         return $this->parentRegister($request);
 
     }
 
-    public function redirectPathForExistingPrimaryContact()
+    public function redirectActionForExistingPrimaryContact()
     {
-        return '/confirm-token';
+        return 'TokenController@confirmOrganizationToken';
     }
 }

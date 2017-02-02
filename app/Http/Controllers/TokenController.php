@@ -19,13 +19,18 @@ class TokenController extends Controller
         return response()->view('errors.404', [], 404);
     }
 
-    public function confirmOrganizationToken()
+    public function confirmOrganizationToken(Request $request)
     {
-        return view('auth.confirm-token');
+        $email = $request->input('email');
+        return view('auth.confirm-token', ['email' => $email]);
     }
 
-    public function verifyOrganizationToken()
+    public function verifyOrganizationToken(Request $request)
     {
+        $this->validate($request, [
+            'organization_token' => 'required|string'
+        ]);
 
+        dd($request->all());
     }
 }
