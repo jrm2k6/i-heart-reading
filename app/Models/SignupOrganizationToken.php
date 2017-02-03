@@ -9,7 +9,7 @@ class SignupOrganizationToken extends Model
 
     protected $table = 'signup_organization_tokens';
 
-    /**
+   /**
    * The attributes that are mass assignable.
    *
    * @var array
