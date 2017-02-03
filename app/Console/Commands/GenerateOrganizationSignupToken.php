@@ -43,6 +43,6 @@ class GenerateOrganizationSignupToken extends Command
             'token' => $token
         ]);
 
-        $this->info('Signup url: https://' . env('APP_URL') . '/organization/' . $token);
+        $this->info('Signup url:' . env('APP_URL') . '/organization/' . $token);
     }
 }
