@@ -6,6 +6,7 @@ use App\Events\UserRegistered;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\School;
+use App\Models\SchoolAdmin;
 use App\Models\PrimaryContact;
 use App\Models\SignupOrganizationToken;
 
@@ -58,6 +59,11 @@ class TokenController extends Controller
                     'email' => $email,
                     'password' => bcrypt($password),
                     'role' => 'admin'
+                ]);
+
+                SchoolAdmin::create([
+                    'user_id' => $user->id,
+                    'school_id' => $schoolOrganizationToken->id
                 ]);
 
                 event(new UserRegistered($user));
