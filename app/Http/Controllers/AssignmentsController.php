@@ -79,7 +79,7 @@ class AssignmentsController extends Controller
 
         $assignment->update($request->only('user_id', 'book_id', 'response_id'));
 
-        return response(['assignment' => $assignment, 200]);
+        return response(['assignment' => $assignment], 200);
     }
 
     /**
