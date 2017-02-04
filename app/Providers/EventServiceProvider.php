@@ -38,7 +38,9 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         'App\Events\Signup\SchoolCreated' => [
-            'App\Listeners\Signup\SchoolCreated\AttachOrganizationTokenToCreatedSchool'
+            'App\Listeners\Signup\SchoolCreated\AttachOrganizationTokenToCreatedSchool',
+            'App\Listeners\Signup\SchoolCreated\CreateSignupAdminToken',
+            'App\Listeners\Signup\SchoolCreated\CreateSignupStudentToken',
         ],
 
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
