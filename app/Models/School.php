@@ -37,4 +37,9 @@ class School extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function tokens()
+    {
+        return $this->hasMany(SignupToken::class);
+    }
 }

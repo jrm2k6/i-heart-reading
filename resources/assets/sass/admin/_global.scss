@@ -179,3 +179,60 @@
 .non-empty {
   flex: 9;
 }
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.tokens-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.read-only-input-wrapper {
+  background-color: $white;
+  border: 1px solid $light-gray-border;
+  display: flex;
+  margin: 5px 0;
+
+  .read-only-form-content {
+    align-items: center;
+    border: 0;
+    color: $secondary-dark-gray;
+    display: flex;
+    flex: 4;
+    font-size: 18px;
+    height: 30px;
+    justify-content: flex-start;
+    outline: none;
+    padding-left: 10px;
+  }
+
+  .read-only-label, .read-only-copy-to-clipboard {
+    align-items: center;
+    background-color: $main-dark-blue;
+    border-right: 1px solid $light-gray-border;
+    color: $white;
+    display: flex;
+    font-size: 18px;
+    justify-content: flex-start;
+    padding-left: 15px;
+  }
+
+  .read-only-label {
+    flex: 2;
+  }
+
+  .read-only-copy-to-clipboard {
+    cursor: pointer;
+    flex: 1;
+    i {
+      font-size: 16px;
+    }
+  }
+}

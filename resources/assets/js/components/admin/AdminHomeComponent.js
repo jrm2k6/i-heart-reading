@@ -5,6 +5,7 @@ import { fetchAdminUser } from '../../actions/admin/adminProfileActions';
 import TeacherStats from './TeacherStats';
 import AdminStats from './AdminStats';
 import GroupStats from './GroupStats';
+import ReadOnlyInput from './forms/ReadOnlyInput';
 
 class AdminHomeComponent extends Component {
   constructor(props) {
@@ -22,12 +23,26 @@ class AdminHomeComponent extends Component {
   render() {
     const { componentToShow, nameComponent } = this.state;
     const { teachers, admins, school, users, groups } = this.props;
+    const studentToken = (school !== null) ? school.tokens.find(token => token.type === 'student').token : 'Loading..';
+    const adminToken = (school !== null) ? school.tokens.find(token => token.type === 'admin').token : 'Loading..';
+
+    const studentTokenUrl = `${window.location.origin}/signup/students/${studentToken}`;
+    const adminTokenUrl = `${window.location.origin}/signup/staff/${adminToken}`;
+    const studentTokenTitle = `Signup URL Students`;
+    const adminsTokenTitle = `Signup URL Staff Members`;
     const additionalClassName = (componentToShow !== null) ? 'stick-to-top' : 'centered';
+    const additionalClassNameTokensContainer = (componentToShow !== null) ? 'invisible' : 'visible';
     const additionalClassNameDynamicContent = (componentToShow !== null) ? 'non-empty' : 'empty';
     const containerSquareClassName = `home-container-squares ${additionalClassName}`;
     const dynamicContentClassName = `home-container-dynamic-content ${additionalClassNameDynamicContent}`;
+
+    const classNameForTokensContainer = `tokens-container ${additionalClassNameTokensContainer}`;
     return (
       <div className='home-container'>
+        <div className={classNameForTokensContainer}>
+          <ReadOnlyInput title={studentTokenTitle}  content={studentTokenUrl} />
+          <ReadOnlyInput title={adminsTokenTitle}  content={adminTokenUrl} />
+        </div>
         <div className={containerSquareClassName}>
           <TeacherStats teachers={teachers}
             admins={admins}
