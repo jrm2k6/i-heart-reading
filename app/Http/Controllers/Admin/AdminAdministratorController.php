@@ -27,8 +27,10 @@ class AdminAdministratorController extends Controller
           $teachers = null;
           $groups = null;
           $admins = null;
+          $tokens = [];
 
           if ($school) {
+              $tokens = $school->tokens;
               $teachers = $school->teachers;
               $groups = $school->groups()->with('teacher')->get();
               $admins = $school->admins;
@@ -41,6 +43,7 @@ class AdminAdministratorController extends Controller
             'school' => $school,
             'groups' => $groups,
             'teachers' => $teachers,
+            'tokens' => $tokens,
             'users' => $users
           ], 200);
       }
