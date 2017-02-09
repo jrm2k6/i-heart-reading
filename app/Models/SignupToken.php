@@ -14,4 +14,9 @@ class SignupToken extends Model
       'school_id',
       'type'
   ];
+
+  public function school()
+  {
+    return $this->belongsTo(School::class);
+  }
 }

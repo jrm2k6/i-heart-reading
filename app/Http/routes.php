@@ -34,6 +34,9 @@ foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
+    Route::post('/register-token', 'SignupController@registerWithToken@registerWithToken');
+    Route::get('/signup/students/{token}', 'SignupController@signupStudents');
+    Route::get('/signup/staff/{token}', 'SignupController@signupStaffMember');
     Route::get('/organization/{token}', 'TokenController@verifyOrganizationTokenAndRedirect');
     Route::get('/confirm-token', 'TokenController@confirmOrganizationToken');
     Route::post('/verify-token', 'TokenController@verifyOrganizationToken');

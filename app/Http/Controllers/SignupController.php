@@ -5,13 +5,76 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\School;
 use App\Http\Controllers\Controller;
-use App\Models\SignupOrganizationToken;
+use App\Models\SignupToken;
+use App\Http\Helpers\AuthHelper;
 
 class SignupController extends Controller
 {
+    private $authHelper;
+
+    public function __construct()
+    {
+        $this->authHelper = new AuthHelper;
+    }
+
     public function index()
     {
         return view('signup');
+    }
+
+    public function registerWithToken(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'type_token' => 'required|in:admin,student',
+            'token' => 'required|string|exists:signup_tokens,token,type,'.$request->input('type_token'),
+            'school_id' => 'required|exists:schools,id',
+            'email_id' => 'required|string',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $school = School::find($request->input('school_id'));
+        $email = $request->input('email_id') . $school->domain_name;
+        
+        $data = array_merge($request->all(), ['email' => $email]);
+
+        return $this->authHelper->registerAndAuthenticate($data, 'HomeController@index');
+    }
+
+    public function signupStudents(Request $request, $token)
+    {
+        $signupToken = SignupToken::where(['token' => $token, 'type' => 'student'])->first();
+
+        if ($signupToken != null) {
+            $schoolDomainName = $signupToken->school->domain_name;
+            $schoolId = $signupToken->school->id;
+            $request->session()->put('student_signup_token', $signupToken->token);
+            
+            return view('signup.students')
+                ->with('domain_name', $schoolDomainName)
+                ->with('token', $token)
+                ->with('school_id', $schoolId);
+        }
+
+        return response()->view('errors.404', [], 404);
+    }
+
+    public function signupStaffMember(Request $request, $token)
+    {
+        $signupToken = SignupToken::where(['token' => $token, 'type' => 'admin'])->first();
+
+        if ($signupToken != null) {
+            $schoolDomainName = $signupToken->school->domain_name;
+            $schoolId = $signupToken->school->id;
+            $request->session()->put('staff_signup_token', $signupToken->token);
+            
+            return view('signup.staff')
+                ->with('domain_name', $schoolDomainName)
+                ->with('token', $token)
+                ->with('school_id', $schoolId);
+        }
+
+        return response()->view('errors.404', [], 404);
     }
 
     public function finish(Request $request)
