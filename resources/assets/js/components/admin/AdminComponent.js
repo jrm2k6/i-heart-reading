@@ -58,6 +58,7 @@ class AdminComponent extends Component {
             {this.props.children}
           </div>
           <Modal
+            contentLabel={'Admin Modal'}
             isOpen={showingModal}
             onRequestClose={this.props.hideModal}
           >

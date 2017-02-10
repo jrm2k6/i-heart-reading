@@ -47,7 +47,7 @@
         <div>
             <div class="input-with-domain-email" tabindex="1">
                 <input type="text" class="form-input"
-                       name="email-id" value="{{ old('email-id') }}"
+                       name="email_id" value="{{ old('email-id') }}"
                        placeholder="mark.twain"
                 >
                 <span class="email-domain">{{$domain_name}}</span>

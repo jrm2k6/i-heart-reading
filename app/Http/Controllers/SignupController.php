@@ -24,17 +24,19 @@ class SignupController extends Controller
 
     public function registerWithToken(Request $request)
     {
+        $school = School::find($request->input('school_id'));
+        $email = $request->input('email_id') . $school->domain_name;
+        $request->merge(['email' => $email]);
+        
         $this->validate($request, [
             'name' => 'required|max:255',
             'type_token' => 'required|in:admin,student',
             'token' => 'required|string|exists:signup_tokens,token,type,'.$request->input('type_token'),
             'school_id' => 'required|exists:schools,id',
             'email_id' => 'required|string',
+            'email' => 'required|string|unique:users,email',
             'password' => 'required|confirmed|min:6',
         ]);
-
-        $school = School::find($request->input('school_id'));
-        $email = $request->input('email_id') . $school->domain_name;
         
         $data = array_merge($request->all(), ['email' => $email]);
 

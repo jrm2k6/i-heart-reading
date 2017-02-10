@@ -14,7 +14,14 @@ class AuthHelper
             'password' => bcrypt($data['password']),
         ]);
 
-        event(new UserRegistered($user));
+        $hasToken = array_key_exists('type_token', $data);
+        if ($hasToken) {
+            $isStaff = $hasToken && $data['type_token'] == 'admin';
+        } else {
+            $isStaff = false;
+        }
+
+        event(new UserRegistered($user, $isStaff, $data));
 
         return $user;
     }
