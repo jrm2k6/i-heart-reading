@@ -46,6 +46,10 @@ class AdminTeacherController extends Controller
             'school_id' => $request->input('school_id'),
         ]);
 
+        $user = $teacher->user;
+        $user->role = 'teacher';
+        $user->save();
+
         return response(['teacher' => $teacher], 201)->header('Location', '/api/admin/teacher/'.$teacher->id);
     }
 
