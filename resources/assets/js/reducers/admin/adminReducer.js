@@ -61,27 +61,27 @@ export default function adminReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_ADMIN_USER_SUCCESS:
       const { admin, groups, teachers, school, admins } = action.payload;
-      return Object.assign({}, initialState, { adminUser: admin, groups, teachers, school, admins });
+      return Object.assign({}, state, { adminUser: admin, groups, teachers, school, admins });
 
     case ADMINISTRATOR_DELETED:
       // fix consistency
-      return Object.assign({}, initialState, {
+      return Object.assign({}, state, {
         admins: updateAdmins(state.admins, action.data.idAdminDeleted)
       });
 
     case GROUP_TRANSFERRED:
-      return Object.assign({}, initialState, {
+      return Object.assign({}, state, {
         groups: updateGroups(state.groups, action.data.group)
       });
 
     case FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED:
     case STUDENTS_GROUP_FETCHED:
-      return Object.assign({}, initialState, {
+      return Object.assign({}, state, {
         groups: updateGroupsStudents(state.groups, action.data)
       });
 
     case STUDENTS_TRANSFERRED:
-      return Object.assign({}, initialState, {
+      return Object.assign({}, state, {
         groups: updateGroupsAfterTransfer(state.groups, action.data)
       });
 
