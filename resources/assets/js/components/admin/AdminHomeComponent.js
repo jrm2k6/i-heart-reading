@@ -7,6 +7,23 @@ import AdminStats from './AdminStats';
 import GroupStats from './GroupStats';
 import ReadOnlyInput from './forms/ReadOnlyInput';
 
+const mapStateToProps = (state) => {
+  return {
+    adminUser: state.adminReducer.adminUser,
+    teachers: state.adminReducer.teachers,
+    admins: state.adminReducer.admins,
+    school: state.adminReducer.school,
+    groups: state.adminReducer.groups,
+    users: state.adminReducer.users
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAdminUser: () => dispatch(fetchAdminUser())
+  };
+};
+
 class AdminHomeComponent extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +40,11 @@ class AdminHomeComponent extends Component {
   render() {
     const { componentToShow, nameComponent } = this.state;
     const { teachers, admins, school, users, groups } = this.props;
-    const studentToken = (school !== null) ? school.tokens.find(token => token.type === 'student').token : 'Loading..';
-    const adminToken = (school !== null) ? school.tokens.find(token => token.type === 'admin').token : 'Loading..';
+    const studentToken = (school !== null) ? school.tokens.find(token => token.type === 'student').token : null;
+    const adminToken = (school !== null) ? school.tokens.find(token => token.type === 'admin').token : null;
 
-    const studentTokenUrl = `${window.location.origin}/signup/students/${studentToken}`;
-    const adminTokenUrl = `${window.location.origin}/signup/staff/${adminToken}`;
+    const studentTokenUrl = (studentToken !== null) ? `${window.location.origin}/signup/students/${studentToken}` : 'Loading..';
+    const adminTokenUrl = (adminToken !== null) ? `${window.location.origin}/signup/staff/${adminToken}` : `Loading..`;
     const studentTokenTitle = `Signup URL Students`;
     const adminsTokenTitle = `Signup URL Staff Members`;
     const additionalClassName = (componentToShow !== null) ? 'stick-to-top' : 'centered';
@@ -91,22 +108,5 @@ class AdminHomeComponent extends Component {
     return 'invisible';
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    adminUser: state.adminReducer.adminUser,
-    teachers: state.adminReducer.teachers,
-    admins: state.adminReducer.admins,
-    school: state.adminReducer.school,
-    groups: state.adminReducer.groups,
-    users: state.adminReducer.users
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchAdminUser: () => dispatch(fetchAdminUser())
-  };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHomeComponent);
