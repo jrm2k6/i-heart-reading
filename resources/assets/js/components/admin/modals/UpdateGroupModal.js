@@ -81,6 +81,7 @@ class UpdateGroupModal extends Component {
             id='transfer-to-me'
             value='transfer-to-me'
             checked={'transfer-to-me' == this.state.selectedOption}
+            onChange={() => { this.setState({ selectedOption: 'transfer-to-me' }); }}
           />
           <div className='ihr-check'></div>
           <label className='label-ihr'  forName='transfer-to-me'>
@@ -96,6 +97,7 @@ class UpdateGroupModal extends Component {
             id='transfer-to-other'
             value='transfer-to-other'
             checked={'transfer-to-other' == this.state.selectedOption}
+            onClick={() => { this.setState({ selectedOption: 'transfer-to-other' }); }}
           />
           <div className='ihr-check'></div>
           <label className='label-ihr' forName='transfer-to-me'>
