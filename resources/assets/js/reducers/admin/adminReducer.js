@@ -57,7 +57,7 @@ function updateGroupsAfterTransfer(groups, updatedData) {
   return groupsWithNewlyUpdateGroupRemoved;
 }
 
-export default function signupReducer(state = initialState, action) {
+export default function adminReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_ADMIN_USER_SUCCESS:
       const { admin, groups, teachers, school, admins } = action.payload;
