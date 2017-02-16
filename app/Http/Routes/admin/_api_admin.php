@@ -6,7 +6,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['web', 'auth'], 'namespace' =>
     Route::get('group/students/all', '\App\Http\Controllers\Signup\SchoolGroupController@getStudentsExcept');
     Route::put('group/{id}/students', '\App\Http\Controllers\Signup\SchoolGroupController@updateStudentsGroup');
     Route::resource('groups', 'AdminGroupController');
-    Route::resource('admin/group', 'SchoolGroupController');
+    Route::resource('admin/group', '\App\Http\Controllers\Signup\SchoolGroupController');
     Route::get('administrator/me', 'AdminAdministratorController@getAdminUser');
     Route::resource('administrator', 'AdminAdministratorController');
 });
