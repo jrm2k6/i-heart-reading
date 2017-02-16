@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from '../../actions/modals/modalActions';
+import { deleteGroup } from '../../actions/admin/adminDashboardActions';
 import UpdateGroupModal from './modals/UpdateGroupModal';
 
 
@@ -15,6 +16,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showModal: (component, data) => {
       dispatch(showModal(component, data));
+    },
+
+    deleteGroup: (id) => {
+      dispatch(deleteGroup(id));
     }
   };
 };
@@ -29,7 +34,7 @@ class ListItemGroup extends Component {
   }
 
   render() {
-    const { name, nickname, grade, teacher, students } = this.props.group;
+    const { id, name, nickname, grade, teacher, students } = this.props.group;
     const teacherContent = (teacher != null) ? teacher.user.name : 'No Teacher Assigned';
 
     const listItemOptions = (this.state.hovering) ? (
@@ -39,7 +44,9 @@ class ListItemGroup extends Component {
         >
           edit
         </i>
-        <i className='material-icons admin-list-item-option-delete-icon'>
+        <i className='material-icons admin-list-item-option-delete-icon'
+          onClick={() => { this.props.deleteGroup(id); }}
+        >
           delete
         </i>
       </div>

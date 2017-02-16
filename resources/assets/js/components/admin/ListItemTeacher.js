@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from '../../actions/modals/modalActions';
+import { deleteTeacher } from '../../actions/admin/adminDashboardActions';
 import UpdateTeacherModal from './modals/UpdateTeacherModal';
 
 const mapStateToProps = (state) => {
@@ -13,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     showModal: (component, data) => {
       dispatch(showModal(component, data));
+    },
+    deleteTeacher: (id) => {
+      dispatch(deleteTeacher(id));
     }
   };
 };
@@ -35,7 +39,9 @@ class ListItemTeacher extends Component {
         >
           edit
         </i>
-        <i className='material-icons admin-list-item-option-delete-icon'>
+        <i className='material-icons admin-list-item-option-delete-icon'
+          onClick={() => { this.props.deleteTeacher(this.props.teacher.id); }}
+        >
           delete
         </i>
       </div>

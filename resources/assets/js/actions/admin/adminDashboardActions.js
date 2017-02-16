@@ -61,8 +61,14 @@ export function createTeacher({ name, email, password, user_id }) {
       { user_id,  school_id: schoolId },
       _headers)
     .then(
-      res => dispatch(teacherCreated(res)),
-      err => dispatch(errorTeacherCreated(err))
+      res => {
+        dispatch(teacherCreated(res));
+        dispatch(displaySuccessAlert('Teacher successfully created!'));
+      },
+      err => {
+        dispatch(errorTeacherCreated(err));
+        dispatch(displayErrorAlert('Error creating teacher!'));
+      }
     );
   }
 }
@@ -80,6 +86,37 @@ function errorTeacherCreated(data) {
     data: data.errors
   };
 }
+
+export function deleteTeacher(id) {
+  return dispatch => {
+    return apiActions.deleteRequest(`${ADMIN_TEACHER_URL}/${id}`, _headers)
+    .then(
+      res => {
+        dispatch(teacherDeleted(id));
+        dispatch(displaySuccessAlert('Teacher successfully deleted!'));
+      },
+      err => {
+        dispatch(errorTeacherDeleted(err));
+        dispatch(displayErrorAlert('Error deleting teacher!'));
+      }
+    );
+  }
+}
+
+function teacherDeleted(id) {
+  return {
+    type: TEACHER_DELETED,
+    data: { idTeacherDeleted: id }
+  };
+}
+
+function errorTeacherDeleted(data) {
+  return {
+    type: ERROR_TEACHER_DELETED,
+    data: data.errors
+  };
+}
+
 
 // export function createAdmin({ name, email, password }) {
 //   return (dispatch, getState) => {
@@ -105,8 +142,14 @@ export function createAdmin({ user_id }) {
       { user_id,  school_id: schoolId },
       _headers)
     .then(
-      res => dispatch(adminCreated(res)),
-      err => dispatch(errorAdminCreated(err))
+      res => {
+        dispatch(adminCreated(res));
+        dispatch(displaySuccessAlert('Admin successfully created!'));
+      },
+      err => {
+        dispatch(errorAdminCreated(err));
+        dispatch(displaySuccessAlert('Error creating admin'));
+      }
     );
   }
 }
@@ -129,8 +172,14 @@ export function deleteAdmin(userId) {
   return dispatch => {
     return apiActions.deleteRequest(`${ADMIN_ADMINISTRATOR_URL}/${userId}`, _headers)
     .then(
-      res => dispatch(adminDeleted(userId)),
-      err => dispatch(errorAdminDeleted(err))
+      res => {
+        dispatch(adminDeleted(userId));
+        dispatch(displaySuccessAlert('Admin successfully deleted!'));
+      },
+      err => {
+        dispatch(errorAdminDeleted(err));
+        dispatch(displayErrorAlert('Error deleting admin!'));
+      }
     );
   }
 }
@@ -154,22 +203,60 @@ export function createGroup({ name, grade, nickname }) {
     const schoolId = getState().adminReducer.school.id;
     return apiActions.postRequest(ADMIN_SCHOOL_GROUPS_URL,
       { name, grade, nickname, school_id: schoolId }, _headers).then(
-        res => dispatch(groupCreated(res)),
-        err => dispatch(errorGroupCreated(err))
+        res => {
+          dispatch(groupCreated(res));
+          dispatch(displaySuccessAlert('Group successfully created!'));
+        },
+        err => {
+          dispatch(errorGroupCreated(err));
+          dispatch(displayErrorAlert('Error creating group!'));
+        }
     );
   }
 }
 
 function groupCreated(data) {
-  return {
-    type: GROUP_CREATED,
-    data: data
-  };
+    return {
+      type: GROUP_CREATED,
+      data: data
+    };
+
 }
 
 function errorGroupCreated(data) {
   return {
-    type: GROUP_CREATED,
+    type: ERROR_GROUP_CREATED,
+    data: data.errors
+  };
+}
+
+export function deleteGroup(groupId) {
+  return dispatch => {
+    return apiActions.deleteRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}`, _headers).then(
+        res => {
+          dispatch(groupDeleted(groupId));
+          dispatch(displaySuccessAlert('Group successfully deleted!'));
+        },
+        err => {
+          dispatch(errorGroupDeleted(err));
+          dispatch(displayErrorAlert('Error deleting group!'));
+        }
+    );
+  }
+}
+
+function groupDeleted(groupId) {
+  return {
+    type: GROUP_DELETED,
+    data: {
+      idGroupDeleted: groupId
+    }
+  };
+}
+
+function errorGroupDeleted(data) {
+  return {
+    type: ERROR_GROUP_DELETED,
     data: data.errors
   };
 }
@@ -178,10 +265,16 @@ export function createGroupTransfer(groupId, teacherId) {
   return dispatch => {
     return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}` ,
       { teacher_id: teacherId }, _headers).then(
-        res => dispatch(groupTransferred(res)),
-        err => dispatch(errorTransferGroup(err))
+        res => {
+          dispatch(groupTransferred(res));
+          dispatch(displaySuccessAlert('Group transferred!'));
+        },
+        err => {
+          dispatch(errorTransferGroup(err));
+          dispatch(displayErrorAlert('Error transferring group!'));
+        }
     );
-  }
+  };
 }
 
 function groupTransferred(data) {
@@ -202,8 +295,14 @@ export function createStudentsTransfer(groupId, studentIds) {
   return dispatch => {
     return apiActions.putRequest(`${ADMIN_GROUP_URL}/${groupId}/students`,
     { group_id: groupId, student_ids: studentIds }, _headers).then(
-        res => dispatch(studentsTransferred(res)),
-        err => dispatch(errorTransferStudents(err))
+        res => {
+          dispatch(studentsTransferred(res));
+          dispatch(displaySuccessAlert('Students transferred!'));
+        },
+        err => {
+          dispatch(displayErrorAlert('Error transferring students!'));
+          dispatch(errorTransferStudents(err));
+        }
     );
   }
 }
@@ -250,7 +349,7 @@ export function fetchStudentGroupsExcept(groupId) {
     return apiActions.getRequest(`${ADMIN_GROUP_URL}/students/all?blacklist=${groupId}`)
       .then(
         res => dispatch(studentsGroupExceptFetched(res)),
-        err => dispatch(errorFetchStudentsGroup(err))
+        err => dispatch(errorStudentsGroupExcept(err))
       );
   }
 }
@@ -262,7 +361,7 @@ function studentsGroupExceptFetched(data) {
   };
 }
 
-function errorstudentsGroupExcept(data) {
+function errorStudentsGroupExcept(data) {
   return {
     type: ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT,
     data: data.errors
