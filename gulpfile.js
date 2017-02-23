@@ -14,6 +14,7 @@ require('babel-plugin-syntax-jsx');
 
 elixir(function(mix) {
     mix.sass('app.scss')
+        .sass('static/landing.scss')
         .browserify('i-heart-reading.js')
         .browserify('i-heart-reading-teacher.js')
         .browserify('i-heart-reading-signup.js')
@@ -23,6 +24,8 @@ elixir(function(mix) {
             'public/js/i-heart-reading-teacher.js',
             'public/js/i-heart-reading-signup.js',
             'public/js/i-heart-reading-admin.js',
-            'public/css/app.css'])
+            'public/css/app.css',
+            'public/css/landing.css'
+        ])
         .copy('public/images', 'public/build/css/images');
 });
