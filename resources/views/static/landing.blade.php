@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>I &hearts; Reading</title>
@@ -145,6 +146,11 @@
 </body>
 <script>
   (function() {
+    // var csrfToken = null;
+    // [].forEach.call(document.getElementsByTagName('meta'), function(metaElement) { if (metaElement.name === 'csrf-token') {
+    //   csrfToken = metaElement.content;
+    // }
+
     var imgPlaceholder = document.getElementById('mac-placeholder');
     var dotsClassName = 'dot';
     var dotsElements = document.getElementsByClassName(dotsClassName);
@@ -168,11 +174,19 @@
     }
 
     var sendEmailAddress = function(email) {
-        $.post('/send-email', { email: email }).
-          done(function() {
+        $.ajax({
+          method: 'POST',
+          url: '/send-email',
+          data: {
+            email: email
+          },
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          dataType: 'json'
+        }).done(function() {
             $('.success-alert').addClass('showing');
-          }).
-          fail(function() {
+          }).fail(function() {
             $('.support-alert').addClass('showing');
           });
     }
@@ -183,10 +197,10 @@
 
     var addGetStartedClickHandler = function() {
       document.getElementById('get-started-button').addEventListener('click', function(e) {
-        var emailInput = document.getElementById('get-started-input');
+        var emailInput = document.getElementById('get-started-input').value;
 
         if (emailInput.value !== '') {
-          sendEmailAddress();
+          sendEmailAddress(emailInput);
         } else {
           showValidationError();
         }
