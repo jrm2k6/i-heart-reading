@@ -7,10 +7,9 @@
 
     <title>I &hearts; Reading</title>
 
-    <!-- Fonts -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Styles -->
     <link href="{{ elixir('css/landing.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -24,8 +23,8 @@
           <img class='landing-header-logo-img' src='/images/logos/i-heart-reading-logo.png' />
         </div>
         <div class='landing-header-menu'>
-          <div>Log in</div>
-          <div>contact</div>
+          <div><a class='top-menu-item' href='/login'>Log in</a></div>
+          <div><a class='top-menu-item' href='mailto:jeremy.dagorn@gmail.com?Subject=Hello!'>contact</a></div>
         </div>
       </div>
       <div class='landing-header-main-explanation-text-container'>
@@ -35,7 +34,7 @@
         </div>
       </div>
       <div class='landing-header-learn-more-button-container'>
-        <a class='landing-header-learn-more-button' href='#'>Learn More</a>
+        <a class='landing-header-learn-more-button' href='#features-section'>Learn More</a>
       </div>
       <div class='landing-header-motto-container'>
         I Heart Reading is Awesome
@@ -61,18 +60,30 @@
   </section>
   <section>
     <div class='landing-second-section'>
+      <div class='landing-second-section-content'>
+        <div class='landing-second-section-title'>
+          Delivering quality education
+        </div>
+        <div class='landing-second-section-description'>
+          Delivering quality education
+        </div>
+        <hr class='landing-second-section-thick-separator' />
+        <div class='get-started-container'>
+          <input id='get-started-input' class='get-started-input' type='email' placeholder='Enter your email'/>
+          <button id='get-started-button'>Get Started</button>
+        </div>
+        <div class='alert-container'>
+          <span class='success-alert'> Thanks! We will be in touch soon!</span>
+          <span class='support-alert'> Oops, something happened on our side! Please contact our support team!</span>
+        </div>
+      </div>
       <div class='landing-second-section-background-img'>
         <img src='/images/pen-in-book-min.png' />
       </div>
-      <div class='landing-second-section-title'>
-        Delivering quality education
-      </div>
-      <hr class='landing-second-section-thick-separator' />
-      <a href='#' class='get-started-button'>Get Started</a>
     </div>
   </section>
   <section>
-    <div class='landing-third-section'>
+    <div class='landing-third-section' id='features-section'>
       <div class='landing-third-section-titles-container'>
         <div class='landing-third-section-title'>
           Features
@@ -121,8 +132,13 @@
       <div class='footer-background-img'>
         <img src='/images/desk-screen-min.png' />
       </div>
-      <div>
-        Made with <span class='heart'>&hearts;</span> in San Diego.
+      <div class='footer-content'>
+        <div class='left-section-footer'>
+          <a class='contact' href="mailto:jeremy.dagorn@gmail.com?Subject=Hello!">Contact</a>
+        </div>
+        <div class='right-section-footer'>
+          Made with <span class='heart'>&hearts;</span> in San Diego.
+        </div>
       </div>
     </div>
   </section>
@@ -151,6 +167,34 @@
       });
     }
 
+    var sendEmailAddress = function(email) {
+        $.post('/send-email', { email: email }).
+          done(function() {
+            $('.success-alert').addClass('showing');
+          }).
+          fail(function() {
+            $('.support-alert').addClass('showing');
+          });
+    }
+
+    var showValidationError = function() {
+      document.getElementById('get-started-input').className = 'get-started-input empty';
+    }
+
+    var addGetStartedClickHandler = function() {
+      document.getElementById('get-started-button').addEventListener('click', function(e) {
+        var emailInput = document.getElementById('get-started-input');
+
+        if (emailInput.value !== '') {
+          sendEmailAddress();
+        } else {
+          showValidationError();
+        }
+      });
+    }
+
+
+    addGetStartedClickHandler();
     addBehaviorToDots();
   }())
 </script>
