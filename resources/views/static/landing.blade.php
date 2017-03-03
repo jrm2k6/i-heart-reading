@@ -31,7 +31,7 @@
       <div class='landing-header-main-explanation-text-container'>
         <hr class='landing-header-separator' />
         <div class='landing-header-main-explanation-text'>
-          No more spreadsheets to see what books your students are reading. No more folders to stores reviews of their books.<br />
+          No more spreadsheets to see what books your students are reading. No more folders to store reviews of their books.<br />
           An easy to use platform for you and your students. Just a click away.
         </div>
       </div>
