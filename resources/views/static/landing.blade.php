@@ -31,21 +31,22 @@
       <div class='landing-header-main-explanation-text-container'>
         <hr class='landing-header-separator' />
         <div class='landing-header-main-explanation-text'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non varius nisl, eget porttitor lacus. Maecenas placerat elit sed lobortis posuere. Suspendisse augue sapien, tempus mattis consequat et, rhoncus id est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean sed ex varius, porttitor tellus.
+          No more spreadsheets to see what books your students are reading. No more folders to stores reviews of their books.<br />
+          An easy to use platform for you and your students. Just a click away.
         </div>
       </div>
       <div class='landing-header-learn-more-button-container'>
         <a class='landing-header-learn-more-button' href='#features-section'>Learn More</a>
       </div>
       <div class='landing-header-motto-container'>
-        I Heart Reading is Awesome
+        Help your students improve their reading, and have fun while doing it.
       </div>
     </div>
   </section>
   <section>
     <div class='landing-first-section'>
       <div class='landing-first-section-title'>
-        CREATE YOUR BOARD
+        A simple dashboard for all.
       </div>
       <div class='dots'>
         <div class='dot dot-clicked' data-img='/images/teacher-dashboard.png'></div>
@@ -63,10 +64,7 @@
     <div class='landing-second-section'>
       <div class='landing-second-section-content'>
         <div class='landing-second-section-title'>
-          Delivering quality education
-        </div>
-        <div class='landing-second-section-description'>
-          Delivering quality education
+          Ready for a new chapter?
         </div>
         <hr class='landing-second-section-thick-separator' />
         <div class='get-started-container'>
@@ -89,41 +87,38 @@
         <div class='landing-third-section-title'>
           Features
         </div>
-        <div class='landing-third-section-subtitle'>
-            Lorem ipsum dolor sit amet proin gravida nibh vel velit
-        </div>
         <hr class='landing-third-section-thin-gray-separator' />
       </div>
       <div class='landing-third-section-features-container'>
         <div class='feature-item with-bottom-border with-right-border'>
           <img class='feature-item-icon' src='/images/svgs/education.svg' />
-          <div class='feature-item-title'>Title 1</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Build habits</div>
+          <div class='feature-item-description'>Make reading fun, not a chore.</div>
         </div>
         <div class='feature-item with-bottom-border with-right-border'>
           <img class='feature-item-icon' src='/images/svgs/user-group.svg' />
-          <div class='feature-item-title'>Title 2</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Group management</div>
+          <div class='feature-item-description'>One platform, multiple classrooms</div>
         </div>
         <div class='feature-item with-bottom-border'>
           <img class='feature-item-icon' src='/images/svgs/mood-happy.svg' />
-          <div class='feature-item-title'>Title 3</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Simplicity</div>
+          <div class='feature-item-description'>Intuitive and hassle free</div>
         </div>
         <div class='feature-item with-right-border'>
           <img class='feature-item-icon' src='/images/svgs/trophy.svg' />
-          <div class='feature-item-title'>Title 4</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Challenges</div>
+          <div class='feature-item-description'>Help your students reach their objectives</div>
         </div>
         <div class='feature-item with-right-border'>
           <img class='feature-item-icon' src='/images/svgs/time.svg' />
-          <div class='feature-item-title'>Title 5</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Save Time</div>
+          <div class='feature-item-description'>Manage all your students in one place</div>
         </div>
         <div class='feature-item'>
           <img class='feature-item-icon' src='/images/svgs/pen-tool.svg' />
-          <div class='feature-item-title'>Title 6</div>
-          <div class='feature-item-description'>Lorem ipsum dolor sit amet proin gravida nibh vel velit</div>
+          <div class='feature-item-title'>Editing tools</div>
+          <div class='feature-item-description'>Write, edit, submit, review</div>
         </div>
       </div>
     </div>
