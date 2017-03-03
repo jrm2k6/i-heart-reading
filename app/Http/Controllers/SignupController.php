@@ -40,7 +40,12 @@ class SignupController extends Controller
         
         $data = array_merge($request->all(), ['email' => $email]);
 
-        return $this->authHelper->registerAndAuthenticate($data, 'HomeController@index');
+        $route = 'IHeartReadingAdminController@index';
+        if ($request->input('type_token') == 'student') {
+            $route = 'HomeController@index';
+        }
+
+        return $this->authHelper->registerAndAuthenticate($data, $route);
     }
 
     public function signupStudents(Request $request, $token)
