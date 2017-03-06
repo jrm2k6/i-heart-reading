@@ -91,7 +91,7 @@ class PrimaryContactController extends Controller
 
         $primaryContact->update($request->only('name', 'email_address', 'role', 'school_id'));
 
-        return response(['primary_contact' => $primaryContact, 200]);
+        return response(['primary_contact' => $primaryContact], 200);
     }
 
     /**
