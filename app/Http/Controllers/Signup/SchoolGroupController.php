@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\SchoolGroup;
 use App\Models\StudentsGroup;
@@ -37,6 +38,8 @@ class SchoolGroupController extends Controller
 
     public function getStudentsExcept(Request $request)
     {
+        $loggedInUser = Auth::user();
+        $schoolId = $loggedInUser->school_id;
         $blacklist = $request->input('blacklist');
         
         $ids = [];
@@ -44,7 +47,8 @@ class SchoolGroupController extends Controller
             $ids = explode(',', $blacklist); 
         }
         
-        $groups = SchoolGroup::whereNotIn('id', $ids)->get();
+        $groups = SchoolGroup::where('school_id', $schoolId)->whereNotIn('id', $ids)->get();
+        
         $groupsWithStudents = $groups->map(function($group) {
             $studentGroups = $group->studentGroups;
             $students = [];
@@ -60,6 +64,15 @@ class SchoolGroupController extends Controller
             ];
         });
 
+        $studentsIds = $groupsWithStudents->map(function($groupWithStudents) {
+            return collect($groupWithStudents['students'])->map(function($student) { return $student->id; });
+        })->flatten();
+
+        $userNotInAnyGroups = User::where(['school_id' => $schoolId, 'role' => 'student'])
+            ->whereNotIn('id', $studentsIds)->get();
+        
+        $groupsWithStudents->push(['id' => 0, 'students' => $userNotInAnyGroups]);
+        
         return response($groupsWithStudents, 200);
     }
 
