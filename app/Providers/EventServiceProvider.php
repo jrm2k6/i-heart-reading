@@ -17,7 +17,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UserRegistered\CreateConfirmationToken',
             'App\Listeners\UserRegistered\SendConfirmationEmail',
             'App\Listeners\UserRegistered\MarkUserAsStaffIfNeeded',
-            'App\Listeners\UserRegistered\CreateSchoolAdminIfNeeded'
+            'App\Listeners\UserRegistered\CreateSchoolAdminIfNeeded',
+            'App\Listeners\UserRegistered\MarkUserAsBelongingToSchool',
         ],
         'App\Events\UserConfirmed' => [
             'App\Listeners\UserConfirmed\MarkUserAsConfirmed',
