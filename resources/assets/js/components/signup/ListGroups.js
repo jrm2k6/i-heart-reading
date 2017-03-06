@@ -9,7 +9,7 @@ class ListGroups extends Component {
           <div className='signup-list-groups-header'>
             <span>Name</span>
             <span>Grade</span>
-            <span>Teacher</span>
+            <span>Nickname</span>
           </div>
           {groups.map((group, i) => (
             <div className='signup-list-groups-item' key={i}>
