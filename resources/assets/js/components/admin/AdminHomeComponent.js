@@ -40,8 +40,9 @@ class AdminHomeComponent extends Component {
   render() {
     const { componentToShow, nameComponent } = this.state;
     const { teachers, admins, school, users, groups } = this.props;
-    const studentToken = (school !== null) ? school.tokens.find(token => token.type === 'student').token : null;
-    const adminToken = (school !== null) ? school.tokens.find(token => token.type === 'admin').token : null;
+    
+    const studentToken = (school !== null && school.tokens !== null) ? school.tokens.find(token => token.type === 'student').token : null;
+    const adminToken = (school !== null  && school.tokens !== null) ? school.tokens.find(token => token.type === 'admin').token : null;
 
     const studentTokenUrl = (studentToken !== null) ? `${window.location.origin}/signup/students/${studentToken}` : 'Loading..';
     const adminTokenUrl = (adminToken !== null) ? `${window.location.origin}/signup/staff/${adminToken}` : `Loading..`;
