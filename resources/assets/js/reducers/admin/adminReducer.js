@@ -20,7 +20,7 @@ const initialState = {
   school: null,
   teachers: [],
   admins: [],
-  groups: [],
+  groups: [{id: 0}],
   users: {}
 };
 
@@ -77,7 +77,8 @@ export default function adminReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_ADMIN_USER_SUCCESS:
       const { admin, groups, teachers, school, admins } = action.payload;
-      return Object.assign({}, state, { adminUser: admin, groups, teachers, school, admins });
+      const newGroups = state.groups.concat(groups);
+      return Object.assign({}, state, { adminUser: admin, groups: newGroups, teachers, school, admins });
 
     case ADMINISTRATOR_DELETED:
       // fix consistency
