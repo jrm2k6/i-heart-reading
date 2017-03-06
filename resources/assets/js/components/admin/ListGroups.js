@@ -13,7 +13,7 @@ export default class ListGroups extends Component {
           <span className='add-new-btn' onClick={this.props.onAddGroup}>Add</span>
         </div>
         <div>
-          {this.props.groups.map((group) => (
+          {this.props.groups.filter(group => group.id > 0).map((group) => (
             <ListItemGroup group={group} key={group.id}/>
           ))}
         </div>

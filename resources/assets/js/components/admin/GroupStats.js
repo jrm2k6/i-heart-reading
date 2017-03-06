@@ -4,7 +4,8 @@ import DashboardGroupsComponent from './DashboardGroupsComponent';
 class GroupStats extends Component {
   render() {
     const className = `stats-container-item ${this.props.className} purple`;
-    const content = `${this.props.groups.length}`;
+    const groups = this.props.groups.filter(group => group.id > 0);
+    const content = `${groups.length}`;
 
     const closeButton = (this.props.showingComponent) ?
       (<div className='stats-container-item-close' onClick={this.props.closeComponent}>
@@ -22,7 +23,7 @@ class GroupStats extends Component {
           this.props.showComponent(<DashboardGroupsComponent
             teachers={this.props.teachers}
             users={this.props.users}
-            groups={this.props.groups}
+            groups={groups}
           />);
         }}}
       >

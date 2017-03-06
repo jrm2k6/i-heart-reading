@@ -6,7 +6,7 @@ import { createStudentsTransfer } from '../../../actions/admin/adminDashboardAct
 
 const mapStateToProps = (state) => {
   return {
-    groups: state.adminReducer.groups
+    groups: state.adminReducer.groups.filter(group => group.id > 0)
   };
 };
 

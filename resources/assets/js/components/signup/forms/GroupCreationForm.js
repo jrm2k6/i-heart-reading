@@ -35,6 +35,7 @@ class GroupCreationForm extends Component {
             <select className='admin-form-select'
               onChange={this.updateGrade}
             >
+              <option>Select a grade</option>
               <option>K1</option>
               <option>K2</option>
               <option>K3</option>
