@@ -14,6 +14,8 @@ class SchoolControllerTest extends TestCase
         $schoolName = 'My school';
         $schoolAddress = 'My school address';
         $schoolDomain = 'school.com';
+        $this->withoutEvents();
+        
         // when
         $response = $this->call('POST', 'api/school', [
             'name' => $schoolName, 

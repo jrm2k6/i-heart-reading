@@ -37,8 +37,9 @@ class DeleteContentTestingDatabase extends Command
     public function handle()
     {
         DB::statement("SET foreign_key_checks=0");
-        $tables = DB::select("SELECT TABLE_NAME as name FROM INFORMATION_SCHEMA.TABLES where  table_schema in ('i-heart-reading-testing')");
+        $tables = DB::select("SELECT TABLE_NAME as name FROM INFORMATION_SCHEMA.TABLES where  table_schema in ('testing')");
         collect($tables)->each(function($item) {
+           $this->info($item->name);
            DB::statement("TRUNCATE ".$item->name.";");
         });
         DB::statement("SET foreign_key_checks=1");
