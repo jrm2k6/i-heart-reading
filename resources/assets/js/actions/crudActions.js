@@ -196,7 +196,7 @@ export function fetchAssignedBooks() {
 
 export function assignmentCreated(data) {
   return dispatch => {
-    dispatch(displaySuccessAlert('Assignment successfully created!'))
+    dispatch(displaySuccessAlert('Assignment successfully created!'));
     return {
       type: ASSIGNMENT_CREATED,
       payload: data

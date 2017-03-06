@@ -1,0 +1,57 @@
+.update-teacher-header, .update-group-header {
+  align-items: center;
+  background-color: $secondary-dark-blue;
+  color: $main-white;
+  display: flex;
+  font-size: 19px;
+  font-weight: bold;
+  height: 45px;
+  justify-content: center;
+  width: 100%;
+
+  .update-teacher-name {
+    flex: 2;
+    text-align: center;
+  }
+
+  .update-teacher-groups-info {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.update-teacher-content, .update-group-content {
+  margin: 10px;
+  padding: 10px 0;
+}
+
+.update-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-group-form {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+
+  .admin-form-submit-btn {
+    margin-top: 20px;
+  }
+}
+
+.student-picker-select {
+  margin: 20px 0 10px 0;
+  width: 80%;
+}
+
+.update-group-nickname {
+  margin-left: 10px;
+}
+
+.update-group-content {
+  display: flex;
+  flex-direction: column;
+}

@@ -3,9 +3,10 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Models\User;
+use App\Models\SchoolAdmin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 
 class UserProfileController extends Controller
@@ -22,7 +23,27 @@ class UserProfileController extends Controller
 
     public function getMe()
     {
-        return response(['user' => Auth::user()], 200);
+        $user = Auth::user();
+        if ($user !== null) {
+            $user->is_admin = SchoolAdmin::where('user_id', $user->id)->count() == 1;
+        }
+        
+        return response(['user' => $user], 200);
+    }
+
+    public function verifyMyPassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string'
+        ]);
+
+        $currentUser = Auth::user();
+        $password = $request->input('password');
+        if ($currentUser && Auth::attempt(['email' => $currentUser->email, 'password' => $password])) {
+            return response(['verified' => true], 200);    
+        }
+
+        return response(['verified' => false], 400);
     }
     /**
      * Store a newly created resource in storage.

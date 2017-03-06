@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserRegistered;
 use App\Models\User;
+use App\Models\PrimaryContact;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -23,14 +25,18 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers {
+        register as parentRegister;
+    }
+
+    use ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/app';
 
     /**
      * Create a new authentication controller instance.
@@ -74,5 +80,33 @@ class AuthController extends Controller
         event(new UserRegistered($user));
 
         return $user;
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $email = $request->input('email');
+
+        $primaryContact = PrimaryContact::where('email_address', $email)->first();
+
+        if ($primaryContact != null) {
+            return redirect()->action($this->redirectActionForExistingPrimaryContact(), 
+                $request->only('name', 'email'));
+        }
+
+        return $this->parentRegister($request);
+
+    }
+
+    public function redirectActionForExistingPrimaryContact()
+    {
+        return 'TokenController@confirmOrganizationToken';
     }
 }

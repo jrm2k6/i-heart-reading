@@ -5,6 +5,8 @@
 @import 'custom-ui/checkboxes';
 @import 'custom-ui/inputs';
 @import 'custom-ui/alerts';
+@import 'custom-ui/select';
+@import 'custom-ui/radio-buttons';
 @import 'register';
 @import 'login';
 @import 'sidebar';
@@ -21,6 +23,11 @@
 @import 'sections/home-student';
 @import 'sections/home-teacher';
 @import 'sections/profile';
+
+@import 'signup/global';
+@import 'admin/global';
+@import 'admin/dashboard';
+@import 'admin/modals';
 
 body {
   background-color: $main-background-light-gray;

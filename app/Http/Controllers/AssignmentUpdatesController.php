@@ -27,14 +27,16 @@ class AssignmentUpdatesController extends Controller
 
     public function getMyStudentUpdates()
     {
-        $assignmentsUpdates = User::where('role', 'student')->get()
-            ->map(function($user) {
-                return $user->assignments;
-            })->flatten()->map(
-            function($assignment) {
-                return $assignment->updates;
-            }
-        )->flatten()->pluck('id');
+        $teacher = Auth::user()->teacher;
+        $groups = $teacher->groups;
+        
+        $assignmentsUpdates = $groups->map(function($group) { return $group->studentGroups; })
+            ->flatten()
+            ->map(function($studentGroup) { return $studentGroup->student; })
+            ->map(function($user) {return $user->assignments;})
+            ->flatten()->map(function($assignment) { return $assignment->updates; })
+            ->flatten()
+            ->pluck('id');
 
         $updatesWithBooks = AssignmentUpdate::whereIn('id', $assignmentsUpdates)
             ->orderBy('created_at', 'desc')

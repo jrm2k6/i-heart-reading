@@ -46,6 +46,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'teacher' => \App\Http\Middleware\HasRoleTeacher::class
+        'teacher' => \App\Http\Middleware\HasRoleTeacher::class,
+        'can_signup_as_organization' => \App\Http\Middleware\HasOrganizationSignupToken::class,
     ];
 }

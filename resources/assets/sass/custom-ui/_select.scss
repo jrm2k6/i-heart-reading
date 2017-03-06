@@ -1,0 +1,28 @@
+.Select-control {
+  background-color: transparent !important;
+  border: 1px solid #9da6a8 !important;
+  border-radius: 0 !important;
+  color: #9da6a8 !important;
+  font-size: 18px !important;
+  height: 45px !important;
+  transition: 250ms;
+}
+
+.Select-input {
+  height: 45px !important;
+}
+
+.Select-menu-outer {
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border: 1px solid #ccc;
+  border-top-color: #9da6a8;
+}
+
+.Select-option {
+  color: #9da6a8 !important;
+}
+
+.Select-placeholder {
+  line-height: 40px !important;
+}

@@ -1,13 +1,13 @@
 <?php
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Testing\Traits\DatabaseTruncate;
 
 use Carbon\Carbon;
 
 class UpdateStatsUserTest extends TestCase
 {
-
+    use DatabaseTruncate;
     public function testUserWithoutUpdatesReturnsZeroForBothValues()
     {
         // given
@@ -17,10 +17,10 @@ class UpdateStatsUserTest extends TestCase
             'user_id' => $user->id,
             'book_id' => $book->id
         ]);
-        
+
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
-        
+
         // then
         $stats = Cache::get('stats_' . $user->id);
 
@@ -34,19 +34,22 @@ class UpdateStatsUserTest extends TestCase
     {
         // given
         $user = factory(App\Models\User::class)->create();
-        $book = factory(App\Models\Book::class)->create();
+
+        $book = factory(App\Models\Book::class)->create(['num_pages' => 100]);
         $assignment = factory(App\Models\BookAssignment::class)->create([
             'user_id' => $user->id,
             'book_id' => $book->id
         ]);
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
-            'assignment_id' => $assignment->id
+            'assignment_id' => $assignment->id,
+            'num_pages' => 100
         ]);
-        
+
+
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
-        
+
         // then
         $stats = Cache::get('stats_' . $user->id);
 
@@ -72,12 +75,13 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::now()->startOfWeek()
+            'num_pages' => 100,
+            'created_at' => Carbon::yesterday()
         ]);
-        
+
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
-        
+
         // then
         $stats = Cache::get('stats_' . $user->id);
         $this->assertEquals($stats['yearly']['num_pages_read'], 100);
@@ -108,12 +112,13 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::now()->startOfMonth()->addWeek()
+            'num_pages' => 100,
+            'created_at' => Carbon::now()->startOfMonth()
         ]);
-        
+
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
-        
+
         // then
         $stats = Cache::get('stats_' . $user->id);
 
@@ -122,7 +127,6 @@ class UpdateStatsUserTest extends TestCase
         $this->assertEquals($stats['yearly']['books_read'], 0);
         $this->assertEquals($stats['monthly']['books_read'], 0);
         $this->assertNull($stats['daily']);
-        $this->assertNull($stats['weekly']);
     }
 
     public function testStatsWithUpdatesThisYear()
@@ -137,12 +141,13 @@ class UpdateStatsUserTest extends TestCase
 
         $update = factory(App\Models\AssignmentUpdate::class)->create([
             'assignment_id' => $assignment->id,
-            'created_at' => Carbon::now()->startOfYear()->subMonths(2)
+            'num_pages' => 100,
+            'created_at' => Carbon::now()->startOfYear(),
         ]);
 
         // when
         Artisan::call('stats:update', ['userId' => $user->id]);
-        
+
         // then
         $stats = Cache::get('stats_' . $user->id);
 

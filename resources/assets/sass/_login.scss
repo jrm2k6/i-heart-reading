@@ -1,7 +1,7 @@
 @import 'global';
 @import 'placeholders';
 
-.login-page-container {
+.login-page-container, .confirm-page-container {
   @extend .vertical-centered-layout;
 
   .login-form {

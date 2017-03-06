@@ -13,7 +13,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js" data-apikey="{{env('BUGSNAG_API_KEY')}}"></script>
     <!-- Styles -->
-     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
 </head>
 <body id="app-layout">
     @yield('content')

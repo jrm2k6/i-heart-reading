@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('app');
-});
-
 foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
     require $partial->getPathName();
 }
@@ -32,7 +28,31 @@ foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
 
 
 Route::group(['middleware' => 'web'], function () {
+    Route::get('/', function () {
+        // return redirect()->route('app');
+        return view('static.landing');
+    });
+
     Route::auth();
+    
+    Route::post('/send-email', 'LandingPageController@saveEmail');
+    Route::post('/register-token', 'SignupController@registerWithToken@registerWithToken');
+    Route::get('/signup/students/{token}', 'SignupController@signupStudents');
+    Route::get('/signup/staff/{token}', 'SignupController@signupStaffMember');
+    Route::get('/organization/{token}', 'TokenController@verifyOrganizationTokenAndRedirect');
+    Route::get('/confirm-token', 'TokenController@confirmOrganizationToken');
+    Route::post('/verify-token', 'TokenController@verifyOrganizationToken');
+    
+    Route::get('/signup/{optional?}', [
+        'middleware' => 'can_signup_as_organization',
+        'as' => 'signup',
+        'uses' => 'SignupController@index'
+    ])->where('optional', '(.*)');
+
+    Route::get('/admin/{optional?}', [
+        'as' => 'signup',
+        'uses' => 'IHeartReadingAdminController@index'
+    ])->where('optional', '(.*)');
 
     Route::get('/app/{optional?}', [
         'as' => 'app',

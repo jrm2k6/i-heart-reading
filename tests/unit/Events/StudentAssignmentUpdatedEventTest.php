@@ -1,8 +1,10 @@
 <?php
 use App\Events\StudentAssignmentUpdated;
+use Testing\Traits\DatabaseTruncate;
 
 class StudentAssignmentUpdatedEventTest extends TestCase
 {
+    use DatabaseTruncate;
     public function testAssignmentUpdateIsCreatedWhenDispatching()
     {
         // given

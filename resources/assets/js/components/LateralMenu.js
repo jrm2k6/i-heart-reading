@@ -25,13 +25,27 @@ export default class LateralMenu extends Component {
 
   getTeacherOptions() {
     const { user } = this.props;
-
     if (user && user.role === 'teacher') {
       return (
         <div className={this.getClassnameItem('responses')}
           onClick={() => { this.handleClickMenu('responses');}}
         >
           <i className='material-icons'>assignment_turned_in</i><span>Responses</span>
+        </div>
+      );
+    }
+
+    return null;
+  }
+
+  getAdminOptions() {
+    const { user } = this.props;
+    if (user && user.is_admin) {
+      return (
+        <div className={this.getClassnameItem('admin')}
+          onClick={() => { this.handleClickMenu('admin');}}
+        >
+          <i className='material-icons'>lock</i><span>Admin</span>
         </div>
       );
     }
@@ -57,6 +71,10 @@ export default class LateralMenu extends Component {
         browserHistory.push('/app/responses');
         break;
 
+      case 'admin':
+        window.location.replace('/admin');
+        break;
+
       case 'logout':
         window.location.replace('/logout');
         break;
@@ -75,6 +93,7 @@ export default class LateralMenu extends Component {
 
   render() {
     const options = this.getTeacherOptions();
+    const adminOptions = this.getAdminOptions();
     const { user } = this.props;
     let name = null;
     let role = null;
@@ -119,6 +138,7 @@ export default class LateralMenu extends Component {
             <i className='material-icons'>search</i><span>Find A Book</span>
           </div>
           {options}
+          {adminOptions}
           <div className={this.getClassnameItem('logout')}
             onClick={() => { this.handleClickMenu('logout');}}
           >

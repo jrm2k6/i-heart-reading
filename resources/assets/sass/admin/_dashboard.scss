@@ -1,0 +1,202 @@
+.admin-list-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.admin-list-header {
+  align-items: center;
+  background-color: $secondary-dark-blue;
+  color: $main-white;
+  display: flex;
+  font-size: 19px;
+  height: 55px;
+  justify-content: space-around;
+  margin-top: 20px;
+  position: relative;
+  text-transform: uppercase;
+
+  span {
+    flex: 1;
+    padding-left: 10px;
+  }
+
+  .add-new-btn {
+    background-color: $validation-green;
+    border: 1px solid $validation-green-button-border;
+    cursor: pointer;
+    height: 20px;
+    padding: 5px 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    &:hover {
+      background-color: darken($validation-green, .9);
+    }
+
+    &:disabled {
+      background-color: lighten($main-light-gray, .9);
+      border: 0;
+    }
+  }
+}
+
+.admin-list-item {
+  align-items: center;
+  background-color: $white;
+  border-bottom: 1px solid lighten($main-light-gray, .8);
+  color: $secondary-dark-gray;
+  display: flex;
+  font-size: 19px;
+  height: 55px;
+  padding-left: 10px;
+  position: relative;
+  transition: 250ms;
+
+  span {
+    flex: 1;
+  }
+
+  &:hover {
+    background-color: lighten($main-background-light-gray, 10%);
+    transition: 250ms;
+  }
+}
+
+.admin-add-teacher-form, .admin-group-creation-form, .admin-add-admin-form  {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.admin-form-submit-btn {
+  background-color: $validation-green;
+  border: 1px solid $validation-green-button-border;
+  color: $main-white;
+  cursor: pointer;
+  font-size: 20px;
+  height: 40px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.admin-select-wrapper {
+  background-color: $white;
+  margin: 10px 0;
+  position: relative;
+
+  .admin-select-arrow {
+    color: $main-dark-gray;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+  }
+}
+
+.admin-form-select {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid $main-dark-gray;
+  border-radius: 0;
+  color: $main-dark-gray;
+  font-size: 18px;
+  height: 45px;
+  transition: 250ms;
+  padding: 10px 10px;
+  width: 250px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    border: 1px solid black;
+    color: black;
+    transition: 250ms;
+
+    .admin-select-arrow {
+      color: black;
+    }
+  }
+}
+
+.explanation {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin: 20px 20px;
+  padding: 20px 20px;
+}
+
+.form-input-label {
+  color: $main-dark-gray;
+  margin: 5px;
+}
+
+.form-input-group {
+  margin: 10px 0;
+}
+
+.yellow {
+  background-color: $main-yellow;
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-yellow;
+    }
+  }
+}
+
+.purple {
+  background-color: $main-purple;
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-purple;
+    }
+  }
+}
+
+.orange {
+  background-color: $main-orange;
+
+
+  &.visible-list {
+    &:hover {
+      border: 2px solid $main-orange;
+    }
+  }
+}
+
+.admin-list-item-option-delete-icon {
+  cursor: pointer;
+  color: $error-color;
+}
+
+.admin-list-item-option-edit-icon {
+  cursor: pointer;
+  color: $main-light-blue;
+}
+
+.admin-list-item-option {
+  align-items: center;
+  border: 1px solid lighten($main-dark-gray, 0.8);
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  height: 34px;
+  justify-content: space-around;
+  position: absolute;
+  top: 10px;
+  transition: right 250ms ease-out;
+  right: 10px;
+  width: 84px;
+  z-index: 10;
+}

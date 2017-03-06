@@ -31,6 +31,7 @@
   position: absolute;
   right: 35px;
   top: 20px;
+  z-index: 5;
 
   &.error {
     background-color: $error-color;

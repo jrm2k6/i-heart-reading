@@ -1,0 +1,70 @@
+.ihr-radio-wrapper {
+  align-items: center;
+  display: flex;
+  height: 30px;
+  margin: 10px 0;
+  position: relative;
+
+  &:hover {
+    color: black;
+    transition: color .25s linear;
+
+    .ihr-check::before {
+      background-color: $main-light-gray;
+    }
+
+    .label-ihr {
+      color: $main-light-gray;
+    }
+  }
+}
+
+.label-ihr {
+  color: $secondary-dark-gray;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 40px;
+  transition: color .25s linear;
+}
+
+.ihr-radio {
+  position: absolute;
+  visibility: hidden;
+}
+
+.ihr-check::before {
+  border-radius: 50%;
+  content: '';
+  height: 19px;
+  height: 19px;
+  left: 5px;
+  position: absolute;
+  top: 5px;
+  width: 19px;
+}
+
+.ihr-radio:checked {
+  ~ .ihr-check::before {
+    background-color: $validation-green;
+  }
+
+  ~ .ihr-check {
+    border-color: $validation-green;
+  }
+
+  ~ .label-ihr {
+    color: $validation-green;
+  }
+
+}
+
+.ihr-check {
+  border: 3px solid $secondary-dark-gray;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 25px;
+  position: absolute;
+  padding: 2px;
+  transition: border .25s linear;
+  width: 25px;
+}

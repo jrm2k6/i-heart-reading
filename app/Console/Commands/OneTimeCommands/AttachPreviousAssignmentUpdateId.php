@@ -41,7 +41,6 @@ class AttachPreviousAssignmentUpdateId extends Command
         $updatesGroupByAssignment = AssignmentUpdate::all()->groupBy('assignment_id');
         
         $updatesGroupByAssignment->each(function($group) {
-            // dd($group);
             $orderedUpdates = $group->sortBy('created_at');
             while ($orderedUpdates->count() > 0) {
                 $currentUpdate = $orderedUpdates->pop();

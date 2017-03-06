@@ -15,10 +15,14 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\UserRegistered' => [
             'App\Listeners\UserRegistered\CreateConfirmationToken',
-            'App\Listeners\UserRegistered\SendConfirmationEmail'
+            'App\Listeners\UserRegistered\SendConfirmationEmail',
+            'App\Listeners\UserRegistered\MarkUserAsStaffIfNeeded',
+            'App\Listeners\UserRegistered\CreateSchoolAdminIfNeeded',
+            'App\Listeners\UserRegistered\MarkUserAsBelongingToSchool',
         ],
         'App\Events\UserConfirmed' => [
-            'App\Listeners\UserConfirmed\MarkUserAsConfirmed'
+            'App\Listeners\UserConfirmed\MarkUserAsConfirmed',
+            'App\Listeners\UserConfirmed\MakeUserAdminIfPrimaryContact'
         ],
         'App\Events\ConfirmationEmailResent' => [
             'App\Listeners\ConfirmationEmailResent\SendConfirmationEmail'
@@ -35,6 +39,13 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AssignmentEndedUpdateCreated' => [
             'App\Listeners\AssignmentEndedUpdateCreated\UpdateStatsForAssignmentEnded'
         ],
+
+        'App\Events\Signup\SchoolCreated' => [
+            'App\Listeners\Signup\SchoolCreated\AttachOrganizationTokenToCreatedSchool',
+            'App\Listeners\Signup\SchoolCreated\CreateSignupAdminToken',
+            'App\Listeners\Signup\SchoolCreated\CreateSignupStudentToken',
+        ],
+
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
         ]

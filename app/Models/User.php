@@ -10,7 +10,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -24,7 +24,7 @@ class User extends Authenticatable
 
     public function isTeacher()
     {
-        return $this->role == 'teacher';
+        return $this->teacher != null;
     }
 
     public function assignments()
@@ -40,5 +40,21 @@ class User extends Authenticatable
     public function assignmentUpdates()
     {
         return $this->hasManyThrough(AssignmentUpdate::class, BookAssignment::class, 'user_id', 'assignment_id');
+    }
+
+    public function asAdmin()
+    {
+        //TODO: double check why it is a collection
+        return $this->hasOne(SchoolAdmin::class)->first();
+    }
+
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    public function school()
+    {
+        return $this->hasOne(School::class);
     }
 }
