@@ -24,8 +24,10 @@ class UserProfileController extends Controller
     public function getMe()
     {
         $user = Auth::user();
-        $user->is_admin = SchoolAdmin::where('user_id', $user->id)->count() == 1;
-
+        if ($user !== null) {
+            $user->is_admin = SchoolAdmin::where('user_id', $user->id)->count() == 1;
+        }
+        
         return response(['user' => $user], 200);
     }
 
