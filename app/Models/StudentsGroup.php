@@ -17,4 +17,9 @@ class StudentsGroup extends Model
     protected $fillable = [
         'user_id', 'group_id'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
