@@ -1,9 +1,7 @@
-<?php
-
-namespace App\Listeners\Signup\SchoolCreated;
+<?php namespace App\Listeners\Signup\SchoolCreated;
 
 use App\Events\Signup\SchoolCreated;
-use App\Models\SignupTokens;
+use App\Models\SignupToken;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
