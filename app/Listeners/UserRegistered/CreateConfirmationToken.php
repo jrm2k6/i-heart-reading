@@ -32,7 +32,7 @@ class CreateConfirmationToken
 
         EmailConfirmation::create([
            'token' => $token,
-            'email' => $email
+           'email' => $email
         ]);
     }
 }
