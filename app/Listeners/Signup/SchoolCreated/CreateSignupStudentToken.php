@@ -32,7 +32,7 @@ class CreateSignupStudentToken
         SignupToken::create([
             'token' => str_random(10),
             'school_id' => $schoolId,
-            'type' => 'admin'
+            'type' => 'student'
         ]);
     }
 }
