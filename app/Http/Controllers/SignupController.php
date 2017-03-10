@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Models\School;
 use App\Http\Controllers\Controller;
 use App\Models\SignupToken;
+use App\Models\SignupOrganizationToken;
 use App\Http\Helpers\AuthHelper;
 
 class SignupController extends Controller
