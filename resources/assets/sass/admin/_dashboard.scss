@@ -82,6 +82,11 @@
   height: 40px;
   padding: 5px 10px;
   text-transform: uppercase;
+
+  &.cancel-btn {
+    border: 1px solid #f0fafd;
+    background-color: buttonface;
+  }
 }
 
 .admin-select-wrapper {
