@@ -55,6 +55,9 @@ class RegisterSchoolComponent extends Component {
         </div>
         <div className='section-form'>
           <RegisterSchoolForm
+            nameSchool={this.state.nameSchool}
+            addressSchool={this.state.addressSchool}
+            domainNameSchool={this.state.domainNameSchool}
             updateNameSchool={(e) => { this.setState({ nameSchool: e.target.value }); }}
             updateAddressSchool={(e) => { this.setState({ addressSchool: e.target.value }); }}
             updateDomainEmailSchool={(e) => { this.setState({ domainNameSchool: e.target.value }); }}

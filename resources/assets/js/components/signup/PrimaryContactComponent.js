@@ -56,6 +56,9 @@ class PrimaryContactComponent extends Component {
         </div>
         <div className='section-form'>
           <PrimaryContactForm
+            namePrimaryContact={this.state.namePrimaryContact}
+            rolePrimaryContact={this.state.rolePrimaryContact}
+            emailAddressPrimaryContact={this.state.emailAddressPrimaryContact}
             updateNamePrimaryContact={(e) => { this.setState({ namePrimaryContact: e.target.value }); }}
             updateRolePrimaryContact={(e) => { this.setState({ rolePrimaryContact: e.target.value }); }}
             updateEmailAddressPrimaryContact={(e) => {
