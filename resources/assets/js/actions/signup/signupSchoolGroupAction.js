@@ -35,6 +35,6 @@ function schoolGroupCreated(data) {
 function errorSchoolGroup(data) {
   return {
     type: ERROR_GROUP_CREATED,
-    data: data.errors
+    data: data.response.body
   };
 }

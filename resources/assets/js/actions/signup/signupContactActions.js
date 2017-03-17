@@ -57,7 +57,7 @@ function contactCreated(data) {
 function errorContactCreated(data) {
   return {
     type: ERROR_CONTACT_CREATED,
-    data: data.errors
+    data: data.response.body
   };
 }
 
@@ -71,7 +71,7 @@ function contactUpdated(data) {
 function errorContactUpdated(data) {
   return {
     type: ERROR_CONTACT_UPDATED,
-    data: data.errors
+    data: data.response.body
   };
 }
 
@@ -96,7 +96,7 @@ function contactVerified(data) {
 function errorContactVerified(data) {
   return {
     type: ERROR_CONTACT_CREATED,
-    data: data.errors
+    data: data.response.body
   };
 }
 
@@ -121,6 +121,6 @@ function passwordVerified(data) {
 function errorPasswordVerified(data) {
   return {
     type: ERROR_PASSWORD_VERIFIED,
-    data: data.errors
+    data: data.response.body
   };
 }

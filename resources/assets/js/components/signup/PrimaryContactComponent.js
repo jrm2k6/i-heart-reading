@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import PrimaryContactForm from './forms/PrimaryContactForm';
-import { createContact, updateContact } from '../../actions/signup/signupContactActions';
+import { createContact, updateContact,
+  ERROR_CONTACT_CREATED, ERROR_CONTACT_UPDATED
+} from '../../actions/signup/signupContactActions';
 
 
 const mapStateToProps = (state) => {
@@ -31,7 +33,9 @@ class PrimaryContactComponent extends Component {
     this.state = {
       namePrimaryContact: null,
       rolePrimaryContact: null,
-      emailAddressPrimaryContact: null
+      emailAddressPrimaryContact: null,
+      currentError: null,
+      shouldShowError: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -49,8 +53,15 @@ class PrimaryContactComponent extends Component {
   }
 
   render() {
+    const errorContainer = (this.state.shouldShowError) ? (
+      <div className='error-container'>
+        {this.state.currentError}
+      </div>
+    ) : null
+
     return (
       <div className='register-school-primary-contact-container'>
+        {errorContainer}
         <div className='section-header'>
           Who is the primary contact?
         </div>
@@ -80,6 +91,29 @@ class PrimaryContactComponent extends Component {
     );
   }
 
+  isFailedRequest(res) {
+    return res.type === ERROR_CONTACT_CREATED || res.type === ERROR_CONTACT_UPDATED;
+  }
+
+  getCurrentError(res) {
+    let currentError = null;
+    if (res.data !== null) {
+      const data = res.data;
+      const keys = Object.keys(data);
+
+      if (keys.length > 0) {
+        const firstKey = keys[0];
+        const firstError = data[firstKey];
+
+        if (firstError.length > 0) {
+          currentError = firstError[0];
+        }
+      }
+    }
+
+    return currentError;
+  }
+
   handleClick() {
     const { namePrimaryContact, emailAddressPrimaryContact, rolePrimaryContact } = this.state;
     const { currentSchool, currentPrimaryContact} = this.props;
@@ -96,7 +130,19 @@ class PrimaryContactComponent extends Component {
         const shouldUpdate = (currentPrimaryContact !== null);
         const data = (shouldUpdate) ? Object.assign({}, schoolData, {id: currentPrimaryContact.id}) : schoolData;
         this.props.createOrUpdateContact(data, shouldUpdate).then(
-          res => { browserHistory.push('/signup/classrooms'); }
+          res => {
+            if (this.isFailedRequest(res)) {
+              this.setState({
+                shouldShowError: true,
+                currentError: this.getCurrentError(res)
+              });
+            } else {
+              this.setState({
+                shouldShowError: false,
+                currentError: null
+              }, () => { browserHistory.push('/signup/classrooms'); });
+            }
+          }
         );
       } else {
         console.log("error");

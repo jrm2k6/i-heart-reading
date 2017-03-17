@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import GroupCreationForm from './forms/GroupCreationForm';
 import ListGroups from './ListGroups';
-import { createGroup } from '../../actions/signup/signupSchoolGroupAction';
+import { createGroup, ERROR_GROUP_CREATED } from '../../actions/signup/signupSchoolGroupAction';
 
 
 const mapStateToProps = (state) => {
@@ -26,7 +26,9 @@ class GroupCreationComponent extends Component {
 
     this.state = {
       groups: [],
-      showingForm: false
+      showingForm: false,
+      shouldShowError: false,
+      currentError: null
     };
 
     this.handleAddNewClassroom = this.handleAddNewClassroom.bind(this);
@@ -43,7 +45,7 @@ class GroupCreationComponent extends Component {
   }
 
   render() {
-    let creationForm = (this.state.showingForm) ?
+    const creationForm = (this.state.showingForm) ?
       <GroupCreationForm handleValidate={this.handleValidate}
         handleCancel={this.handleCancel}
       />
@@ -51,8 +53,15 @@ class GroupCreationComponent extends Component {
           deleteGroup={(i) => {this.handleDeleteGroup(i) }}
         />;
 
+    const errorContainer = (this.state.shouldShowError) ? (
+      <div className='error-container'>
+        {this.state.currentError}
+      </div>
+    ) : null
+
     return (
       <div className='register-school-group-creation-container'>
+        {errorContainer}
         <div className='section-header'>
           Time to create your classrooms/groups
         </div>
@@ -77,6 +86,29 @@ class GroupCreationComponent extends Component {
     );
   }
 
+  isFailedRequest(res) {
+    return res.type === ERROR_GROUP_CREATED;
+  }
+
+  getCurrentError(res) {
+    let currentError = null;
+    if (res.data !== null) {
+      const data = res.data;
+      const keys = Object.keys(data);
+
+      if (keys.length > 0) {
+        const firstKey = keys[0];
+        const firstError = data[firstKey];
+
+        if (firstError.length > 0) {
+          currentError = firstError[0];
+        }
+      }
+    }
+
+    return currentError;
+  }
+
   handleDeleteGroup(i) {
     const updatedGroups = this.state.groups.filter((group, index) => index !== i);
     this.setState({ groups: updatedGroups });
@@ -90,8 +122,20 @@ class GroupCreationComponent extends Component {
       let groupData = Object.assign({}, group, { schoolId: this.props.currentSchool.id });
       this.props.createGroup(groupData).then(
         res => {
-          const updatedGroups = this.state.groups.concat(group);
-          this.setState({ groups: updatedGroups, showingForm: false });
+          if (this.isFailedRequest(res)) {
+            this.setState({
+              shouldShowError: true,
+              currentError: this.getCurrentError(res)
+            });
+          } else {
+            const updatedGroups = this.state.groups.concat(group);
+            this.setState({
+              groups: updatedGroups,
+              showingForm: false,
+              shouldShowError: false,
+              currentError: null
+            });
+          }
         }
       );
   }
