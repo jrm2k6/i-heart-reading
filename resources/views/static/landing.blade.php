@@ -33,17 +33,19 @@
         </div>
       </div>
       <div class='landing-header-main-explanation-text-container'>
-        <hr class='landing-header-separator' />
         <div class='landing-header-main-explanation-text'>
-          No more spreadsheets to see what books your students are reading. No more folders to store reviews of their books.<br />
-          An easy to use platform for you and your students. Just a click away.
+          <p>Teachers! It's time to easily track your students' reading.</p>
+          <p>No more spreadsheets to see what books they are reading.</p>
+          <p>No more folders to store the reviews they are writing.</p>
+          <p>An easy to use platform for you and your students. Just a click away.</p>
         </div>
+      </div>
+      <hr class='landing-header-separator' />
+      <div class='landing-header-motto-container'>
+        Sign up to help your students improve their reading and let them have fun while doing it.
       </div>
       <div class='landing-header-learn-more-button-container'>
         <a class='landing-header-learn-more-button' href='#features-section'>Learn More</a>
-      </div>
-      <div class='landing-header-motto-container'>
-        Help your students improve their reading, and have fun while doing it.
       </div>
     </div>
   </section>
