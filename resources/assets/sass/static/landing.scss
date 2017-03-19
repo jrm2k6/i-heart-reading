@@ -39,7 +39,7 @@ body {
 
 .landing-header {
   display: flex;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 
   .landing-header-logo, .landing-header-menu {
     flex: 1;
@@ -84,10 +84,13 @@ body {
 .landing-header-main-explanation-text {
   color: #fff;
   font-size: 16px;
-  line-height: 1.7;
   padding: 15px 0 25px 0;
   text-align: center;
   width: 75%;
+
+  p:first-of-type {
+    font-size: 30px;
+  }
 }
 
 .landing-header-learn-more-button-container {
@@ -112,7 +115,7 @@ body {
   align-items: center;
   color: #fff;
   display: flex;
-  font-size: 28px;
+  font-size: 20px;
   justify-content: center;
   padding: 50px 0;
 }
