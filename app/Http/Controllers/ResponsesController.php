@@ -29,7 +29,7 @@ class ResponsesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'content' => 'required_if:type,text|string|min:1|max:2000',
+            'content' => 'required_if:type,text|string|min:1|max:100000',
             'url' => 'required_if:type,video,link|url',
             'type' => 'required|in:text,image,video,link'
         ]);
