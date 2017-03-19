@@ -68,10 +68,10 @@ class RegisterSchoolComponent extends Component {
 
     return (
       <div className='register-school-container'>
-        {errorContainer}
         <div className='section-header'>
           What school do you represent?
         </div>
+        {errorContainer}
         <div className='section-form'>
           <RegisterSchoolForm
             nameSchool={nameSchool}

@@ -61,10 +61,10 @@ class GroupCreationComponent extends Component {
 
     return (
       <div className='register-school-group-creation-container'>
-        {errorContainer}
         <div className='section-header'>
           Time to create your classrooms/groups
         </div>
+        {errorContainer}
         <div className='section-form group-creation'>
           <button className='add-new-classroom-button'
             onClick={this.handleAddNewClassroom}>

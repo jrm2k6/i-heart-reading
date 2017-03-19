@@ -61,10 +61,10 @@ class PrimaryContactComponent extends Component {
 
     return (
       <div className='register-school-primary-contact-container'>
-        {errorContainer}
         <div className='section-header'>
           Who is the primary contact?
         </div>
+        {errorContainer}
         <div className='section-form'>
           <PrimaryContactForm
             namePrimaryContact={this.state.namePrimaryContact}
