@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class StudentSection extends Component {
   render() {
@@ -72,11 +73,26 @@ class ReviewStatusSection extends Component {
     );
   }
 
+  getButton() {
+    const { review, linkContent } = this.props;
+    let textContent = 'Review';
+
+    if (review && review.decision_type_name && review.decision_type_name === 'accepted') {
+      textContent = 'View';
+    }
+
+    return (
+      <Link className='link-response' to={linkContent}>{textContent}</Link>
+    );
+  }
+
   render() {
-    const iconReview = this.getIconReview();
+    const { review, showIcon } = this.props;
+    const content = (showIcon) ? this.getIconReview() : this.getButton();
+
     return (
       <span className='review-actions'>
-        {iconReview}
+        {content}
       </span>
     );
   }
