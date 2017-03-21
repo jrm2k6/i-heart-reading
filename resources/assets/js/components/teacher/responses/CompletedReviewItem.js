@@ -21,7 +21,7 @@ class CompletedReviewItem extends Component {
     const book = completedReview.book;
     const response = completedReview.response;
     const review = completedReview.current_review;
-    const linkContent = `/app/responses/student-response/${response.id}`;
+    const linkContent = `/app/responses/student-response-accepted/${response.id}`;
 
     return (
         <div className='completed-review-item'

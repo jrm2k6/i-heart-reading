@@ -10,6 +10,17 @@
 
 .review-response-header-title {
   margin-left: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.header-title-approved-icon {
+  position: absolute;
+  right: 2%;
+
+  > i {
+    color: $success-color;
+  }
 }
 
 .review-response-container {
