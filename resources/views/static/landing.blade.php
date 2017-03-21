@@ -23,15 +23,7 @@
       <div class='landing-header-container-background-img'>
         <img src='/images/stacked-books-min.png' />
       </div>
-      <div class='landing-header'>
-        <div class='landing-header-logo'>
-          <img class='landing-header-logo-img' src='/images/logos/i-heart-reading-logo.png' />
-        </div>
-        <div class='landing-header-menu'>
-          <div><a class='top-menu-item' href='/app'>Log in</a></div>
-          <div><a class='top-menu-item' href='mailto:jeremy.dagorn@gmail.com?Subject=Hello!'>contact</a></div>
-        </div>
-      </div>
+      @include('partials._top-menu')
       <div class='landing-header-main-explanation-text-container'>
         <div class='landing-header-main-explanation-text'>
           <p>Teachers! It's time to easily track your students' reading.</p>

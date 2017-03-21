@@ -12,6 +12,7 @@ import BookDashboardComponent from './components/BookDashboardComponent';
 import TeacherHomeComponent from './components/teacher/TeacherHomeComponent';
 import TeacherResponsesComponent from './components/teacher/responses/TeacherResponsesComponent';
 import StudentResponseComponent from './components/responses/StudentResponseComponent';
+import AcceptedStudentResponseComponent from './components/responses/AcceptedStudentResponseComponent';
 import WriteResponseComponent from './components/responses/WriteResponseComponent';
 import UrlComponent from './components/responses/UrlComponent';
 import UploadImageComponent from './components/responses/UploadImageComponent';
@@ -64,6 +65,7 @@ const getRoutes = (store) => {
       <Route path='responses' component={TeacherResponsesComponent}>
           <IndexRoute component={TeacherResponsesDashboardComponent} />
           <Route path='student-response/:responseId' component={StudentResponseComponent} />
+          <Route path='student-response-accepted/:responseId' component={AcceptedStudentResponseComponent} />
           <Route path='write/:assignmentId' component={WriteResponseComponent} />
           <Route path='image/:assignmentId' component={UploadImageComponent} />
           <Route path='video/:assignmentId' component={UrlComponent} />
