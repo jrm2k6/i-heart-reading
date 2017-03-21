@@ -28,6 +28,20 @@ class AcceptedStudentResponseComponent extends Component {
     this.props.onGetCurrentAssignment(parseInt(this.props.params.responseId, 10));
   }
 
+  getCommentComponent(currentAssignment) {
+    const comment = currentAssignment.current_review.comment;
+    if (comment != null) {
+      return (
+        <div className='accepted-review-comment'>
+          <div className='accepted-review-comment-header'>Comments</div>
+          <div className='accepted-review-content-comment'>{comment}</div>
+        </div>
+      );
+    }
+
+    return null;
+  }
+
   getResponseComponent(currentResponse) {
     switch (currentResponse.response_type_id) {
       case 1:
@@ -63,9 +77,11 @@ class AcceptedStudentResponseComponent extends Component {
 
   render() {
     let responseComponent = null;
+    let commentComponent = null;
     const { currentResponse, currentAssignment } = this.props;
-    if (currentResponse) {
+    if (currentResponse && currentAssignment) {
       responseComponent = this.getResponseComponent(currentResponse);
+      commentComponent = this.getCommentComponent(currentAssignment);
     }
 
     const headerTitle = (currentAssignment) ?
@@ -83,6 +99,7 @@ class AcceptedStudentResponseComponent extends Component {
             {headerTitle}
           </div>
           {responseComponent}
+          {commentComponent}
         </div>
     );
   }
