@@ -25,7 +25,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'monthly'
+      timeView: 'yearly'
     };
   }
 
