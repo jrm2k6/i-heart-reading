@@ -25,6 +25,6 @@ class StatsController extends Controller
             ], 200);
         }
 
-        return response(null, 400);
+        return response(['stats' => []], 200);
     }
 }
