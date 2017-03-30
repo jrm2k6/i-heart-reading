@@ -1,7 +1,7 @@
 @import 'global';
 @import 'placeholders';
 
-.login-page-container, .confirm-page-container {
+.login-page-container, .confirm-page-container, .reset-password-page-container {
   @extend .vertical-centered-layout;
 
   .login-form {
@@ -44,7 +44,6 @@
       outline: none;
       padding-left: 10px;
       width: 100%;
-
       @include placeholder-color(lighten($main-light-gray, 15%));
     }
 
@@ -70,4 +69,43 @@
   color: $main-dark-blue;
   font-size: 18px;
   padding: 20px;
+}
+
+.reset-password-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-button {
+  background-color: $main-light-blue;
+  border: 1px solid $main-light-blue;
+  color: $main-white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 45px;
+  margin: 15px 0;
+
+  &:hover {
+    background-color: lighten($main-light-blue, 0.9);
+  }
+}
+
+.static-form-input {
+  border: 0;
+  color: $main-dark-gray;
+  font-size: 20px;
+  height: 35px;
+  margin: 10px 0;
+  outline: none;
+  padding-left: 10px;
+  width: 250px;
+
+  @include placeholder-color(lighten($main-light-gray, 15%));
+}
+
+.reset-password-title {
+  color: $main-dark-blue;
+  font-size: 20px;
+  margin: 15px 0;
 }
