@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import RegisterSchoolForm from './forms/RegisterSchoolForm';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { createSchool, updateSchool } from '../../actions/signup/signupSchoolActions';
+import { createSchool, updateSchool,
+  ERROR_SCHOOL_CREATED, ERROR_SCHOOL_UPDATED
+} from '../../actions/signup/signupSchoolActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -30,7 +32,9 @@ class RegisterSchoolComponent extends Component {
     this.state = {
       nameSchool: null,
       addressSchool: null,
-      domainNameSchool: null
+      domainNameSchool: null,
+      currentError: null,
+      shouldShowError: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -48,13 +52,31 @@ class RegisterSchoolComponent extends Component {
   }
 
   render() {
+    const {
+      shouldShowError,
+      currentError,
+      nameSchool,
+      addressSchool,
+      domainNameSchool
+    } = this.state;
+
+    const errorContainer = (shouldShowError) ? (
+      <div className='error-container'>
+        {currentError}
+      </div>
+    ) : null;
+
     return (
       <div className='register-school-container'>
         <div className='section-header'>
           What school do you represent?
         </div>
+        {errorContainer}
         <div className='section-form'>
           <RegisterSchoolForm
+            nameSchool={nameSchool}
+            addressSchool={addressSchool}
+            domainNameSchool={domainNameSchool}
             updateNameSchool={(e) => { this.setState({ nameSchool: e.target.value }); }}
             updateAddressSchool={(e) => { this.setState({ addressSchool: e.target.value }); }}
             updateDomainEmailSchool={(e) => { this.setState({ domainNameSchool: e.target.value }); }}
@@ -70,6 +92,29 @@ class RegisterSchoolComponent extends Component {
     );
   }
 
+  isFailedRequest(res) {
+    return res.type === ERROR_SCHOOL_CREATED || res.type === ERROR_SCHOOL_UPDATED;
+  }
+
+  getCurrentError(res) {
+    let currentError = null;
+    if (res.data !== null) {
+      const data = res.data;
+      const keys = Object.keys(data);
+
+      if (keys.length > 0) {
+        const firstKey = keys[0];
+        const firstError = data[firstKey];
+
+        if (firstError.length > 0) {
+          currentError = firstError[0];
+        }
+      }
+    }
+
+    return currentError;
+  }
+
   handleClick() {
     const { nameSchool, addressSchool, domainNameSchool } = this.state;
     const { currentSchool } = this.props;
@@ -80,7 +125,22 @@ class RegisterSchoolComponent extends Component {
       const shouldUpdate = this.props.currentSchool !== null;
       const data = (shouldUpdate) ? Object.assign({}, this.state, {id: currentSchool.id}) : this.state;
       this.props.createOrUpdateSchool(data, shouldUpdate).then(
-        res => { browserHistory.push('signup/contact'); }
+        res => {
+          if (this.isFailedRequest(res)) {
+            console.log(this.getCurrentError(res));
+            this.setState({
+              shouldShowError: true,
+              currentError: this.getCurrentError(res)
+            });
+          } else {
+            this.setState({
+              shouldShowError: true,
+              currentError: null
+            }, () => {
+              browserHistory.push('signup/contact');
+            });
+          }
+        }
       );
     } else {
       console.log("error");

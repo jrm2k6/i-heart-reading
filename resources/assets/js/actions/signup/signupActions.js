@@ -38,6 +38,6 @@ function signupConfirmed(data) {
 function errorSignupConfirmed(data) {
   return {
     type: ERROR_SIGNUP_CONFIRMED,
-    data: data.errors
+    data: data.response.body
   };
 }
