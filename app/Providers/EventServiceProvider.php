@@ -46,9 +46,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Signup\SchoolCreated\CreateSignupStudentToken',
         ],
 
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\Goodreads\GoodreadsExtendSocialite@handle',
+        'App\Events\Books\BooksSearched' => [
+            'App\Listeners\Books\BooksSearched\CacheBooks'
         ]
+
     ];
 
     /**

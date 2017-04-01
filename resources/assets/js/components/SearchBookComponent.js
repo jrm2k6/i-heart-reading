@@ -149,7 +149,7 @@ const SearchBookSuggestions = ({ suggestions, onClick, showModal }) => (
           </span>
           <span
             className='book-actions assign'
-            onClick={() => {onClick(suggestion.id);}}
+            onClick={() => {onClick(suggestion.google_book_id);}}
           >
             Assign
           </span>
