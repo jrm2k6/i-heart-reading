@@ -59,7 +59,7 @@
   color: $secondary-dark-gray;
   display: flex;
   font-size: 19px;
-  height: 55px;
+  min-height: 55px;
   transition: 250ms;
 
   &:hover {
