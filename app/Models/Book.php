@@ -11,7 +11,7 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'author', 'num_pages',
+        'title', 'author', 'num_pages', 'description', 'image_url'
     ];
 
     public function readers()

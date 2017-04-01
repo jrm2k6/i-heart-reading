@@ -34,6 +34,9 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+         * This should just take a google id book and create the book representation behind the scenes
+         */
         $this->validate($request, [
             'book_title' => 'required|string|max:500|unique:books,title',
             'book_author_name' => 'required|string',
@@ -56,29 +59,6 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
