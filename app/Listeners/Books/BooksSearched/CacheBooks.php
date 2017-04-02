@@ -29,14 +29,16 @@ class CacheBooks
     {
         $books = $event->books;
         if (is_array($books)) {
-            collect($books['items'])->each(
-                function($bookItem) {
-                    $volumeInfo = $bookItem['volumeInfo'];
-                    $id = $bookItem['id'];
+            if (array_key_exists('items', $books)) {
+                collect($books['items'])->each(
+                    function ($bookItem) {
+                        $volumeInfo = $bookItem['volumeInfo'];
+                        $id = $bookItem['id'];
 
-                    Cache::put('book_id_'.$id, $volumeInfo, 10);
-                }
-            );
+                        Cache::put('book_id_' . $id, $volumeInfo, 10);
+                    }
+                );
+            }
         } else {
             $volumeInfo = $books['volumeInfo'];
             $id = $books['id'];
