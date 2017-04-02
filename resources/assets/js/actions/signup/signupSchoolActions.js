@@ -58,13 +58,13 @@ function schoolUpdated(data) {
 function errorSchoolCreated(data) {
   return {
     type: ERROR_SCHOOL_CREATED,
-    data: data.errors
+    data: data.response.body
   };
 }
 
 function errorSchoolUpdated(data) {
   return {
     type: ERROR_SCHOOL_UPDATED,
-    data: data.errors
+    data: data.response.body
   };
 }

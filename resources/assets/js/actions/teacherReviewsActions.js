@@ -177,11 +177,58 @@ function completedReviewsFetchedError() {
   };
 }
 
-export function fetchCompletedReviews() {
+export function fetchCompletedReviews(optionalCallback = null) {
   return dispatch => {
     return getRequest(URL_MY_COMPLETED_REVIEWS).then(
-      res => { dispatch(completedReviewsFetched(res)); },
-      err => { dispatch(completedReviewsFetchedError(err)); }
+      res => {
+        if (optionalCallback) {
+          optionalCallback(res);
+        }
+
+        return dispatch(completedReviewsFetched(res));
+      },
+      err => dispatch(completedReviewsFetchedError(err))
     );
+  };
+}
+
+export function getAcceptedResponse(responseId) {
+  const getCurrentResponse = (completedReviews, _responseId) => {
+    return completedReviews.map(completedReview => completedReview.response)
+      .find(currentResponse => currentResponse.id === _responseId);
+  };
+  return (dispatch, getState) => {
+    const completedReviews = getState().teacherReviewsReducer.completedReviews;
+    if (completedReviews !== null) {
+      const response = getCurrentResponse(completedReviews, responseId);
+      return dispatch(getCurrentResponseSuccess(response));
+    } else {
+      const successHandler = (data) => {
+        const response = getCurrentResponse(data.completed_reviews, responseId);
+        return dispatch(getCurrentResponseSuccess(response));
+      };
+      return dispatch(fetchCompletedReviews(successHandler));
+    }
+  };
+}
+
+export function getAcceptedAssignment(responseId) {
+  const getCurrentAssignment = (completedReviews, _responseId) => {
+    return completedReviews.filter(completedReview => completedReview.response)
+      .find(completedReview => completedReview.response.id === _responseId);
+  };
+
+  return (dispatch, getState) => {
+    const completedReviews = getState().teacherReviewsReducer.completedReviews;
+    if (completedReviews !== null) {
+      const assignment = getCurrentAssignment(completedReviews, responseId);
+      return dispatch(getCurrentAssignmentSuccess(assignment));
+    } else {
+      const successHandler = (data) => {
+        const assignment = getCurrentAssignment(data.completed_reviews, responseId);
+        return dispatch(getCurrentAssignmentSuccess(assignment));
+      };
+      return dispatch(fetchCompletedReviews(successHandler));
+    }
   };
 }
