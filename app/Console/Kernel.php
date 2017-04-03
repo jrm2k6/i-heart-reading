@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\OneTimeCommands\CreateGoogleAPIBooks;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,7 +19,8 @@ class Kernel extends ConsoleKernel
         Commands\SendTestEmail::class,
         Commands\OneTimeCommands\AttachPreviousAssignmentUpdateId::class,
         Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class,
-        Commands\Testing\DeleteContentTestingDatabase::class
+        Commands\Testing\DeleteContentTestingDatabase::class,
+        CreateGoogleAPIBooks::class
     ];
 
     /**
