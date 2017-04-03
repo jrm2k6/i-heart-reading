@@ -26,7 +26,7 @@
       @include('partials._top-menu')
       <div class='landing-header-main-explanation-text-container'>
         <div class='landing-header-main-explanation-text'>
-          <p>Teachers! It's time to easily track your students' reading.</p>
+          <p>A private Goodreads for your classroom.</p>
           <p>No more spreadsheets to see what books they are reading.</p>
           <p>No more folders to store the reviews they are writing.</p>
           <p>An easy to use platform for you and your students. Just a click away.</p>
