@@ -49,27 +49,32 @@ class CreateGoogleAPIBooks extends Command
     public function handle()
     {
         Book::all()->filter(function($book) {
-            return $book->description == '';
-        })->slice(400)->each(function($book) {
-            $title = $book->title;
+            return $book->google_book_id == null;
+        })->slice(10)->each(function($book) {
+            if (BookToVerify::where('book_id', $book->id)->count() == 0) {
+                $title = $book->title;
 
-            $this->info('=============== ' . $book->id);
-            $googleAPIBook = $this->fetchBookFromAPI($title);
-            $this->info('Saved book is ' . $title . ' and author is ' . $book->author . ' ' . $book->num_pages);
-            $this->info('Books fetched ');
+                $this->info('=============== ' . $book->id);
+                $googleAPIBook = $this->fetchBookFromAPI($title);
+                $this->info('Saved book is ' . $title . ' and author is ' . $book->author . ' ' . $book->num_pages);
+                $this->info('Books fetched ');
 
-            $details = $this->formatForOutput($googleAPIBook);
+                $details = $this->formatForOutput($googleAPIBook);
 
-            $this->info('Results ' . collect($details)->count());
+                $this->info('Results ' . collect($details)->count());
 
-            $matchingBooks = collect($details)->reduce(function($acc, $bookAPI)  use ($book) {
-                if (($bookAPI['num_pages'] && (abs((int) $bookAPI['num_pages'] - (int) $book->num_pages) <= 25))  && str_contains($bookAPI['authors'], $book->author)) {
-                    $this->warn('title ' . $bookAPI['title'] . ' ' . $bookAPI['authors'] . ' ' . $bookAPI['google_book_id'] . ' pages ' . $bookAPI['num_pages']);
-                    return $acc->push($bookAPI);
-                }
+                $matchingBooks = collect($details)->reduce(function($acc, $bookAPI)  use ($book) {
+                    if (($bookAPI['num_pages'] && (abs((int) $bookAPI['num_pages'] - (int) $book->num_pages) <= 25))  && str_contains($bookAPI['authors'], $book->author)) {
+                        $this->warn('title ' . $bookAPI['title'] . ' ' . $bookAPI['authors'] . ' ' . $bookAPI['google_book_id'] . ' pages ' . $bookAPI['num_pages']);
+                        return $acc->push($bookAPI);
+                    }
 
-                return $acc;
-            }, collect());
+                    return $acc;
+                }, collect());
+            } else {
+                return;
+            }
+
 
             $numResults = $matchingBooks->count();
             if ($numResults > 1) {
@@ -95,7 +100,7 @@ class CreateGoogleAPIBooks extends Command
 
                 $this->singleResults += 1;
 
-            } else {
+            } else if ($numResults == 0) {
 
                 $bookToVerify = new BookToVerify;
                 $bookToVerify->book_id = $book->id;
