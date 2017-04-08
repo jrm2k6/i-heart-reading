@@ -50,7 +50,7 @@ class CreateGoogleAPIBooks extends Command
     {
         Book::all()->filter(function($book) {
             return $book->google_book_id == null;
-        })->slice(10)->each(function($book) {
+        })->each(function($book) {
             if (BookToVerify::where('book_id', $book->id)->count() == 0) {
                 $title = $book->title;
 
