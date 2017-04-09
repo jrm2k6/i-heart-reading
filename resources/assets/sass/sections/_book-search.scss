@@ -121,6 +121,7 @@
 .book-details-container {
   display: flex;
   flex-direction: column;
+  height: 100%;
   position: relative;
 }
 
@@ -131,19 +132,49 @@
 .book-details {
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .book-details-actions {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
+  margin: 10px 0;
   width: 100%;
 
   .book-details-actions-button {
+    border: 1px solid $validation-green-button-border;
+    background-color: $validation-green;
+    color: $main-white;
     cursor: pointer;
+    font-size: 16px;
     height: 45px;
     width: 100%;
   }
+}
+
+.book-details-image-container {
+  margin: 10px;
+
+  > img {
+    height: 200px;
+    width: 150px;
+  }
+}
+
+.book-title {
+  font-size: 22px;
+  text-align: center;
+}
+
+.book-authors {
+  font-size: 18px;
+  text-align: center;
+}
+
+.book-description {
+  margin-top: 10px;
+  padding: 10px 10px 50px 10px;
+}
+
+.book-num-pages {
+  text-align: center;
 }

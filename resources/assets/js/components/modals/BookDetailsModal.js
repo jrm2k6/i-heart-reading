@@ -12,6 +12,16 @@ class BookDetailsModal extends Component {
         <div className='book-details-top'>
           <div className='book-details-image-container'>
             <img src={image} />
+            <div className='book-num-pages'>
+              {num_pages} pages
+            </div>
+            <div className='book-details-actions'>
+              <button className='book-details-actions-button'
+                      onClick={() => { onClick(google_book_id); }}
+              >
+                Start Reading
+              </button>
+            </div>
           </div>
           <div className='book-details'>
             <div className='book-title'>
@@ -23,17 +33,7 @@ class BookDetailsModal extends Component {
             <div className='book-description'>
               {description}
             </div>
-            <div className='book-num_pages'>
-              {num_pages}
-            </div>
           </div>
-        </div>
-        <div className='book-details-actions'>
-          <button className='book-details-actions-button'
-            onClick={() => { onClick(google_book_id); }}
-          >
-            Start Reading
-          </button>
         </div>
       </div>
     );
