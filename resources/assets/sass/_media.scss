@@ -1,0 +1,28 @@
+$iphone-5-width: 320px;
+$iphone-6-width: 375px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin small-iphone {
+  @media (max-width: #{$iphone-6-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin large-iphone-and-up {
+  @media (min-width: #{$iphone-6-width}) and (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: #{$tablet-width + 1px}) and (max-width: $desktop-width) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width + 1px}) {
+    @content;
+  }
+}

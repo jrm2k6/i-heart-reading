@@ -1,5 +1,8 @@
+@import '../media';
+
 $light-blue: #00e0d0;
 $dark-blackground-blue: #4a5770;
+
 html {
   overflow: hidden;
   overflow-y: auto;
@@ -16,6 +19,18 @@ body {
   padding: 20px 75px;
 
   overflow-x: none;
+
+  @include tablet-and-up {
+    padding: 20px 40px;
+  }
+
+  @include large-iphone-and-up {
+    padding: 20px 10px;
+  }
+
+  @include small-iphone {
+    padding: 20px 10px;
+  }
 }
 
 .landing-header-container-background-img {
@@ -34,6 +49,14 @@ body {
     height: 100%;
     position: absolute;
     right: -20%;
+  }
+
+  @include large-iphone-and-up {
+    display: none;
+  }
+
+  @include small-iphone {
+    display: none;
   }
 }
 
@@ -54,6 +77,16 @@ body {
       color: #fff;
       margin: 0 15px;
       text-transform: uppercase;
+
+      @include large-iphone-and-up {
+        font-size: 12px;
+        margin: 0;
+      }
+
+      @include small-iphone {
+        font-size: 12px;
+        margin: 0;
+      }
     }
   }
 
@@ -63,6 +96,32 @@ body {
       height: 40px;
       margin-left: 25%;
       width: 130px;
+    }
+  }
+
+  @include large-iphone-and-up {
+    padding-bottom: 35px;
+
+    .landing-header-logo {
+
+      .landing-header-logo-img {
+        height: 30px;
+        margin-left: 5%;
+        width: 100px;
+      }
+    }
+  }
+
+  @include small-iphone {
+    padding-bottom: 35px;
+
+    .landing-header-logo {
+
+      .landing-header-logo-img {
+        height: 30px;
+        margin-left: 5%;
+        width: 100px;
+      }
     }
   }
 }
@@ -90,6 +149,43 @@ body {
 
   p:first-of-type {
     font-size: 36px;
+    margin: 20px;
+  }
+
+  @include small-iphone {
+    padding: 10px 0;
+    width: 100%;
+
+    p:first-of-type {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    p {
+      font-size: 11px;
+    }
+  }
+
+  @include large-iphone-and-up {
+    padding: 10px 0;
+    width: 100%;
+
+    p:first-of-type {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  @include tablet-and-up {
+    width: 80%;
+
+    p:first-of-type {
+      font-size: 25px;
+    }
   }
 }
 
@@ -118,6 +214,23 @@ body {
   font-size: 20px;
   justify-content: center;
   padding: 50px 0;
+
+  @include tablet-and-up {
+    font-size: 17px;
+    padding: 25px 0;
+  }
+
+  @include large-iphone-and-up {
+    font-size: 16px;
+    padding: 25px 0;
+    text-align: center;
+  }
+
+  @include small-iphone {
+    font-size: 12px;
+    padding: 25px 0;
+    text-align: center;
+  }
 }
 
 .landing-first-section {
@@ -132,12 +245,32 @@ body {
   font-weight: 700;
   font-size: 34px;
   margin: 60px 0;
+
+  @include large-iphone-and-up {
+    font-size: 17px;
+    margin: 30px 0;
+  }
+
+  @include small-iphone {
+    font-size: 17px;
+    margin: 30px 0;
+  }
 }
 
 #mac-placeholder {
   margin-top: -170px;
   pointer-events: none;
   width: 782px;
+
+  @include large-iphone-and-up {
+     margin-top: -60px;
+     width: 375px;
+   }
+
+  @include small-iphone {
+    margin-top: -60px;
+    width: 320px;
+  }
 }
 
 .landing-second-section {
@@ -149,6 +282,14 @@ body {
   justify-content: center;
   height: 451px;
   position: relative;
+
+  @include large-iphone-and-up {
+    height: 200px;
+  }
+
+  @include small-iphone {
+    height: 200px;
+  }
 }
 
 .dots {
@@ -192,6 +333,16 @@ body {
 .landing-second-section-title {
   font-size: 32px;
   margin: 25px 0;
+
+  @include large-iphone-and-up {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  @include small-iphone {
+    font-size: 18px;
+    margin: 10px 0;
+  }
 }
 
 .landing-second-section-description {
@@ -211,6 +362,20 @@ body {
   &.empty {
     border: 1px solid red;
   }
+
+  @include large-iphone-and-up {
+    font-size: 16px;
+    height: 30px;
+    margin: 0;
+    padding-left: 5px;
+  }
+
+  @include small-iphone {
+    font-size: 16px;
+    height: 30px;
+    margin: 0;
+    padding-left: 5px;
+  }
 }
 
 .landing-second-section-thick-separator {
@@ -219,6 +384,16 @@ body {
   height: 12px;
   opacity: 1;
   width: 200px;
+
+  @include large-iphone-and-up {
+    height: 4px;
+    width: 50px;
+  }
+
+  @include small-iphone {
+    height: 4px;
+    width: 50px;
+  }
 }
 
 #get-started-button {
@@ -234,6 +409,18 @@ body {
   &:hover {
     background-color: darken(#20bb51, 0.8);
   }
+
+  @include large-iphone-and-up {
+    font-size: 16px;
+    height: 30px;
+    margin-top: 10px;
+  }
+
+  @include small-iphone {
+    font-size: 16px;
+    height: 30px;
+    margin-top: 10px;
+  }
 }
 
 .get-started-container {
@@ -241,6 +428,16 @@ body {
   display: flex;
   justify-content: center;
   margin: 35px 0;
+
+  @include large-iphone-and-up {
+    flex-direction: column;
+    margin: 15px;
+  }
+
+  @include small-iphone {
+    flex-direction: column;
+    margin: 15px;
+  }
 }
 
 .landing-second-section-content {
@@ -285,12 +482,44 @@ body {
     height: 3px;
     width: 50px;
   }
+
+  @include large-iphone-and-up {
+    padding: 20px 0;
+
+    .landing-third-section-title {
+      font-size: 20px;
+    }
+
+    .landing-third-section-subtitle {
+      font-size: 14px;
+    }
+  }
+
+  @include small-iphone {
+    padding: 20px 0;
+
+    .landing-third-section-title {
+      font-size: 20px;
+    }
+
+    .landing-third-section-subtitle {
+      font-size: 14px;
+    }
+  }
 }
 
 .landing-third-section-features-container {
   display: flex;
   flex-wrap: wrap;
   margin: 0 10%;
+
+  @include large-iphone-and-up {
+    margin: 0;
+  }
+
+  @include small-iphone {
+    margin: 0;
+  }
 }
 
 .feature-item {
@@ -300,6 +529,14 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 33%;
+
+  @include large-iphone-and-up {
+    width: 100%;
+  }
+
+  @include small-iphone {
+    width: 100%;
+  }
 
   .feature-item-title {
     color: #413d4b;
@@ -328,10 +565,26 @@ body {
 
 .with-bottom-border {
   border-bottom: 1px solid #ebebeb;
+
+  @include large-iphone-and-up {
+    border: none;
+  }
+
+  @include small-iphone {
+    border: none;
+  }
 }
 
 .with-right-border {
   border-right: 1px solid #ebebeb;
+
+  @include large-iphone-and-up {
+    border: none;
+  }
+
+  @include small-iphone {
+    border: none;
+  }
 }
 
 .footer {
@@ -343,6 +596,14 @@ body {
   height: 200px;
   overflow-y: hidden;
   position: relative;
+
+  @include large-iphone-and-up {
+    height: 100px;
+  }
+
+  @include small-iphone {
+    height: 100px;
+  }
 }
 
 .footer-background-img {
@@ -365,6 +626,10 @@ body {
 .heart {
   color: pink;
   margin: 0 5px;
+
+  @include small-iphone {
+    margin: 0 3px;
+  }
 }
 
 .success-alert, .support-alert {
@@ -385,6 +650,14 @@ body {
   display: flex;
   flex: 1;
   margin: 0 40px;
+
+  @include large-iphone-and-up {
+    margin: 0 15px;
+  }
+
+  @include small-iphone {
+    margin: 0 15px;
+  }
 }
 
 .left-section-footer, .right-section-footer {
@@ -399,8 +672,15 @@ body {
 
 .right-section-footer {
   justify-content: flex-end;
-}
 
+  @include large-iphone-and-up {
+    font-size: 12px;
+  }
+
+  @include small-iphone {
+    font-size: 10px;
+  }
+}
 
 .contact {
   border: 1px solid white;
