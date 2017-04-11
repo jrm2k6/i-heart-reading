@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://iheartreading.co/sitemap.xml
