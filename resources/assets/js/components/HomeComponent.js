@@ -25,7 +25,7 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'monthly'
+      timeView: 'yearly'
     };
   }
 
@@ -49,8 +49,43 @@ class HomeComponent extends Component {
     return '';
   }
 
+  getPieComponent() {
+    return (
+      <div>
+        <div className='home-component-pie-chart-header'>
+          <span>My progress</span>
+          <div className='home-component-timeview-select-container'>
+            <select
+              className='home-component-timeview-select'
+              value={this.state.timeView}
+              onChange={(e) => { this.setState({ timeView: e.target.value }); }}
+            >
+              <option value='daily'>Daily View</option>
+              <option value='weekly'>Weekly View</option>
+              <option value='monthly'>Monthly View</option>
+              <option value='yearly'>Yearly View</option>
+            </select>
+          </div>
+        </div>
+        <div className='home-component-interactive-chart'>
+          <ProgressPieChartComponent
+            stats={this.props.stats}
+            timeView={this.state.timeView}
+          />
+          <InteractiveChartLegend timeView={this.state.timeView} />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { stats, updates } = this.props;
+    const pieCardContent = (stats != null && Object.keys(stats).length > 0) ?
+      this.getPieComponent() :
+      (<div className='no-stats'>
+        It looks like you are just getting started!
+        As you progress, you will see some stats about your reading habits here!
+      </div>);
     return (
       <div className='home-component-container'>
         <div className='home-component-left-section'>
@@ -59,28 +94,7 @@ class HomeComponent extends Component {
             timeView={this.state.timeView}
           />
           <div className='home-component-pie-card'>
-            <div className='home-component-pie-chart-header'>
-              <span>My progress</span>
-              <div className='home-component-timeview-select-container'>
-                <select
-                  className='home-component-timeview-select'
-                  value={this.state.timeView}
-                  onChange={(e) => { this.setState({ timeView: e.target.value }); }}
-                >
-                  <option value='daily'>Daily View</option>
-                  <option value='weekly'>Weekly View</option>
-                  <option value='monthly'>Monthly View</option>
-                  <option value='yearly'>Yearly View</option>
-                </select>
-              </div>
-            </div>
-            <div className='home-component-interactive-chart'>
-              <ProgressPieChartComponent
-                stats={stats}
-                timeView={this.state.timeView}
-              />
-              <InteractiveChartLegend timeView={this.state.timeView} />
-            </div>
+            {pieCardContent}
           </div>
           <div className='yearly-objective'>
             <img src='images/icons/trophy.png' />
