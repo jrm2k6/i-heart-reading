@@ -8,7 +8,8 @@ const initialState = {
   currentQuery: null,
   suggestions: [],
   noSuggestions: false,
-  isSearching: false
+  isSearching: false,
+  numResults: null
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -22,6 +23,7 @@ export default function searchReducer(state = initialState, action) {
     case SEARCH_SUCCESS:
       return Object.assign({}, state, {
         suggestions: action.payload.suggestions,
+        numResults: action.payload.num_results,
         noSuggestions: false,
         isSearching: false
       });

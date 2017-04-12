@@ -16,9 +16,7 @@ function runSearchSuccess(data) {
 
   return {
     type: SEARCH_SUCCESS,
-    payload: {
-      suggestions: data.suggestions
-    }
+    payload: data
   };
 }
 
@@ -38,10 +36,10 @@ function startSearch(_query) {
   };
 }
 
-export function runSearch(_query) {
+export function runSearch(query, type) {
   return dispatch => {
-    dispatch(startSearch(_query));
-    return getRequest(URL_SEARCH, { query: _query }).then(
+    dispatch(startSearch(query));
+    return getRequest(URL_SEARCH, { query, type }).then(
       res => { dispatch(runSearchSuccess(res)); },
       err => { dispatch(runSearchError(err)); }
     );

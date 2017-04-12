@@ -7,6 +7,7 @@
 .search-book-input {
   border: 0;
   color: $secondary-dark-gray;
+  flex: 3;
   font-size: 18px;
   height: 45px;
   padding-left: 20px;
@@ -58,7 +59,7 @@
   color: $secondary-dark-gray;
   display: flex;
   font-size: 19px;
-  height: 55px;
+  min-height: 55px;
   transition: 250ms;
 
   &:hover {
@@ -80,14 +81,100 @@
   }
 }
 
-.add-new-book-btn {
+.search-book-input-btn {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.search-books-btn {
   background-color: $main-light-blue;
   border: 1px solid $main-dark-blue;
   color: $main-white;
   cursor: pointer;
+  flex: 1;
   font-size: 22px;
-  height: 65px;
-  margin-left: 13%;
+  height: 45px;
+  margin: 10px 10px;
   text-transform: uppercase;
-  width: 75%;
+}
+
+.search-input-options {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
+
+.search-option-title {
+  color: $secondary-dark-gray;
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.right-margin {
+  > .ihr-radio-wrapper {
+    margin: 0 10px;
+  }
+}
+
+.book-details-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.book-details-top {
+  display: flex;
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.book-details-actions {
+  margin: 10px 0;
+  width: 100%;
+
+  .book-details-actions-button {
+    border: 1px solid $validation-green-button-border;
+    background-color: $validation-green;
+    color: $main-white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 45px;
+    width: 100%;
+  }
+}
+
+.book-details-image-container {
+  margin: 10px;
+
+  > img {
+    height: 200px;
+    width: 150px;
+  }
+}
+
+.book-title {
+  font-size: 22px;
+  text-align: center;
+}
+
+.book-authors {
+  font-size: 18px;
+  text-align: center;
+}
+
+.book-description {
+  margin-top: 10px;
+  padding: 10px 10px 50px 10px;
+}
+
+.book-num-pages {
+  text-align: center;
 }

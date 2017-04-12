@@ -163,7 +163,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class
+        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
     ],
 
     /*

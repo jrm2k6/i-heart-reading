@@ -12,6 +12,7 @@ const initialState = {
 
 export default function modalReducer(state = initialState, action) {
   switch (action.type) {
+
     case SHOW_MODAL:
       return Object.assign({}, state, { showingModal: true, component: action.payload.component,
         data: action.payload.data

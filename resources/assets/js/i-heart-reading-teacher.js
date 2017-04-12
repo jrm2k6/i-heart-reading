@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { fetchUser } from './actions/userProfileActions';
-import AddBookComponent from './components/AddBookComponent';
+import SearchBookComponent from './components/SearchBookComponent';
 import BookComponent from './components/BookComponent';
 import BookDashboardComponent from './components/BookDashboardComponent';
 import TeacherHomeComponent from './components/teacher/TeacherHomeComponent';
@@ -60,7 +60,7 @@ const getRoutes = (store) => {
       <Route path='student/:id' component={ProfileComponent} />
       <Route path='books' component={BookComponent}>
           <IndexRoute component={BookDashboardComponent} />
-          <Route path='add' component={AddBookComponent} />
+          <Route path='add' component={SearchBookComponent} />
       </Route>
       <Route path='responses' component={TeacherResponsesComponent}>
           <IndexRoute component={TeacherResponsesDashboardComponent} />
