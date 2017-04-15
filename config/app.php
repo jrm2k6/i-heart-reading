@@ -161,8 +161,6 @@ return [
          */
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        SocialiteProviders\Manager\ServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
     ],
 
@@ -215,7 +213,6 @@ return [
          */
         'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
