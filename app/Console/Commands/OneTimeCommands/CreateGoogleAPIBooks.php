@@ -51,6 +51,7 @@ class CreateGoogleAPIBooks extends Command
         Book::all()->filter(function($book) {
             return $book->google_book_id == null;
         })->each(function($book) {
+//                $this->info($book);
             if (BookToVerify::where('book_id', $book->id)->count() == 0) {
                 $title = $book->title;
 
@@ -64,8 +65,9 @@ class CreateGoogleAPIBooks extends Command
                 $this->info('Results ' . collect($details)->count());
 
                 $matchingBooks = collect($details)->reduce(function($acc, $bookAPI)  use ($book) {
-                    if (($bookAPI['num_pages'] && (abs((int) $bookAPI['num_pages'] - (int) $book->num_pages) <= 25))  && str_contains($bookAPI['authors'], $book->author)) {
-                        $this->warn('title ' . $bookAPI['title'] . ' ' . $bookAPI['authors'] . ' ' . $bookAPI['google_book_id'] . ' pages ' . $bookAPI['num_pages']);
+                    if ((str_contains($bookAPI['authors'], $book->author) && str_contains($bookAPI['title'], $book->title)) ||
+                        (($bookAPI['num_pages'] && (abs((int) $bookAPI['num_pages'] - (int) $book->num_pages) <= 25)) && str_contains($bookAPI['authors'], $book->author))) {
+                        $this->warn('title ' . $bookAPI['title'] . ' ' . $bookAPI['authors'] . ' ' . $bookAPI['google_book_id'] . ' pages ' . $bookAPI['num_pages'] . ' ' . $bookAPI['description'] . ' ' . $bookAPI['image']);
                         return $acc->push($bookAPI);
                     }
 
