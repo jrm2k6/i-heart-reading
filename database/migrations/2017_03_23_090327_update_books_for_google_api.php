@@ -14,7 +14,7 @@ class UpdateBooksForGoogleApi extends Migration
     {
         Schema::table('books', function(Blueprint $table) {
             $table->string('google_book_id')->nullable()->after('num_pages');
-            $table->string('description')->nullable()->after('google_book_id')->default(null);
+            $table->mediumText('description')->nullable()->after('google_book_id')->default(null);
             $table->string('image_url')->nullable()->after('description');
         });
     }
