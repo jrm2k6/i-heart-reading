@@ -27,9 +27,12 @@ class MarkUserAsBelongingToSchool
     public function handle(UserRegistered $event)
     {
         $user = $event->user;
-        $schoolId = $event->data['school_id'];
 
-        $user->school_id = $schoolId;
-        $user->save();
+        if (!empty($event->data)) {
+            $schoolId = $event->data['school_id'];
+            $user->school_id = $schoolId;
+            $user->save();
+        }
+
     }
 }

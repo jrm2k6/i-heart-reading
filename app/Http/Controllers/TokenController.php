@@ -58,7 +58,8 @@ class TokenController extends Controller
                     'name' => $name,
                     'email' => $email,
                     'password' => bcrypt($password),
-                    'role' => 'admin'
+                    'role' => 'admin',
+                    'school_id' => $schoolOrganizationToken->id
                 ]);
 
                 SchoolAdmin::create([
