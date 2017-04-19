@@ -26,7 +26,7 @@ class SignupController extends Controller
     public function registerWithToken(Request $request)
     {
         $school = School::find($request->input('school_id'));
-        $email = $request->input('email_id') . $school->domain_name;
+        $email = $request->input('email_id') . '@' . $school->domain_name;
         $request->merge(['email' => $email]);
         
         $this->validate($request, [
@@ -54,7 +54,7 @@ class SignupController extends Controller
         $signupToken = SignupToken::where(['token' => $token, 'type' => 'student'])->first();
 
         if ($signupToken != null) {
-            $schoolDomainName = $signupToken->school->domain_name;
+            $schoolDomainName = '@' . $signupToken->school->domain_name;
             $schoolId = $signupToken->school->id;
             $request->session()->put('student_signup_token', $signupToken->token);
             
