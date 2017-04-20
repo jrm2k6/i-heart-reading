@@ -38,7 +38,9 @@ class BooksSearchController extends Controller
 
     private function formatForOutput($fetchedBooks)
     {
-        $booksDetails = collect($fetchedBooks['items'])->map(
+        $items = array_key_exists('items', $fetchedBooks) ? $fetchedBooks['items'] : [];
+
+        $booksDetails = collect($items)->map(
             function($bookItem) {
                 $volumeInfo = $bookItem['volumeInfo'];
                 return [
