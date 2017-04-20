@@ -144,7 +144,7 @@ class AssignmentsController extends Controller
         return [
             'google_book_id' => $googleBookId,
             'title' => $fetchedBook['title'],
-            'authors' => (array_key_exists('authors', $fetchedBook)) ? implode(', ', $fetchedBook['authors']) : null,
+            'authors' => (array_key_exists('authors', $fetchedBook)) ? implode(', ', $fetchedBook['authors']) : 'Unknown',
             'description' => (array_key_exists('description', $fetchedBook)) ? $fetchedBook['description'] : null,
             'num_pages' => (array_key_exists('pageCount', $fetchedBook)) ? $fetchedBook['pageCount'] : null,
             'image' => (array_key_exists('imageLinks', $fetchedBook) &&
