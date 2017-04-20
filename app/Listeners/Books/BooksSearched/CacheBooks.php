@@ -28,7 +28,9 @@ class CacheBooks
     public function handle(BooksSearched $event)
     {
         $books = $event->books;
-        if (is_array($books)) {
+        $multipleResults = $event->multiplesResults;
+
+        if ($multipleResults) {
             if (array_key_exists('items', $books)) {
                 collect($books['items'])->each(
                     function ($bookItem) {

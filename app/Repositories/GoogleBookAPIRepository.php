@@ -40,7 +40,7 @@ class GoogleBookAPIRepository implements BookProviderRepositoryInterface
 
         if ($res->getStatusCode() === 200) {
             $books = json_decode($res->getBody(), true);
-            event(new BooksSearched($books));
+            event(new BooksSearched($books, true));
             return $books;
         }
 
@@ -69,7 +69,7 @@ class GoogleBookAPIRepository implements BookProviderRepositoryInterface
 
         if ($res->getStatusCode() === 200) {
             $book = json_decode($res->getBody(), true);
-            event(new BooksSearched($book));
+            event(new BooksSearched($book, false));
             return $book;
         }
 
