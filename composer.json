@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
+        "sofa/eloquence": "~5.2",
         "intervention/image": "^2.3",
         "doctrine/dbal": "^2.5",
         "predis/predis": "^1.0",

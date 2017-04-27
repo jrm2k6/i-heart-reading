@@ -162,6 +162,7 @@ return [
         Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class
     ],
 
     /*
