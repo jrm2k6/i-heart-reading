@@ -76,7 +76,7 @@ class ProfileComponent extends React.Component {
       );
       const numAcceptedResponses = acceptedResponses.length;
 
-      const content = (numAcceptedResponses === 0) ? 'No accepted reponses!'
+      const content = (numAcceptedResponses === 0) ? 'No accepted responses!'
         : (numAcceptedResponses > 1) ? `${numAcceptedResponses} accepted responses!`
           : '1 accepted response!';
       return (
