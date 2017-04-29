@@ -44,11 +44,12 @@ function searchStudentsError(data) {
     payload: data
   };
 }
+
 export function searchStudent(query) {
   return dispatch => {
     return getRequest(`${URL_SEARCH_STUDENT}?query=${query}`).then(
-      res => { dispatch(fetchStudentSuccess(res)); },
-      err => { dispatch(fetchStudentError(err)); }
+      res => { dispatch(searchStudentsSuccess(res)); },
+      err => { dispatch(searchStudentsError(err)); }
     );
   };
 }
