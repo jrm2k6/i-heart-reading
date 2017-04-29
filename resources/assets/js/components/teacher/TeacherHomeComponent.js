@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStudentsUpdates } from '../../actions/teacherReviewsActions';
 import StudentUpdatesComponent from '../stats/StudentUpdatesComponent';
+import SearchStudentComponent from './SearchStudentComponent';
 
 
 const mapStateToProps = (state) => {
@@ -23,7 +24,8 @@ class TeacherHomeComponent extends Component {
 
   render() {
     return (
-      <div className='home-component-container'>
+      <div className='home-component-container teacher-home-component-container'>
+        <SearchStudentComponent />
         <StudentUpdatesComponent latestUpdates={this.props.studentUpdates} />
       </div>
     );

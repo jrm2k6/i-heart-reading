@@ -1,9 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Sofa\Eloquence\Eloquence;
 
 class User extends Authenticatable
 {
+    use Eloquence;
     /**
      * The attributes that are mass assignable.
      *
@@ -12,6 +14,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'role', 'school_id'
     ];
+
+    protected $searchableColumns = ['name', 'email'];
 
     /**
      * The attributes excluded from the model's JSON form.

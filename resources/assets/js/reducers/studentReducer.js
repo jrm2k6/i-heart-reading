@@ -1,5 +1,6 @@
 import {
-  FETCH_STUDENT_SUCCESS
+  FETCH_STUDENT_SUCCESS,
+  SEARCH_STUDENTS_SUCCESS
 } from '../actions/studentSearchActions';
 
 import {
@@ -10,7 +11,8 @@ import {
 const initialState = {
   currentStudent: null,
   stats: {},
-  updates: {}
+  updates: {},
+  suggestions: []
 };
 
 function updateStudentUpdates(stateUpdates, action) {
@@ -65,6 +67,11 @@ export default function studentReducer(state = initialState, action) {
     case SUCCESS_STATS_FETCHED:
       return Object.assign({}, state, {
         stats: updateStats(state.stats, action)
+      });
+
+    case SEARCH_STUDENTS_SUCCESS:
+      return Object.assign({}, state, {
+        suggestions: action.payload.suggestions
       });
 
     case SUCCESS_UPDATES_FETCHED:

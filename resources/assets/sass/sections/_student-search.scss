@@ -1,0 +1,99 @@
+.search-student-container {
+  align-items: center;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.search-student-suggestions {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 90px;
+  width: 100%;
+}
+
+.search-student-suggestions-header {
+  align-items: center;
+  color: $main-dark-gray;
+  display: flex;
+  height: 35px;
+  justify-content: flex-end;
+  padding-right: 25px;
+  width: 100%;
+}
+
+.close-suggestions {
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.search-student-suggestion-item {
+  align-items: center;
+  border-bottom: 1px solid $light-gray-border;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+}
+
+.search-student-input-container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90px;
+  width: 100%;
+}
+
+.search-student-input-btn {
+  display: flex;
+  width: 60%;
+}
+
+.search-student-error {
+  align-items: center;
+  color: $error-color;
+  display: flex;
+  justify-content: center;
+  min-height: 25px;
+}
+
+.search-student-input {
+  border: 1px solid #ccc;
+  color: $secondary-dark-gray;
+  flex: 3;
+  font-size: 18px;
+  height: 45px;
+  margin: 10px;
+  padding-left: 5px;
+
+  @include placeholder-color($main-light-gray);
+}
+
+.search-student-suggestions-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-hint {
+  align-items: center;
+  background-color: lighten($main-light-gray, 10%);
+  color: $main-white;
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  margin: 10px;
+  padding: 20px;
+}

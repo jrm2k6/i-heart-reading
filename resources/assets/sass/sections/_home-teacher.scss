@@ -4,6 +4,11 @@
   justify-content: center;
 }
 
+.teacher-home-component-container {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .student-updates {
   background-color: $main-white;
   box-shadow: 1px 1px 1px $card-shadow-color;
