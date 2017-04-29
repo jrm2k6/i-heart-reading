@@ -13,7 +13,7 @@ class TimelineItem extends React.Component {
 
       if (wasMarkedAsRead) {
         return (
-          <div className='timeline-update-row'>
+          <div className='timeline-update-row' key={update.id}>
             <div className='circle book-read' />
             <span className='update-row-content'>
               {book.title} by {book.author} was marked as read
@@ -24,7 +24,7 @@ class TimelineItem extends React.Component {
       }
 
       return (
-        <div className='timeline-update-row'>
+        <div className='timeline-update-row' key={update.id}>
           <div className='circle pages-read' />
           <span className='update-row-content'>
             Read {numPagesRead} pages of {book.title} by {book.author}
