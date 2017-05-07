@@ -12,8 +12,8 @@ then
     exit 1
 fi
 
-mysql -u root -e "drop database demoiheartreading";
-mysql -u root -e "create database demoiheartreading";
+mysql -u $DB_USERNAME -e "drop database demoiheartreading";
+mysql -u $DB_USERNAME -e "create database demoiheartreading";
 
 php artisan migrate
 php artisan db:seed --class=DemoDatabaseSeeder
