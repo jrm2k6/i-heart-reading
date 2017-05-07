@@ -6,6 +6,14 @@
         <img src="/images/logos/i-heart-reading-logo.png" />
     </div>
 
+    @if(env('DEMO_MODE'))
+        <div class="demo-explanation">
+            <div class="demo-explanation-content">This is a demo version of iheartreading.co. All updates will be re-initialized daily</div>
+            <div class="demo-explanation-credentials">Student Credentials: student1@unicorn.com / studentpassword</div>
+            <div class="demo-explanation-credentials">Teacher Credentials: teacher1@unicorn.com / teacherpassword</div>
+            <div class="demo-explanation-credentials">Admin Credentials: admin1@unicorn.com / adminpassword</div>
+        </div>
+    @endif
     <form class="login-form" role="form" method="POST" action="{{ url('/login') }}">
         {!! csrf_field() !!}
         @if ($errors->count() > 0)
