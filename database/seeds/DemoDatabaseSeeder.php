@@ -137,7 +137,8 @@ class DemoDatabaseSeeder extends Seeder
             'email' => 'teacher1@' . $this->school1->domain_name,
             'password' => bcrypt('teacherpassword'),
             'role' => 'teacher',
-            'confirmed' => true
+            'confirmed' => true,
+            'school_id' => $this->school1->id,
         ]);
 
         $this->teacherUser2 = User::create([
@@ -145,7 +146,8 @@ class DemoDatabaseSeeder extends Seeder
             'email' => 'teacher2@' . $this->school2->domain_name,
             'password' => bcrypt('teacherpassword'),
             'role' => 'teacher',
-            'confirmed' => true
+            'confirmed' => true,
+            'school_id' => $this->school2->id,
         ]);
 
         $this->teacher1 = Teacher::create([
@@ -166,6 +168,7 @@ class DemoDatabaseSeeder extends Seeder
             'email' => 'admin1@' . $this->school1->domain_name,
             'password' => bcrypt('adminpassword'),
             'role' => 'admin',
+            'school_id' => $this->school1->id,
             'confirmed' => true
         ]);
 
@@ -174,6 +177,7 @@ class DemoDatabaseSeeder extends Seeder
             'email' => 'admin2@' . $this->school2->domain_name,
             'password' => bcrypt('adminpassword'),
             'role' => 'admin',
+            'school_id' => $this->school2->id,
             'confirmed' => true
         ]);
 
