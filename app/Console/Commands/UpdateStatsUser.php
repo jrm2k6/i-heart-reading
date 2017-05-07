@@ -12,7 +12,7 @@ class UpdateStatsUser extends Command
      *
      * @var string
      */
-    protected $signature = 'stats:update {userId}';
+    protected $signature = 'stats:update {userId} {--queue=}';
 
     /**
      * The console command description.

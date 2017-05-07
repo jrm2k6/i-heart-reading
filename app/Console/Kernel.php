@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CacheUpdatesAllUsers;
 use App\Console\Commands\OneTimeCommands\CreateGoogleAPIBooks;
+use App\Console\Commands\ResetDemoApp;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -20,7 +22,9 @@ class Kernel extends ConsoleKernel
         Commands\OneTimeCommands\AttachPreviousAssignmentUpdateId::class,
         Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class,
         Commands\Testing\DeleteContentTestingDatabase::class,
-        CreateGoogleAPIBooks::class
+        CreateGoogleAPIBooks::class,
+        CacheUpdatesAllUsers::class,
+        ResetDemoApp::class
     ];
 
     /**
@@ -31,7 +35,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        if (env('DEMO_MODE', false) === true) {
+            $schedule->command('demo:reset')
+                ->dailyAt('1:00');
+        }
     }
 }
