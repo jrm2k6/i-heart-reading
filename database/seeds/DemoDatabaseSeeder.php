@@ -199,12 +199,12 @@ class DemoDatabaseSeeder extends Seeder
             'confirmed' => true
         ]);
 
-        $i = 0;
+        $i = 2;
 
         while ($i < 20) {
             User::create([
                 'name' => $this->faker->name,
-                'email' => 'student '. $i .'@' . $this->school1->domain_name,
+                'email' => 'student'. $i .'@' . $this->school1->domain_name,
                 'password' => bcrypt('studentpassword'),
                 'role' => 'student',
                 'school_id' => $this->school1->id,
