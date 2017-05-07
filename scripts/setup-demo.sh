@@ -16,6 +16,6 @@ mysql -u $DB_USERNAME -p$DB_PASSWORD -e "drop database demoiheartreading";
 mysql -u $DB_USERNAME -p$DB_PASSWORD -e "create database demoiheartreading";
 
 php artisan migrate --force
-php artisan db:seed --class=DemoDatabaseSeeder
+php artisan db:seed --class=DemoDatabaseSeeder --force
 
 mysql -u $DB_USERNAME -p$DB_PASSWORD demoiheartreading < ./database/sql-seeds/demo-seeds.sql
