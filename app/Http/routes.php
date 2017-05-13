@@ -29,8 +29,15 @@ foreach (File::allFiles(__DIR__.'/Routes') as $partial) {
 
 Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
-        // return redirect()->route('app');
         return view('static.landing');
+    });
+
+    Route::get('/terms', function() {
+       return view('static.terms');
+    });
+
+    Route::get('/privacy', function() {
+        return view('static.privacy');
     });
 
     Route::auth();

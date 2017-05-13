@@ -1,7 +1,5 @@
 @import '../media';
-
-$light-blue: #00e0d0;
-$dark-blackground-blue: #4a5770;
+@import '../global';
 
 html {
   overflow: hidden;
@@ -15,7 +13,7 @@ body {
 
 .landing-header-container {
   position: relative;
-  background-color: $dark-blackground-blue;
+  background-color: $dark-background-blue;
   padding: 20px 75px;
 
   overflow-x: none;
@@ -275,7 +273,7 @@ body {
 
 .landing-second-section {
   align-items: center;
-  background-color: $dark-blackground-blue;
+  background-color: $dark-background-blue;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -589,7 +587,7 @@ body {
 
 .footer {
   align-items: center;
-  background-color: $dark-blackground-blue;
+  background-color: $dark-background-blue;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -691,6 +689,20 @@ body {
 
   &:visited, &:hover {
     color: white;
+  }
+}
+
+.item-footer {
+  color: white;
+  padding: 8px 12px;
+  text-decoration: none;
+
+  &:visited {
+    color: white;
+  }
+
+  &:hover {
+    border-bottom: 1px solid white;
   }
 }
 

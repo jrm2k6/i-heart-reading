@@ -1,0 +1,19 @@
+@import '../global';
+
+.terms-content {
+  background-color: $main-white;
+  color: $dark-background-blue;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.terms-content-title {
+  margin: 0;
+  align-self: center;
+  padding-bottom: 40px;
+}
+
+.terms-content-item {
+  padding-left: 15px;
+}

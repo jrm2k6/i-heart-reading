@@ -180,3 +180,21 @@
   margin-bottom: 10px;
   padding: 10px;
 }
+
+.accept-terms {
+  margin: 10px 0;
+
+  &.not-checked {
+    .accept-terms-label {
+      color: $error-color;
+      font-weight: bold;
+
+      a {
+        color: $error-color;
+        &:hover, &:visited {
+          color: $error-color;
+        }
+      }
+    }
+  }
+}

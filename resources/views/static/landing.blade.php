@@ -122,21 +122,7 @@
       </div>
     </div>
   </section>
-  <section>
-    <div class='footer'>
-      <div class='footer-background-img'>
-        <img src='/images/desk-screen-min.png' />
-      </div>
-      <div class='footer-content'>
-        <div class='left-section-footer'>
-          <a class='contact' href="mailto:support@iheartreading.co?Subject=Hello!">Contact</a>
-        </div>
-        <div class='right-section-footer'>
-          Made with <span class='heart'>&hearts;</span> in San Diego.
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('partials._footer')
 </body>
 <script>
   (function() {
