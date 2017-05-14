@@ -38,6 +38,8 @@ class Kernel extends ConsoleKernel
         if (env('DEMO_MODE', false) === true) {
             $schedule->command('demo:reset')
                 ->dailyAt('1:00');
+            $schedule->command('stats:update_all')
+                ->dailyAt('1:10');
         }
     }
 }
