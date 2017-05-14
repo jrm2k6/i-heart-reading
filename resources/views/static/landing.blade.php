@@ -57,6 +57,10 @@
       <div class='landing-first-section-mac-placeholder'>
         <img id='mac-placeholder' src='/images/teacher-dashboard.png'>
       </div>
+      <div class='landing-first-section-cta'>
+        <span class='not-ready-yet'>Not Convinced Yet?</span>
+        <button class='try-demo-button'><a href='https://demo.iheartreading.co/login'>Try our demo</a></button>
+      </div>
     </div>
   </section>
   <section>
@@ -126,11 +130,6 @@
 </body>
 <script>
   (function() {
-    // var csrfToken = null;
-    // [].forEach.call(document.getElementsByTagName('meta'), function(metaElement) { if (metaElement.name === 'csrf-token') {
-    //   csrfToken = metaElement.content;
-    // }
-
     var imgPlaceholder = document.getElementById('mac-placeholder');
     var dotsClassName = 'dot';
     var dotsElements = document.getElementsByClassName(dotsClassName);

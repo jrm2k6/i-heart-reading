@@ -66,6 +66,16 @@ body {
     flex: 1;
   }
 
+  @include small-iphone, large-iphone-and-up {
+    .landing-header-logo {
+      flex: 1;
+    }
+
+    .landing-header-menu {
+      flex: 2;
+    }
+  }
+
   .landing-header-menu {
     align-items: center;
     display: flex;
@@ -78,11 +88,13 @@ body {
 
       @include large-iphone-and-up {
         font-size: 12px;
+        padding: 0 12px;
         margin: 0;
       }
 
       @include small-iphone {
-        font-size: 12px;
+        font-size: 10px;
+        padding: 0 4px;
         margin: 0;
       }
     }
@@ -236,6 +248,75 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.landing-first-section-cta {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+.not-ready-yet {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 0;
+
+  @include tablet-and-up {
+    font-size: 17px;
+    margin: 5px 0;
+  }
+
+  @include large-iphone-and-up {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  @include small-iphone {
+    font-size: 12px;
+    margin: 2px 0;
+  }
+}
+
+.try-demo-button {
+  background-color: $main-light-blue;
+  border: 1px solid $main-light-blue;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  height: 45px;
+  text-transform: uppercase;
+  width: 300px;
+
+  a {
+
+    color: $white;
+    text-decoration: none;
+
+    &:hover, &:visited {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+  &:hover {
+    background-color: darken($main-light-blue, 0.8);
+  }
+
+  @include large-iphone-and-up {
+    font-size: 16px;
+    height: 30px;
+    margin-top: 10px;
+    width: 200px;
+  }
+
+  @include small-iphone {
+    font-size: 16px;
+    height: 30px;
+    margin-top: 10px;
+    width: 200px;
+  }
 }
 
 .landing-first-section-title {
@@ -666,12 +747,22 @@ body {
 
 .left-section-footer {
   justify-content: flex-start;
+
+  @include large-iphone-and-up {
+    justify-content: space-around;
+    flex: 2;
+  }
+
+  @include small-iphone {
+    flex-direction: column;
+  }
 }
 
 .right-section-footer {
   justify-content: flex-end;
 
   @include large-iphone-and-up {
+    flex: 1;
     font-size: 12px;
   }
 
@@ -704,11 +795,19 @@ body {
   &:hover {
     border-bottom: 1px solid white;
   }
+
+  @include large-iphone-and-up {
+    font-size: 12px;
+  }
+
+  @include small-iphone {
+    font-size: 10px;
+    padding: 4px 12px;
+  }
 }
 
 .top-menu-item {
   color: white;
-  padding: 8px 12px;
   text-decoration: none;
 
   &:hover {
