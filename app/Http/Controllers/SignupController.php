@@ -37,6 +37,7 @@ class SignupController extends Controller
             'email_id' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|confirmed|min:6',
+            'accept_terms' => 'required|in:on'
         ]);
         
         $data = array_merge($request->all(), ['email' => $email]);

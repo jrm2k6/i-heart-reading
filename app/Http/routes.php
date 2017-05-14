@@ -32,6 +32,14 @@ Route::group(['middleware' => 'web'], function () {
         return view('static.landing');
     });
 
+    Route::get('/terms', function() {
+       return view('static.terms');
+    });
+
+    Route::get('/privacy', function() {
+        return view('static.privacy');
+    });
+
     Route::auth();
     
     Route::post('/send-email', 'LandingPageController@saveEmail');

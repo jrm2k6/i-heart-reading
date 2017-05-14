@@ -70,6 +70,17 @@
             </div>
         </div>
 
+        @if ($errors->has('accept_terms'))
+            <div class="accept-terms not-checked">
+        @else
+            <div class="accept-terms">
+        @endif
+            <div class="checkbox">
+                <input class="ihr-checkbox" type="checkbox" name="accept_terms" id="accept_terms">
+                <label class="accept-terms-label" for="accept_terms"><span></span> I have read and agree to <a href="/terms">the terms of service</a></label>
+            </div>
+        </div>
+
         <button type="submit" class="btn-register-submit">
             Register
         </button>
