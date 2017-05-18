@@ -69,6 +69,13 @@
             </div>
         </div>
 
+        <div class="dob-guardian-container">
+            <label for="dob">Enter your date of birth (03/31/2002)</label>
+            <input id="dob-input" name="dob">
+            <span class="dob-parsed"></span>
+            <input type="email" id="guardian-email" name="guardian-email" placeholder="Enter your parent or guardian email" style="display: none">
+        </div>
+
         @if ($errors->has('accept_terms'))
             <div class="accept-terms not-checked">
         @else
@@ -85,4 +92,42 @@
         </button>
     </form>
 </div>
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script>
+    (function() {
+        $(document).ready(function() {
+            var dobParsedElt = $('.dob-parsed');
+            $('#dob-input').keypress(_.debounce(function(e) {
+                var currentDate = e.target.value;
+                var regex = /\d{2}\/\d{2}\/\d{4}/;
+
+                if (regex.exec(currentDate)) {
+                    var parsedDate = moment(currentDate);
+                    var displayedDate = moment(parsedDate);
+
+                    if (displayedDate.isValid()) {
+                        dobParsedElt.text(displayedDate.format('dddd, MMMM Do, YYYY'));
+
+                        var thirteenYearsAgo = moment().subtract(12, 'years');
+
+                        if (parsedDate.isAfter(thirteenYearsAgo)) {
+                            $('#guardian-email').css('display', 'block');
+                        } else {
+                            $('#guardian-email').css('display', 'none');
+                        }
+
+                    } else {
+                        dobParsedElt.text('Invalid Date');
+                    }
+                }
+
+            }, 500));
+        });
+    })();
+    </script>
+
 @endsection
