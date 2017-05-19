@@ -70,10 +70,18 @@
         </div>
 
         <div class="dob-guardian-container">
-            <label for="dob">Enter your date of birth (03/31/2002)</label>
-            <input id="dob-input" name="dob">
-            <span class="dob-parsed"></span>
-            <input type="email" id="guardian-email" name="guardian-email" placeholder="Enter your parent or guardian email" style="display: none">
+            <label class="label-dob" for="dob">Enter your date of birth (MM/DD/YYYY)</label>
+            <div class="dob-input-container">
+                <input id="dob-input" name="dob" placeholder="12/25/1998">
+                <div class="validation-dob">
+                    <i class="material-icons validation-dob-done" style="display: none">done</i>
+                    <span class="dob-parsed"></span>
+                </div>
+            </div>
+            <div class="guardian-input-container" style="display: none">
+                <label class="guardian-email" for="dob">Enter your parent or guardian email</label>
+                <input type="email" id="guardian-email" name="guardian-email" placeholder="guardian@house.com">
+            </div>
         </div>
 
         @if ($errors->has('accept_terms'))
@@ -100,8 +108,11 @@
     <script>
     (function() {
         $(document).ready(function() {
-            var dobParsedElt = $('.dob-parsed');
-            $('#dob-input').keypress(_.debounce(function(e) {
+            var dobParsedElt = $('.validation-dob');
+            var dobElt = $('#dob-input');
+            var validationDobValid = $('.validation-dob-done');
+
+            $('#dob-input').keyup(_.debounce(function(e) {
                 var currentDate = e.target.value;
                 var regex = /\d{2}\/\d{2}\/\d{4}/;
 
@@ -110,19 +121,27 @@
                     var displayedDate = moment(parsedDate);
 
                     if (displayedDate.isValid()) {
+                        dobElt.removeClass('invalid-date');
                         dobParsedElt.text(displayedDate.format('dddd, MMMM Do, YYYY'));
-
+                        dobParsedElt.show();
+                        validationDobValid.css('display', 'block');
                         var thirteenYearsAgo = moment().subtract(12, 'years');
 
                         if (parsedDate.isAfter(thirteenYearsAgo)) {
-                            $('#guardian-email').css('display', 'block');
+                            $('.guardian-input-container').css('display', 'block');
                         } else {
-                            $('#guardian-email').css('display', 'none');
+                            $('.guardian-input-container').css('display', 'none');
                         }
 
                     } else {
-                        dobParsedElt.text('Invalid Date');
+                        $('.guardian-input-container').css('display', 'none');
+                        dobParsedElt.hide();
+                        dobElt.addClass('invalid-date');
                     }
+                } else {
+                    $('.guardian-input-container').css('display', 'none');
+                    dobParsedElt.hide();
+                    dobElt.addClass('invalid-date');
                 }
 
             }, 500));
