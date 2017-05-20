@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SignupToken;
 use App\Models\SignupOrganizationToken;
 use App\Http\Helpers\AuthHelper;
+use Illuminate\Support\Facades\Validator;
 
 class SignupController extends Controller
 {
@@ -29,7 +31,7 @@ class SignupController extends Controller
         $email = $request->input('email_id') . '@' . $school->domain_name;
         $request->merge(['email' => $email]);
         
-        $this->validate($request, [
+        $v = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'type_token' => 'required|in:admin,student',
             'token' => 'required|string|exists:signup_tokens,token,type,'.$request->input('type_token'),
@@ -37,8 +39,16 @@ class SignupController extends Controller
             'email_id' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|confirmed|min:6',
+            'date_of_birth' => 'required_if:type_token,student|date:',
             'accept_terms' => 'required|in:on'
         ]);
+
+        $v->sometimes('guardian_email', 'required|email', function($input) {
+            $dob = $input->date_of_birth;
+            return $input->date_of_birth !== null && Carbon::createFromFormat('m/d/Y', $dob)->gt(Carbon::now()->subYears(13));
+        });
+
+        $this->validateWith($v, $request);
         
         $data = array_merge($request->all(), ['email' => $email]);
 
