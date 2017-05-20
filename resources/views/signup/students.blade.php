@@ -69,6 +69,21 @@
             </div>
         </div>
 
+        <div class="dob-guardian-container">
+            <label class="label-dob" for="date_of_birth">Enter your date of birth (MM/DD/YYYY)</label>
+            <div class="dob-input-container">
+                <input id="dob-input" name="date_of_birth" placeholder="12/25/1998">
+                <div class="validation-dob">
+                    <i class="material-icons validation-dob-done" style="display: none">done</i>
+                    <span class="dob-parsed"></span>
+                </div>
+            </div>
+            <div class="guardian-input-container" style="display: none">
+                <label class="guardian-email" for="guardian_email">Enter your parent or guardian email</label>
+                <input type="email" id="guardian-email" name="guardian_email" placeholder="guardian@house.com">
+            </div>
+        </div>
+
         @if ($errors->has('accept_terms'))
             <div class="accept-terms not-checked">
         @else
@@ -85,4 +100,53 @@
         </button>
     </form>
 </div>
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script>
+    (function() {
+        $(document).ready(function() {
+            var dobParsedElt = $('.validation-dob');
+            var dobElt = $('#dob-input');
+            var validationDobValid = $('.validation-dob-done');
+
+            $('#dob-input').keyup(_.debounce(function(e) {
+                var currentDate = e.target.value;
+                var regex = /\d{2}\/\d{2}\/\d{4}/;
+
+                if (regex.exec(currentDate)) {
+                    var parsedDate = moment(currentDate);
+                    var displayedDate = moment(parsedDate);
+
+                    if (displayedDate.isValid()) {
+                        dobElt.removeClass('invalid-date');
+                        dobParsedElt.text(displayedDate.format('dddd, MMMM Do, YYYY'));
+                        dobParsedElt.show();
+                        validationDobValid.css('display', 'block');
+                        var thirteenYearsAgo = moment().subtract(12, 'years');
+
+                        if (parsedDate.isAfter(thirteenYearsAgo)) {
+                            $('.guardian-input-container').css('display', 'block');
+                        } else {
+                            $('.guardian-input-container').css('display', 'none');
+                        }
+
+                    } else {
+                        $('.guardian-input-container').css('display', 'none');
+                        dobParsedElt.hide();
+                        dobElt.addClass('invalid-date');
+                    }
+                } else {
+                    $('.guardian-input-container').css('display', 'none');
+                    dobParsedElt.hide();
+                    dobElt.addClass('invalid-date');
+                }
+
+            }, 500));
+        });
+    })();
+    </script>
+
 @endsection

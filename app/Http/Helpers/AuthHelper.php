@@ -2,24 +2,36 @@
 
 use App\Models\User;
 use App\Events\UserRegistered;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthHelper
 {
     public function register($data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user = new User;
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
 
         $hasToken = array_key_exists('type_token', $data);
+
         if ($hasToken) {
-            $isStaff = $hasToken && $data['type_token'] == 'admin';
+            $isStaff = $data['type_token'] == 'admin';
         } else {
             $isStaff = false;
         }
+
+        if (!$isStaff) {
+            $dateOfBirth = $data['date_of_birth'];
+            $guardianEmail = !empty($data['guardian_email']) ? $data['guardian_email'] : null;
+
+            $user->birth_date = Carbon::parse($dateOfBirth);
+            $user->guardian_email = $guardianEmail;
+        }
+
+        $user->save();
 
         event(new UserRegistered($user, $isStaff, $data));
 

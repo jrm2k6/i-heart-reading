@@ -69,3 +69,67 @@
     padding-top: 75px;
   }
 }
+
+.dob-guardian-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-dob, .guardian-email {
+  color: $secondary-dark-gray;
+  font-size: 18px;
+}
+
+#dob-input {
+  height: 30px;
+  width: 40%;
+}
+
+#guardian-email {
+  height: 30px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#dob-input, #guardian-email {
+  border: 0;
+  color: $main-dark-gray;
+  font-size: 18px;
+  outline: none;
+  padding-left: 10px;
+
+  @include placeholder-color(lighten($main-light-gray, 15%));
+
+  &:focus {
+    border: 1px solid $main-dark-blue;
+
+    &.invalid-date {
+      border: 2px solid $error-color !important;
+    }
+  }
+}
+
+.invalid-date {
+  border: 2px solid $error-color;
+}
+
+.dob-input-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.dob-parsed {
+  margin-left: 10px;
+}
+
+.guardian-input-container {
+  margin: 10px 0 20px 0;
+}
+
+.validation-dob {
+  align-items: center;
+  color: $success-color;
+  display:flex;
+  padding-left: 10px;
+}
