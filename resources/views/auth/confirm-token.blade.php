@@ -36,3 +36,15 @@
     </form>
 </div>
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.help-organization-token').hover(function() {
+               $('.tooltip-organization-token').css('display', 'block');
+            }, function() {
+                $('.tooltip-organization-token').css('display', 'none');
+            });
+        });
+    </script>
+@endsection

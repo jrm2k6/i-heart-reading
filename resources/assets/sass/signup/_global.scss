@@ -56,18 +56,12 @@
   cursor: pointer;
   font-size: 18px;
   vertical-align: sub;
-
-  &:hover {
-    > .tooltip-organization-token {
-      visibility: visible;
-    }
-  }
 }
 
 .tooltip-organization-token {
   background-color: $white;
   font-size: 14px;
-  visibility: hidden;
+  display: none;
   left: 280px;
   position: absolute;
   padding: 5px;
