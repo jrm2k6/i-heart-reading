@@ -13,8 +13,15 @@
                 {{$errors->first('token')}}
             </div>
         @endif
-        <div class='signup-form-input-wrapper'>
-          <span class='signup-form-label'>Enter your organization token</span>
+        <div class='signup-form-input-wrapper organization-token'>
+          <span class='signup-form-label'>Enter your organization token
+              <i class='material-icons help-organization-token'>help_outline</i>
+          </span>
+          <div class='tooltip-organization-token'>
+              <span>The organization token is part of the link you received before signing up.
+                  It is composed of 10 characters randomly chosen.</span>
+              <div class='tooltip-arrow'></div>
+          </div>
           <input class='signup-form-input' name='organization_token' />
         </div>
         <div class='signup-form-input-wrapper'>
@@ -22,10 +29,22 @@
           <input class='signup-form-input' type='password' name='password' />
         </div>
         <input type='hidden' name='email' value='{{$email}}' />
-          <input type='hidden' name='name' value='{{$name}}' />
+        <input type='hidden' name='name' value='{{$name}}' />
         <button type="submit" class="btn-login-submit">
             Verify Token
         </button>
     </form>
 </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $('.help-organization-token').hover(function() {
+               $('.tooltip-organization-token').css('display', 'block');
+            }, function() {
+                $('.tooltip-organization-token').css('display', 'none');
+            });
+        });
+    </script>
 @endsection

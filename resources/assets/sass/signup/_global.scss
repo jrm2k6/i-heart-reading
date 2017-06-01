@@ -48,6 +48,38 @@
   }
 }
 
+.organization-token {
+  position: relative;
+}
+
+.help-organization-token {
+  cursor: pointer;
+  font-size: 18px;
+  vertical-align: sub;
+}
+
+.tooltip-organization-token {
+  background-color: $white;
+  font-size: 14px;
+  display: none;
+  left: 280px;
+  position: absolute;
+  padding: 5px;
+  width: 200px;
+
+  &:before {
+    background-color: $white;
+    content: '';
+    display: inline-block;
+    height: 10px;
+    left: -5px;
+    position: absolute;
+    top: 5px;
+    transform: rotate(45deg);
+    width: 10px;
+  }
+}
+
 .section-navigation {
   align-self: center;
   background-color: $white;

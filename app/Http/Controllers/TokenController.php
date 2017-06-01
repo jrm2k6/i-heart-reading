@@ -73,6 +73,6 @@ class TokenController extends Controller
             }
         }
 
-        return redirect('/confirm-token')->with('error', 'Invalid organization token!');
+        return redirect('/confirm-token?name='.$name.'&email='.$email)->withErrors(['token' => 'Invalid organization token!']);
     }
 }
