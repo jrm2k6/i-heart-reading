@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="google-site-verification" content="GvrKP1xMmkiIPx_-xPBQCesjRiJZxBU8-Mo5XPpZu68" />
-    <meta name="description" content="Help your students reach their objectives by making reading fun. Intuitive and hassle free. Get Started Now!">
+    <meta name="description" content="Help your students reach their objectives by making reading fun. Intuitive and hassle free. A simple reading logs for your students, but also for teachers. Get Started Now!">
+    <meta name="description" content="Help your students reach their objectives by making reading fun. Intuitive and hassle free. A simple reading logs for your students, but also for teachers. Get Started Now!" property="og:description">
+    <meta name='keywords' content='children books, favorite books, book reviews, read, reading logs, online, community, free, middle school, teachers, teachers books, reading tool, challenge, reading challenge'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>I Heart Reading</title>
