@@ -677,11 +677,11 @@ body {
   position: relative;
 
   @include large-iphone-and-up {
-    height: 100px;
+    height: 140px;
   }
 
   @include small-iphone {
-    height: 100px;
+    height: 140px;
   }
 }
 
@@ -742,15 +742,14 @@ body {
 .left-section-footer, .right-section-footer {
   align-items: center;
   display: flex;
-  flex: 1;
 }
 
 .left-section-footer {
+  flex: 2;
   justify-content: flex-start;
 
   @include large-iphone-and-up {
-    justify-content: space-around;
-    flex: 2;
+    flex-direction: column;
   }
 
   @include small-iphone {
@@ -759,6 +758,7 @@ body {
 }
 
 .right-section-footer {
+  flex: 1;
   justify-content: flex-end;
 
   @include large-iphone-and-up {
@@ -798,11 +798,6 @@ body {
 
   @include large-iphone-and-up {
     font-size: 12px;
-  }
-
-  @include small-iphone {
-    font-size: 10px;
-    padding: 4px 12px;
   }
 }
 
