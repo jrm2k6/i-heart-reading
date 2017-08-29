@@ -66,7 +66,17 @@ body {
     flex: 1;
   }
 
-  @include small-iphone, large-iphone-and-up {
+  @include small-iphone {
+    .landing-header-logo {
+      flex: 1;
+    }
+
+    .landing-header-menu {
+      flex: 2;
+    }
+  }
+
+  @include large-iphone-and-up {
     .landing-header-logo {
       flex: 1;
     }
