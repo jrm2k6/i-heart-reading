@@ -1,6 +1,6 @@
 <div class='landing-header'>
     <div class='landing-header-logo'>
-        <img class='landing-header-logo-img' src='/images/logos/i-heart-reading-logo.png' />
+        <a href="/"><img class='landing-header-logo-img' src='/images/logos/i-heart-reading-logo.png' /></a>
     </div>
     <div class='landing-header-menu'>
         <div><a class='top-menu-item' href='https://demo.iheartreading.co/login'>Try it Now</a></div>
