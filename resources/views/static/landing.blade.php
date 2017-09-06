@@ -68,7 +68,7 @@
     </div>
   </section>
   <section>
-    <div class='landing-second-section'>
+    <div class='landing-second-section' id='get-started-section'>
       <div class='landing-second-section-content'>
         <div class='landing-second-section-title'>
           Ready for a new chapter?
@@ -128,6 +128,9 @@
           <div class='feature-item-description'>Write, edit, submit, review</div>
         </div>
       </div>
+    </div>
+    <div class='landing-final-call-to-action'>
+      <a class='get-started-cta-button' href='#get-started-section'>Get Started</a>
     </div>
   </section>
   @include('partials._footer')

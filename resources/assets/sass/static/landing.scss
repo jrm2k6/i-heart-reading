@@ -485,7 +485,7 @@ body {
   }
 }
 
-#get-started-button {
+#get-started-button, .get-started-cta-button {
   background-color: #20bb51;
   border: 1px solid #25904f;
   color: #f0fafd;
@@ -649,6 +649,32 @@ body {
     height: 50px;
     margin: 35px 0;
     width: 50px;
+  }
+}
+
+.landing-final-call-to-action {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.get-started-cta-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: none;
   }
 }
 
