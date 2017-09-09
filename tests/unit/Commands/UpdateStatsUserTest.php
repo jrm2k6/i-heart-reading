@@ -128,33 +128,4 @@ class UpdateStatsUserTest extends TestCase
         $this->assertEquals($stats['monthly']['books_read'], 0);
         $this->assertNull($stats['daily']);
     }
-
-    public function testStatsWithUpdatesThisYear()
-    {
-        // given
-        $user = factory(App\Models\User::class)->create();
-        $book = factory(App\Models\Book::class)->create();
-        $assignment = factory(App\Models\BookAssignment::class)->create([
-            'user_id' => $user->id,
-            'book_id' => $book->id
-        ]);
-
-        $update = factory(App\Models\AssignmentUpdate::class)->create([
-            'assignment_id' => $assignment->id,
-            'num_pages' => 100,
-            'created_at' => Carbon::now()->startOfYear(),
-        ]);
-
-        // when
-        Artisan::call('stats:update', ['userId' => $user->id]);
-
-        // then
-        $stats = Cache::get('stats_' . $user->id);
-
-        $this->assertEquals($stats['yearly']['num_pages_read'], 100);
-        $this->assertEquals($stats['yearly']['books_read'], 0);
-        $this->assertNull($stats['daily']);
-        $this->assertNull($stats['weekly']);
-        $this->assertNull($stats['monthly']);
-    }
 }
