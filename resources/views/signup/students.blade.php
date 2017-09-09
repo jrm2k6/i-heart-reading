@@ -32,6 +32,16 @@
                     {{ $errors->first('password_confirmation') }}
                 </div>
             @endif
+            @if ($errors->has('guardian_email'))
+                <div class="alert error">
+                    {{ $errors->first('guardian_email') }}
+                </div>
+            @endif
+                @if ($errors->has('date_of_birth'))
+                    <div class="alert error">
+                        {{ $errors->first('date_of_birth') }}
+                    </div>
+                @endif
         @endif
         <div>
             <div class="input-with-picture" tabindex="0">
@@ -112,7 +122,7 @@
             var dobElt = $('#dob-input');
             var validationDobValid = $('.validation-dob-done');
 
-            $('#dob-input').keyup(_.debounce(function(e) {
+            $('#dob-input').bind('keyup change', _.debounce(function(e) {
                 var currentDate = e.target.value;
                 var regex = /\d{2}\/\d{2}\/\d{4}/;
 

@@ -40,8 +40,8 @@ class UpdateStatsUser extends Command
     {
         $userId = $this->argument('userId');
 
-        $startDate = Carbon::createFromDate(2016, 9, 1);
-        $endDate = Carbon::createFromDate(2017, 6, 1);
+        $startDate = Carbon::createFromDate(2017, 8, 31);
+        $endDate = Carbon::createFromDate(2018, 6, 1);
 
         $updates = User::find($userId)->assignmentUpdates->map(
             function($update) use ($startDate, $endDate) {
