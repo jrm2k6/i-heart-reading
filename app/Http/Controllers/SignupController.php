@@ -37,7 +37,7 @@ class SignupController extends Controller
             'email_id' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|confirmed|min:6',
-            'date_of_birth' => 'required_if:type_token,student|date:',
+            'date_of_birth' => 'required_if:type_token,student|date|after:01/01/1900',
             'accept_terms' => 'required|in:on'
         ]);
 
