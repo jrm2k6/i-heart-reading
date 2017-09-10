@@ -20,6 +20,17 @@
     <link href="{{ elixir('css/landing.css') }}" rel="stylesheet">
 
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="bde5a21f-4999-4c3d-a707-e43570975713";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+    <!-- Begin Inspectlet Embed Code -->
+    <script type="text/javascript" id="inspectletjs">
+        (function() {
+            window.__insp = window.__insp || [];
+            __insp.push(['wid', 1311018816]);
+            function ldinsp(){ if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1311018816&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+            setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+        })();
+    </script>
+    <!-- End Inspectlet Embed Code -->
+    <script type="text/javascript"> (function(){ var surge = document.createElement('script'); surge.type = 'text/javascript'; surge.async = true; surge.src = 'http://www.usersurge.com/145593930/usersurge.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(surge); })(); </script>
 </head>
 <body>
   <section>
