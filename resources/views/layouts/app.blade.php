@@ -19,6 +19,16 @@
     <!-- Styles -->
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
+    <!-- Begin Inspectlet Embed Code -->
+    <script type="text/javascript" id="inspectletjs">
+        (function() {
+            window.__insp = window.__insp || [];
+            __insp.push(['wid', 1311018816]);
+            function ldinsp(){ if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1311018816&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+            setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+        })();
+    </script>
+    <!-- End Inspectlet Embed Code -->
 </head>
 <body id="app-layout">
     @yield('content')
