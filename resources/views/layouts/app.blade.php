@@ -29,6 +29,7 @@
         })();
     </script>
     <!-- End Inspectlet Embed Code -->
+    <script type="text/javascript"> (function(){ var surge = document.createElement('script'); surge.type = 'text/javascript'; surge.async = true; surge.src = 'http://www.usersurge.com/145593930/usersurge.js'; (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(surge); })(); </script>
 </head>
 <body id="app-layout">
     @yield('content')
