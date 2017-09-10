@@ -1,3 +1,4 @@
+.env.current
 /vendor
 /node_modules
 Homestead.yaml
