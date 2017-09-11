@@ -26,6 +26,7 @@ class DashboardGroupsComponent extends Component {
     };
 
     this.handleValidate = this.handleValidate.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   render() {
@@ -36,6 +37,8 @@ class DashboardGroupsComponent extends Component {
       /> :
       <GroupCreationForm
         handleValidate={this.handleValidate}
+        handleCancel={this.handleCancel}
+        shouldShowTeachersDropdown={{true}}
         className='admin-group-creation-form'
       />
 
@@ -44,6 +47,10 @@ class DashboardGroupsComponent extends Component {
 
   handleValidate(data) {
     this.props.createGroup(data);
+  }
+
+  handleCancel() {
+    this.setState({ showingList: true });
   }
 }
 

@@ -26,6 +26,7 @@ class DashboardAdminComponent extends Component {
     };
 
     this.handleValidate = this.handleValidate.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   render() {
@@ -36,6 +37,7 @@ class DashboardAdminComponent extends Component {
       /> :
       <AddAdminForm
         handleValidate={this.handleValidate}
+        handleCancel={this.handleCancel}
         teachers={this.props.teachers}
       />
 
@@ -44,6 +46,10 @@ class DashboardAdminComponent extends Component {
 
   handleValidate(data) {
     this.props.createAdmin(data);
+  }
+
+  handleCancel() {
+    this.setState({ showingList: true });
   }
 }
 
