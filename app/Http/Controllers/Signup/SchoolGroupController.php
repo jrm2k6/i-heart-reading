@@ -115,6 +115,7 @@ class SchoolGroupController extends Controller
             'name' => 'required|string',
             'grade' => 'required|string',
             'nickname' => 'string',
+            'teacher_id' => 'integer|exists:teachers,id',
             'school_id' => 'required|exists:schools,id'
         ]);
         
@@ -122,7 +123,8 @@ class SchoolGroupController extends Controller
             'name' => $request->input('name'),
             'grade' => $request->input('grade'),
             'nickname' => $request->input('nickname'),
-            'school_id' => $request->input('school_id')
+            'school_id' => $request->input('school_id'),
+            'teacher_id' => $request->input('teacher_id')
         ]);
 
         return response(['group' => $group], 201)->header('Location', '/api/school/group/'.$group->id);
