@@ -65,7 +65,10 @@ class SchoolGroupController extends Controller
         });
 
         $studentsIds = $groupsWithStudents->map(function($groupWithStudents) {
-            return collect($groupWithStudents['students'])->map(function($student) { return $student->id; });
+            $students = collect($groupWithStudents['students']);
+            return $students->map(function($student) {
+                return $student['id'];
+            });
         })->flatten();
 
         $userNotInAnyGroups = User::where(['school_id' => $schoolId, 'role' => 'student'])
