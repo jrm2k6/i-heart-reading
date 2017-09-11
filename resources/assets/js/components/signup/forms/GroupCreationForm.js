@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TeachersDropdown from '../../admin/forms/TeachersDropdown';
 
 class GroupCreationForm extends Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class GroupCreationForm extends Component {
       this.state = {
         name: null,
         grade: null,
-        nickname: null
+        nickname: null,
+        teacherId: null
       };
 
       this.updateGroupName = this.updateGroupName.bind(this);
@@ -52,6 +54,7 @@ class GroupCreationForm extends Component {
             </select>
           </div>
         </div>
+        {this.getTeacherDropdown()}
         <div className='signup-form-input-wrapper'>
           <span className='signup-form-label'>Nickname</span>
           <input className='form-input'
@@ -72,6 +75,16 @@ class GroupCreationForm extends Component {
         </div>
       </div>
     );
+  }
+
+  getTeacherDropdown() {
+    if (this.props.shouldShowTeachersDropdown) {
+      return (
+        <TeachersDropdown notifyParentForm={teacherId => { this.setState({ teacherId }); }}/>
+      );
+    }
+
+    return null;
   }
 
   handleCreate() {
@@ -97,6 +110,8 @@ class GroupCreationForm extends Component {
 }
 
 GroupCreationForm.defaultProps = {
-  className: 'register-school-form'
+  className: 'register-school-form',
+  shouldShowTeachersDropdown: false
 }
+
 export default GroupCreationForm;

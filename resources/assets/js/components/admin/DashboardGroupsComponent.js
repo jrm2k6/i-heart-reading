@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createGroup: ({ name, grade, nickname }) => {
-      dispatch(createGroup({ name, grade, nickname }));
+    createGroup: ({ name, grade, nickname, teacherId }) => {
+      dispatch(createGroup({ name, grade, nickname, teacherId }));
     }
   };
 };
