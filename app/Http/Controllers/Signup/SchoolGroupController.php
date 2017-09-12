@@ -130,7 +130,9 @@ class SchoolGroupController extends Controller
             'teacher_id' => $request->input('teacher_id')
         ]);
 
-        return response(['group' => $group], 201)->header('Location', '/api/school/group/'.$group->id);
+        $groupWithTeacher = $group->load('teacher');
+
+        return response(['group' => $groupWithTeacher], 201)->header('Location', '/api/school/group/'.$group->id);
     }
 
     /**
