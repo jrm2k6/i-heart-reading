@@ -19,10 +19,7 @@ class AdminStats extends Component {
     return (
       <div className={className}
         onClick={() => { if (!this.props.showingComponent) {
-          this.props.showComponent(<DashboardAdminComponent
-            teachers={this.props.teachers}
-            admins={this.props.admins}
-          />);
+          this.props.showComponent(DashboardAdminComponent);
         }}}
       >
         <div className='stats-container-item-horizontal-content'>

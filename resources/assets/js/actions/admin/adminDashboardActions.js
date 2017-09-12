@@ -198,11 +198,11 @@ function errorAdminDeleted(data) {
   };
 }
 
-export function createGroup({ name, grade, nickname }) {
+export function createGroup({ name, grade, nickname, teacherId }) {
   return (dispatch, getState) => {
     const schoolId = getState().adminReducer.school.id;
     return apiActions.postRequest(ADMIN_SCHOOL_GROUPS_URL,
-      { name, grade, nickname, school_id: schoolId }, _headers).then(
+      { name, grade, nickname, school_id: schoolId, teacher_id: teacherId }, _headers).then(
         res => {
           dispatch(groupCreated(res));
           dispatch(displaySuccessAlert('Group successfully created!'));

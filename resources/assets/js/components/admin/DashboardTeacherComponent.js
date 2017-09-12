@@ -26,6 +26,7 @@ class DashboardTeacherComponent extends Component {
     };
 
     this.handleValidate = this.handleValidate.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   render() {
@@ -38,6 +39,7 @@ class DashboardTeacherComponent extends Component {
       <AddTeacherForm
         admins={this.props.admins}
         handleValidate={this.handleValidate}
+        handleCancel={this.handleCancel}
       />
     );
   }
@@ -53,6 +55,10 @@ class DashboardTeacherComponent extends Component {
 
   handleValidate(data) {
     this.props.createTeacher(data);
+  }
+
+  handleCancel() {
+    this.setState({ showingList: true });
   }
 }
 

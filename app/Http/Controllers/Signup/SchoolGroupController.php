@@ -65,7 +65,10 @@ class SchoolGroupController extends Controller
         });
 
         $studentsIds = $groupsWithStudents->map(function($groupWithStudents) {
-            return collect($groupWithStudents['students'])->map(function($student) { return $student->id; });
+            $students = collect($groupWithStudents['students']);
+            return $students->map(function($student) {
+                return $student['id'];
+            });
         })->flatten();
 
         $userNotInAnyGroups = User::where(['school_id' => $schoolId, 'role' => 'student'])
@@ -115,6 +118,7 @@ class SchoolGroupController extends Controller
             'name' => 'required|string',
             'grade' => 'required|string',
             'nickname' => 'string',
+            'teacher_id' => 'integer|exists:teachers,id',
             'school_id' => 'required|exists:schools,id'
         ]);
         
@@ -122,10 +126,13 @@ class SchoolGroupController extends Controller
             'name' => $request->input('name'),
             'grade' => $request->input('grade'),
             'nickname' => $request->input('nickname'),
-            'school_id' => $request->input('school_id')
+            'school_id' => $request->input('school_id'),
+            'teacher_id' => $request->input('teacher_id')
         ]);
 
-        return response(['group' => $group], 201)->header('Location', '/api/school/group/'.$group->id);
+        $groupWithTeacher = $group->load('teacher');
+
+        return response(['group' => $groupWithTeacher], 201)->header('Location', '/api/school/group/'.$group->id);
     }
 
     /**

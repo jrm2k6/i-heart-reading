@@ -20,11 +20,7 @@ class GroupStats extends Component {
     return (
       <div className={className}
         onClick={() => { if (!this.props.showingComponent) {
-          this.props.showComponent(<DashboardGroupsComponent
-            teachers={this.props.teachers}
-            users={this.props.users}
-            groups={groups}
-          />);
+          this.props.showComponent(DashboardGroupsComponent);
         }}}
       >
         <div className='stats-container-item-horizontal-content'>

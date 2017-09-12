@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class ReadOnlyInput extends Component {
-  // <span className='read-only-copy-to-clipboard'
-  //   onClick={() => document.execCommand('copy'); }
-  // >
-  //   <i className='material-icons'>content_copy</i>
-  // </span>
   render() {
     return (
       <div className='read-only-input-wrapper'>
