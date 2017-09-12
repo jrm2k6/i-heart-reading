@@ -74,9 +74,11 @@ class TransferGroupToNewTeacherForm extends Component {
   }
 
   getGroups() {
-    const groups = (this.props.onlyGroup) ?
-      this.props.groups.filter(group => group.teacher_id !== this.props.teacher.id && group.teacher_id !== null)
-      : this.props.groups.filter(group => group.teacher_id === this.props.teacher.id && group.teacher_id !== null)
+    const filterPredicate = (this.props.onlyGroup) ?
+      group => group.teacher_id !== this.props.teacher.id && group.teacher_id !== null :
+      group => group.teacher_id === this.props.teacher.id && group.teacher_id !== null;
+
+    const groups = this.props.groups.filter(filterPredicate)
 
     return (
       <select className='admin-form-select'
