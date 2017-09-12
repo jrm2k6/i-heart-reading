@@ -27,8 +27,9 @@ const mapDispatchToProps = (dispatch) => {
 class AdminHomeComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      componentToShow: null,
+      ComponentToShow: null,
       nameComponent: null
     };
   }
@@ -38,9 +39,9 @@ class AdminHomeComponent extends Component {
   }
 
   render() {
-    const { componentToShow, nameComponent } = this.state;
+    const { ComponentToShow, nameComponent } = this.state;
     const { teachers, admins, school, users, groups } = this.props;
-    
+
     const studentToken = (school !== null && school.tokens !== null) ? school.tokens.find(token => token.type === 'student').token : null;
     const adminToken = (school !== null  && school.tokens !== null) ? school.tokens.find(token => token.type === 'admin').token : null;
 
@@ -48,13 +49,16 @@ class AdminHomeComponent extends Component {
     const adminTokenUrl = (adminToken !== null) ? `${window.location.origin}/signup/staff/${adminToken}` : `Loading..`;
     const studentTokenTitle = `Signup URL Students`;
     const adminsTokenTitle = `Signup URL Staff Members`;
-    const additionalClassName = (componentToShow !== null) ? 'stick-to-top' : 'centered';
-    const additionalClassNameTokensContainer = (componentToShow !== null) ? 'invisible' : 'visible';
-    const additionalClassNameDynamicContent = (componentToShow !== null) ? 'non-empty' : 'empty';
+    const additionalClassName = (ComponentToShow !== null) ? 'stick-to-top' : 'centered';
+    const additionalClassNameTokensContainer = (ComponentToShow !== null) ? 'invisible' : 'visible';
+    const additionalClassNameDynamicContent = (ComponentToShow !== null) ? 'non-empty' : 'empty';
     const containerSquareClassName = `home-container-squares ${additionalClassName}`;
     const dynamicContentClassName = `home-container-dynamic-content ${additionalClassNameDynamicContent}`;
 
     const classNameForTokensContainer = `tokens-container ${additionalClassNameTokensContainer}`;
+
+    const element = (ComponentToShow !== null) ? <ComponentToShow {...this.props} /> : null;
+
     return (
       <div className='home-container'>
         <div className={classNameForTokensContainer}>
@@ -65,8 +69,8 @@ class AdminHomeComponent extends Component {
           <TeacherStats teachers={teachers}
             admins={admins}
             school={school}
-            showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'teachers' }); }}
-            closeComponent={() => { this.setState({ componentToShow: null, nameComponent: null }); }}
+            showComponent={(component) => { this.setState({ ComponentToShow: component, nameComponent: 'teachers' }); }}
+            closeComponent={() => { this.setState({ ComponentToShow: null, nameComponent: null }); }}
             showingComponent={nameComponent === 'teachers'}
             className={this.getClassName('teachers')}
           />
@@ -74,8 +78,8 @@ class AdminHomeComponent extends Component {
             teachers={teachers}
             admins={admins}
             school={school}
-            showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'admins' }); }}
-            closeComponent={() => { this.setState({ componentToShow: null, nameComponent: null }); }}
+            showComponent={(component) => { this.setState({ ComponentToShow: component, nameComponent: 'admins' }); }}
+            closeComponent={() => { this.setState({ ComponentToShow: null, nameComponent: null }); }}
             showingComponent={nameComponent === 'admins'}
             className={this.getClassName('admins')}
           />
@@ -84,21 +88,21 @@ class AdminHomeComponent extends Component {
             school={school}
             groups={groups}
             user={users}
-            showComponent={(component) => { this.setState({ componentToShow: component, nameComponent: 'groups' }); }}
-            closeComponent={() => { this.setState({ componentToShow: null, nameComponent: null }); }}
+            showComponent={(component) => { this.setState({ ComponentToShow: component, nameComponent: 'groups' }); }}
+            closeComponent={() => { this.setState({ ComponentToShow: null, nameComponent: null }); }}
             showingComponent={nameComponent === 'groups'}
             className={this.getClassName('groups')}
           />
         </div>
         <div className={dynamicContentClassName}>
-          {componentToShow}
+          {element}
         </div>
       </div>
     );
   }
 
   getClassName(nameComponent) {
-    if (this.state.componentToShow === null) {
+    if (this.state.ComponentToShow === null) {
       return 'visible-list';
     }
 
