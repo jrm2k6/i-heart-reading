@@ -135,7 +135,7 @@
                         dobParsedElt.text(displayedDate.format('dddd, MMMM Do, YYYY'));
                         dobParsedElt.show();
                         validationDobValid.css('display', 'block');
-                        var thirteenYearsAgo = moment().subtract(12, 'years');
+                        var thirteenYearsAgo = moment().subtract(13, 'years');
 
                         if (parsedDate.isAfter(thirteenYearsAgo)) {
                             $('.guardian-input-container').css('display', 'block');
