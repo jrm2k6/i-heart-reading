@@ -84,7 +84,7 @@ class TransferGroupToNewTeacherForm extends Component {
         onChange={this.updateSelectedGroup}
       >
         <option value={-1} key={0} className='disabled-option'>Select a group</option>
-        { groups.map((group) =>
+        { groups.filter(group => group.id !== 0).map((group) =>
           <option value={group.id} key={group.id}>{group.name}</option>
         )}
       </select>
