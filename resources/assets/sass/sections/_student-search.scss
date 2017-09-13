@@ -58,8 +58,9 @@
 }
 
 .search-student-input-btn {
+  align-items: center;
   display: flex;
-  width: 60%;
+  flex-wrap: wrap;
 }
 
 .search-student-error {

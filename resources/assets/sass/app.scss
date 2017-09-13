@@ -37,6 +37,15 @@ body {
   margin: 0;
 }
 
+.mobile-banner {
+  background-color: $main-orange;
+  color: white;
+  position: fixed;
+  padding: 10px;
+  width: 100%;
+  z-index: 1000;
+}
+
 .root-component {
   display: flex;
   min-height: 100vh;
