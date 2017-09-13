@@ -49,6 +49,7 @@
         ga('send', 'pageview');
 
     </script>
+    @include('scripts._mobile-detection')
     @yield('js')
 </body>
 </html>
