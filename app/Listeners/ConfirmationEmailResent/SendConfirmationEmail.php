@@ -4,6 +4,7 @@ namespace App\Listeners\ConfirmationEmailResent;
 
 use App\Events\ConfirmationEmailResent;
 use App\Models\EmailConfirmation;
+use Illuminate\Mail\Message;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
@@ -38,7 +39,9 @@ class SendConfirmationEmail
             $data = ['firstName' => $user->name, 'urlConfirmation' => $urlConfirmation];
 
             Mail::queue('emails.welcome', $data, function ($message) use ($user) {
+                /** @var Message $message */
                 $message->from('welcome@iheartreading.co', 'I Heart Reading');
+                $message->subject('Welcome to I Heart Reading - Confirm your email');
                 $message->to($user->email);
             });
         }
