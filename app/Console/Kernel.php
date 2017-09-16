@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\GenerateOrganizationSignupToken::class,
         Commands\UpdateStatsUser::class,
         Commands\SendTestEmail::class,
+        Commands\SendSurveyEmail::class,
         Commands\OneTimeCommands\AttachPreviousAssignmentUpdateId::class,
         Commands\OneTimeCommands\CopyTimestampsAssignmentUpdates::class,
         Commands\Testing\DeleteContentTestingDatabase::class,
