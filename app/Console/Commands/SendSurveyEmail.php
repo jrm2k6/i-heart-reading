@@ -13,7 +13,7 @@ class SendSurveyEmail extends Command
      *
      * @var string
      */
-    protected $signature = 'email:survey {templateName} {plaintext} {plainText?}';
+    protected $signature = 'email:survey {templateName} {emails} {plainText?}';
 
     /**
      * The console command description.
@@ -29,7 +29,7 @@ class SendSurveyEmail extends Command
      */
     public function handle()
     {
-        $emails = $this->argument('plaintext');
+        $emails = $this->argument('emails');
         $emailTemplate = $this->argument('templateName');
 
         $templates = [$emailTemplate];
