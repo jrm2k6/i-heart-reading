@@ -47,7 +47,7 @@ class SchoolGroupController extends Controller
             $ids = explode(',', $blacklist); 
         }
         
-        $groups = SchoolGroup::where('school_id', $schoolId)->whereNotIn('id', $ids)->get();
+        $groups = SchoolGroup::where(['school_id' => $schoolId, 'is_archived' => false])->whereNotIn('id', $ids)->get();
         
         $groupsWithStudents = $groups->map(function($group) {
             $studentGroups = $group->studentGroups;
@@ -161,6 +161,7 @@ class SchoolGroupController extends Controller
             'nickname' => 'string',
             'school_id' => 'exists:schools,id',
             'teacher_id' => 'exists:teachers,id',
+            'is_archived' => 'boolean'
         ]);
 
         $group = SchoolGroup::find($id);
@@ -168,7 +169,9 @@ class SchoolGroupController extends Controller
         if (! $group)
             return response(null, 400);
 
-        $nonNullParams = collect($request->only('name', 'grade', 'nickname', 'school_id', 'teacher_id'))->filter(function($param) {
+        $nonNullParams = collect(
+            $request->only('name', 'grade', 'nickname', 'is_archived', 'school_id', 'teacher_id')
+        )->filter(function($param) {
            return $param != null;
         })->toArray();
 
