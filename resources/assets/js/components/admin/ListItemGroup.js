@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from '../../actions/modals/modalActions';
-import { deleteGroup } from '../../actions/admin/adminDashboardActions';
+import { deleteGroup, archiveGroup } from '../../actions/admin/adminDashboardActions';
 import UpdateGroupModal from './modals/UpdateGroupModal';
 
 
@@ -20,6 +20,10 @@ const mapDispatchToProps = (dispatch) => {
 
     deleteGroup: (id) => {
       dispatch(deleteGroup(id));
+    },
+
+    archiveGroup: (id) => {
+      dispatch(archiveGroup(id));
     }
   };
 };
@@ -43,6 +47,11 @@ class ListItemGroup extends Component {
           onClick={() => { this.props.showModal(UpdateGroupModal, { group: this.props.group, groups: this.props.groups }); }}
         >
           edit
+        </i>
+        <i className='material-icons admin-list-item-option-archive-icon'
+          onClick={() => { this.props.archiveGroup(id); }}
+        >
+          archive
         </i>
         <i className='material-icons admin-list-item-option-delete-icon'
           onClick={() => { this.props.deleteGroup(id); }}

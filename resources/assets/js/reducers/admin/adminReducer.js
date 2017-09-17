@@ -12,6 +12,7 @@ import {
   TEACHER_CREATED,
   TEACHER_DELETED,
   GROUP_CREATED,
+  GROUP_UPDATED,
   GROUP_DELETED
 } from '../../actions/admin/adminDashboardActions';
 
@@ -98,7 +99,7 @@ export default function adminReducer(state = initialState, action) {
         teachers: state.teachers.concat(action.data.teacher)
       });
 
-    case GROUP_DELETED:
+    case GROUP_DELETED, GROUP_UPDATED:
       // fix consistency
       return Object.assign({}, state, {
         groups: updateGroupsAfterDeletion(state.groups, action.data.idGroupDeleted)

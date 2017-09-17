@@ -261,6 +261,37 @@ function errorGroupDeleted(data) {
   };
 }
 
+export function archiveGroup(groupId) {
+  return dispatch => {
+    return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}`, { is_archived: true }, _headers).then(
+        res => {
+          dispatch(groupArchived(groupId));
+          dispatch(displaySuccessAlert('Group successfully archived!'));
+        },
+        err => {
+          dispatch(errorGroupArchived(err));
+          dispatch(displayErrorAlert('Error archiving group!'));
+        }
+    );
+  }
+}
+
+function groupArchived(groupId) {
+  return {
+    type: GROUP_UPDATED,
+    data: {
+      idGroupDeleted: groupId
+    }
+  };
+}
+
+function errorGroupArchived(data) {
+  return {
+    type: ERROR_GROUP_UPDATED,
+    data: data.errors
+  };
+}
+
 export function createGroupTransfer(groupId, teacherId) {
   return dispatch => {
     return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}` ,
