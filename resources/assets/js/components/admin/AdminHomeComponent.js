@@ -8,14 +8,7 @@ import GroupStats from './GroupStats';
 import ReadOnlyInput from './forms/ReadOnlyInput';
 
 const mapStateToProps = (state) => {
-  return {
-    adminUser: state.adminReducer.adminUser,
-    teachers: state.adminReducer.teachers,
-    admins: state.adminReducer.admins,
-    school: state.adminReducer.school,
-    groups: state.adminReducer.groups,
-    users: state.adminReducer.users
-  };
+  return state.adminReducer;
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -40,7 +33,7 @@ class AdminHomeComponent extends Component {
 
   render() {
     const { ComponentToShow, nameComponent } = this.state;
-    const { teachers, admins, school, users, groups } = this.props;
+    const { teachers, admins, school, users, groups, archivedGroups } = this.props;
 
     const studentToken = (school !== null && school.tokens !== null) ? school.tokens.find(token => token.type === 'student').token : null;
     const adminToken = (school !== null  && school.tokens !== null) ? school.tokens.find(token => token.type === 'admin').token : null;
@@ -88,6 +81,7 @@ class AdminHomeComponent extends Component {
             school={school}
             groups={groups}
             user={users}
+            archivedGroups={archivedGroups}
             showComponent={(component) => { this.setState({ ComponentToShow: component, nameComponent: 'groups' }); }}
             closeComponent={() => { this.setState({ ComponentToShow: null, nameComponent: null }); }}
             showingComponent={nameComponent === 'groups'}

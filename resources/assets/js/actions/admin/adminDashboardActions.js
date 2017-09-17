@@ -43,6 +43,9 @@ export const ERROR_FETCH_STUDENTS_GROUP = 'ERROR_FETCH_STUDENTS_GROUP';
 export const STUDENTS_GROUP_FETCHED = 'STUDENTS_GROUP_FETCHED';
 export const ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT = 'ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT';
 export const FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED = 'FETCH_ALL_STUDENTS_GROUP_EXCEPT_FETCHED';
+export const FETCH_GROUPS = 'FETCH_GROUPS';
+export const FETCH_GROUPS_SUCCESS = 'FETCH_GROUPS_SUCCESS';
+export const FETCH_GROUPS_ERROR = 'FETCH_GROUPS_ERROR';
 
 
 const csrfToken = [].slice.call(document.getElementsByTagName('meta'))
@@ -292,6 +295,35 @@ function errorGroupArchived(data) {
   };
 }
 
+export function unarchiveGroup(groupId) {
+  return dispatch => {
+    return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}`, { is_archived: false }, _headers).then(
+        res => {
+          dispatch(groupArchived(res.data));
+          dispatch(displaySuccessAlert('Group successfully unarchived!'));
+        },
+        err => {
+          dispatch(errorGroupArchived(err));
+          dispatch(displayErrorAlert('Error unarchiving group!'));
+        }
+    );
+  }
+}
+
+function groupUnarchived(data) {
+  return {
+    type: GROUP_CREATED,
+    data
+  };
+}
+
+function errorGroupUnarchived(data) {
+  return {
+    type: ERROR_GROUP_CREATE,
+    data: data.errors
+  };
+}
+
 export function createGroupTransfer(groupId, teacherId) {
   return dispatch => {
     return apiActions.putRequest(`${ADMIN_SCHOOL_GROUPS_URL}/${groupId}` ,
@@ -395,6 +427,37 @@ function studentsGroupExceptFetched(data) {
 function errorStudentsGroupExcept(data) {
   return {
     type: ERROR_FETCH_ALL_STUDENTS_GROUP_EXCEPT,
+    data: data.errors
+  };
+}
+
+function errorFetchStudentsGroup(data) {
+  return {
+    type: ERROR_FETCH_STUDENTS_GROUP,
+    data: data.errors
+  };
+}
+
+export function fetchGroups() {
+  return dispatch => {
+    return apiActions.getRequest(`${ADMIN_SCHOOL_GROUPS_URL}`)
+      .then(
+        res => dispatch(groupsFetched(res)),
+        err => dispatch(errorGroupsFetched(err))
+      );
+  }
+}
+
+function groupsFetched(data) {
+  return {
+    type: FETCH_GROUPS_SUCCESS,
+    data
+  };
+}
+
+function errorGroupsFetched(data) {
+  return {
+    type: FETCH_GROUPS_ERROR,
     data: data.errors
   };
 }

@@ -49,4 +49,13 @@ class SchoolGroup extends Model
     {
         return $query->where('is_archived', false);
     }
+
+    /**
+     * @param $query
+     * @return Builder
+     */
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
+    }
 }

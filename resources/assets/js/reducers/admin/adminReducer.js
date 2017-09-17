@@ -13,7 +13,8 @@ import {
   TEACHER_DELETED,
   GROUP_CREATED,
   GROUP_UPDATED,
-  GROUP_DELETED
+  GROUP_DELETED,
+  FETCH_GROUPS_SUCCESS
 } from '../../actions/admin/adminDashboardActions';
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   teachers: [],
   admins: [],
   groups: [{id: 0}],
+  archivedGroups: [],
   users: {}
 };
 
@@ -77,9 +79,9 @@ function updateGroupsAfterTransfer(groups, updatedData) {
 export default function adminReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_ADMIN_USER_SUCCESS:
-      const { admin, groups, teachers, school, admins } = action.payload;
+      const { admin, groups, teachers, school, admins, archived_groups } = action.payload;
       const newGroups = state.groups.concat(groups);
-      return Object.assign({}, state, { adminUser: admin, groups: newGroups, teachers, school, admins });
+      return Object.assign({}, state, { adminUser: admin, groups: newGroups, teachers, school, admins, archivedGroups: archived_groups });
 
     case ADMINISTRATOR_DELETED:
       // fix consistency
@@ -120,6 +122,12 @@ export default function adminReducer(state = initialState, action) {
     case STUDENTS_GROUP_FETCHED:
       return Object.assign({}, state, {
         groups: updateGroupsStudents(state.groups, action.data)
+      });
+
+    case FETCH_GROUPS_SUCCESS:
+      return Object.assign({}, state, {
+        groups: action.data.groups,
+        archivedGroups: action.data.archived_groups
       });
 
     case STUDENTS_TRANSFERRED:

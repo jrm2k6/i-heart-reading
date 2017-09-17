@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Signup;
 
+use App\Models\School;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +19,18 @@ class SchoolGroupController extends Controller
      */
     public function index()
     {
-        //
+        $school = Auth::user()->asAdmin()->school;
+        $groups = $school->groups()->with('teacher')->get();
+        $groupByIsArchived = collect($groups)->groupBy('is_archived');
+
+        $activeGroups = $groupByIsArchived[0]->toArray();
+        if (count($groupByIsArchived) == 2) {
+            $archivedGroups = $groupByIsArchived[1]->toArray();
+        } else {
+            $archivedGroups = [];
+        }
+
+        return response()->json(['archived_groups' => $archivedGroups, 'groups' => $activeGroups]);
     }
 
     public function getStudents(Request $request, $id)
@@ -172,7 +184,7 @@ class SchoolGroupController extends Controller
         $nonNullParams = collect(
             $request->only('name', 'grade', 'nickname', 'is_archived', 'school_id', 'teacher_id')
         )->filter(function($param) {
-           return $param != null;
+           return !is_null($param);
         })->toArray();
 
         $group->update($nonNullParams);

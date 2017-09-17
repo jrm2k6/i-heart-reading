@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { showModal } from '../../actions/modals/modalActions';
-import { deleteGroup, archiveGroup } from '../../actions/admin/adminDashboardActions';
+import { deleteGroup, archiveGroup, fetchGroups } from '../../actions/admin/adminDashboardActions';
 import UpdateGroupModal from './modals/UpdateGroupModal';
 
 
@@ -22,9 +22,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteGroup(id));
     },
 
-    archiveGroup: (id) => {
-      dispatch(archiveGroup(id));
-    }
+    fetchGroups: () => {
+      dispatch(fetchGroups());
+    },
+
+    archiveGroup: id => dispatch(archiveGroup(id))
   };
 };
 
@@ -35,6 +37,8 @@ class ListItemGroup extends Component {
     this.state = {
       hovering: false
     };
+
+    this.handleArchiveGroup = this.handleArchiveGroup.bind(this);
   }
 
   render() {
@@ -49,7 +53,7 @@ class ListItemGroup extends Component {
           edit
         </i>
         <i className='material-icons admin-list-item-option-archive-icon'
-          onClick={() => { this.props.archiveGroup(id); }}
+          onClick={() => { this.handleArchiveGroup(id) }}
         >
           archive
         </i>
@@ -72,6 +76,13 @@ class ListItemGroup extends Component {
         <span>{teacherContent}</span>
         {listItemOptions}
       </div>
+    );
+  }
+
+  handleArchiveGroup(id) {
+    this.props.archiveGroup(id).then(
+      res => this.props.fetchGroups(),
+      err => { console.log('error resfreshing groups'); }
     );
   }
 }
