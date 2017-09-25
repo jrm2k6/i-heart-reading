@@ -30,7 +30,8 @@ class AssignmentUpdatesController extends Controller
         $teacher = Auth::user()->teacher;
         $groups = $teacher->groups;
         
-        $assignmentsUpdates = $groups->map(function($group) { return $group->studentGroups; })
+        $assignmentsUpdates = $groups->filter(function($group) { return $group->is_archived == false; })
+            ->map(function($group) { return $group->studentGroups; })
             ->flatten()
             ->map(function($studentGroup) { return $studentGroup->student; })
             ->map(function($user) {return $user->assignments;})
