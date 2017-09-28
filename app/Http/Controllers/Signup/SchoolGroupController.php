@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers\Signup;
 
+use App\Events\Groups\GroupDeleted;
+use App\Events\Groups\GroupUpdated;
 use App\Models\School;
 use Illuminate\Http\Request;
 
@@ -187,7 +189,10 @@ class SchoolGroupController extends Controller
            return !is_null($param);
         })->toArray();
 
+        $oldGroup = $group;
         $group->update($nonNullParams);
+
+        event(new GroupUpdated($oldGroup, $group));
 
         return response(['group' => $group], 200);
     }
@@ -205,7 +210,10 @@ class SchoolGroupController extends Controller
         if (! $group)
             return response(null, 404);
 
+        event(new GroupDeleted($group->teacher_id));
+
         $group->delete();
+
         return response(null, 200);
     }
 }
