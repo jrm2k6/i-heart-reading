@@ -30,11 +30,15 @@ class InvalidateUpdatesTeacherCache
         $oldGroup = $event->oldGroup;
         $updatedGroup = $event->updatedGroup;
 
-        if (is_null($updatedGroup) || $oldGroup->is_archived == !$updatedGroup->is_archived ||
-            $oldGroup->teacher_id !== $updatedGroup->teacher_id
-        ) {
-            $cacheKey = 'updates_teacher_' . $oldGroup->teacher_id;
-            Cache::forget($cacheKey);
+        $cacheKeyOldTeacher = 'updates_teacher_' . $oldGroup->teacher_id;
+        if ($oldGroup->is_archived == !$updatedGroup->is_archived) {
+            Cache::forget($cacheKeyOldTeacher);
+        }
+
+        if ($oldGroup->teacher_id !== $updatedGroup->teacher_id) {
+            Cache::forget($cacheKeyOldTeacher);
+            $cacheKeyNewTeacher = 'updates_teacher_' . $updatedGroup->teacher_id;
+            Cache::forget($cacheKeyNewTeacher);
         }
     }
 }
