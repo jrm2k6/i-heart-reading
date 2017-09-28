@@ -23,8 +23,19 @@ class AssignmentReviewsController extends Controller
 
     public function getMyAssignmentsToReview()
     {
-        $reviews = BookAssignment::with('user', 'book', 'response')
-            ->hasResponse()->get()
+        $currentUser = Auth::user();
+        $teacher = $currentUser->teacher;
+
+        $groups = $teacher->groups();
+        $nonArchivedGroups = $groups->active()->get();
+
+        // TODO: use pivot relationship
+        $studentsGroups = $nonArchivedGroups->map(function($group) { return $group->studentGroups; })->flatten();
+        $studentIds = $studentsGroups->map(function($studentGroup) { return $studentGroup->user_id; });
+
+        $assignments = BookAssignment::with('user', 'book', 'response')->whereIn('user_id', $studentIds);
+
+        $reviews = $assignments->hasResponse()->get()
             ->filter(function($book) {
                 return $book->currentReview() == null ||
                     $book->currentReview()->isNegative();
