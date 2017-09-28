@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Models\AssignmentReview;
 use App\Models\DecisionType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -40,6 +41,7 @@ class AssignmentReviewsController extends Controller
                 return $book->currentReview() == null ||
                     $book->currentReview()->isNegative();
             })->values();
+
         return response(['assignment_reviews' => $reviews], 200);
     }
 
@@ -51,6 +53,7 @@ class AssignmentReviewsController extends Controller
                 return $book->currentReview() !== null &&
                 $book->currentReview()->isPositive();
             })->values();
+
         return response(['completed_reviews' => $reviews], 200);
     }
 
