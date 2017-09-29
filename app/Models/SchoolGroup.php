@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,7 +16,7 @@ class SchoolGroup extends Model
      */
 
     protected $fillable = [
-        'name', 'grade', 'nickname', 'school_id', 'teacher_id'
+        'name', 'grade', 'nickname', 'is_archived', 'school_id', 'teacher_id'
     ];
 
     protected $appends = [
@@ -38,5 +39,23 @@ class SchoolGroup extends Model
         $students = User::whereIn('id', $studentIds)->get()->toArray();
 
         return $students;
+    }
+
+    /**
+     * @param $query
+     * @return Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
+    /**
+     * @param $query
+     * @return Builder
+     */
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
     }
 }

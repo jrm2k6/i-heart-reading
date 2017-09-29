@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers\Signup;
 
+use App\Events\Groups\GroupCreated;
+use App\Events\Groups\GroupDeleted;
+use App\Events\Groups\GroupUpdated;
+use App\Models\School;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +22,18 @@ class SchoolGroupController extends Controller
      */
     public function index()
     {
-        //
+        $school = Auth::user()->asAdmin()->school;
+        $groups = $school->groups()->with('teacher')->get();
+        $groupByIsArchived = collect($groups)->groupBy('is_archived');
+
+        $activeGroups = $groupByIsArchived[0]->toArray();
+        if (count($groupByIsArchived) == 2) {
+            $archivedGroups = $groupByIsArchived[1]->toArray();
+        } else {
+            $archivedGroups = [];
+        }
+
+        return response()->json(['archived_groups' => $archivedGroups, 'groups' => $activeGroups]);
     }
 
     public function getStudents(Request $request, $id)
@@ -47,7 +62,7 @@ class SchoolGroupController extends Controller
             $ids = explode(',', $blacklist); 
         }
         
-        $groups = SchoolGroup::where('school_id', $schoolId)->whereNotIn('id', $ids)->get();
+        $groups = SchoolGroup::where(['school_id' => $schoolId, 'is_archived' => false])->whereNotIn('id', $ids)->get();
         
         $groupsWithStudents = $groups->map(function($group) {
             $studentGroups = $group->studentGroups;
@@ -103,6 +118,7 @@ class SchoolGroupController extends Controller
 
         $students = StudentsGroup::whereIn('user_id', $studentsIds)->get();
         $group = SchoolGroup::find($id);
+
         return response(['students' => $students, 'group' => $group], 200);
     }
 
@@ -131,6 +147,8 @@ class SchoolGroupController extends Controller
         ]);
 
         $groupWithTeacher = $group->load('teacher');
+
+        event(new GroupCreated($group->teacher_id));
 
         return response(['group' => $groupWithTeacher], 201)->header('Location', '/api/school/group/'.$group->id);
     }
@@ -161,6 +179,7 @@ class SchoolGroupController extends Controller
             'nickname' => 'string',
             'school_id' => 'exists:schools,id',
             'teacher_id' => 'exists:teachers,id',
+            'is_archived' => 'boolean'
         ]);
 
         $group = SchoolGroup::find($id);
@@ -168,11 +187,20 @@ class SchoolGroupController extends Controller
         if (! $group)
             return response(null, 400);
 
-        $nonNullParams = collect($request->only('name', 'grade', 'nickname', 'school_id', 'teacher_id'))->filter(function($param) {
-           return $param != null;
+        $nonNullParams = collect(
+            $request->only('name', 'grade', 'nickname', 'is_archived', 'school_id', 'teacher_id')
+        )->filter(function($param) {
+           return !is_null($param);
         })->toArray();
 
+        $wasArchived = $group->is_archived;
+        $previousTeacherId = $group->teacher_id;
         $group->update($nonNullParams);
+        $isNowArchived = $group->is_archived;
+        $currentTeacherId = $group->teacher_id;
+
+        $group->load('teacher');
+        event(new GroupUpdated($wasArchived, $isNowArchived, $previousTeacherId, $currentTeacherId));
 
         return response(['group' => $group], 200);
     }
@@ -190,7 +218,10 @@ class SchoolGroupController extends Controller
         if (! $group)
             return response(null, 404);
 
+        event(new GroupDeleted($group->teacher_id));
+
         $group->delete();
+
         return response(null, 200);
     }
 }

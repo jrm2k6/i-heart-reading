@@ -32,7 +32,8 @@ class AdminAdministratorController extends Controller
           if ($school) {
               $tokens = $school->tokens;
               $teachers = $school->teachers;
-              $groups = $school->groups()->with('teacher')->get();
+              $groups = $school->groups()->with('teacher')->active()->get();
+              $archivedGroups = $school->groups()->with('teacher')->archived()->get();
               $admins = $school->admins;
               $users = $school->users;
           }
@@ -42,6 +43,7 @@ class AdminAdministratorController extends Controller
             'admins' => $admins,
             'school' => $school,
             'groups' => $groups,
+            'archived_groups' => $archivedGroups,
             'teachers' => $teachers,
             'tokens' => $tokens,
             'users' => $users

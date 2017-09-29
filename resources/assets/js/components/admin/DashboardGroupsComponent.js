@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GroupCreationForm from '../signup/forms/GroupCreationForm';
-import ListGroups from './ListGroups';
-import { createGroup } from '../../actions/admin/adminDashboardActions';
+import { ListGroups, ListArchivedGroups } from './ListGroups';
+import { createGroup, unarchiveGroup, fetchGroups } from '../../actions/admin/adminDashboardActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +13,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createGroup: ({ name, grade, nickname, teacherId }) => {
       dispatch(createGroup({ name, grade, nickname, teacherId }));
+    },
+    unarchiveGroup: groupId => dispatch(unarchiveGroup(groupId)),
+    fetchGroups: () => {
+      dispatch(fetchGroups());
     }
   };
 };
@@ -27,14 +31,19 @@ class DashboardGroupsComponent extends Component {
 
     this.handleValidate = this.handleValidate.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleUnarchiveGroup = this.handleUnarchiveGroup.bind(this);
   }
 
   render() {
     const component = (this.state.showingList) ?
-      <ListGroups
-        groups={this.props.groups}
-        onAddGroup={() => { this.setState({ showingList: false }); }}
-      /> :
+      <div style={{flex: 1}}>
+        <ListGroups
+          groups={this.props.groups}
+          onAddGroup={() => { this.setState({ showingList: false }); }}
+        />
+        {this.getArchivedGroups()}
+      </div>
+      :
       <GroupCreationForm
         handleValidate={this.handleValidate}
         handleCancel={this.handleCancel}
@@ -51,6 +60,26 @@ class DashboardGroupsComponent extends Component {
 
   handleCancel() {
     this.setState({ showingList: true });
+  }
+
+  handleUnarchiveGroup(groupId) {
+    this.props.unarchiveGroup(groupId).then(
+      res => this.props.fetchGroups(),
+      err => { console.log('error resfreshing groups'); }
+    );
+  }
+
+  getArchivedGroups() {
+    if (this.props.archivedGroups.length > 0) {
+      return (
+        <ListArchivedGroups
+          archivedGroups={this.props.archivedGroups}
+          unarchiveGroup={this.handleUnarchiveGroup}
+        />
+      );
+    }
+
+    return null;
   }
 }
 

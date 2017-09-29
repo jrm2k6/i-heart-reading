@@ -43,6 +43,10 @@
   }
 }
 
+.admin-groups-archived {
+  background-color: $secondary-dark-gray;
+}
+
 .admin-list-item {
   align-items: center;
   background-color: $white;
@@ -183,6 +187,10 @@
 .admin-list-item-option-delete-icon {
   cursor: pointer;
   color: $error-color;
+}
+
+.admin-list-item-option-archive-icon {
+  cursor: pointer;
 }
 
 .admin-list-item-option-edit-icon {

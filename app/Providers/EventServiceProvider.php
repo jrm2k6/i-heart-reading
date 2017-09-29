@@ -48,6 +48,18 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\Books\BooksSearched' => [
             'App\Listeners\Books\BooksSearched\CacheBooks'
+        ],
+
+        'App\Events\Groups\GroupUpdated' => [
+            'App\Listeners\Groups\GroupUpdated\InvalidateUpdatesTeacherCache'
+        ],
+
+        'App\Events\Groups\GroupDeleted' => [
+            'App\Listeners\Groups\GroupDeleted\InvalidateUpdatesTeacherCache'
+        ],
+
+        'App\Events\Groups\GroupCreated' => [
+            'App\Listeners\Groups\GroupCreated\InvalidateUpdatesTeacherCache'
         ]
 
     ];

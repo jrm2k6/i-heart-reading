@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AssignmentUpdatesController extends Controller
 {
+    const KEY_TEACHER_UPDATES = 'updates_teacher';
+    const CACHE_TIMEOUT = 30;
+
     public function getMyUpdates()
     {
         $assignmentsUpdates = Auth::user()->assignments->map(
@@ -28,19 +32,30 @@ class AssignmentUpdatesController extends Controller
     public function getMyStudentUpdates()
     {
         $teacher = Auth::user()->teacher;
+        $teacherId = $teacher->id;
         $groups = $teacher->groups;
-        
-        $assignmentsUpdates = $groups->map(function($group) { return $group->studentGroups; })
-            ->flatten()
-            ->map(function($studentGroup) { return $studentGroup->student; })
-            ->map(function($user) {return $user->assignments;})
-            ->flatten()->map(function($assignment) { return $assignment->updates; })
-            ->flatten()
-            ->pluck('id');
+        $cacheKey = self::KEY_TEACHER_UPDATES . '_' . $teacherId;
+        $updatesWithBooks = null;
 
-        $updatesWithBooks = AssignmentUpdate::whereIn('id', $assignmentsUpdates)
-            ->orderBy('created_at', 'desc')
-            ->with(['assignment.book', 'assignment.user'])->get();
+        if (Cache::has($cacheKey) != null) {
+            $updatesWithBooks = Cache::get($cacheKey);
+        } else {
+            $assignmentsUpdates = $groups->filter(function($group) { return $group->is_archived == false; })
+                ->map(function($group) { return $group->studentGroups; })
+                ->flatten()
+                ->map(function($studentGroup) { return $studentGroup->student; })
+                ->map(function($user) {return $user->assignments;})
+                ->flatten()->map(function($assignment) { return $assignment->updates; })
+                ->flatten()
+                ->pluck('id');
+
+            $updatesWithBooks = AssignmentUpdate::whereIn('id', $assignmentsUpdates)
+                ->orderBy('created_at', 'desc')
+                ->with(['assignment.book', 'assignment.user'])->get();
+
+            Cache::put($cacheKey, $updatesWithBooks, self::CACHE_TIMEOUT);
+        }
+
 
         return response(['updates' => $updatesWithBooks], 200);
     }
