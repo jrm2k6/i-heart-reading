@@ -27,17 +27,14 @@ class InvalidateUpdatesTeacherCache
      */
     public function handle(GroupUpdated $event)
     {
-        $oldGroup = $event->oldGroup;
-        $updatedGroup = $event->updatedGroup;
-
-        $cacheKeyOldTeacher = 'updates_teacher_' . $oldGroup->teacher_id;
-        if ($oldGroup->is_archived == !$updatedGroup->is_archived) {
+        $cacheKeyOldTeacher = 'updates_teacher_' . $event->previousTeacherId;
+        if ((bool) $event->wasArchived !== (bool) $event->isArchived) {
             Cache::forget($cacheKeyOldTeacher);
         }
 
-        if ($oldGroup->teacher_id !== $updatedGroup->teacher_id) {
+        if ($event->previousTeacherId !== $event->currentTeacherId) {
             Cache::forget($cacheKeyOldTeacher);
-            $cacheKeyNewTeacher = 'updates_teacher_' . $updatedGroup->teacher_id;
+            $cacheKeyNewTeacher = 'updates_teacher_' . $event->currentTeacherId;
             Cache::forget($cacheKeyNewTeacher);
         }
     }

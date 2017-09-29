@@ -9,19 +9,25 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class GroupUpdated extends Event
 {
     use SerializesModels;
-    public $updatedGroup;
-    public $oldGroup;
 
+    public $wasArchived;
+    public $isArchived;
+    public $previousTeacherId;
+    public $currentTeacherId;
     /**
      * Create a new event instance.
      *
-     * @param $oldGroup
-     * @param $updatedGroup
+     * @param $wasArchived
+     * @param $isArchived
+     * @param $previousTeacherId
+     * @param $currentTeacherId
      */
-    public function __construct($oldGroup, $updatedGroup)
+    public function __construct($wasArchived, $isArchived, $previousTeacherId, $currentTeacherId)
     {
-        $this->oldGroup = $oldGroup;
-        $this->updatedGroup = $updatedGroup;
+        $this->wasArchived = $wasArchived;
+        $this->isArchived = $isArchived;
+        $this->previousTeacherId = $previousTeacherId;
+        $this->currentTeacherId = $currentTeacherId;
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Signup;
 
+use App\Events\Groups\GroupCreated;
 use App\Events\Groups\GroupDeleted;
 use App\Events\Groups\GroupUpdated;
 use App\Models\School;
@@ -117,6 +118,7 @@ class SchoolGroupController extends Controller
 
         $students = StudentsGroup::whereIn('user_id', $studentsIds)->get();
         $group = SchoolGroup::find($id);
+
         return response(['students' => $students, 'group' => $group], 200);
     }
 
@@ -145,6 +147,8 @@ class SchoolGroupController extends Controller
         ]);
 
         $groupWithTeacher = $group->load('teacher');
+
+        event(new GroupCreated($group->teacher_id));
 
         return response(['group' => $groupWithTeacher], 201)->header('Location', '/api/school/group/'.$group->id);
     }
@@ -189,10 +193,13 @@ class SchoolGroupController extends Controller
            return !is_null($param);
         })->toArray();
 
-        $oldGroup = $group;
+        $wasArchived = $group->is_archived;
+        $previousTeacherId = $group->teacher_id;
         $group->update($nonNullParams);
+        $isNowArchived = $group->is_archived;
+        $currentTeacherId = $group->teacher_id;
 
-        event(new GroupUpdated($oldGroup, $group));
+        event(new GroupUpdated($wasArchived, $isNowArchived, $previousTeacherId, $currentTeacherId));
 
         return response(['group' => $group], 200);
     }
