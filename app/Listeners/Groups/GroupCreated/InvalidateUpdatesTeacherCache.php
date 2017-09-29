@@ -26,6 +26,11 @@ class InvalidateUpdatesTeacherCache
      */
     public function handle(GroupCreated $event)
     {
-        //
+        $teacherId = $event->teacherId;
+
+        if (!is_null($teacherId)) {
+            $cacheKey = 'updates_teacher_' . $teacherId;
+            Cache::forget($cacheKey);
+        }
     }
 }

@@ -59,7 +59,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         'App\Events\Groups\GroupCreated' => [
-            'App\Listeners\Groups\GroupDeleted\InvalidateUpdatesTeacherCache'
+            'App\Listeners\Groups\GroupCreated\InvalidateUpdatesTeacherCache'
         ]
 
     ];
