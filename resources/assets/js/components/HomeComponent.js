@@ -80,12 +80,25 @@ class HomeComponent extends Component {
 
   render() {
     const { stats, updates } = this.props;
-    const pieCardContent = (stats != null && Object.keys(stats).length > 0) ?
-      this.getPieComponent() :
-      (<div className='no-stats'>
-        It looks like you are just getting started!
-        As you progress, you will see some stats about your reading habits here!
-      </div>);
+    const component = (stats.length > 0 && updates.length > 0) ?
+      this.getUserHome(stats, updates) :
+      this.getFirstTimeUserHome();
+
+    return component;
+  }
+
+  getFirstTimeUserHome() {
+    return (
+      <div className='home-component-container first-time-user'>
+        It looks like you are new here.
+        To get started, Find a book to read!
+
+        <button>Show me how</button>
+      </div>
+    )
+  }
+
+  getUserHome(stats, updates) {
     return (
       <div className='home-component-container'>
         <div className='home-component-left-section'>
@@ -94,7 +107,7 @@ class HomeComponent extends Component {
             timeView={this.state.timeView}
           />
           <div className='home-component-pie-card'>
-            {pieCardContent}
+            {this.getPieComponent()}
           </div>
           <div className='yearly-objective'>
             <img src='images/icons/trophy.png' />
