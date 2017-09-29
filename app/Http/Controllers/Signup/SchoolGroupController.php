@@ -199,6 +199,7 @@ class SchoolGroupController extends Controller
         $isNowArchived = $group->is_archived;
         $currentTeacherId = $group->teacher_id;
 
+        $group->load('teacher');
         event(new GroupUpdated($wasArchived, $isNowArchived, $previousTeacherId, $currentTeacherId));
 
         return response(['group' => $group], 200);
