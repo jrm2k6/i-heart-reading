@@ -89,11 +89,17 @@ class HomeComponent extends Component {
 
   getFirstTimeUserHome() {
     return (
-      <div className='home-component-container first-time-user'>
-        It looks like you are new here.
-        To get started, Find a book to read!
+      <div className='home-component-container'>
+        <div className='first-time-user'>
+          <div className='first-time-user-welcome'>Welcome!</div>
+          <div>It looks like you are new here.</div>
+          <div>To get started, find a book to read!</div>
 
-        <button>Show me how</button>
+          <div className='first-time-user-actions-container'>
+            <button className='first-time-user-no-help-button'>No Thanks</button>
+            <button className='first-time-user-help-button'>Show me how</button>
+          </div>
+        </div>
       </div>
     )
   }
