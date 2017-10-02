@@ -62,15 +62,21 @@
       <div class='landing-first-section-title'>
         A simple dashboard for all.
       </div>
-      <div class='dots'>
-        <div class='dot dot-clicked' data-img='/images/teacher-dashboard.png'></div>
-        <div class='dot' data-img='/images/teacher-reviews.png'></div>
-        <div class='dot' data-img='/images/student-profile.png'></div>
-        <div class='dot' data-img='/images/students-books.png'></div>
-        <div class='dot' data-img='/images/student-editor-done.png'></div>
-      </div>
-      <div class='landing-first-section-mac-placeholder'>
-        <img id='mac-placeholder' src='/images/teacher-dashboard.png'>
+      <div class='screenshots-section'>
+        <div class='dots'>
+          <div class='dot dot-clicked' data-img='/images/teacher-dashboard.png' data-index=0></div>
+          <div class='dot' data-img='/images/teacher-reviews.png' data-index=1></div>
+          <div class='dot' data-img='/images/student-profile.png' data-index=2></div>
+          <div class='dot' data-img='/images/students-books.png' data-index=3></div>
+          <div class='dot' data-img='/images/student-editor-done.png' data-index=4></div>
+        </div>
+        <div class='screenshots-container'>
+          <div class='screenshot-arrow arrow-left'><i class="material-icons">keyboard_arrow_left</i></div>
+          <div class='landing-first-section-mac-placeholder'>
+            <img id='mac-placeholder' src='/images/teacher-dashboard.png'>
+          </div>
+          <div class='screenshot-arrow arrow-right'><i class="material-icons">keyboard_arrow_right</i></div>
+        </div>
       </div>
       <div class='landing-first-section-cta'>
         <span class='not-ready-yet'>Not Convinced Yet?</span>
@@ -148,24 +154,55 @@
     var imgPlaceholder = document.getElementById('mac-placeholder');
     var dotsClassName = 'dot';
     var dotsElements = document.getElementsByClassName(dotsClassName);
+    var currentIndexDot = 0;
 
     var updatePictureShown = function(event) {
       var dotClicked = event.target;
       var imgToSwitchTo = dotClicked.dataset.img;
+      currentIndexDot = parseInt(dotClicked.dataset.index);
       imgPlaceholder.src = imgToSwitchTo;
-
       for (var i = 0; i < dotsElements.length; i++) {
           dotsElements[i].className = 'dot';
       }
 
       dotClicked.className += ' dot-clicked';
-    }
+    };
 
     var addBehaviorToDots = function() {
       [].forEach.call(dotsElements, function(dotElement) {
         dotElement.addEventListener('click', updatePictureShown, false);
       });
-    }
+    };
+
+    var addClickHandlerArrows = function() {
+      $('.arrow-left').click(function(e) {
+          if (currentIndexDot === 0) {
+              currentIndexDot = 4;
+          } else {
+              currentIndexDot -= 1;
+          }
+
+          updateImageToShow(currentIndexDot);
+      });
+
+        $('.arrow-right').click(function(e) {
+            if (currentIndexDot === 4) {
+                currentIndexDot = 0;
+            } else {
+                currentIndexDot += 1;
+            }
+
+            updateImageToShow(currentIndexDot);
+        });
+    };
+
+    var updateImageToShow = function(index) {
+        $('.dot').removeClass('dot-clicked');
+        var $clickedElement = $('*[data-index=' + index + ']');
+        $clickedElement.addClass('dot-clicked');
+        var imgToSwitchTo = $clickedElement.data('img');
+        imgPlaceholder.src = imgToSwitchTo;
+    };
 
     var sendEmailAddress = function(email) {
         $.ajax({
@@ -183,11 +220,11 @@
           }).fail(function() {
             $('.support-alert').addClass('showing');
           });
-    }
+    };
 
     var showValidationError = function() {
       document.getElementById('get-started-input').className = 'get-started-input empty';
-    }
+    };
 
     var addGetStartedClickHandler = function() {
       document.getElementById('get-started-button').addEventListener('click', function(e) {
@@ -199,10 +236,11 @@
           showValidationError();
         }
       });
-    }
+    };
 
 
     addGetStartedClickHandler();
+    addClickHandlerArrows();
     addBehaviorToDots();
   }())
 </script>

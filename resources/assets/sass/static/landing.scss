@@ -31,6 +31,46 @@ body {
   }
 }
 
+.landing-first-section-mac-placeholder {
+  flex: 2;
+}
+
+.screenshot-arrow {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding-top: 160px;
+
+  > i {
+    color: $light-blue;
+    cursor: pointer;
+    font-size: 100px;
+  }
+
+  @include large-iphone-and-up {
+    padding-top: 100px;
+    
+    > i {
+      font-size: 60px;
+    }
+  }
+
+  @include small-iphone {
+    font-size: 16px;
+    height: 30px;
+    margin-top: 10px;
+    width: 200px;
+  }
+}
+
+.screenshots-container {
+  display: flex;
+}
+
+.screenshots-section {
+  width: 100%;
+}
+
 .landing-header-container-background-img {
   display: block;
   position: absolute;
