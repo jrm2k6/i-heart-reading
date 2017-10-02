@@ -20,6 +20,9 @@
             <div class="alert error">
                 {{$errors->first('email')}}
             </div>
+            <div class="alert error">
+                {{$errors->first('password')}}
+            </div>
         @endif
         <div>
             <div class="input-with-picture">

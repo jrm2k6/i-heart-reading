@@ -25,8 +25,11 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'yearly'
+      timeView: 'yearly',
+      hasDismissedFirstTimeUser: false
     };
+
+    this.highlightFindBookItem = this.highlightFindBookItem.bind(this);
   }
 
   componentDidMount() {
@@ -80,12 +83,44 @@ class HomeComponent extends Component {
 
   render() {
     const { stats, updates } = this.props;
-    const pieCardContent = (stats != null && Object.keys(stats).length > 0) ?
-      this.getPieComponent() :
-      (<div className='no-stats'>
-        It looks like you are just getting started!
-        As you progress, you will see some stats about your reading habits here!
-      </div>);
+    const component = (stats.length > 0 && updates.length > 0 || this.state.hasDismissedFirstTimeUser) ?
+      this.getUserHome(stats, updates) :
+      this.getFirstTimeUserHome();
+
+    return component;
+  }
+
+  highlightFindBookItem() {
+    console.log('run function')
+    $('.find-book-menu-item').addClass('glowing');
+  }
+
+  getFirstTimeUserHome() {
+    return (
+      <div className='home-component-container'>
+        <div className='first-time-user'>
+          <div className='first-time-user-welcome'>Welcome!</div>
+          <div>It looks like you are new here.</div>
+          <div>To get started, find a book to read!</div>
+
+          <div className='first-time-user-actions-container'>
+            <button className='first-time-user-no-help-button'
+              onClick={() => {this.setState({ hasDismissedFirstTimeUser: true }); }}
+            >
+              No Thanks
+            </button>
+            <button className='first-time-user-help-button'
+              onClick={() => { this.highlightFindBookItem(); }}
+            >
+              Show me how
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  getUserHome(stats, updates) {
     return (
       <div className='home-component-container'>
         <div className='home-component-left-section'>
@@ -94,7 +129,7 @@ class HomeComponent extends Component {
             timeView={this.state.timeView}
           />
           <div className='home-component-pie-card'>
-            {pieCardContent}
+            {this.getPieComponent()}
           </div>
           <div className='yearly-objective'>
             <img src='images/icons/trophy.png' />

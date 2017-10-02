@@ -132,7 +132,7 @@ export default class LateralMenu extends Component {
           >
             <i className='material-icons'>library_books</i><span>My Books</span>
           </div>
-          <div className={this.getClassnameItem('search')}
+          <div className={`${this.getClassnameItem('search')} find-book-menu-item`}
             onClick={() => { this.handleClickMenu('search');}}
           >
             <i className='material-icons'>search</i><span>Find A Book</span>
