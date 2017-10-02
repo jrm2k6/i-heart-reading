@@ -52,6 +52,10 @@
     padding: 5px;
     text-transform: uppercase;
     width: 150px;
+
+    &:hover {
+      height: 38px;
+    }
   }
 }
 
@@ -308,5 +312,22 @@
     background-color: lighten($main-light-gray, 10%);
     border: 0;
     cursor: not-allowed;
+  }
+}
+
+.glowing {
+  animation-duration: 0.9s;
+  animation-name: glowing;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes glowing {
+  from {
+    color: $secondary-white;
+  }
+
+  to {
+    color: $white;
   }
 }

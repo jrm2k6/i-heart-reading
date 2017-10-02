@@ -25,8 +25,11 @@ class HomeComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeView: 'yearly'
+      timeView: 'yearly',
+      hasDismissedFirstTimeUser: false
     };
+
+    this.highlightFindBookItem = this.highlightFindBookItem.bind(this);
   }
 
   componentDidMount() {
@@ -80,11 +83,16 @@ class HomeComponent extends Component {
 
   render() {
     const { stats, updates } = this.props;
-    const component = (stats.length > 0 && updates.length > 0) ?
+    const component = (stats.length > 0 && updates.length > 0 || this.state.hasDismissedFirstTimeUser) ?
       this.getUserHome(stats, updates) :
       this.getFirstTimeUserHome();
 
     return component;
+  }
+
+  highlightFindBookItem() {
+    console.log('run function')
+    $('.find-book-menu-item').addClass('glowing');
   }
 
   getFirstTimeUserHome() {
@@ -96,8 +104,16 @@ class HomeComponent extends Component {
           <div>To get started, find a book to read!</div>
 
           <div className='first-time-user-actions-container'>
-            <button className='first-time-user-no-help-button'>No Thanks</button>
-            <button className='first-time-user-help-button'>Show me how</button>
+            <button className='first-time-user-no-help-button'
+              onClick={() => {this.setState({ hasDismissedFirstTimeUser: true }); }}
+            >
+              No Thanks
+            </button>
+            <button className='first-time-user-help-button'
+              onClick={() => { this.highlightFindBookItem(); }}
+            >
+              Show me how
+            </button>
           </div>
         </div>
       </div>
