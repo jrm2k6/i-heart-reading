@@ -7,7 +7,8 @@ import SearchStudentComponent from './SearchStudentComponent';
 
 const mapStateToProps = (state) => {
   return {
-    studentUpdates: state.teacherReviewsReducer.updates
+    studentUpdates: state.teacherReviewsReducer.updates,
+    shouldShowUpdatesLoader: state.loadingReducer.showingStudentsUpdateLoader
   };
 };
 
@@ -23,10 +24,11 @@ class TeacherHomeComponent extends Component {
   }
 
   render() {
+    const { studentUpdates, shouldShowUpdatesLoader } = this.props;
     return (
       <div className='home-component-container teacher-home-component-container'>
         <SearchStudentComponent />
-        <StudentUpdatesComponent latestUpdates={this.props.studentUpdates} />
+        <StudentUpdatesComponent latestUpdates={studentUpdates} showLoader={shouldShowUpdatesLoader}/>
       </div>
     );
   }

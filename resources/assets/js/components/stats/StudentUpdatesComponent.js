@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import Loader from '../common/Loader'
 import { Link } from 'react-router';
 
 class StudentUpdatesComponent extends Component {
@@ -28,16 +29,24 @@ class StudentUpdatesComponent extends Component {
       });
   }
 
+  getLoaderOrNoUpdates(showLoader) {
+    if (showLoader) {
+      return <Loader />;
+    }
+
+    return <div>No updates!</div>;
+  }
+
   render() {
-    const { latestUpdates } = this.props;
+    const { latestUpdates, showLoader } = this.props;
     const rows = (latestUpdates && latestUpdates.length > 0)
       ? this.generateUpdatesRow(latestUpdates)
-      : 'No Updates!';
+      : this.getLoaderOrNoUpdates(true);
 
     return (
       <div className='student-updates'>
         <div className='student-updates-title'>
-          Your students updates
+          Student updates
         </div>
         <div className='student-updates-content'>
           {rows}

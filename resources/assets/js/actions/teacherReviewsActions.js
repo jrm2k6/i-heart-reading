@@ -5,6 +5,7 @@ export const FETCH_ASSIGNMENTS_TO_REVIEW_SUCCESS = 'FETCH_ASSIGNMENTS_TO_REVIEW_
 export const FETCH_ASSIGNMENTS_TO_REVIEW_ERROR = 'FETCH_ASSIGNMENTS_TO_REVIEW_ERROR';
 export const FETCH_COMPLETED_REVIEWS_SUCCESS = 'FETCH_COMPLETED_REVIEWS_SUCCESS';
 export const FETCH_COMPLETED_REVIEWS_ERROR = 'FETCH_COMPLETED_REVIEWS_ERROR';
+export const FETCH_STUDENT_UPDATES = 'FETCH_STUDENT_UPDATES';
 export const FETCH_STUDENT_UPDATES_SUCCESS = 'FETCH_STUDENT_UPDATES_SUCCESS';
 export const FETCH_STUDENT_UPDATES_ERROR = 'FETCH_STUDENT_UPDATES_ERROR';
 export const GET_CURRENT_RESPONSE_SUCCESS = 'GET_CURRENT_RESPONSE_SUCCESS';
@@ -146,6 +147,12 @@ function fetchStudentUpdatesSuccess(data) {
   };
 }
 
+function fetchStudentsUpdatesStart() {
+  return {
+    type: FETCH_STUDENT_UPDATES
+  };
+}
+
 function fetchStudentsUpdatesError() {
   return {
     type: FETCH_STUDENT_UPDATES_ERROR
@@ -154,6 +161,7 @@ function fetchStudentsUpdatesError() {
 
 export function fetchStudentsUpdates() {
   return dispatch => {
+    dispatch(fetchStudentsUpdatesStart());
     return getRequest(URL_STUDENT_UPDATES).then(
       res => { dispatch(fetchStudentUpdatesSuccess(res)); },
       err => { dispatch(fetchStudentsUpdatesError(err)); }
